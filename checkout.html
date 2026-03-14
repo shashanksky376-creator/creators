@@ -284,101 +284,50 @@
 <!-- Razorpay SDK -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-/*
-  ══════════════════════════════════════════════════════
-  HOW THE PAYMENT FLOW WORKS
-  ══════════════════════════════════════════════════════
-
-  1. User fills form → clicks Pay button
-  2. Razorpay popup opens (using your key below)
-  3. User pays via UPI / Card / NetBanking
-  4. Razorpay calls handler() on the CLIENT with:
-       response.razorpay_payment_id
-       response.razorpay_order_id
-       response.razorpay_signature
-  5. We redirect to thank-you.html with payment_id in URL
-  6. SEPARATELY on your server — Razorpay sends a WEBHOOK
-     to your /api/razorpay/webhook endpoint which:
-       - Verifies the signature
-       - Sets has_paid = true in Supabase
-       - Sends welcome email via Resend
-
-  ══════════════════════════════════════════════════════
-  SETUP: Just replace YOUR_RAZORPAY_KEY_ID below.
-  Use rzp_test_XXXX for testing, rzp_live_XXXX for live.
-  ══════════════════════════════════════════════════════
-*/
-
-const RAZORPAY_KEY = "rzp_test_XXXXXXXXXXXXXXXX"; // ← REPLACE THIS
+const RAZORPAY_KEY = "rzp_test_XXXXXXXXXXXXXXXX"; // ← REPLACE THIS with your key from razorpay.com
 
 function handlePayment() {
   const name  = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
+  const email = document.getElementById('email').value.trim().toLowerCase();
   const phone = document.getElementById('phone').value.trim();
 
-  // Validation
   if (!name)  { showError('name',  'Please enter your full name.'); return; }
   if (!email || !email.includes('@')) { showError('email', 'Please enter a valid email.'); return; }
   if (!phone || phone.replace(/\D/g,'').length < 10) { showError('phone', 'Please enter a valid 10-digit number.'); return; }
 
   const btn = document.querySelector('button[onclick="handlePayment()"]');
+  const BTN_HTML = `<div class="flex flex-col items-center leading-none"><span class="text-lg font-bold flex items-center gap-2">🚀 Pay ₹1,999 &amp; Get Instant Access</span><span class="text-[10px] font-medium opacity-80 mt-1 uppercase tracking-widest">Securely powered by Razorpay</span></div>`;
   btn.disabled = true;
   btn.innerHTML = `<div class="flex flex-col items-center leading-none"><span class="text-lg font-bold">Processing...</span></div>`;
 
-  const options = {
-    key: RAZORPAY_KEY,
-    amount: 999900,           // ₹9,999 in paise
-    currency: "INR",
-    name: "Affiliate Marketing Mastery",
-    description: "Affiliate Marketing Mastery — 0 To Pro Affiliate Pro (Kannada)",
-    image: "https://i.imgur.com/your-logo.png",
-    prefill: {
-      name:    name,
-      email:   email,
-      contact: "+91" + phone.replace(/\D/g,'') 
-    },
-    notes: {
-      course: "affiliate-marketing-mastery-kannada"
-    },
-    theme: {
-      color: "#e8212b"
-    },
-    modal: {
-      ondismiss: function() {
-        btn.disabled = false;
-        btn.innerHTML = `<div class="flex flex-col items-center leading-none"><span class="text-lg font-bold flex items-center gap-2">🚀 Pay ₹1,999 &amp; Get Instant Access</span><span class="text-[10px] font-medium opacity-80 mt-1 uppercase tracking-widest">Securely powered by Razorpay</span></div>`;
-      }
-    },
-    handler: async function(response) {
-      // Payment captured — enroll user in Supabase
-      try {
-        await enrollUser({
-          email: email,
-          phone: phone,
-          razorpayPaymentId: response.razorpay_payment_id
-        });
-      } catch(e) {
-        console.error("Enrollment failed:", e);
-        // Don't block redirect even if Supabase enrollment fails (can be fixed manually)
-      }
-      const redirectUrl = `thank-you.html?payment_id=${response.razorpay_payment_id}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
-      window.location.href = redirectUrl;
-    }
-  };
-
-  // Check key is set
   if (RAZORPAY_KEY === "rzp_test_XXXXXXXXXXXXXXXX") {
-    btn.disabled = false;
-    btn.innerHTML = `<div class="flex flex-col items-center leading-none"><span class="text-lg font-bold flex items-center gap-2">🚀 Pay ₹1,999 &amp; Get Instant Access</span><span class="text-[10px] font-medium opacity-80 mt-1 uppercase tracking-widest">Securely powered by Razorpay</span></div>`;
-    alert("⚠️ Add your Razorpay key!\n\nOpen checkout.html and replace:\nrzp_test_XXXXXXXXXXXXXXXX\n\nwith your actual key from razorpay.com/dashboard");
+    btn.disabled = false; btn.innerHTML = BTN_HTML;
+    alert("⚠️ Add your Razorpay key!\nOpen checkout.html and replace:\nrzp_test_XXXXXXXXXXXXXXXX\nwith your key from razorpay.com/dashboard");
     return;
   }
 
+  const options = {
+    key: RAZORPAY_KEY,
+    amount: 199900,
+    currency: "INR",
+    name: "Affiliate Marketing Mastery",
+    description: "Affiliate Marketing Mastery — 0 To Pro Affiliate Pro (Kannada)",
+    prefill: { name: name, email: email, contact: "+91" + phone.replace(/\D/g,'') },
+    notes: { course: "affiliate-marketing-mastery-kannada" },
+    theme: { color: "#e8212b" },
+    modal: { ondismiss: function() { btn.disabled = false; btn.innerHTML = BTN_HTML; } },
+    handler: async function(response) {
+      try {
+        await enrollUser({ fullName: name, email: email, phone: phone, razorpayPaymentId: response.razorpay_payment_id });
+      } catch(e) { console.error("Enrollment failed:", e); }
+      window.location.href = `thank-you.html?payment_id=${response.razorpay_payment_id}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
+    }
+  };
+
   const rzp = new Razorpay(options);
-  rzp.on('payment.failed', function(response) {
-    btn.disabled = false;
-    btn.innerHTML = `<div class="flex flex-col items-center leading-none"><span class="text-lg font-bold flex items-center gap-2">🚀 Pay ₹1,999 &amp; Get Instant Access</span><span class="text-[10px] font-medium opacity-80 mt-1 uppercase tracking-widest">Securely powered by Razorpay</span></div>`;
-    alert('Payment failed: ' + response.error.description + '\n\nPlease try again.');
+  rzp.on('payment.failed', function(r) {
+    btn.disabled = false; btn.innerHTML = BTN_HTML;
+    alert('Payment failed: ' + r.error.description + '\nPlease try again.');
   });
   rzp.open();
 }
@@ -387,23 +336,16 @@ function showError(fieldId, msg) {
   const el = document.getElementById(fieldId);
   el.classList.add('border-red-500', 'ring-1', 'ring-red-500');
   el.focus();
-  // Remove error style after user types
   el.addEventListener('input', () => el.classList.remove('border-red-500', 'ring-1', 'ring-red-500'), { once: true });
-  // Show inline message
   let errEl = el.parentElement.querySelector('.err-msg');
-  if (!errEl) {
-    errEl = document.createElement('p');
-    errEl.className = 'err-msg text-red-400 text-xs mt-1';
-    el.parentElement.appendChild(errEl);
-  }
+  if (!errEl) { errEl = document.createElement('p'); errEl.className = 'err-msg text-red-400 text-xs mt-1'; el.parentElement.appendChild(errEl); }
   errEl.textContent = msg;
   setTimeout(() => errEl.remove(), 3000);
 }
 </script>
-</script>
+
 <script>
 function startMidnightTimer() {
-    function updateTimer() {
         const now = new Date();
         const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
         const diff = midnight - now;

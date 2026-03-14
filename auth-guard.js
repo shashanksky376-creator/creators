@@ -1,35 +1,50 @@
 // =====================================================
 // Auth Guard — protects pages that require login + enrollment
-// Include this script on any protected page (e.g. dashboard.html)
-// =====================================================
-// Usage:
-//   1. Add <script src="supabase-config.js"></script> first
-//   2. Add <script src="auth-guard.js"></script>
-//   Optional: set window.REQUIRE_ENROLLMENT = false to only require login
+// Include AFTER supabase-config.js on any protected page
 // =====================================================
 
 (async function () {
   const session = await getSession();
 
   if (!session) {
-    // Not logged in → redirect to login
     window.location.href = "/login.html?reason=auth";
     return;
   }
 
   const email = session.user.email;
-  const requireEnrollment = window.REQUIRE_ENROLLMENT !== false; // default: true
 
-  if (requireEnrollment) {
-    const enrolled = await checkEnrollment(email);
-    if (!enrolled) {
-      // Logged in but not a paid user
-      await signOut();
-      window.location.href = "/login.html?reason=not_enrolled";
-      return;
-    }
+  // Check enrollment
+  const enrollment = await checkEnrollment(email);
+  if (!enrollment) {
+    await signOut();
+    window.location.href = "/login.html?reason=not_enrolled";
+    return;
   }
 
-  // User is authenticated and enrolled — page continues loading normally
+  // ---- Single-session enforcement ----
+  // If a different device/browser has logged in after this one,
+  // the DB token will differ from our local token → sign out this device.
+  const isValidSession = await validateActiveSession(email);
+  if (!isValidSession) {
+    // signOut() is called inside validateActiveSession if mismatch
+    // Just in case it didn't redirect:
+    window.location.href = "/login.html?reason=session_expired";
+    return;
+  }
+
+  // All good — store name for display
+  window.ENROLLED_USER = {
+    email: email,
+    fullName: enrollment.full_name || "Student"
+  };
+
+  // Poll every 60s to catch remote logouts
+  setInterval(async () => {
+    const valid = await validateActiveSession(email);
+    if (!valid) {
+      window.location.href = "/login.html?reason=session_expired";
+    }
+  }, 60000);
+
   console.log("✅ Auth check passed for:", email);
 })();
