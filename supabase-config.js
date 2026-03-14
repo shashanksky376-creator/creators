@@ -130,5 +130,5 @@ async function signOut() {
   localStorage.removeItem("affiliate_pro_session");
   const client = initSupabase();
   await client.auth.signOut();
-  window.location.href = "/claude-sales-page.html";
+  window.location.href = "/index.html";
 }

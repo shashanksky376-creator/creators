@@ -1,896 +1,457 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
+<html class="dark" lang="en" style="scroll-behavior: smooth;">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>The YouTube Blueprint | Master Content Creation</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#e8212b",
-                        "background-light": "#f8f6f6",
-                        "background-dark": "#0A0A0A",
-                        "card-dark": "#1A1A1A",
-                    },
-                    fontFamily: {
-                        "display": ["Space Grotesk", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                },
-            },
+<title>Affiliate Marketing Mastery | Shashank</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Poppins', 'sans-serif'] },
+        colors: {
+          darkBg: '#111111',
+          cardBg: '#1e1e1e',
+          accent: '#ffffff',
+          primaryRed: '#e8212b',
+          brandRed: '#ff0000'
         }
-    </script>
+      }
+    }
+  }
+</script>
 <style>
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-        .red-glow {
-            box-shadow: 0 0 50px 10px rgba(232, 33, 43, 0.2);
-        }
-    
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-350px * 6 - 2rem * 6)); }
-        }
-        .testimonial-track {
-            display: flex;
-            gap: 2rem;
-            width: max-content;
-            animation: scroll 40s linear infinite;
-        }
-        .testimonial-track:hover {
-            animation-play-state: paused;
-        }
-        .testimonial-card {
-            width: 350px;
-            flex-shrink: 0;
-        }
-        .marquee-container {
-            overflow: hidden;
-            padding: 2rem 0;
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-        }
-
-        /* FAQ accordion */
-        .faq-answer { display: none; }
-        .faq-item.open .faq-answer { display: block; }
-        .faq-item.open .faq-icon { transform: rotate(180deg); }
-        .faq-icon { transition: transform 0.3s ease; }
-
-        /* Smooth scroll */
-        html { scroll-behavior: smooth; }
-
-        /* ── MOBILE STICKY BAR ── */
-        .mobile-cta { display: none; }
-
-        @media (max-width: 768px) {
-
-            /* Show mobile bar */
-            .mobile-cta { display: flex; }
-
-            /* ── NAV ── */
-            nav { padding: 0 16px !important; }
-            nav .text-xl { font-size: 15px !important; }
-
-            /* ── HERO ── */
-            /* Stack: photo on top, text below */
-            section.relative.overflow-hidden > .max-w-7xl {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 28px !important;
-                padding-top: 32px !important;
-                padding-bottom: 40px !important;
-            }
-            /* Photo col goes first on mobile */
-            section.relative.overflow-hidden > .max-w-7xl > div:last-child {
-                order: -1 !important;
-            }
-            /* Text col center-aligns */
-            section.relative.overflow-hidden > .max-w-7xl > div:first-child {
-                align-items: center !important;
-                text-align: center !important;
-            }
-            /* Hero title smaller on mobile */
-            section.relative.overflow-hidden h1 {
-                font-size: 30px !important;
-                line-height: 1.1 !important;
-                letter-spacing: -0.5px !important;
-            }
-            /* Hero subtitle smaller */
-            section.relative.overflow-hidden p.text-lg {
-                font-size: 15px !important;
-                text-align: center !important;
-            }
-            /* Hero stat pills wrap */
-            section.relative.overflow-hidden .flex.flex-wrap.gap-4 {
-                justify-content: center !important;
-            }
-            /* CTA button full width */
-            section.relative.overflow-hidden .flex.flex-col.sm\\:flex-row {
-                flex-direction: column !important;
-                align-items: center !important;
-                width: 100% !important;
-            }
-            section.relative.overflow-hidden .flex.flex-col.sm\\:flex-row a {
-                width: 100% !important;
-            }
-            section.relative.overflow-hidden .flex.flex-col.sm\\:flex-row button {
-                width: 100% !important;
-                font-size: 16px !important;
-                padding: 16px !important;
-            }
-            /* Instructor photo — constrain height on mobile */
-            section.relative.overflow-hidden .aspect-\[4\/5\] {
-                max-width: 260px !important;
-                margin: 0 auto !important;
-                border-radius: 16px !important;
-            }
-
-            /* ── PROOF BAR ── */
-            .flex.flex-wrap.justify-center.gap-10 {
-                gap: 0 !important;
-            }
-            .flex.flex-wrap.justify-center.gap-10 > div {
-                flex: 1 1 45% !important;
-                padding: 12px 8px !important;
-            }
-            .flex.flex-wrap.justify-center.gap-10 .text-3xl {
-                font-size: 22px !important;
-            }
-            /* hide vertical dividers on mobile */
-            .hidden.sm\\:block.w-px { display: none !important; }
-
-            /* ── GENERAL SECTION PADDING ── */
-            .py-24 { padding-top: 48px !important; padding-bottom: 48px !important; }
-            .py-20 { padding-top: 40px !important; padding-bottom: 40px !important; }
-            .mb-16 { margin-bottom: 32px !important; }
-            .mb-12 { margin-bottom: 24px !important; }
-            .max-w-7xl, .max-w-5xl, .max-w-4xl, .max-w-3xl {
-                padding-left: 18px !important;
-                padding-right: 18px !important;
-            }
-
-            /* ── SECTION HEADINGS ── */
-            .text-3xl { font-size: 22px !important; }
-            .text-4xl { font-size: 24px !important; }
-
-            /* ── VIDEO SECTION ── */
-            /* aspect-video already handles ratio — just fix play button size */
-            .size-24 { width: 64px !important; height: 64px !important; }
-            .w-12.h-12 { width: 28px !important; height: 28px !important; margin-left: 4px !important; }
-
-            /* ── WHAT YOU'LL LEARN — 1 col ── */
-            .grid.md\\:grid-cols-2 {
-                grid-template-columns: 1fr !important;
-                gap: 8px !important;
-            }
-            .grid.md\\:grid-cols-2 p.text-lg {
-                font-size: 14px !important;
-            }
-            .grid.md\\:grid-cols-2 > div {
-                padding: 12px !important;
-            }
-
-            /* ── INSTRUCTOR — stack ── */
-            .grid.lg\\:grid-cols-2 {
-                grid-template-columns: 1fr !important;
-                gap: 24px !important;
-            }
-            .grid.lg\\:grid-cols-2 .text-4xl { font-size: 26px !important; }
-            .grid.lg\\:grid-cols-2 .max-w-sm { max-width: 200px !important; }
-            .grid.lg\\:grid-cols-2 .aspect-square { max-width: 200px !important; margin: 0 auto !important; }
-
-            /* ── MODULES — 1 col ── */
-            .grid.md\\:grid-cols-2.lg\\:grid-cols-3 {
-                grid-template-columns: 1fr !important;
-                gap: 10px !important;
-            }
-            .grid.md\\:grid-cols-2.lg\\:grid-cols-3 > div {
-                padding: 16px 14px !important;
-                border-radius: 12px !important;
-            }
-            .grid.md\\:grid-cols-2.lg\\:grid-cols-3 h3 {
-                font-size: 15px !important;
-                margin-bottom: 4px !important;
-            }
-
-            /* ── TESTIMONIALS — fix scroll + card width ── */
-            .testimonial-card { width: 272px !important; padding: 18px !important; }
-            .testimonial-card p.italic { font-size: 13px !important; }
-            .marquee-container {
-                mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent) !important;
-                padding: 8px 0 !important;
-            }
-
-            /* ── PRICING ── */
-            .bg-card-dark.p-12 {
-                padding: 32px 18px 24px !important;
-                border-radius: 16px !important;
-            }
-            .text-7xl, .text-8xl { font-size: 52px !important; line-height: 1 !important; }
-            .text-2xl.line-through { font-size: 18px !important; }
-            .py-6 { padding-top: 18px !important; padding-bottom: 18px !important; }
-            .text-2xl.font-black { font-size: 17px !important; }
-
-            /* ── FAQ ── */
-            .faq-item .p-6 { padding: 16px 18px !important; }
-            .faq-item h4 { font-size: 14px !important; }
-            .faq-item .px-6.pb-6 { padding: 0 18px 16px !important; }
-            .faq-item p { font-size: 13px !important; }
-
-            /* ── FINAL CTA ── */
-            .font-black.text-4xl { font-size: 26px !important; }
-            .font-black.text-5xl { font-size: 28px !important; }
-            section.py-20 .px-16 { padding-left: 24px !important; padding-right: 24px !important; width: 100% !important; }
-
-            /* ── FOOTER ── */
-            footer .flex.flex-col { gap: 12px !important; }
-        }
-
-        @media (max-width: 420px) {
-            section.relative.overflow-hidden h1 { font-size: 26px !important; }
-            .testimonial-card { width: 250px !important; }
-        }
-    </style>
+  body { background-color: #111111; color: #ffffff; }
+  .glass-card { background: #1b1b1b; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
+  .nav-bg { background: rgba(17, 17, 17, 0.95); backdrop-filter: blur(10px); }
+  .icon-box { background: #ffffff; color: #111111; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; }
+  .circle-percent { width: 140px; height: 140px; border-radius: 50%; border: 4px solid #ffffff; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; }
+  .shashank-card { background: #151515; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); overflow: hidden; }
+</style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<body class="font-sans antialiased text-white">
 
-<!-- Urgency Banner -->
-<div class="bg-primary text-white text-center py-2 px-4 text-sm font-bold flex flex-wrap justify-center items-center gap-2 z-[60] relative">
-    <span class="animate-pulse">⏳ WARNING: 50% Early Bird Discount Ends Today at Midnight!</span>
-    <span class="bg-black/20 px-3 py-1 rounded-md opacity-0 transition-opacity duration-300 urgency-timer-text tracking-wider">00h 00m 00s</span>
-</div>
-
-<!-- Sticky Navbar -->
-<nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-background-dark/80 backdrop-blur-md">
-<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="18" cy="18" r="18" fill="#e8212b"/>
-  <polygon points="14,11 27,18 14,25" fill="white"/>
-</svg>
-<div class="flex flex-col">
-    <span class="text-lg md:text-xl font-black tracking-tight text-white uppercase italic leading-none">Rahul Hegde</span>
-    <span class="text-[10px] md:text-xs font-bold text-primary tracking-widest uppercase">Academy</span>
-</div>
-</div>
-<div class="hidden md:flex items-center gap-8">
-<a class="hover:text-primary transition-colors text-xs font-bold tracking-widest text-slate-300 uppercase" href="#">Home</a>
-<a class="hover:text-primary transition-colors text-xs font-bold tracking-widest text-slate-300 uppercase" href="#curriculum">YouTube Blueprint</a>
-<a class="hover:text-primary transition-colors text-xs font-bold tracking-widest text-slate-300 uppercase" href="#testimonials">Reviews</a>
-<a class="hover:text-primary transition-colors text-xs font-bold tracking-widest text-slate-300 uppercase" href="#faq">FAQ</a>
-</div>
-<div class="flex items-center gap-3">
-<a href="https://whop.com/joined/million-vault/?tab=home">
-<button class="border border-white hover:border-primary text-white hover:text-primary px-6 py-2 rounded-full font-bold text-sm transition-all hidden md:block">
-    Login
-</button>
-<button class="border border-white text-white px-4 py-1.5 rounded-full font-bold text-xs md:hidden">Login</button>
-</a>
-</div>
-</div>
+<!-- Navbar -->
+<nav class="nav-bg fixed top-0 w-full z-50 border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 flex-shrink-0 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white shadow-[0_0_20px_rgba(220,38,38,0.5)] group-hover:scale-105 transition-all duration-300 border border-white/10">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+        </svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-xl font-black tracking-widest uppercase leading-none">Affiliate<span class="text-red-600">PRO</span></span>
+        <span class="text-[9px] text-gray-400 font-bold tracking-[0.2em] uppercase mt-1">By Shashank</span>
+      </div>
+    </a>
+    <div class="flex items-center gap-8">
+      <div class="hidden lg:flex items-center gap-8 text-sm font-bold text-gray-300 uppercase tracking-widest">
+        <a href="#" class="text-white relative group">Home<span class="absolute -bottom-2 left-0 w-full h-[2px] bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.8)] rounded-full"></span></a>
+        <a href="#" class="hover:text-white relative group transition-colors">Affiliate Blueprint<span class="absolute -bottom-2 left-0 w-0 h-[2px] bg-red-600 transition-all duration-300 group-hover:w-full group-hover:shadow-[0_0_10px_rgba(220,38,38,0.8)] rounded-full"></span></a>
+      </div>
+      <a href="login.html" class="border-2 border-white/20 rounded-full px-8 py-2.5 text-sm font-bold hover:bg-white hover:text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 backdrop-blur-md bg-white/5">Login</a>
+    </div>
+  </div>
 </nav>
 
-<!-- Hero Section -->
-<section class="relative overflow-hidden pt-16 pb-24 lg:pt-24 lg:pb-32 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] bg-cover">
-<div class="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#0a0a0a]/90 to-primary/20 -z-10"></div>
-<div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-<div class="flex flex-col gap-6">
-<h1 class="text-5xl lg:text-[70px] font-bold leading-[1.05] tracking-tight text-white mb-2">
-    <span class="text-primary">The YouTube Blueprint</span><br>
-    Make Content Creation Your Career!
-</h1>
-<p class="text-[17px] text-slate-300 max-w-xl leading-relaxed font-light mb-2">
-    Have you ever dreamt of becoming a YouTuber? This is your blueprint to getting there. Whether you want to take up content creation as a full time career or a part-time job, this all-in-one course is your perfect plan of action. Learn to ideate, script, film, and edit amazing videos. Then understand the secret to getting lakhs of followers and making money as a content creator. It's time to live your dream life!
-</p>
-
-<!-- Stat Pills / Badges -->
-<div class="flex flex-wrap lg:flex-nowrap gap-2 items-center bg-card-dark/60 border border-white/5 w-fit p-1.5 rounded-xl mb-4">
-    <div class="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-lg">
-        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-        <span class="text-xs font-semibold text-white">7.5 Hours of video content</span>
-    </div>
-    <div class="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-lg">
-        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-        <span class="text-xs font-semibold text-white">7 Chapters</span>
-    </div>
-    <div class="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-lg">
-        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
-        <span class="text-xs font-semibold text-white">Hindi with English Subtitles</span>
-    </div>
-</div>
-
-<!-- Dual CTA Buttons -->
-<div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2">
-<a href="checkout.html" class="w-full sm:w-[50%]">
-<button class="w-full bg-[#cc0000] hover:bg-[#aa0000] text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-xl shadow-primary/20">
-    Join Now
-</button>
-</a>
-<a href="#curriculum" class="w-full sm:w-[50%]">
-<button class="w-full bg-[#151515] hover:bg-white/5 border border-white/10 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-xl">
-    See curriculum
-</button>
-</a>
-</div>
-</div>
-<div class="relative group mt-8 lg:mt-0">
-<div class="absolute inset-0 bg-primary/20 rounded-full blur-[100px] -z-10 group-hover:bg-primary/30 transition-all"></div>
-<div class="relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 red-glow">
-<img alt="Rahul Hegde Instructor" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC50QByiOgQw8izDA67amd3v2bQ_YyNz5REyAOWA2IjPWsyPBjLUwElDhIAwzmGlBdPYmRY6VDoImlpRnRnxlx-ip-EUKAxyFsl-imX-niZr8nk5-P47xYPhWUC11r98jDtMOmB1mlphSW2j5s57XQbPyJjv5fxSfzEcmsqRk-T8ZO95bHJ6-JTuuBAdLueLQ47sk9LtCq9_sIz_zHiDYhXOu1VD15BPraTCnlTcW1fRr3M9KqJd25ls2y_mAhPj1bcneBHaIq4D5w"/>
-<div class="absolute bottom-0 inset-x-0 p-8 bg-gradient-to-t from-background-dark to-transparent">
-<p class="text-2xl font-bold text-white">Rahul Hegde</p>
-<p class="text-primary font-medium">Founder, YouTube Academy</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- Social Proof / Milestones -->
-<section class="py-20 border-y border-white/5 bg-[#0d0d0d]">
-<div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-<div>
-    <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-white">Youtube Royalty: The Massive Milestones</h2>
-    <p class="text-slate-400 leading-relaxed text-[17px]">Discover the art of getting millions of subscribers. I have multiple channels in different niches, all among the top ones within their respective categories.</p>
-</div>
-<div class="flex flex-col sm:flex-row items-center justify-center gap-6 lg:gap-10">
-    <div class="text-center relative">
-        <svg class="absolute inset-0 w-full h-full text-white/20 -z-10 scale-150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M50 150 C 20 100, 20 50, 50 10 M150 150 C 180 100, 180 50, 150 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M40 130 L55 120 M30 110 L48 100 M25 90 L45 80 M25 70 L45 60 M30 50 L48 40 M40 30 L55 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M160 130 L145 120 M170 110 L152 100 M175 90 L155 80 M175 70 L155 60 M170 50 L152 40 M160 30 L145 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <div class="text-3xl lg:text-4xl font-black text-white px-8 py-6 tracking-tighter">
-            3M+<br><span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Subscribers</span>
+<!-- 1. Headline (Hero) -->
+<section class="pt-32 pb-16 px-6 relative overflow-hidden text-center md:text-left">
+  <div class="absolute inset-0 z-0 opacity-20" style="background-image: radial-gradient(#333 1px, transparent 1px); background-size: 30px 30px;"></div>
+  
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
+    <div class="space-y-8">
+      <h1 class="text-5xl md:text-6xl font-extrabold leading-tight">
+        ನಿಮ್ಮ ಶಾಲೆಯಲ್ಲಿ ಕಲಿಯದನ್ನ<br/>ಇಲ್ಲಿ ಕಲಿಯಿರಿ!
+      </h1>
+      <p class="text-xl font-bold text-gray-300 tracking-wide uppercase">Affiliate Marketing Mastery — 0 To Pro Affiliate Pro</p>
+      <p class="text-base text-gray-400 leading-relaxed max-w-lg mx-auto md:mx-0 font-medium">
+        ನೀವು ಇಲ್ಲಿ ಪ್ರಾಕ್ಟಿಕಲ್ ಜ್ಞಾನದ ಮೂಲಕ ನಿಮ್ಮ ಮನೆಯಲ್ಲೇ ಕುಳಿತು ಕನ್ನಡದಲ್ಲಿ ಟೈಪಿಂಗ್ ಮಾಡಿ ಪ್ರತಿ ತಿಂಗಳು 1 ಲಕ್ಷಕ್ಕೂ ಹೆಚ್ಚಿನ ಹಣ ಗಳಿಸುವುದನ್ನು ನೀವು ಇಲ್ಲಿ ಕಲಿಯುತ್ತೀರಿ.
+      </p>
+      <div class="pt-4">
+        <div class="relative inline-flex group">
+          <div class="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
+          <a href="#explore" class="relative inline-flex items-center justify-center bg-white text-black font-extrabold text-lg px-10 py-5 rounded-full hover:scale-105 transition-all duration-300 uppercase shadow-2xl">
+            EXPLORE COURSES <svg class="w-6 h-6 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          </a>
         </div>
-    </div>
-    <div class="text-center relative">
-        <div class="absolute inset-0 bg-primary/20 blur-xl -z-10 rounded-full"></div>
-        <svg class="absolute inset-0 w-full h-full text-primary -z-10 scale-150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M50 150 C 20 100, 20 50, 50 10 M150 150 C 180 100, 180 50, 150 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M40 130 L55 120 M30 110 L48 100 M25 90 L45 80 M25 70 L45 60 M30 50 L48 40 M40 30 L55 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M160 130 L145 120 M170 110 L152 100 M175 90 L155 80 M175 70 L155 60 M170 50 L152 40 M160 30 L145 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <div class="text-4xl lg:text-5xl font-black text-white bg-primary px-8 py-6 rounded-2xl shadow-2xl shadow-primary/30 transform scale-110 tracking-tighter">
-            25M+<br><span class="text-[11px] font-bold uppercase tracking-widest text-white/80">Subscribers</span>
+      </div>
+      <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8 pt-6 border-t border-white/10 mt-6 inline-flex mx-auto md:mx-0">
+        <div class="flex -space-x-3">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50&h=50&fit=crop" class="w-10 h-10 rounded-full border-2 border-black object-cover" alt="User"/>
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=50&h=50&fit=crop" class="w-10 h-10 rounded-full border-2 border-black object-cover" alt="User"/>
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=50&h=50&fit=crop" class="w-10 h-10 rounded-full border-2 border-black object-cover" alt="User"/>
+          <div class="w-10 h-10 rounded-full bg-slate-200 text-black flex items-center justify-center text-[10px] font-bold border-2 border-black">5K+</div>
         </div>
-    </div>
-    <div class="text-center relative">
-        <svg class="absolute inset-0 w-full h-full text-white/20 -z-10 scale-150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M50 150 C 20 100, 20 50, 50 10 M150 150 C 180 100, 180 50, 150 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M40 130 L55 120 M30 110 L48 100 M25 90 L45 80 M25 70 L45 60 M30 50 L48 40 M40 30 L55 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M160 130 L145 120 M170 110 L152 100 M175 90 L155 80 M175 70 L155 60 M170 50 L152 40 M160 30 L145 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <div class="text-3xl lg:text-4xl font-black text-white px-8 py-6 tracking-tighter">
-            4M+<br><span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Subscribers</span>
+        <div class="text-center md:text-left">
+          <div class="text-lg font-bold">4.8+ <span class="text-xs text-gray-400 font-normal">(600+ Ratings)</span></div>
+          <div class="text-yellow-400 text-base">★★★★★</div>
         </div>
+      </div>
     </div>
-</div>
-</div>
+    
+    <div class="relative w-full max-w-lg mx-auto lg:h-[550px] flex items-end justify-center">
+       <!-- Red angular glow frame behind image -->
+       <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+         <div class="w-[72%] h-[72%] rounded-2xl border-2 border-red-600/60 shadow-[0_0_100px_rgba(220,38,38,0.45),0_0_40px_rgba(220,38,38,0.2),inset_0_0_50px_rgba(220,38,38,0.08)]"></div>
+       </div>
+       <!-- Bottom radial glow -->
+       <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-32 bg-red-600/20 rounded-full blur-3xl z-0 pointer-events-none"></div>
+       <!-- Floating badge: Language -->
+       <div class="absolute top-8 -left-3 bg-red-600 text-white text-xs font-extrabold px-3.5 py-2.5 rounded-xl shadow-[0_0_20px_rgba(220,38,38,0.5)] z-20 flex items-center gap-2">
+         <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+         ಕನ್ನಡ &nbsp;|&nbsp; Kannada
+       </div>
+       <!-- Floating badge: Price -->
+       <div class="absolute bottom-20 -right-3 bg-[#111] border border-white/10 text-white px-4 py-2.5 rounded-xl shadow-xl z-20">
+         <div class="text-green-400 text-lg font-black leading-none">₹1,999</div>
+         <div class="text-gray-600 text-xs line-through">₹5,000</div>
+       </div>
+       <img src="wmremove-transformed.png" alt="Shashank" class="w-full h-full object-cover object-top relative z-10 bottom-0 pointer-events-none drop-shadow-2xl transition-opacity duration-700">
+    </div>
+  </div>
 </section>
 
-<!-- Watch Trailer Section -->
-<section class="py-24 bg-card-dark/10 relative overflow-hidden">
-<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 hidden md:block"></div>
-<div class="max-w-5xl mx-auto px-6 text-center relative z-10">
-<h2 class="text-4xl lg:text-5xl font-bold mb-12 text-white tracking-tight">Watch Trailer</h2>
-<div class="relative group aspect-video bg-black rounded-3xl overflow-hidden border border-white/10 shadow-2xl max-w-4xl mx-auto">
-<div class="absolute inset-0 bg-cover bg-center opacity-80 group-hover:scale-105 transition-transform duration-700" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC50QByiOgQw8izDA67amd3v2bQ_YyNz5REyAOWA2IjPWsyPBjLUwElDhIAwzmGlBdPYmRY6VDoImlpRnRnxlx-ip-EUKAxyFsl-imX-niZr8nk5-P47xYPhWUC11r98jDtMOmB1mlphSW2j5s57XQbPyJjv5fxSfzEcmsqRk-T8ZO95bHJ6-JTuuBAdLueLQ47sk9LtCq9_sIz_zHiDYhXOu1VD15BPraTCnlTcW1fRr3M9KqJd25ls2y_mAhPj1bcneBHaIq4D5w');"></div>
-<div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent mix-blend-multiply hidden md:block"></div>
-<div class="absolute inset-0 flex items-center justify-center">
-<button onclick="alert('Add your YouTube Trailer embed URL here')" class="bg-white text-primary size-24 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-[0_0_50px_rgba(255,255,255,0.4)] group/btn relative">
-<svg class="w-10 h-10 ml-2 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-</button>
-</div>
-</div>
-</div>
+<!-- 3. Explore course & Features (Combining into Featured In as per image) -->
+<section class="py-16 mt-16 border-y border-white/5 bg-[#151515]" id="explore">
+  <div class="max-w-5xl mx-auto text-center px-6">
+    <h2 class="text-3xl font-bold mb-10 tracking-widest uppercase">Featured In</h2>
+    <div class="flex flex-wrap justify-center gap-8 md:gap-16 items-center">
+      <div class="text-2xl md:text-3xl font-bold flex items-center gap-3"><svg width="40" height="40" viewBox="0 0 24 24" fill="red"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> YouTube</div>
+      <div class="text-2xl md:text-3xl font-bold flex items-center gap-3"><span class="text-4xl">📝</span> Blogging</div>
+      <div class="text-2xl md:text-3xl font-bold flex items-center gap-3 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500"><svg width="40" height="40" fill="url(#ig-grad)" viewBox="0 0 24 24"><defs><linearGradient id="ig-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#833ab4" /><stop offset="50%" stop-color="#fd1d1d" /><stop offset="100%" stop-color="#fcb045" /></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram</div>
+      <div class="text-2xl md:text-3xl font-bold flex items-center gap-3 text-blue-500"><svg width="40" height="40" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg> Facebook</div>
+      <div class="text-2xl md:text-3xl font-bold flex items-center gap-3"><span class="text-4xl text-green-500">💰</span> Affiliate Mkt.</div>
+    </div>
+  </div>
 </section>
 
-<!-- What You'll Learn -->
-<section class="py-24 border-y border-white/5">
-<div class="max-w-7xl mx-auto px-6">
-<div class="text-center mb-16">
-<h2 class="text-3xl lg:text-4xl font-bold mb-4">What You'll Learn</h2>
-<div class="h-1.5 w-24 bg-primary mx-auto rounded-full"></div>
-</div>
-<div class="grid md:grid-cols-2 gap-x-12 gap-y-6">
-<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
-<svg class="w-6 h-6 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/></svg>
-<p class="text-lg text-slate-300">Niche Selection: Finding your million-dollar idea</p>
-</div>
-<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
-<svg class="w-6 h-6 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/></svg>
-<p class="text-lg text-slate-300">Scripting for Retention: Keeping viewers glued</p>
-</div>
-<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
-<svg class="w-6 h-6 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/></svg>
-<p class="text-lg text-slate-300">Pro Editing: Even if you only have a phone</p>
-</div>
-<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
-<svg class="w-6 h-6 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/></svg>
-<p class="text-lg text-slate-300">SEO Secrets: How to rank #1 in search results</p>
-</div>
-<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
-<svg class="w-6 h-6 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/></svg>
-<p class="text-lg text-slate-300">Monetization: Making money beyond AdSense</p>
-</div>
-<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
-<svg class="w-6 h-6 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/></svg>
-<p class="text-lg text-slate-300">Thumbnail Mastery: High CTR design principles</p>
-</div>
-<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
-<svg class="w-6 h-6 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/></svg>
-<p class="text-lg text-slate-300">Channel Branding: Building a recognizable identity</p>
-</div>
-<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
-<svg class="w-6 h-6 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/></svg>
-<p class="text-lg text-slate-300">Algorithm Secrets: How to make YouTube push your videos</p>
-</div>
-</div>
-</div>
+<!-- 4. Course / What you get in course -->
+<section class="py-24 px-6 md:px-10" id="course">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-center text-4xl md:text-5xl font-extrabold mb-16 uppercase tracking-wider">BECOME SKILLED AT WHAT MATTERS</h2>
+    
+    <!-- The split card from mockup -->
+    <div class="overflow-hidden grid lg:grid-cols-2 lg:min-h-[600px] border border-white/5 rounded-[2rem]" style="background:#000000;">
+      
+      <div class="p-8 md:p-14 space-y-8 flex flex-col justify-center">
+        <div>
+          <span class="bg-white text-black px-4 py-1.5 text-sm font-bold tracking-widest rounded-sm inline-block mb-6 shadow-sm">AFFILIATE MARKETING</span>
+          <h3 class="text-4xl lg:text-5xl font-extrabold leading-tight">Affiliate Marketing Mastery :<br/>0 To Pro Affiliate Pro!</h3>
+        </div>
+        <p class="text-gray-400 leading-relaxed text-lg font-medium">
+          Have you ever dreamt of building a reliable passive income? This is your blueprint to getting there. Whether you want to take up affiliate marketing as a full-time career or a side hustle, this all-in-one course is your perfect plan of action.
+        </p>
+        <ul class="space-y-6 text-gray-300">
+          <li class="flex items-center gap-4 text-lg font-medium"><svg class="w-6 h-6 text-white flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Complete step-by-step guide from scratch to pro level.</li>
+          <li class="flex items-center gap-4 text-lg font-medium"><svg class="w-6 h-6 text-white flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Learn Niche Selection, Traffic Generation & Automated Funnels.</li>
+          <li class="flex items-center gap-4 text-lg font-medium"><svg class="w-6 h-6 text-white flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Discover proven strategies to earn commissions while you sleep.</li>
+        </ul>
+        <div class="pt-6 pb-2 border-t border-white/10 mt-6 flex flex-col sm:flex-row sm:items-center gap-8">
+           <div class="flex flex-col">
+             <div class="flex items-center gap-3 mb-1">
+               <div class="text-xl text-gray-500 line-through font-bold">₹5000</div>
+               <div class="text-xs font-bold bg-green-500/20 text-green-400 px-2 py-1 rounded">SAVE 60%</div>
+             </div>
+             <div class="text-6xl font-black bg-gradient-to-r from-red-500 to-red-300 bg-clip-text text-transparent">₹1999</div>
+           </div>
+           
+           <div class="relative group w-full md:w-max mt-4 sm:mt-0 flex-1">
+             <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-red-900 rounded-full blur opacity-70 group-hover:opacity-100 transition duration-500 group-hover:duration-200 animate-pulse"></div>
+             <a href="checkout.html" class="relative block w-full bg-white text-black text-center font-extrabold px-10 py-5 rounded-full hover:scale-[1.02] transition-transform text-xl shadow-[0_0_30px_rgba(255,255,255,0.2)]">Buy Course Now</a>
+           </div>
+        </div>
+      </div>
+      
+      <!-- Right image side with the glowing red frame from the ref image -->
+      <div class="relative bg-black flex items-end justify-center pt-16 min-h-[500px] lg:min-h-[auto] overflow-hidden">
+        <!-- The pure red glowing back border frame behind subject -->
+        <div class="absolute inset-0 m-auto w-[65%] h-[65%] border-[3px] border-red-500 rounded-sm shadow-[0_0_100px_rgba(220,38,38,0.7)] z-0 pointer-events-none"></div>
+        <img src="wmremove-transformed.png" alt="Shashank" class="h-[95%] w-auto object-cover relative z-10 bottom-0 opacity-100 drop-shadow-[0_-20px_40px_rgba(0,0,0,0.8)] filter saturate-110">
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Instructor Section -->
-<section class="py-24 bg-card-dark/20">
-<div class="max-w-5xl mx-auto px-6">
-<div class="grid lg:grid-cols-2 gap-16 items-center">
-<div class="relative">
-<div class="aspect-square max-w-sm mx-auto rounded-3xl overflow-hidden border border-white/10">
-<img alt="Rahul Hegde" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC50QByiOgQw8izDA67amd3v2bQ_YyNz5REyAOWA2IjPWsyPBjLUwElDhIAwzmGlBdPYmRY6VDoImlpRnRnxlx-ip-EUKAxyFsl-imX-niZr8nk5-P47xYPhWUC11r98jDtMOmB1mlphSW2j5s57XQbPyJjv5fxSfzEcmsqRk-T8ZO95bHJ6-JTuuBAdLueLQ47sk9LtCq9_sIz_zHiDYhXOu1VD15BPraTCnlTcW1fRr3M9KqJd25ls2y_mAhPj1bcneBHaIq4D5w"/>
-</div>
-</div>
-<div class="flex flex-col gap-6">
-<div class="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary px-4 py-1.5 rounded-full text-sm font-bold w-fit">
-Your Instructor
-</div>
-<h2 class="text-4xl font-bold">Rahul Hegde</h2>
-<p class="text-primary font-semibold">Founder, YouTube Academy</p>
-<p class="text-slate-400 leading-relaxed">With over 5 years of experience growing YouTube channels from scratch, Rahul has helped 500+ Kannada creators build profitable channels. His no-fluff, practical approach cuts straight to what actually works on YouTube today.</p>
-<div class="grid grid-cols-3 gap-4">
-<div class="bg-card-dark border border-white/5 rounded-xl p-4 text-center">
-<div class="text-2xl font-black text-primary">500+</div>
-<div class="text-xs text-slate-500 mt-1">Students</div>
-</div>
-<div class="bg-card-dark border border-white/5 rounded-xl p-4 text-center">
-<div class="text-2xl font-black text-white">5+</div>
-<div class="text-xs text-slate-500 mt-1">Years Exp.</div>
-</div>
-<div class="bg-card-dark border border-white/5 rounded-xl p-4 text-center">
-<div class="text-2xl font-black text-white">4.9★</div>
-<div class="text-xs text-slate-500 mt-1">Rating</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<!-- 5. Students reviews and ratings -->
+<section class="py-24 px-6 bg-[#161616]">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-center text-4xl lg:text-5xl font-bold mb-16 leading-tight">Here's what our Current<br/>Students have to say...</h2>
+    
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass-card p-12 flex flex-col items-center justify-center text-center border-white/5 bg-[#1b1b1b]">
+        <!-- 92% Ring -->
+        <div class="relative w-36 h-36 flex flex-col items-center justify-center rounded-full mb-6">
+          <svg class="absolute inset-0 w-full h-full transform -rotate-90">
+            <circle cx="72" cy="72" r="68" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4"></circle>
+            <circle cx="72" cy="72" r="68" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="427" stroke-dashoffset="34"></circle>
+          </svg>
+          <span class="text-4xl font-bold">92%</span>
+        </div>
+        <p class="text-gray-300 font-medium text-lg mt-4">of customers were served successfully*</p>
+      </div>
+      
+      <div class="glass-card p-10 flex flex-col justify-between border-white/5 bg-[#1b1b1b] transform hover:-translate-y-2 transition-transform duration-300">
+        <div>
+          <div class="text-5xl text-gray-500 mb-2 font-serif font-bold">"</div>
+          <p class="text-gray-300 leading-relaxed mb-8 text-lg font-medium">A well-designed course and a refreshing break from toxic productivity. Shashank's insights on work-life balance and true happiness were enlightening. Great job!</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 text-white rounded-full flex items-center justify-center font-bold text-2xl shadow-lg">P</div>
+          <div>
+            <div class="font-bold text-lg">Prithu H.</div>
+            <div class="text-yellow-400 text-sm mt-1 tracking-widest drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card p-10 flex flex-col justify-between border-white/5 bg-[#1b1b1b] transform hover:-translate-y-2 transition-transform duration-300 md:translate-y-6">
+        <div>
+          <div class="text-5xl text-gray-500 mb-2 font-serif font-bold">"</div>
+          <p class="text-gray-300 leading-relaxed mb-8 text-lg font-medium">Amazing course! I genuinely learned a lot and would highly recommend it to everyone.</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 text-white rounded-full flex items-center justify-center font-bold text-2xl shadow-lg">S</div>
+          <div>
+            <div class="font-bold text-lg">Sowmya.</div>
+            <div class="text-yellow-400 text-sm mt-1 tracking-widest drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]">★★★★★</div>
+          </div>
+        </div>
+      </div>
+      
+       <!-- Duplo row to match masonry feel -->
+       <div class="glass-card p-10 flex flex-col justify-between border-white/5 bg-[#1b1b1b]">
+        <div>
+          <div class="text-5xl text-gray-500 mb-2 font-serif font-bold">"</div>
+          <p class="text-gray-300 leading-relaxed mb-8 text-lg font-medium">Great work Shashank! It's truly a fantastic compilation of affiliate marketing knowledge.</p>
+        </div>
+      </div>
+      <div class="glass-card p-10 flex flex-col justify-between border-white/5 bg-[#1b1b1b] md:col-span-2">
+        <div>
+          <div class="text-5xl text-gray-500 mb-2 font-serif font-bold">"</div>
+          <p class="text-gray-300 leading-relaxed mb-8 text-lg font-medium">I have to say — this course was absolutely mindblowing! The templates provided are incredible.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Course Curriculum -->
-<section class="py-24 bg-card-dark/20" id="curriculum">
-<div class="max-w-7xl mx-auto px-6">
-<div class="text-center mb-12">
-<h2 class="text-3xl lg:text-4xl font-bold mb-4">Course Curriculum</h2>
-<p class="text-slate-400">6 power-packed modules to take you from zero to monetized</p>
-</div>
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-<div class="bg-gradient-to-br from-card-dark to-primary/10 border border-white/5 border-l-4 border-l-primary p-8 rounded-2xl hover:border-primary/50 transition-all shadow-[0_0_30px_-10px_rgba(232,33,43,0.3)] cursor-pointer group">
-<span class="text-primary font-bold text-sm tracking-widest uppercase mb-4 flex items-center justify-between">Module 01 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></span>
-<h3 class="text-xl font-bold mb-2">The Foundation</h3>
-<p class="text-slate-400 text-sm mb-3">Channel setup, niche selection, and understanding the YouTube algorithm from day one.</p>
-<p class="text-slate-500 text-sm flex items-center gap-1.5">
-<svg class="w-3 h-3 inline" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 14L11 13V7h1.5v5.25l4.5 2.67-1.26 2.08z"/></svg>
-8 Lessons • 45m
-</p>
-</div>
-<div class="bg-card-dark border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all cursor-pointer">
-<div class="flex justify-between items-start mb-4">
-<span class="text-slate-500 font-bold text-sm tracking-widest uppercase">Module 02</span>
-<svg class="w-5 h-5 text-slate-600" fill="currentColor" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-</div>
-<h3 class="text-xl font-bold mb-2 text-slate-400">Content Strategy</h3>
-<p class="text-slate-600 text-sm mb-3">Scripting, hooks, retention techniques, and building a content calendar that works.</p>
-<p class="text-slate-600 text-sm">12 Lessons • 1h 10m</p>
-</div>
-<div class="bg-card-dark border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all cursor-pointer">
-<div class="flex justify-between items-start mb-4">
-<span class="text-slate-500 font-bold text-sm tracking-widest uppercase">Module 03</span>
-<svg class="w-5 h-5 text-slate-600" fill="currentColor" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-</div>
-<h3 class="text-xl font-bold mb-2 text-slate-400">Filming &amp; Lighting</h3>
-<p class="text-slate-600 text-sm mb-3">Professional video quality using just your smartphone — no expensive gear needed.</p>
-<p class="text-slate-600 text-sm">6 Lessons • 38m</p>
-</div>
-<div class="bg-card-dark border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all cursor-pointer">
-<div class="flex justify-between items-start mb-4">
-<span class="text-slate-500 font-bold text-sm tracking-widest uppercase">Module 04</span>
-<svg class="w-5 h-5 text-slate-600" fill="currentColor" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-</div>
-<h3 class="text-xl font-bold mb-2 text-slate-400">Editing Mastery</h3>
-<p class="text-slate-600 text-sm mb-3">Cuts, transitions, music, thumbnails — full editing workflow for beginners.</p>
-<p class="text-slate-600 text-sm">15 Lessons • 1h 25m</p>
-</div>
-<div class="bg-card-dark border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all cursor-pointer">
-<div class="flex justify-between items-start mb-4">
-<span class="text-slate-500 font-bold text-sm tracking-widest uppercase">Module 05</span>
-<svg class="w-5 h-5 text-slate-600" fill="currentColor" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-</div>
-<h3 class="text-xl font-bold mb-2 text-slate-400">Growth Hacking</h3>
-<p class="text-slate-600 text-sm mb-3">SEO, tags, titles, thumbnails CTR — everything to get discovered fast.</p>
-<p class="text-slate-600 text-sm">10 Lessons • 52m</p>
-</div>
-<div class="bg-card-dark border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all cursor-pointer">
-<div class="flex justify-between items-start mb-4">
-<span class="text-slate-500 font-bold text-sm tracking-widest uppercase">Module 06</span>
-<svg class="w-5 h-5 text-slate-600" fill="currentColor" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-</div>
-<h3 class="text-xl font-bold mb-2 text-slate-400">Business of YouTube</h3>
-<p class="text-slate-600 text-sm mb-3">AdSense, sponsorships, digital products — turning your channel into income.</p>
-<p class="text-slate-600 text-sm">7 Lessons • 40m</p>
-</div>
-</div>
-</div>
+<!-- 6. What we focus on -->
+<section class="py-24 px-6 bg-[#000000]">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-center text-4xl lg:text-5xl font-extrabold mb-16 uppercase tracking-wider">WHAT WE FOCUS ON</h2>
+    
+    <div class="grid md:grid-cols-3 gap-8">
+      
+      <!-- Card 1 -->
+      <div class="bg-[#111111] p-10 rounded-3xl flex flex-col hover:-translate-y-2 transition-transform duration-300 shadow-2xl">
+        <div class="w-16 h-16 bg-red-600/10 text-red-500 rounded-2xl flex items-center justify-center mb-6">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        </div>
+        <h3 class="text-2xl font-bold uppercase tracking-widest text-white mb-4">PROVEN STRATEGIES</h3>
+        <p class="text-gray-400 leading-relaxed font-medium">Learn high-converting affiliate marketing strategies that actually work in today's digital landscape, not outdated theory.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-[#111111] p-10 rounded-3xl flex flex-col hover:-translate-y-2 transition-transform duration-300 shadow-2xl">
+        <div class="w-16 h-16 bg-red-600/10 text-red-500 rounded-2xl flex items-center justify-center mb-6">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <h3 class="text-2xl font-bold uppercase tracking-widest text-white mb-4">NICHE SELECTION</h3>
+        <p class="text-gray-400 leading-relaxed font-medium">Discover how to find and dominate profitable niches with high-ticket affiliate programs and low competition.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-[#111111] p-10 rounded-3xl flex flex-col hover:-translate-y-2 transition-transform duration-300 shadow-2xl">
+        <div class="w-16 h-16 bg-red-600/10 text-red-500 rounded-2xl flex items-center justify-center mb-6">
+          <svg class="w-8 h-8" flex-shrink-0 fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <h3 class="text-2xl font-bold uppercase tracking-widest text-white mb-4">TRAFFIC GENERATION</h3>
+        <p class="text-gray-400 leading-relaxed font-medium">Master both organic and paid traffic methods to flood your affiliate links with targeted, ready-to-buy visitors.</p>
+      </div>
+      
+      <!-- Card 4 -->
+      <div class="bg-[#111111] p-10 rounded-3xl flex flex-col hover:-translate-y-2 transition-transform duration-300 shadow-2xl lg:col-start-1 md:col-start-1 md:col-span-1 lg:col-span-1">
+        <div class="w-16 h-16 bg-red-600/10 text-red-500 rounded-2xl flex items-center justify-center mb-6">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"></path></svg>
+        </div>
+        <h3 class="text-2xl font-bold uppercase tracking-widest text-white mb-4">AUTOMATED FUNNELS</h3>
+        <p class="text-gray-400 leading-relaxed font-medium">Build hands-off income streams using automated sales funnels and email marketing to earn commissions while you sleep.</p>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="bg-[#111111] p-10 rounded-3xl flex flex-col hover:-translate-y-2 transition-transform duration-300 shadow-2xl md:col-span-2 lg:col-span-2">
+        <div class="w-16 h-16 bg-red-600/10 text-red-500 rounded-2xl flex items-center justify-center mb-6">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+        </div>
+        <h3 class="text-2xl font-bold uppercase tracking-widest text-white mb-4">EXCLUSIVE COMMUNITY</h3>
+        <p class="text-gray-400 leading-relaxed font-medium">Join a private network of successful marketers to share wins, exchange strategies, and grow your affiliate income together.</p>
+      </div>
+      
+    </div>
+  </div>
 </section>
 
-<!-- Student Success Stories -->
-<section class="py-24" id="testimonials">
-<div class="max-w-7xl mx-auto px-6">
-<div class="text-center mb-16">
-<h2 class="text-3xl lg:text-4xl font-bold mb-4">Student Success Stories</h2>
-<p class="text-slate-400">Real results from real Kannada creators</p>
-</div>
-<div class="marquee-container">
-<div class="testimonial-track">
-<div class="bg-card-dark p-8 rounded-2xl border border-white/5 flex flex-col gap-6 testimonial-card">
-<div class="flex gap-1 text-primary">
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-</div>
-<p class="text-slate-300 italic">"I went from 0 to 10k subscribers in just 3 months after following Rahul's editing tips. Best investment ever!"</p>
-<div class="flex items-center gap-4">
-<div class="size-12 rounded-full overflow-hidden bg-slate-700">
-<img alt="Akshay Kumar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCip_-9SXesSDEZofuxjAHt49A2nM0P5IzbENqzZ_XvGJ5f4AkpOk_WMNTg2gYbNaqMqoedMPn27v0Ngi7dlAliYWmTHiks7Gx3kHNQb3vVvdesrhEbhMMNOPJL1XjOKWBoDqc_a9k7WlX9HwpZgt3J3QC-WwfMLMtR3H6orI7ZsG0Bd-b8to1qq8rAzVTVmy_8gfK1M0G2vQbjzS90nev8UraTkxIy7iH3R37il_MYKjKZipqv6nHsDMLezePv3K016mKUclpv7FY"/>
-</div>
-<div>
-<p class="font-bold text-white">Akshay Kumar</p>
-<p class="text-xs text-slate-500 uppercase tracking-wider">Tech Channel Owner</p>
-</div>
-</div>
-</div>
-<div class="bg-card-dark p-8 rounded-2xl border border-white/5 flex flex-col gap-6 testimonial-card">
-<div class="flex gap-1 text-primary">
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-</div>
-<p class="text-slate-300 italic">"The Kannada instruction makes it so easy to understand complex SEO concepts. Finally a course that speaks my language!"</p>
-<div class="flex items-center gap-4">
-<div class="size-12 rounded-full overflow-hidden bg-slate-700">
-<img alt="Deepa Rao" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8UtEfdmRv31hMpHogN3ZRHBwixwMg8RfnTBVD18iijc6a_Y3nocgEHI0qGJ9VStgnAtyGVG_-IwwH3c1N6pCNcqixO9E2ug3CfDzdQqZ1ffQn3VbLhZ4aUHc9ds0alF8_aZs4vu1eNj7qkuT6tsCvKgm1vo8SHhNSX9SwoE5Sd-0xKVI5AVzUhCqgUDl-ddjHA5gdTePk-S3Orq1APQISxMUcS1YZhJEfz7T6iyrl5uxs4IPSjxtnZbrpR2DNItfEohFvhOfjZUM"/>
-</div>
-<div>
-<p class="font-bold text-white">Deepa Rao</p>
-<p class="text-xs text-slate-500 uppercase tracking-wider">Cooking Channel</p>
-</div>
-</div>
-</div>
-<div class="bg-card-dark p-8 rounded-2xl border border-white/5 flex flex-col gap-6 testimonial-card">
-<div class="flex gap-1 text-primary">
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-</div>
-<p class="text-slate-300 italic">"Rahul's thumbnail formula is a game changer. My CTR jumped from 2% to 11% instantly."</p>
-<div class="flex items-center gap-4">
-<div class="size-12 rounded-full overflow-hidden bg-slate-700">
-<img alt="Sandeep Shetty" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6t8z5C49c-MhCa-a3VMOKJVIwk9q38-1DY0ZNK_GYBe8u00eKE9ocGV-7s4dztFWRyX8C8mroQPjU6bZ_DBuhGBQPMCrep9TBF4_iwRtEBAyRFHKVhBk1zTtiFQXWpVWlGGRDcrzyfHwvoKUMCyYQ9kLlw-65uPpGdQcJQGif8xoiFzWnFQ01VDd0ysABcUYpoSv1iPA6qZLd3_JQGRwHZK95F2V-w06TWBDdB1rYD4L-G4aw3jEbQhU_haPiInUPgRhknhVwGjo"/>
-</div>
-<div>
-<p class="font-bold text-white">Sandeep Shetty</p>
-<p class="text-xs text-slate-500 uppercase tracking-wider">Vlogger</p>
-</div>
-</div>
-</div>
-<div class="bg-card-dark p-8 rounded-2xl border border-white/5 flex flex-col gap-6 testimonial-card">
-<div class="flex gap-1 text-primary">
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-</div>
-<p class="text-slate-300 italic">"I never thought I could edit professional videos using just my phone. This course cleared all my doubts!"</p>
-<div class="flex items-center gap-4">
-<div class="size-12 rounded-full overflow-hidden bg-slate-700 flex items-center justify-center text-white font-bold">VK</div>
-<div>
-<p class="font-bold text-white">Vijay Kumar</p>
-<p class="text-xs text-slate-500 uppercase tracking-wider">Education Channel</p>
-</div>
-</div>
-</div>
-<div class="bg-card-dark p-8 rounded-2xl border border-white/5 flex flex-col gap-6 testimonial-card">
-<div class="flex gap-1 text-primary">
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-</div>
-<p class="text-slate-300 italic">"The scripting modules helped me increase my average view duration by 40%. The ROI is insane."</p>
-<div class="flex items-center gap-4">
-<div class="size-12 rounded-full overflow-hidden bg-slate-700 flex items-center justify-center text-white font-bold">PR</div>
-<div>
-<p class="font-bold text-white">Priya Raj</p>
-<p class="text-xs text-slate-500 uppercase tracking-wider">Lifestyle Creator</p>
-</div>
-</div>
-</div>
-<div class="bg-card-dark p-8 rounded-2xl border border-white/5 flex flex-col gap-6 testimonial-card">
-<div class="flex gap-1 text-primary">
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-</div>
-<p class="text-slate-300 italic">"Finally a comprehensive guide for Kannada creators. The SEO strategies are pure gold!"</p>
-<div class="flex items-center gap-4">
-<div class="size-12 rounded-full overflow-hidden bg-slate-700 flex items-center justify-center text-white font-bold">MN</div>
-<div>
-<p class="font-bold text-white">Manjunath</p>
-<p class="text-xs text-slate-500 uppercase tracking-wider">Gaming Streamer</p>
-</div>
-</div>
-</div>
-<!-- Duplicate set for seamless loop -->
-<div class="bg-card-dark p-8 rounded-2xl border border-white/5 flex flex-col gap-6 testimonial-card">
-<div class="flex gap-1 text-primary">
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-</div>
-<p class="text-slate-300 italic">"I went from 0 to 10k subscribers in just 3 months after following Rahul's editing tips. Best investment ever!"</p>
-<div class="flex items-center gap-4">
-<div class="size-12 rounded-full overflow-hidden bg-slate-700">
-<img alt="Akshay Kumar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCip_-9SXesSDEZofuxjAHt49A2nM0P5IzbENqzZ_XvGJ5f4AkpOk_WMNTg2gYbNaqMqoedMPn27v0Ngi7dlAliYWmTHiks7Gx3kHNQb3vVvdesrhEbhMMNOPJL1XjOKWBoDqc_a9k7WlX9HwpZgt3J3QC-WwfMLMtR3H6orI7ZsG0Bd-b8to1qq8rAzVTVmy_8gfK1M0G2vQbjzS90nev8UraTkxIy7iH3R37il_MYKjKZipqv6nHsDMLezePv3K016mKUclpv7FY"/>
-</div>
-<div>
-<p class="font-bold text-white">Akshay Kumar</p>
-<p class="text-xs text-slate-500 uppercase tracking-wider">Tech Channel Owner</p>
-</div>
-</div>
-</div>
-<div class="bg-card-dark p-8 rounded-2xl border border-white/5 flex flex-col gap-6 testimonial-card">
-<div class="flex gap-1 text-primary">
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-<span style="color:#e8212b;font-size:18px;">★</span>
-</div>
-<p class="text-slate-300 italic">"The Kannada instruction makes it so easy to understand complex SEO concepts. Finally a course that speaks my language!"</p>
-<div class="flex items-center gap-4">
-<div class="size-12 rounded-full overflow-hidden bg-slate-700">
-<img alt="Deepa Rao" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8UtEfdmRv31hMpHogN3ZRHBwixwMg8RfnTBVD18iijc6a_Y3nocgEHI0qGJ9VStgnAtyGVG_-IwwH3c1N6pCNcqixO9E2ug3CfDzdQqZ1ffQn3VbLhZ4aUHc9ds0alF8_aZs4vu1eNj7qkuT6tsCvKgm1vo8SHhNSX9SwoE5Sd-0xKVI5AVzUhCqgUDl-ddjHA5gdTePk-S3Orq1APQISxMUcS1YZhJEfz7T6iyrl5uxs4IPSjxtnZbrpR2DNItfEohFvhOfjZUM"/>
-</div>
-<div>
-<p class="font-bold text-white">Deepa Rao</p>
-<p class="text-xs text-slate-500 uppercase tracking-wider">Cooking Channel</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<!-- 7. About Shashank (My Work) -->
+<section class="py-24 px-6 bg-[#161616]" id="about">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-center text-4xl lg:text-5xl font-bold mb-16">My Work</h2>
+    
+    <div class="grid md:grid-cols-3 gap-8">
+      
+      <!-- Card 1: YouTube -->
+      <div class="shashank-card group">
+        <div class="h-64 overflow-hidden bg-gray-200">
+          <img src="https://images.unsplash.com/photo-1558222218-b7b54eede3f3?q=80&w=600&fit=crop" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Shashank YouTube"/>
+        </div>
+        <div class="p-8 text-center bg-[#151515]">
+          <h3 class="text-2xl font-bold mb-1 flex justify-center items-center gap-1">I Am Shashank<svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></h3>
+          <p class="text-gray-500 text-sm mb-6">@iamshashank</p>
+          <div class="flex justify-center gap-6 text-sm font-semibold mb-8">
+            <div>300K+ <span class="text-gray-400 font-normal">Subscribers</span></div>
+            <div>500 <span class="text-gray-400 font-normal">Videos</span></div>
+          </div>
+          <a href="#" class="block w-full py-3 border border-gray-600 rounded-full text-sm font-semibold hover:bg-white hover:text-black transition-colors shadow-sm">Youtube Channel</a>
+        </div>
+      </div>
+
+      <!-- Card 2: Instagram -->
+      <div class="shashank-card group">
+        <div class="h-64 overflow-hidden bg-gray-200">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC50QByiOgQw8izDA67amd3v2bQ_YyNz5REyAOWA2IjPWsyPBjLUwElDhIAwzmGlBdPYmRY6VDoImlpRnRnxlx-ip-EUKAxyFsl-imX-niZr8nk5-P47xYPhWUC11r98jDtMOmB1mlphSW2j5s57XQbPyJjv5fxSfzEcmsqRk-T8ZO95bHJ6-JTuuBAdLueLQ47sk9LtCq9_sIz_zHiDYhXOu1VD15BPraTCnlTcW1fRr3M9KqJd25ls2y_mAhPj1bcneBHaIq4D5w" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Shashank Instagram"/>
+        </div>
+        <div class="p-8 text-center bg-[#151515]">
+          <h3 class="text-2xl font-bold mb-1 flex justify-center items-center gap-1">Shashank Official<svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></h3>
+          <p class="text-gray-500 text-sm mb-6">@shashank_official_2.0</p>
+          <div class="flex justify-center gap-6 text-sm font-semibold mb-8">
+            <div>700K+ <span class="text-gray-400 font-normal">Followers</span></div>
+            <div>170+ <span class="text-gray-400 font-normal">Videos</span></div>
+          </div>
+          <a href="#" class="block w-full py-3 border border-gray-600 rounded-full text-sm font-semibold hover:bg-white hover:text-black transition-colors shadow-sm">Instagram Channel</a>
+        </div>
+      </div>
+
+      <!-- Card 3: Facebook -->
+      <div class="shashank-card group">
+        <div class="h-64 overflow-hidden bg-gray-200">
+          <img src="https://images.unsplash.com/photo-1558222218-b7b54eede3f3?q=80&w=600&fit=crop" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Shashank Facebook"/>
+        </div>
+        <div class="p-8 text-center bg-[#151515]">
+          <h3 class="text-2xl font-bold mb-1 flex justify-center items-center gap-1">I Am Shashank<svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></h3>
+          <p class="text-gray-500 text-sm mb-6">@iamshashankfb</p>
+          <div class="flex justify-center gap-6 text-sm font-semibold mb-8">
+            <div>350K+ <span class="text-gray-400 font-normal">Subscribers</span></div>
+            <div>180+ <span class="text-gray-400 font-normal">Videos</span></div>
+          </div>
+          <a href="#" class="block w-full py-3 border border-gray-600 rounded-full text-sm font-semibold hover:bg-white hover:text-black transition-colors shadow-sm">Facebook Channel</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
-<!-- Pricing Section -->
-<section class="py-24 bg-primary/5" id="pricing">
-<div class="max-w-4xl mx-auto px-6 text-center">
-<h2 class="text-4xl lg:text-5xl font-bold mb-4">Start Your Journey Today</h2>
-<p class="text-slate-400 mb-12">One-time payment. Lifetime access. Future updates included.</p>
-<div class="bg-card-dark p-12 rounded-3xl border-2 border-primary relative shadow-2xl shadow-primary/10">
-<div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-full text-sm font-bold uppercase tracking-widest whitespace-nowrap flex gap-2 items-center shadow-lg shadow-primary/30">
-    🔥 Best Value <span class="urgency-timer-text bg-black/20 px-2 py-0.5 rounded opacity-0 transition-opacity duration-300">00h 00m 00s</span>
-</div>
-<div class="mb-8">
-<p class="text-slate-500 line-through text-2xl">₹19,999</p>
-<p class="text-7xl lg:text-8xl font-black text-white">₹9,999</p>
-<p class="text-green-500 font-bold mt-2">You save ₹10,000 today!</p>
-</div>
-<div class="space-y-4 mb-10 max-w-sm mx-auto text-left">
-<div class="flex items-center gap-3">
-<svg class="w-5 h-5 text-primary flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-<span>Lifetime Access to all 6 Modules</span>
-</div>
-<div class="flex items-center gap-3">
-<svg class="w-5 h-5 text-primary flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-<span>Private Community Access</span>
-</div>
-<div class="flex items-center gap-3">
-<svg class="w-5 h-5 text-primary flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-<span>Bi-weekly Live Q&amp;A Sessions</span>
-</div>
-<div class="flex items-center gap-3">
-<svg class="w-5 h-5 text-primary flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-<span>PDF Resource Guides &amp; Checklists</span>
-</div>
-<div class="flex items-center gap-3">
-<svg class="w-5 h-5 text-primary flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-<span>Future Module Updates — Free</span>
-</div>
-</div>
-<button onclick="window.location.href='checkout.html'">
-    ENROLL NOW — ₹9,999
-</button>
-<p class="mt-6 text-slate-500 text-sm">🔒 Secure Checkout &nbsp;•&nbsp; ⚡ Instant Access &nbsp;•&nbsp; 🎓 30 Day Money Back</p>
-</div>
-</div>
-</section>
+<!-- 8. Footer -->
+<footer class="bg-[#0a0a0a] border-t border-white/5 relative z-10">
+  <!-- Top Footer -->
+  <div class="max-w-7xl mx-auto px-6 pt-16 pb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+    <!-- Brand Column -->
+    <div class="lg:col-span-1">
+      <a href="/" class="flex items-center gap-3 group mb-5 w-fit">
+        <div class="w-11 h-11 flex-shrink-0 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white shadow-[0_0_20px_rgba(220,38,38,0.4)] group-hover:scale-105 transition-all duration-300">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-black tracking-widest uppercase leading-none">Affiliate<span class="text-red-600">PRO</span></span>
+          <span class="text-[10px] text-gray-500 font-bold tracking-[0.2em] uppercase mt-0.5">By Shashank</span>
+        </div>
+      </a>
+      <p class="text-gray-500 text-sm leading-relaxed max-w-xs">India's premier affiliate marketing course in Kannada. Learn proven strategies to earn commissions and build a passive income empire from scratch.</p>
+      <!-- Social Links -->
+      <div class="flex items-center gap-3 mt-6">
+        <a href="#" class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-red-600 hover:border-red-600 transition-all duration-300" title="YouTube">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+        </a>
+        <a href="#" class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-red-600 hover:border-red-600 transition-all duration-300" title="Instagram">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="mailto:shashanksky376@gmial.com" class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-red-600 hover:border-red-600 transition-all duration-300" title="Email">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </a>
+      </div>
+    </div>
 
-<!-- FAQ Section -->
-<section class="py-24" id="faq">
-<div class="max-w-3xl mx-auto px-6">
-<h2 class="text-3xl lg:text-4xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
-<div class="space-y-4" id="faq-container">
-<div class="faq-item bg-card-dark border border-white/5 rounded-xl overflow-hidden">
-<div class="flex justify-between items-center cursor-pointer p-6" onclick="toggleFaq(this)">
-<h4 class="font-bold text-lg">Do I need a professional camera to start?</h4>
-<svg class="w-6 h-6 faq-icon text-slate-500" fill="currentColor" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg>
-</div>
-<div class="faq-answer px-6 pb-6">
-<p class="text-slate-400 leading-relaxed">No! We teach you how to start and grow using just your smartphone. Equipment matters less than the story and structure we teach you in Module 3.</p>
-</div>
-</div>
-<div class="faq-item bg-card-dark border border-white/5 rounded-xl overflow-hidden">
-<div class="flex justify-between items-center cursor-pointer p-6" onclick="toggleFaq(this)">
-<h4 class="font-bold text-lg">How long will I have access to the course?</h4>
-<svg class="w-6 h-6 faq-icon text-slate-500" fill="currentColor" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg>
-</div>
-<div class="faq-answer px-6 pb-6">
-<p class="text-slate-400 leading-relaxed">Lifetime access! Once you enroll, you own it forever — including all future updates we add to the course. Pay once, learn forever.</p>
-</div>
-</div>
-<div class="faq-item bg-card-dark border border-white/5 rounded-xl overflow-hidden">
-<div class="flex justify-between items-center cursor-pointer p-6" onclick="toggleFaq(this)">
-<h4 class="font-bold text-lg">Is this course suitable for complete beginners?</h4>
-<svg class="w-6 h-6 faq-icon text-slate-500" fill="currentColor" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg>
-</div>
-<div class="faq-answer px-6 pb-6">
-<p class="text-slate-400 leading-relaxed">Absolutely. We start from zero — setting up your channel, choosing your niche, filming your first video. No prior experience needed.</p>
-</div>
-</div>
-<div class="faq-item bg-card-dark border border-white/5 rounded-xl overflow-hidden">
-<div class="flex justify-between items-center cursor-pointer p-6" onclick="toggleFaq(this)">
-<h4 class="font-bold text-lg">Are there any live sessions?</h4>
-<svg class="w-6 h-6 faq-icon text-slate-500" fill="currentColor" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg>
-</div>
-<div class="faq-answer px-6 pb-6">
-<p class="text-slate-400 leading-relaxed">Yes! All enrolled students get access to bi-weekly live Q&A sessions with Rahul where you can ask questions and get feedback on your channel.</p>
-</div>
-</div>
-<div class="faq-item bg-card-dark border border-white/5 rounded-xl overflow-hidden">
-<div class="flex justify-between items-center cursor-pointer p-6" onclick="toggleFaq(this)">
-<h4 class="font-bold text-lg">What if I'm not satisfied with the course?</h4>
-<svg class="w-6 h-6 faq-icon text-slate-500" fill="currentColor" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg>
-</div>
-<div class="faq-answer px-6 pb-6">
-<p class="text-slate-400 leading-relaxed">We offer a 30-day money-back guarantee with a fair usage policy. If you haven't watched more than 20% of the course and feel it's not for you, just email us for a full refund — no questions asked.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
+    <!-- Quick Links -->
+    <div>
+      <h4 class="text-white text-xs font-extrabold tracking-[0.2em] uppercase mb-5 flex items-center gap-2">
+        <span class="w-4 h-px bg-red-600"></span> Quick Links
+      </h4>
+      <ul class="space-y-3">
+        <li><a href="/" class="text-gray-500 text-sm hover:text-white hover:pl-1 transition-all duration-200">Home</a></li>
+        <li><a href="#explore" class="text-gray-500 text-sm hover:text-white hover:pl-1 transition-all duration-200">Affiliate Blueprint</a></li>
+        <li><a href="#about" class="text-gray-500 text-sm hover:text-white hover:pl-1 transition-all duration-200">About Shashank</a></li>
+        <li><a href="checkout.html" class="text-gray-500 text-sm hover:text-white hover:pl-1 transition-all duration-200">Enroll Now</a></li>
+      </ul>
+    </div>
 
-<!-- Final CTA -->
-<section class="py-20 bg-gradient-to-b from-transparent to-primary/5">
-<div class="max-w-3xl mx-auto px-6 text-center">
-<h2 class="text-4xl lg:text-5xl font-black mb-6">Ready to Build Your<br><span class="text-primary">YouTube Empire?</span></h2>
-<p class="text-slate-400 mb-10 text-lg">500+ Kannada creators have already started. Don't wait.</p>
-<a href="checkout.html">
-<button class="bg-primary hover:bg-primary/90 text-white px-16 py-6 rounded-2xl font-black text-2xl transition-all shadow-2xl shadow-primary/40 uppercase">
-    Enroll Now — ₹9,999
-</button>
-</a>
-<p class="mt-4 text-slate-600 text-sm">One-time payment · Instant Access · 30-day guarantee</p>
-</div>
-</section>
+    <!-- Contact -->
+    <div>
+      <h4 class="text-white text-xs font-extrabold tracking-[0.2em] uppercase mb-5 flex items-center gap-2">
+        <span class="w-4 h-px bg-red-600"></span> Contact Us
+      </h4>
+      <ul class="space-y-4">
+        <li class="flex items-start gap-3">
+          <svg class="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <a href="mailto:shashanksky376@gmial.com" class="text-gray-500 text-sm hover:text-white transition-colors break-all">shashanksky376@gmial.com</a>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg class="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span class="text-gray-500 text-sm">Bengaluru, Karnataka, India</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg class="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span class="text-gray-500 text-sm">Support Hours: 10AM – 6PM IST<br/>Mon – Sat</span>
+        </li>
+      </ul>
+    </div>
 
-<!-- Footer -->
-<footer class="py-12 border-t border-white/5 bg-background-dark">
-<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-<div class="flex items-center gap-3">
-<svg width="28" height="28" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="18" cy="18" r="18" fill="#e8212b" opacity="0.5"/>
-  <polygon points="14,11 27,18 14,25" fill="white" opacity="0.5"/>
-</svg>
-<span class="text-lg font-bold tracking-tight opacity-50">The YouTube Blueprint</span>
-</div>
-<div class="flex gap-8 text-slate-500 text-sm">
-<a class="hover:text-primary transition-colors" href="terms.html">Terms of Service</a>
-<a class="hover:text-primary transition-colors" href="privacy.html">Privacy Policy</a>
-<a class="hover:text-primary transition-colors" href="refunds.html">Refunds</a>
-<a class="hover:text-primary transition-colors" href="pricing.html">Pricing & Shipping</a>
-<a class="hover:text-primary transition-colors" href="contact.html">Contact Us</a>
-</div>
-<p class="text-slate-600 text-xs">© 2026 YouTube Blueprint Academy. All rights reserved.</p>
-</div>
+    <!-- Legal -->
+    <div>
+      <h4 class="text-white text-xs font-extrabold tracking-[0.2em] uppercase mb-5 flex items-center gap-2">
+        <span class="w-4 h-px bg-red-600"></span> Legal
+      </h4>
+      <ul class="space-y-3 mb-6">
+        <li><a href="terms.html" class="text-gray-500 text-sm hover:text-white hover:pl-1 transition-all duration-200">Terms &amp; Conditions</a></li>
+        <li><a href="privacy.html" class="text-gray-500 text-sm hover:text-white hover:pl-1 transition-all duration-200">Privacy Policy</a></li>
+        <li><a href="refunds.html" class="text-gray-500 text-sm hover:text-white hover:pl-1 transition-all duration-200">Cancellation &amp; Refund Policy</a></li>
+      </ul>
+      <!-- Razorpay badge -->
+      <div class="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
+        <p class="text-[10px] text-gray-500 uppercase tracking-wider font-bold mb-1">Secure Payments Powered By</p>
+        <div class="flex items-center gap-3 flex-wrap">
+          <span class="text-white text-sm font-extrabold tracking-wider">RAZORPAY</span>
+          <span class="text-gray-600 text-xs">VISA • MASTERCARD • UPI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-gray-600 text-sm">© 2026 Affiliate PRO — Shashank. All rights reserved.</p>
+      <div class="flex items-center gap-5 text-xs text-gray-600">
+        <a href="terms.html" class="hover:text-white transition-colors">Terms</a>
+        <span class="text-gray-700">•</span>
+        <a href="privacy.html" class="hover:text-white transition-colors">Privacy</a>
+        <span class="text-gray-700">•</span>
+        <a href="refunds.html" class="hover:text-white transition-colors">Refunds</a>
+      </div>
+    </div>
+  </div>
 </footer>
 
-<!-- Mobile Sticky Bottom Bar -->
-<div class="mobile-cta fixed bottom-0 inset-x-0 z-40 p-4 bg-background-dark/95 backdrop-blur-md border-t border-white/10 items-center justify-between" style="gap:12px;">
-  <div>
-    <p style="font-size:10px;color:#4a4a5e;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;">Limited Time</p>
-    <p style="font-size:17px;font-weight:700;color:#fff;letter-spacing:-0.3px;">Blueprint — ₹9,999</p>
-  </div>
-  <a href="checkout.html">
-    <button class="bg-primary text-white font-bold shadow-lg" style="padding:12px 22px;border-radius:10px;font-size:15px;border:none;cursor:pointer;white-space:nowrap;box-shadow:0 4px 20px rgba(232,33,43,.3);">
-      Enroll Now →
-    </button>
-  </a>
-</div>
-
-<script>
-function startMidnightTimer() {
-    function updateTimer() {
-        const now = new Date();
-        const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-        const diff = midnight - now;
-
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-        const timerEls = document.querySelectorAll('.urgency-timer-text');
-        timerEls.forEach(el => {
-            el.textContent = `${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
-            el.classList.remove('opacity-0');
-        });
-    }
-    updateTimer();
-    setInterval(updateTimer, 1000);
-}
-document.addEventListener('DOMContentLoaded', startMidnightTimer);
-
-function toggleFaq(el) {
-    const item = el.closest('.faq-item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-}
-
-// Open first FAQ by default
-document.querySelector('.faq-item').classList.add('open');
-
-// Smooth navbar link active states
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-});
-</script>
-</body></html>
+</body>
+</html>
