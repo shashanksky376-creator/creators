@@ -1,0 +1,32 @@
+{
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/claude-sales-page.html"
+    },
+    {
+      "src": "/login",
+      "dest": "/login.html"
+    },
+    {
+      "src": "/checkout",
+      "dest": "/checkout.html"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/dashboard.html"
+    },
+    {
+      "src": "/terms",
+      "dest": "/terms.html"
+    },
+    {
+      "src": "/privacy",
+      "dest": "/privacy.html"
+    },
+    {
+      "src": "/refunds",
+      "dest": "/refunds.html"
+    }
+  ]
+}
