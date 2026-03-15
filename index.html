@@ -723,6 +723,9 @@
   window.onload = function () {
     updateTimer();
     setInterval(updateTimer, 1000);
+    if (typeof updateNavbarForMembers === 'function') {
+      updateNavbarForMembers();
+    }
   };
 </script>
 

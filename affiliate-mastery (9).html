@@ -263,18 +263,7 @@ nav{display:none;}
 .faq-a{padding:0 22px;max-height:0;overflow:hidden;transition:all .3s;color:var(--muted);font-size:14px;line-height:1.7;}
 .faq-it.open .faq-a{max-height:200px;padding:0 22px 18px;}
 
-/* BOTTOM CTA */
-.bottom-cta{background:linear-gradient(135deg,#180000 0%,#080808 50%,#100000 100%);padding:100px 80px;text-align:center;position:relative;overflow:hidden;}
-.bottom-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(224,28,28,0.1),transparent);pointer-events:none;}
-.bottom-cta h2{font-family:'Bebas Neue',sans-serif;font-size:76px;letter-spacing:3px;line-height:.95;margin-bottom:16px;}
-.bottom-cta h2 em{color:var(--red);font-style:normal;}
-.bottom-cta p{color:var(--muted);font-size:17px;max-width:520px;margin:0 auto 36px;line-height:1.7;}
-.bottom-price{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:36px;}
-.bp-now{font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--red);line-height:1;}
-.bp-was{font-size:26px;color:var(--muted);text-decoration:line-through;}
-.bp-disc{background:var(--green);color:#000;font-size:13px;font-weight:700;padding:6px 16px;border-radius:20px;}
-.bottom-pills{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:40px;}
-.b-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:8px 18px;border-radius:30px;font-size:13px;color:var(--muted);}
+
 
 /* FOOTER */
 footer{background:var(--dark);border-top:1px solid #151515;padding:36px 80px;display:flex;align-items:center;justify-content:space-between;}
@@ -425,15 +414,21 @@ footer p{font-size:12.5px;color:var(--muted);}
 
 /* MY WORK SECTION */
 .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
-.work-card { background: var(--dark3); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden; transition: 0.3s; }
-.work-card:hover { transform: translateY(-5px); border-color: var(--red); }
-.wc-img { width: 100%; aspect-ratio: 16/9; background: #222; overflow: hidden; }
-.wc-img img { width: 100%; height: 100%; object-fit: cover; }
-.wc-content { padding: 20px; }
-.wc-label { font-size: 10px; color: var(--red); font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
-.wc-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
-.wc-stats { display: flex; gap: 16px; font-size: 12px; color: var(--muted); }
-.wc-link { display: inline-flex; align-items: center; gap: 6px; color: #fff; font-size: 13px; font-weight: 600; margin-top: 16px; border-bottom: 1px solid var(--red); padding-bottom: 2px; }
+.work-card { background: var(--dark3); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; position: relative; }
+.work-card:hover { transform: translateY(-10px); border-color: rgba(224, 28, 28, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+.wc-img { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #1a1a1a, #0a0a0a); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
+.wc-img i { font-size: 64px; color: var(--red); opacity: 0.8; transition: 0.4s; }
+.work-card:hover .wc-img i { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 15px rgba(224, 28, 28, 0.4)); }
+.wc-content { padding: 24px; flex-grow: 1; display: flex; flex-direction: column; }
+.wc-label { font-size: 11px; color: var(--red); font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; opacity: 0.8; }
+.wc-title { font-size: 20px; font-weight: 700; margin-bottom: 14px; line-height: 1.3; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; color: #fff; }
+.wc-stats { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.wc-stats span { display: flex; align-items: center; gap: 8px; }
+.wc-stats span::before { content: '•'; color: var(--red); }
+.wc-link { display: inline-flex; align-items: center; gap: 8px; color: #fff; font-size: 14px; font-weight: 700; text-decoration: none; transition: 0.3s; margin-top: auto; }
+.wc-link:hover { color: var(--red); }
+.wc-link span { transition: 0.3s; }
+.wc-link:hover span { transform: translateX(5px); }
 
 @media (max-width: 900px) {
   .work-grid { grid-template-columns: 1fr; }
@@ -928,7 +923,7 @@ footer p{font-size:12.5px;color:var(--muted);}
     <!-- Card 1 -->
     <div class="work-card">
       <div class="wc-img">
-        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC50QByiOgQw8izDA67amd3v2bQ_YyNz5REyAOWA2IjPWsyPBjLUwElDhIAwzmGlBdPYmRY6VDoImlpRnRnxlx-ip-EUKAxyFsl-imX-niZr8nk5-P47xYPhWUC11r98jDtMOmB1mlphSW2j5s57XQbPyJjv5fxSfzEcmsqRk-T8ZO95bHJ6-JTuuBAdLueLQ47sk9LtCq9_sIz_zHiDYhXOu1VD15BPraTCnlTcW1fRr3M9KqJd25ls2y_mAhPj1bcneBHaIq4D5w" alt="Shashank YouTube">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor" style="color:#ff0000;"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .6 5.8 3 3 0 0 0 2 2.1c2 .6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.4-1.8.5-3.6.5-5.8a31.6 31.6 0 0 0-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
       </div>
       <div class="wc-content">
         <div class="wc-label">YouTube (Main)</div>
@@ -937,14 +932,14 @@ footer p{font-size:12.5px;color:var(--muted);}
           <span>300K+ Subscribers</span>
           <span>500+ Videos</span>
         </div>
-        <a href="https://youtube.com/@iamshashank" target="_blank" class="wc-link">Visit Channel →</a>
+        <a href="https://youtube.com/@iamshashank" target="_blank" class="wc-link">Visit Channel <span>→</span></a>
       </div>
     </div>
 
     <!-- Card 2 -->
     <div class="work-card">
       <div class="wc-img">
-        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC50QByiOgQw8izDA67amd3v2bQ_YyNz5REyAOWA2IjPWsyPBjLUwElDhIAwzmGlBdPYmRY6VDoImlpRnRnxlx-ip-EUKAxyFsl-imX-niZr8nk5-P47xYPhWUC11r98jDtMOmB1mlphSW2j5s57XQbPyJjv5fxSfzEcmsqRk-T8ZO95bHJ6-JTuuBAdLueLQ47sk9LtCq9_sIz_zHiDYhXOu1VD15BPraTCnlTcW1fRr3M9KqJd25ls2y_mAhPj1bcneBHaIq4D5w" alt="Shashank Instagram">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor" style="color:#bc1888;"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.2 4.8 1.7 5 5 .1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.2 3.3-1.7 4.8-5 5-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.2-4.8-1.7-5-5C2.1 15.6 2 15.2 2 12c0-3.2 0-3.6.1-4.8.2-3.3 1.7-4.8 5-5C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.2 0-3.5 0-4.7.1-2.2.1-3.2 1.1-3.4 3.4C3.8 8.5 3.8 8.8 3.8 12s0 3.5.1 4.7c.1 2.2 1.1 3.2 3.4 3.4 1.2.1 1.5.1 4.7.1s3.5 0 4.7-.1c2.2-.1 3.2-1.1 3.4-3.4.1-1.2.1-1.5.1-4.7s0-3.5-.1-4.7c-.1-2.2-1.1-3.2-3.4-3.4C15.5 4 15.2 4 12 4zm0 3a5 5 0 1 1 0 10A5 5 0 0 1 12 7zm0 1.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4zm5.2-.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
       </div>
       <div class="wc-content">
         <div class="wc-label">Instagram</div>
@@ -953,14 +948,14 @@ footer p{font-size:12.5px;color:var(--muted);}
           <span>700K+ Followers</span>
           <span>170+ Posts</span>
         </div>
-        <a href="https://instagram.com/shashank_official_2.0" target="_blank" class="wc-link">Follow on Insta →</a>
+        <a href="https://instagram.com/shashank_official_2.0" target="_blank" class="wc-link">Follow on Insta <span>→</span></a>
       </div>
     </div>
 
     <!-- Card 3 -->
     <div class="work-card">
       <div class="wc-img">
-        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC50QByiOgQw8izDA67amd3v2bQ_YyNz5REyAOWA2IjPWsyPBjLUwElDhIAwzmGlBdPYmRY6VDoImlpRnRnxlx-ip-EUKAxyFsl-imX-niZr8nk5-P47xYPhWUC11r98jDtMOmB1mlphSW2j5s57XQbPyJjv5fxSfzEcmsqRk-T8ZO95bHJ6-JTuuBAdLueLQ47sk9LtCq9_sIz_zHiDYhXOu1VD15BPraTCnlTcW1fRr3M9KqJd25ls2y_mAhPj1bcneBHaIq4D5w" alt="Shashank Facebook">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor" style="color:#1877f2;"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07z"/></svg>
       </div>
       <div class="wc-content">
         <div class="wc-label">Facebook</div>
@@ -969,7 +964,7 @@ footer p{font-size:12.5px;color:var(--muted);}
           <span>350K+ Subscribers</span>
           <span>180+ Videos</span>
         </div>
-        <a href="https://facebook.com/iamshashankfb" target="_blank" class="wc-link">Visit Page →</a>
+        <a href="https://facebook.com/iamshashankfb" target="_blank" class="wc-link">Visit Page <span>→</span></a>
       </div>
     </div>
   </div>
@@ -1005,24 +1000,7 @@ footer p{font-size:12.5px;color:var(--muted);}
   </div>
 </section>
 
-<!-- BOTTOM CTA -->
-<section class="bottom-cta">
-  <h2>The Affiliate<br>Marketing <em>Blueprint</em></h2>
-  <p>Make Affiliate Marketing Your Full-Time Career in 2025. Start your journey today — entirely in Kannada.</p>
-  <div class="bottom-price">
-    <div class="bp-now">₹1,999</div>
-    <div class="bp-was">₹5,000</div>
-    <div class="bp-disc">60% OFF</div>
-  </div>
-  <div class="bottom-pills">
-    <div class="b-pill">📚 6 Modules</div>
-    <div class="b-pill">🎬 5h+ Video</div>
-    <div class="b-pill">🗣 Kannada Language</div>
-    <div class="b-pill">♾ Lifetime Access</div>
-    <div class="b-pill">🏆 Certificate</div>
-  </div>
-  <button class="btn-primary" style="font-size:18px;padding:18px 64px;">Register Today →</button>
-</section>
+
 
 
 
@@ -1157,5 +1135,12 @@ setInterval(updateTimer, 1000);
     </div>
   </div>
 </footer>
+<script>
+  window.addEventListener('load', function() {
+    if (typeof updateNavbarForMembers === 'function') {
+      updateNavbarForMembers();
+    }
+  });
+</script>
 </body>
 </html>
