@@ -458,13 +458,32 @@ footer p{font-size:12.5px;color:var(--muted);}
     <a href="#instructor" class="nav-link text-white/40">About</a>
   </nav>
 
-  <div class="flex items-center gap-2 sm:gap-3">
-    <a href="login.html" class="hidden sm:block text-xs font-bold text-gray-400 hover:text-white transition-colors px-4">Login</a>
+  <div class="flex items-center gap-2 sm:gap-3" id="nav-auth-group">
+    <a href="login.html" id="nav-login-btn" class="hidden sm:block text-xs font-bold text-gray-400 hover:text-white transition-colors px-4">Login</a>
     <a href="checkout.html" class="px-4 sm:px-5 py-2 sm:py-2.5 bg-red-600 hover:bg-red-700 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-widest rounded-xl shadow-[0_8px_16px_rgba(220,38,38,0.25)] hover:shadow-[0_12px_24px_rgba(220,38,38,0.4)] hover:-translate-y-0.5 transition-all duration-300">Enroll Now</a>
   </div>
 </header>
 
+<script src="supabase-config.js"></script>
 <script>
+  // Dynamic Auth Header
+  (async () => {
+    try {
+      const session = await getSession();
+      if (session && session.user) {
+        const loginBtn = document.getElementById('nav-login-btn');
+        if (loginBtn) {
+          loginBtn.textContent = 'Dashboard';
+          loginBtn.href = 'dashboard.html';
+          loginBtn.classList.remove('text-gray-400');
+          loginBtn.classList.add('text-white', 'bg-white/10', 'py-2', 'rounded-lg');
+        }
+      }
+    } catch (e) {
+      console.warn("Header auth check skipped:", e);
+    }
+  })();
+
   window.addEventListener('scroll', () => {
     const header = document.getElementById('mainHeader');
     if (window.scrollY > 50) {

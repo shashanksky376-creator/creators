@@ -185,8 +185,16 @@ async function getSession() {
 // AUTH: Sign out and clear local session token
 // -------------------------------------------------------
 async function signOut() {
-  localStorage.removeItem("affiliate_pro_session");
   const client = initSupabase();
+  
+  // Get current user to clear their specific token
+  const { data: { user } } = await client.auth.getUser();
+  if (user && user.email) {
+    const cleanEmail = user.email.toLowerCase().trim();
+    localStorage.removeItem(`af_pro_session_${cleanEmail}`);
+  }
+  
+  localStorage.removeItem("affiliate_pro_last_user");
   await client.auth.signOut();
   window.location.href = "/index.html";
 }

@@ -154,10 +154,17 @@
 
     // If already logged in and valid session, go straight to dashboard
     (async () => {
-      const session = await getSession();
-      if (session) {
-        const valid = await validateActiveSession(session.user.email);
-        if (valid) window.location.href = "/dashboard.html";
+      try {
+        const session = await getSession();
+        if (session && session.user) {
+          const valid = await validateActiveSession(session.user.email);
+          if (valid) {
+            console.log("Valid session found, auto-redirecting to dashboard...");
+            window.location.href = "/dashboard.html";
+          }
+        }
+      } catch (e) {
+        console.error("Auto-redirect check failed:", e);
       }
     })();
 
@@ -250,8 +257,13 @@
     }
 
     async function handleGoogleLogin() {
-        // Clear local token to ensure a fresh session is initialized on redirect
-        localStorage.removeItem("affiliate_pro_session");
+        // Clear last user's token to ensure a fresh session is initialized on redirect
+        const lastUser = localStorage.getItem("affiliate_pro_last_user");
+        if (lastUser) {
+          localStorage.removeItem(`af_pro_session_${lastUser.toLowerCase().trim()}`);
+        }
+        localStorage.removeItem("affiliate_pro_last_user");
+        
         const { error } = await signInWithGoogle();
         if (error) alert("Google Login Error: " + error.message);
     }
