@@ -50,6 +50,11 @@
     .progress-glow {
       box-shadow: 0 0 15px rgba(220,38,38,0.4);
     }
+    @media (max-width: 768px) {
+      .glass-card { border-radius: 1.25rem; }
+      h1 { font-size: 1.75rem !important; }
+      .lesson-item { padding: 0.75rem 1rem; }
+    }
   </style>
 </head>
 <body class="bg-[#050505] text-white min-h-screen">
@@ -101,89 +106,95 @@
   </div>
 
   <!-- Content -->
-  <main class="max-w-5xl mx-auto px-6 py-10">
-    <div class="grid md:grid-cols-3 gap-8">
+  <main class="max-w-7xl mx-auto px-6 py-6 md:py-10">
+    <div class="grid lg:grid-cols-12 gap-8 items-start">
 
-      <!-- Left: Module List -->
-      <div class="md:col-span-2 space-y-4">
-        <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
-          <span class="w-4 h-px bg-red-600"></span> Course Modules
+      <!-- LEFT: Video Player & Info (8/12) -->
+      <div class="lg:col-span-8 space-y-6">
+        <!-- Video Container -->
+        <div class="glass-card overflow-hidden aspect-video relative group border-[#dc2626]/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]">
+          <div id="video-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-[#0a0a0a] text-center p-8 z-10 transition-opacity duration-500">
+            <div class="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center text-red-600 mb-6 border border-red-600/20">
+              <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+            </div>
+            <h2 class="text-xl font-bold mb-2">Ready to Learn?</h2>
+            <p class="text-gray-500 text-sm max-w-sm">Select a lesson from the syllabus on the right to start watching.</p>
+          </div>
+          
+          <iframe id="bunny-player" 
+                  src="" 
+                  loading="lazy" 
+                  style="border:0;position:absolute;top:0;height:100%;width:100%;opacity:0;transition:opacity 0.5s;" 
+                  allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" 
+                  allowfullscreen="true">
+          </iframe>
+        </div>
+
+        <!-- Lesson Info -->
+        <div class="glass-card p-6 md:p-8 space-y-4 animate-slide">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div id="current-module-tag" class="text-[10px] text-red-500 font-black tracking-widest uppercase mb-1">Introduction</div>
+              <h2 id="current-lesson-title" class="text-2xl md:text-3xl font-black tracking-tight">Welcome Student</h2>
+            </div>
+          </div>
+          <p id="current-lesson-desc" class="text-gray-400 text-sm leading-relaxed max-w-3xl">Please select a module to begin your training sessions.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT: Module List (4/12) -->
+      <div class="lg:col-span-4 space-y-4 max-h-[80vh] overflow-y-auto pr-2 custom-scrollbar">
+        <h2 class="text-xs font-black text-gray-500 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+          <span class="w-6 h-px bg-red-600/50"></span> Course Syllabus
         </h2>
 
         <!-- Module 1 -->
-        <div class="glass-card p-6 animate-slide" style="animation-delay: 0.1s;">
-          <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-4">
-              <div class="w-10 h-10 rounded-xl bg-red-600/10 text-red-500 flex items-center justify-center text-sm font-black border border-red-600/20 shadow-lg shadow-red-600/5">1</div>
-              <h3 class="font-bold text-gray-200">Introduction to Affiliate Marketing</h3>
-            </div>
-            <span class="text-[10px] text-green-400 bg-green-400/10 px-3 py-1 rounded-full font-black tracking-widest uppercase border border-green-400/20">Free</span>
-          </div>
-          <div class="space-y-1 pl-14">
-            <div class="lesson-item flex items-center gap-3 text-sm text-gray-400">
-              <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
-              What is Affiliate Marketing? <span class="text-[10px] text-gray-600 ml-auto">15 MIN</span>
-            </div>
-            <div class="lesson-item flex items-center gap-3 text-sm text-gray-400">
-              <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
-              How Commissions Work <span class="text-[10px] text-gray-600 ml-auto">12 MIN</span>
-            </div>
-            <div class="lesson-item flex items-center gap-3 text-sm text-gray-400">
-              <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
-              Top Affiliate Platforms in India <span class="text-[10px] text-gray-600 ml-auto">18 MIN</span>
+        <div class="space-y-4">
+          <div class="glass-card p-5">
+            <div class="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-3">Module 1: Foundations</div>
+            <div class="space-y-2">
+              <div onclick="selectLesson('Course Overview', 'Getting started with the basics of the industry.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2e', this)" class="lesson-item flex items-center gap-3" data-module="Foundations">
+                <div class="w-8 h-8 rounded-lg bg-red-600/10 text-red-500 flex items-center justify-center text-xs font-black border border-red-600/20">01</div>
+                <div class="flex-1">
+                  <div class="text-[13px] font-bold text-gray-200">Welcome & Roadmap</div>
+                </div>
+                <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+              </div>
+              <div onclick="selectLesson('Mindset for Success', 'The psychological foundation of a top affiliate.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2f', this)" class="lesson-item flex items-center gap-3" data-module="Foundations">
+                <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center text-xs font-black border border-white/5">02</div>
+                <div class="flex-1">
+                  <div class="text-[13px] font-bold text-gray-400">Mindset Mastery</div>
+                </div>
+                <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Module 2 -->
-        <div class="glass-card p-6 animate-slide" style="animation-delay: 0.2s;">
-          <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-4">
-              <div class="w-10 h-10 rounded-xl bg-orange-600/10 text-orange-500 flex items-center justify-center text-sm font-black border border-orange-600/20 shadow-lg shadow-orange-600/5">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.172-1.172a2 2 0 112.828 2.828l-1.172 1.172"></path></svg>
+        <div class="space-y-4">
+          <div class="glass-card p-5">
+            <div class="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-3">Module 2: Traffic Secrets</div>
+            <div class="space-y-2">
+              <div onclick="selectLesson('FB Ads 101', 'Setting up your first high-converting ad campaign.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a3a', this)" class="lesson-item flex items-center gap-3" data-module="Traffic Secrets">
+                <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center text-xs font-black border border-white/5">03</div>
+                <div class="flex-1">
+                  <div class="text-[13px] font-bold text-gray-400">Facebook Ads Setup</div>
+                </div>
+                <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
               </div>
-              <h3 class="font-bold text-gray-200">Niche Selection Mastery</h3>
-            </div>
-            <span class="text-[10px] text-gray-500 bg-white/5 px-3 py-1 rounded-full font-black tracking-widest uppercase border border-white/5">4 LESSONS</span>
-          </div>
-          <div class="space-y-1 pl-14">
-            <div class="lesson-item flex items-center gap-3 text-sm text-gray-400"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>Finding Your Profitable Niche <span class="text-[10px] text-gray-600 ml-auto">22 MIN</span></div>
-            <div class="lesson-item flex items-center gap-3 text-sm text-gray-400"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>Competitor Research Techniques <span class="text-[10px] text-gray-600 ml-auto">19 MIN</span></div>
-          </div>
-        </div>
-
-        <!-- Module 3 -->
-        <div class="glass-card p-6 animate-slide" style="animation-delay: 0.3s;">
-          <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-4">
-              <div class="w-10 h-10 rounded-xl bg-blue-600/10 text-blue-500 flex items-center justify-center text-sm font-black border border-blue-600/20 shadow-lg shadow-blue-600/5">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+              <div onclick="selectLesson('Organic IG Growth', 'Build a brand without spending a rupee on ads.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a3b', this)" class="lesson-item flex items-center gap-3" data-module="Traffic Secrets">
+                <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center text-xs font-black border border-white/5">04</div>
+                <div class="flex-1">
+                  <div class="text-[13px] font-bold text-gray-400">Instagram Strategy</div>
+                </div>
+                <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
               </div>
-              <h3 class="font-bold text-gray-200">Traffic Generation Strategies</h3>
             </div>
-            <span class="text-[10px] text-gray-500 bg-white/5 px-3 py-1 rounded-full font-black tracking-widest uppercase border border-white/5">5 LESSONS</span>
-          </div>
-          <div class="space-y-1 pl-14">
-            <div class="lesson-item flex items-center gap-3 text-sm text-gray-400"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>Organic Traffic via YouTube & Instagram <span class="text-[10px] text-gray-600 ml-auto">28 MIN</span></div>
-          </div>
-        </div>
-
-        <!-- Locked Modules -->
-        <div class="glass-card p-6 opacity-40 grayscale animate-slide" style="animation-delay: 0.4s;">
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 rounded-xl bg-white/5 text-gray-600 flex items-center justify-center text-sm font-black border border-white/5">4</div>
-            <h3 class="font-bold text-gray-600">Automated Sales Funnels</h3>
-            <span class="ml-auto text-[9px] text-yellow-500 bg-yellow-500/10 px-3 py-1 rounded-full font-black tracking-widest uppercase border border-yellow-500/20">Locked</span>
-          </div>
-        </div>
-        <div class="glass-card p-6 opacity-40 grayscale animate-slide" style="animation-delay: 0.5s;">
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 rounded-xl bg-white/5 text-gray-600 flex items-center justify-center text-sm font-black border border-white/5">5</div>
-            <h3 class="font-bold text-gray-600">Scaling to ₹1 Lakh/Month</h3>
-            <span class="ml-auto text-[9px] text-yellow-500 bg-yellow-500/10 px-3 py-1 rounded-full font-black tracking-widest uppercase border border-yellow-500/20">Locked</span>
           </div>
         </div>
       </div>
+    </div>
 
       <!-- Right: Sidebar -->
       <div class="space-y-6 animate-slide" style="animation-delay: 0.2s;">
@@ -228,20 +239,64 @@
     </div>
   </main>
 
+  <style>
+    .active-lesson {
+      background: rgba(220, 38, 38, 0.05) !important;
+      border-color: rgba(220, 38, 38, 0.2) !important;
+    }
+    .active-lesson .text-gray-400, .active-lesson .text-gray-200 {
+      color: #fff !important;
+    }
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(220,38,38,0.2); border-radius: 10px; }
+  </style>
+
   <script>
-    // Show user email in header and sidebar
+    const BUNNY_LIBRARY_ID = "348560"; // Example ID, please update with real one
+
+    function selectLesson(title, desc, videoId, element) {
+      if (!videoId) return;
+      
+      const placeholder = document.getElementById('video-placeholder');
+      const player = document.getElementById('bunny-player');
+      
+      placeholder.style.opacity = '0';
+      setTimeout(() => placeholder.style.display = 'none', 500);
+      
+      player.src = `https://iframe.mediadelivery.net/embed/${BUNNY_LIBRARY_ID}/${videoId}?autoplay=true`;
+      player.style.opacity = '1';
+
+      document.getElementById('current-lesson-title').textContent = title;
+      document.getElementById('current-lesson-desc').textContent = desc;
+      document.getElementById('current-module-tag').textContent = element.getAttribute('data-module');
+
+      document.querySelectorAll('.lesson-item').forEach(item => item.classList.remove('active-lesson'));
+      element.classList.add('active-lesson');
+      
+      // Auto-scroll to player on mobile
+      if (window.innerWidth < 1024) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Auth & Info logic
     (async function() {
-      const session = await getSession();
-      if (session) {
-        const email = session.user.email;
-        const el = document.getElementById("user-email");
-        if (el) el.textContent = email;
-        const sb = document.getElementById("sidebar-email");
-        if (sb) sb.textContent = email;
-        const av = document.getElementById("user-avatar");
-        if (av && email) av.textContent = email[0].toUpperCase();
+      if(typeof getSession !== 'undefined') {
+        const session = await getSession();
+        if (session) {
+          const email = session.user.email;
+          document.querySelectorAll("#user-email, #sidebar-email").forEach(el => el.textContent = email);
+          const av = document.getElementById("user-avatar");
+          if (av && email) av.textContent = email[0].toUpperCase();
+        }
       }
     })();
+
+    function signOut() {
+      if(typeof supabase !== 'undefined') supabase.auth.signOut().then(() => window.location.href = "login.html");
+      else window.location.href = "login.html";
+    }
   </script>
 
 </body>

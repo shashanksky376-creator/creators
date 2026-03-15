@@ -1,211 +1,128 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Success | YouTube Blueprint</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          "primary": "#e8212b",
-          "background-dark": "#0A0A0A",
-          "surface": "#111111",
-          "card": "#1A1A1A",
-        },
-        fontFamily: { "display": ["Space Grotesk", "sans-serif"] },
-        borderRadius: {"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},
-      },
-    },
-  }
-</script>
-<style>
-  body { font-family: 'Space Grotesk', sans-serif; }
-  .success-glow { box-shadow: 0 0 40px rgba(232,33,43,0.15); }
-  @keyframes pop {
-    0%   { transform: scale(0.5); opacity: 0; }
-    70%  { transform: scale(1.1); }
-    100% { transform: scale(1);   opacity: 1; }
-  }
-  .animate-pop { animation: pop 0.5s cubic-bezier(.36,.07,.19,.97) both; }
-  @keyframes fadeup {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fadeup { animation: fadeup 0.6s ease both; }
-  .delay-1 { animation-delay: 0.15s; }
-  .delay-2 { animation-delay: 0.3s; }
-  .delay-3 { animation-delay: 0.45s; }
-  .delay-4 { animation-delay: 0.6s; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to the Family! | Affiliate PRO</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #050505; color: #fff; overflow-x: hidden; }
+    .glass-card { 
+      background: rgba(15, 15, 15, 0.6); 
+      backdrop-filter: blur(24px) saturate(180%); 
+      border: 1px solid rgba(255, 255, 255, 0.1); 
+      border-radius: 2rem;
+    }
+    .check-mark {
+      width: 80px;
+      height: 80px;
+      background: #dc2626;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(220, 38, 38, 0.4);
+      margin: 0 auto;
+      animation: scaleUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @keyframes scaleUp {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(220, 38, 38, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+  </style>
 </head>
-<body class="bg-background-dark text-slate-100 min-h-screen flex flex-col">
-
-<!-- NAV -->
-<nav class="w-full border-b border-white/5 bg-surface/50 backdrop-blur-md sticky top-0 z-50">
-  <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="sales-page.html" class="flex items-center gap-2 no-underline">
-      <svg width="30" height="30" viewBox="0 0 36 36" fill="none">
-        <circle cx="18" cy="18" r="18" fill="#e8212b"/>
-        <polygon points="14,11 28,18 14,25" fill="white"/>
+<body class="min-h-screen flex items-center justify-center p-6">
+  <div class="glow"></div>
+  
+  <div class="max-w-xl w-full text-center space-y-8 animate-fade-in">
+    <div class="check-mark">
+      <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
       </svg>
-      <span class="text-white text-lg font-bold tracking-tight">YouTube Blueprint</span>
-    </a>
-    <div class="flex items-center gap-3">
-      <!-- Bell -->
-      <button class="p-2 rounded-lg bg-card text-slate-400 hover:text-white transition-colors">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 002 2zm6-6V11c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
-      </button>
-      <!-- Avatar -->
-      <div class="w-8 h-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-        <svg width="16" height="16" fill="#e8212b" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-      </div>
-    </div>
-  </div>
-</nav>
-
-<!-- MAIN -->
-<main class="flex-grow flex flex-col items-center justify-center px-6 py-12 md:py-20">
-  <div class="max-w-2xl w-full text-center">
-
-    <!-- Success icon -->
-    <div class="mb-8 relative inline-flex animate-pop">
-      <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full"></div>
-      <div class="relative bg-card border border-white/10 w-24 h-24 rounded-full flex items-center justify-center">
-        <svg width="52" height="52" fill="#e8212b" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/>
-        </svg>
-      </div>
     </div>
 
-    <!-- Headline -->
-    <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight animate-fadeup delay-1">
-      Welcome to the <span class="text-primary">Blueprint!</span>
-    </h1>
-    <p class="text-slate-400 text-lg md:text-xl max-w-lg mx-auto mb-10 leading-relaxed animate-fadeup delay-2" id="welcome-msg">
-      Your enrollment is confirmed. You're now on your way to becoming a full-time YouTube creator.
-    </p>
+    <div class="space-y-4">
+      <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">Welcome to <span class="text-red-600">Affiliate PRO</span></h1>
+      <p class="text-gray-400 text-lg">Your payment was successful. You're now a part of the most elite affiliate community!</p>
+    </div>
 
-    <!-- Order details -->
-    <div class="bg-card border border-white/5 rounded-2xl p-6 md:p-8 mb-12 text-left success-glow animate-fadeup delay-2">
-      <h2 class="text-sm uppercase tracking-widest text-slate-500 font-semibold mb-6">Enrollment Details</h2>
+    <div class="glass-card p-8 space-y-6">
+      <div class="flex items-center justify-between text-sm border-b border-white/5 pb-4">
+        <span class="text-gray-500 font-medium">Order ID</span>
+        <span id="order-id" class="text-white font-bold tracking-wider">#XXXXXX</span>
+      </div>
+      
       <div class="space-y-4">
-        <div class="flex justify-between items-center border-b border-white/5 pb-4">
-          <span class="text-slate-400">Order ID</span>
-          <span class="font-mono text-white" id="order-id">#YB-0000</span>
-        </div>
-        <div class="flex justify-between items-center border-b border-white/5 pb-4">
-          <span class="text-slate-400">Amount Paid</span>
-          <span class="text-white font-semibold">₹9,999</span>
-        </div>
-        <div class="flex justify-between items-center border-b border-white/5 pb-4">
-          <span class="text-slate-400">Payment Status</span>
-          <span class="flex items-center gap-1.5 text-green-400 font-semibold">
-            <svg width="14" height="14" fill="#22c55e" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/></svg>
-            Verified
-          </span>
-        </div>
-        <div class="flex justify-between items-center">
-          <span class="text-slate-400">Course</span>
-          <span class="text-white">YouTube Blueprint (Kannada)</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- What happens next -->
-    <div class="text-left mb-12 animate-fadeup delay-3">
-      <h3 class="text-xl font-bold mb-6 text-center md:text-left">What Happens Next?</h3>
-      <div class="grid md:grid-cols-3 gap-4">
-
-        <div class="bg-surface border border-white/5 p-5 rounded-xl">
-          <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-            <svg width="22" height="22" fill="#e8212b" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          </div>
-          <h4 class="font-bold mb-2">Check Email</h4>
-          <p class="text-sm text-slate-400">We've sent your login credentials to your inbox. Check spam if not visible.</p>
-        </div>
-
-        <div class="bg-surface border border-white/5 p-5 rounded-xl">
-          <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-            <svg width="22" height="22" fill="#e8212b" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.48 13.617l-2.95-.924c-.641-.2-.654-.641.136-.954l11.527-4.448c.537-.194 1.006.131.701.93z"/></svg>
-          </div>
-          <h4 class="font-bold mb-2">Join Telegram</h4>
-          <p class="text-sm text-slate-400">Connect with 500+ Kannada creators in our private community.</p>
-        </div>
-
-        <div class="bg-surface border border-white/5 p-5 rounded-xl">
-          <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-            <svg width="22" height="22" fill="#e8212b" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <h4 class="font-bold mb-2">Start Module 01</h4>
-          <p class="text-sm text-slate-400">Begin your journey with the Foundation module right now.</p>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Action buttons -->
-    <div class="flex flex-col gap-6 animate-fadeup delay-4 mb-4">
-      <div class="bg-card border border-white/5 p-8 rounded-2xl flex flex-col items-center gap-4 relative overflow-hidden text-center">
-        <div class="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent pointer-events-none"></div>
-        <h3 class="text-2xl font-bold z-10">Access YouTube Blueprint</h3>
-        <p class="text-slate-400 z-10">Get instant access to the course videos and resources.</p>
-        <a href="https://drive.google.com/drive/folders/YOUR_DRIVE_LINK_HERE?usp=sharing" target="_blank" class="w-full sm:w-auto z-10 mt-2">
-          <button class="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-xl transition-all shadow-[0_0_30px_rgba(232,33,43,0.3)] hover:shadow-[0_0_40px_rgba(232,33,43,0.5)] flex items-center justify-center gap-3 text-lg w-full">
-            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M2.29 14.86L6.5 7.56h11l-4.21 7.3h-11zm17.42-7.3l-4.21-7.3h-11l4.21 7.3h11zM11.5 15.68l4.21-7.3 4.21 7.3-8.42 14.6H3.08l8.42-14.6z"/></svg>
-            Open Google Drive Folder
-          </button>
-        </a>
+        <h3 class="text-left text-xs font-black uppercase tracking-widest text-gray-500">Next Steps</h3>
+        <ul class="text-left space-y-3">
+          <li class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center shrink-0 mt-0.5">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <p class="text-sm text-gray-300">Check your email for access credentials and invoice.</p>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-red-600/20 text-red-500 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="text-[10px] font-black">2</span>
+            </div>
+            <p class="text-sm text-gray-300">Login to the student portal and start with the "Getting Started" module.</p>
+          </li>
+        </ul>
       </div>
 
-      <a href="https://t.me/YOUR_TELEGRAM_GROUP" target="_blank" id="telegram-btn" class="mx-auto w-full sm:w-fit">
-        <button class="border border-white/20 hover:bg-white/5 text-white font-bold py-4 px-10 rounded-xl transition-all flex items-center justify-center gap-2 text-lg w-full">
-          <svg width="20" height="20" fill="white" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.48 13.617l-2.95-.924c-.641-.2-.654-.641.136-.954l11.527-4.448c.537-.194 1.006.131.701.93z"/></svg>
-          Join Telegram Community
-        </button>
+      <a href="dashboard.html" class="block w-full py-4 bg-red-600 hover:bg-red-700 text-white font-black text-sm uppercase tracking-widest rounded-2xl transition-all shadow-[0_12px_24px_rgba(220,38,38,0.3)] hover:-translate-y-1">
+        Start Learning Now
       </a>
     </div>
 
-  </div>
-</main>
-
-<!-- FOOTER -->
-<footer class="w-full py-8 border-t border-white/5 bg-surface/30">
-  <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-    <p class="text-slate-500 text-sm">© 2026 YouTube Blueprint by Rahul Hegde. All rights reserved.</p>
-    <div class="flex gap-6">
-      <a class="text-slate-500 hover:text-white text-sm transition-colors" href="index.html">Home</a>
-      <a class="text-slate-500 hover:text-white text-sm transition-colors" href="contact.html">Support</a>
-      <a class="text-slate-500 hover:text-white text-sm transition-colors" href="pricing.html">Pricing</a>
-      <a class="text-slate-500 hover:text-white text-sm transition-colors" href="refunds.html">Refunds</a>
-      <a class="text-slate-500 hover:text-white text-sm transition-colors" href="privacy.html">Privacy Policy</a>
-      <a class="text-slate-500 hover:text-white text-sm transition-colors" href="terms.html">Terms</a>
+    <div class="pt-4">
+      <p class="text-gray-600 text-xs">Need help? Contact us at <a href="mailto:shashanksky376@gmial.com" class="text-gray-400 hover:text-white underline">shashanksky376@gmial.com</a></p>
     </div>
   </div>
-</footer>
 
-<script>
-  // Pull payment details passed via URL params from Razorpay redirect
-  // e.g. thank-you.html?payment_id=pay_xyz&order_id=order_abc&name=John
-  const params = new URLSearchParams(window.location.search);
-  const paymentId = params.get('payment_id');
-  const orderId   = params.get('order_id');
-  const name      = params.get('name');
+  <script>
+    // Confetti effect on load
+    window.addEventListener('load', () => {
+      const duration = 3 * 1000;
+      const animationEnd = Date.now() + duration;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
-  // Set Local Storage flag instantly when user arrives here so index.html knows they bought
-  localStorage.setItem('has_purchased', 'true');
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
 
-  if (paymentId) {
-    document.getElementById('order-id').textContent = '#' + paymentId.slice(-8).toUpperCase();
-  }
-  if (name) {
-    document.getElementById('welcome-msg').textContent =
-      `Thank you for enrolling, ${name}! You're now on your way to becoming a full-time YouTube creator.`;
-  }
-</script>
+      const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+        confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+        confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+      }, 250);
+
+      // Extract Payment ID from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const paymentId = urlParams.get('payment_id');
+      if (paymentId) {
+        document.getElementById('order-id').textContent = '#' + paymentId.substring(4, 12).toUpperCase();
+      }
+    });
+  </script>
 </body>
 </html>
