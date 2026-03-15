@@ -70,9 +70,20 @@
     .custom-scroll::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
     @media (max-width: 1024px) {
-      .sidebar { transform: translateX(-100%); width: 100%; }
+      .sidebar { transform: translateX(-100%); width: 280px; z-index: 200; }
       .sidebar.open { transform: translateX(0); }
       .main-content { margin-left: 0; }
+      .sidebar-overlay { 
+        position: fixed; 
+        inset: 0; 
+        background: rgba(0,0,0,0.7); 
+        backdrop-filter: blur(4px);
+        z-index: 150; 
+        opacity: 0; 
+        visibility: hidden; 
+        transition: all 0.3s ease;
+      }
+      .sidebar-overlay.active { opacity: 1; visibility: visible; }
     }
   </style>
 </head>
@@ -81,6 +92,9 @@
   <!-- Auth Guard -->
   <script src="supabase-config.js"></script>
   <script src="auth-guard.js"></script>
+
+  <!-- Sidebar Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
   <!-- Sidebar -->
   <aside id="sidebar" class="sidebar flex flex-col p-6">
@@ -130,10 +144,10 @@
   </aside>
 
   <!-- Mobile Header -->
-  <header class="lg:hidden glass fixed top-0 inset-x-0 z-[90] h-16 flex items-center justify-between px-6 border-b border-white/5">
+  <header class="lg:hidden glass fixed top-0 inset-x-0 z-[140] h-16 flex items-center justify-between px-6 border-b border-white/5">
     <div class="text-sm font-black tracking-widest uppercase">Affiliate<span class="text-primary">PRO</span></div>
-    <button onclick="toggleSidebar()" class="p-2 text-white">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+    <button onclick="toggleSidebar()" class="p-2 text-white bg-white/5 rounded-lg">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
     </button>
   </header>
 
@@ -167,8 +181,8 @@
     </div>
 
     <!-- Main Grid -->
-    <div class="max-w-7xl mx-auto p-6 lg:p-12">
-      <div class="grid lg:grid-cols-12 gap-10">
+    <div class="max-w-7xl mx-auto p-4 lg:p-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
         
         <!-- Player Area -->
         <div class="lg:col-span-8 space-y-8">
@@ -279,6 +293,7 @@
 
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebar-overlay').classList.toggle('active');
     }
 
     function scrollToSyllabus() {
