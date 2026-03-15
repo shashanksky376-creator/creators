@@ -8,12 +8,48 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    .module-card { background: #0f0f0f; border: 1px solid rgba(255,255,255,0.06); border-radius: 1rem; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
-    .module-card:hover { border-color: rgba(220,38,38,0.3); transform: translateY(-2px); }
-    .lesson-item { padding: 0.75rem 1rem; border-radius: 0.75rem; cursor: pointer; transition: background 0.15s; }
-    .lesson-item:hover { background: rgba(255,255,255,0.04); }
-    .lesson-item.locked { opacity: 0.45; cursor: not-allowed; }
+    body { font-family: 'Inter', sans-serif; background-color: #050505; }
+    .glass-card { 
+      background: rgba(20, 20, 20, 0.6); 
+      backdrop-filter: blur(12px); 
+      border: 1px solid rgba(255,255,255,0.08); 
+      border-radius: 1.5rem; 
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(220,38,38,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    .lesson-item { 
+      padding: 0.85rem 1.25rem; 
+      border-radius: 1rem; 
+      cursor: pointer; 
+      transition: all 0.2s; 
+      border: 1px solid transparent;
+    }
+    .lesson-item:hover { 
+      background: rgba(255,255,255,0.05); 
+      border-color: rgba(255,255,255,0.1);
+      padding-left: 1.5rem;
+    }
+    .lesson-item.locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(100%); }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-slide { animation: slideIn 0.5s ease-out forwards; }
+    
+    .nav-blur {
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .progress-glow {
+      box-shadow: 0 0 15px rgba(220,38,38,0.4);
+    }
   </style>
 </head>
 <body class="bg-[#050505] text-white min-h-screen">
@@ -23,19 +59,19 @@
   <script src="auth-guard.js"></script>
 
   <!-- Header -->
-  <header class="bg-[#0a0a0a] border-b border-white/5 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
-    <a href="index.html" class="flex items-center gap-2.5">
-      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white">
+  <header class="nav-blur px-6 py-4 flex items-center justify-between sticky top-0 z-50">
+    <a href="index.html" class="flex items-center gap-2.5 group">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white shadow-[0_0_20px_rgba(220,38,38,0.4)] group-hover:scale-105 transition-all">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
       </div>
       <div>
         <span class="text-lg font-black tracking-widest uppercase">Affiliate<span class="text-red-600">PRO</span></span>
-        <div class="text-[9px] text-gray-600 font-bold tracking-[0.2em] uppercase">Student Portal</div>
+        <div class="text-[9px] text-gray-500 font-bold tracking-[0.2em] uppercase">Student Portal</div>
       </div>
     </a>
     <div class="flex items-center gap-4">
-      <div id="user-email" class="text-xs text-gray-500 hidden md:block"></div>
-      <button onclick="signOut()" class="text-xs font-bold text-gray-500 hover:text-red-500 transition-colors flex items-center gap-1.5 bg-white/5 px-4 py-2 rounded-lg border border-white/5">
+      <div id="user-email" class="text-xs text-gray-400 font-medium hidden md:block px-3 py-1.5 rounded-full bg-white/5 border border-white/5"></div>
+      <button onclick="signOut()" class="text-xs font-bold text-gray-400 hover:text-white hover:bg-red-600/20 hover:border-red-600/50 transition-all flex items-center gap-1.5 px-4 py-2 rounded-xl border border-white/10">
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
         Logout
       </button>
@@ -43,19 +79,23 @@
   </header>
 
   <!-- Hero Banner -->
-  <div class="bg-gradient-to-r from-red-950/30 via-[#0a0a0a] to-[#0a0a0a] border-b border-white/5 px-6 py-10">
-    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+  <div class="relative overflow-hidden border-b border-white/5 bg-[#0a0a0a]">
+    <div class="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent"></div>
+    <div class="max-w-5xl mx-auto px-6 py-12 relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 animate-slide">
       <div>
-        <span class="inline-block bg-green-500/10 text-green-400 text-xs font-bold px-3 py-1.5 rounded-full mb-3">✅ Enrolled</span>
-        <h1 class="text-3xl md:text-4xl font-extrabold mb-2">Affiliate Marketing Mastery</h1>
-        <p class="text-gray-500 text-sm">0 To Pro Affiliate Pro &nbsp;·&nbsp; ಕನ್ನಡ (Kannada) &nbsp;·&nbsp; By Shashank</p>
+        <span class="inline-flex items-center gap-2 bg-green-500/10 text-green-400 text-[10px] font-black tracking-widest uppercase px-3 py-1.5 rounded-full mb-4 border border-green-500/20">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+          ACCESS GRANTED
+        </span>
+        <h1 class="text-3xl md:text-5xl font-black mb-3 tracking-tight">Affiliate Marketing Mastery</h1>
+        <p class="text-gray-500 text-sm font-medium">0 To Pro Affiliate Pro &nbsp;·&nbsp; ಕನ್ನಡ (Kannada) &nbsp;·&nbsp; By Shashank</p>
       </div>
-      <div class="flex flex-col items-start md:items-end gap-2">
-        <div class="text-xs text-gray-600">Overall Progress</div>
-        <div class="w-48 h-2 bg-white/5 rounded-full overflow-hidden">
-          <div class="h-full bg-red-600 rounded-full w-0 transition-all duration-700" id="progress-bar"></div>
+      <div class="glass-card p-6 flex flex-col items-start md:items-end gap-3 min-w-[200px]">
+        <div class="text-[10px] text-gray-400 font-bold tracking-widest uppercase">Course Progress</div>
+        <div class="w-full md:w-48 h-2 bg-white/5 rounded-full overflow-hidden">
+          <div class="h-full bg-red-600 rounded-full w-0 transition-all duration-1000 progress-glow" id="progress-bar"></div>
         </div>
-        <div class="text-xs text-gray-500"><span id="progress-text">0</span> / 6 Modules Complete</div>
+        <div class="text-sm font-black text-white"><span id="progress-text" class="text-red-500">0</span> <span class="text-gray-600 font-medium">/ 6 Modules</span></div>
       </div>
     </div>
   </div>
@@ -71,118 +111,118 @@
         </h2>
 
         <!-- Module 1 -->
-        <div class="module-card">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-red-600/10 text-red-500 flex items-center justify-center text-sm font-bold">1</div>
-              <h3 class="font-bold">Introduction to Affiliate Marketing</h3>
+        <div class="glass-card p-6 animate-slide" style="animation-delay: 0.1s;">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-red-600/10 text-red-500 flex items-center justify-center text-sm font-black border border-red-600/20 shadow-lg shadow-red-600/5">1</div>
+              <h3 class="font-bold text-gray-200">Introduction to Affiliate Marketing</h3>
             </div>
-            <span class="text-xs text-green-400 bg-green-400/10 px-2 py-1 rounded-lg font-semibold">Free</span>
+            <span class="text-[10px] text-green-400 bg-green-400/10 px-3 py-1 rounded-full font-black tracking-widest uppercase border border-green-400/20">Free</span>
           </div>
-          <div class="space-y-1 pl-11">
-            <div class="lesson-item flex items-center gap-3 text-sm">
+          <div class="space-y-1 pl-14">
+            <div class="lesson-item flex items-center gap-3 text-sm text-gray-400">
               <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
-              What is Affiliate Marketing? (15 min)
+              What is Affiliate Marketing? <span class="text-[10px] text-gray-600 ml-auto">15 MIN</span>
             </div>
-            <div class="lesson-item flex items-center gap-3 text-sm">
+            <div class="lesson-item flex items-center gap-3 text-sm text-gray-400">
               <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
-              How Commissions Work (12 min)
+              How Commissions Work <span class="text-[10px] text-gray-600 ml-auto">12 MIN</span>
             </div>
-            <div class="lesson-item flex items-center gap-3 text-sm">
+            <div class="lesson-item flex items-center gap-3 text-sm text-gray-400">
               <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
-              Top Affiliate Platforms in India (18 min)
+              Top Affiliate Platforms in India <span class="text-[10px] text-gray-600 ml-auto">18 MIN</span>
             </div>
           </div>
         </div>
 
         <!-- Module 2 -->
-        <div class="module-card">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-red-600/10 text-red-500 flex items-center justify-center text-sm font-bold">2</div>
-              <h3 class="font-bold">Niche Selection Mastery</h3>
+        <div class="glass-card p-6 animate-slide" style="animation-delay: 0.2s;">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-orange-600/10 text-orange-500 flex items-center justify-center text-sm font-black border border-orange-600/20 shadow-lg shadow-orange-600/5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.172-1.172a2 2 0 112.828 2.828l-1.172 1.172"></path></svg>
+              </div>
+              <h3 class="font-bold text-gray-200">Niche Selection Mastery</h3>
             </div>
-            <span class="text-xs text-gray-500 bg-white/5 px-2 py-1 rounded-lg font-semibold">4 Lessons</span>
+            <span class="text-[10px] text-gray-500 bg-white/5 px-3 py-1 rounded-full font-black tracking-widest uppercase border border-white/5">4 LESSONS</span>
           </div>
-          <div class="space-y-1 pl-11">
-            <div class="lesson-item flex items-center gap-3 text-sm"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>Finding Your Profitable Niche (22 min)</div>
-            <div class="lesson-item flex items-center gap-3 text-sm"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>Competitor Research Techniques (19 min)</div>
-            <div class="lesson-item flex items-center gap-3 text-sm"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>High-Ticket vs Low-Ticket Programs (15 min)</div>
+          <div class="space-y-1 pl-14">
+            <div class="lesson-item flex items-center gap-3 text-sm text-gray-400"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>Finding Your Profitable Niche <span class="text-[10px] text-gray-600 ml-auto">22 MIN</span></div>
+            <div class="lesson-item flex items-center gap-3 text-sm text-gray-400"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>Competitor Research Techniques <span class="text-[10px] text-gray-600 ml-auto">19 MIN</span></div>
           </div>
         </div>
 
         <!-- Module 3 -->
-        <div class="module-card">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-red-600/10 text-red-500 flex items-center justify-center text-sm font-bold">3</div>
-              <h3 class="font-bold">Traffic Generation Strategies</h3>
+        <div class="glass-card p-6 animate-slide" style="animation-delay: 0.3s;">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-blue-600/10 text-blue-500 flex items-center justify-center text-sm font-black border border-blue-600/20 shadow-lg shadow-blue-600/5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+              </div>
+              <h3 class="font-bold text-gray-200">Traffic Generation Strategies</h3>
             </div>
-            <span class="text-xs text-gray-500 bg-white/5 px-2 py-1 rounded-lg font-semibold">5 Lessons</span>
+            <span class="text-[10px] text-gray-500 bg-white/5 px-3 py-1 rounded-full font-black tracking-widest uppercase border border-white/5">5 LESSONS</span>
           </div>
-          <div class="space-y-1 pl-11">
-            <div class="lesson-item flex items-center gap-3 text-sm"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>Organic Traffic via YouTube & Instagram (28 min)</div>
-            <div class="lesson-item flex items-center gap-3 text-sm"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>SEO for Affiliate Blogs (20 min)</div>
-            <div class="lesson-item flex items-center gap-3 text-sm"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>Paid Ads Intro (Meta & Google) (25 min)</div>
+          <div class="space-y-1 pl-14">
+            <div class="lesson-item flex items-center gap-3 text-sm text-gray-400"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>Organic Traffic via YouTube & Instagram <span class="text-[10px] text-gray-600 ml-auto">28 MIN</span></div>
           </div>
         </div>
 
-        <!-- Modules 4-6 coming soon placeholders -->
-        <div class="module-card opacity-50 cursor-not-allowed">
-          <div class="flex items-center gap-3 mb-1">
-            <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-600 flex items-center justify-center text-sm font-bold">4</div>
-            <h3 class="font-bold text-gray-500">Automated Sales Funnels</h3>
-            <span class="ml-auto text-[10px] text-yellow-500 bg-yellow-500/10 px-2 py-1 rounded-lg font-bold">Coming Soon</span>
+        <!-- Locked Modules -->
+        <div class="glass-card p-6 opacity-40 grayscale animate-slide" style="animation-delay: 0.4s;">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-white/5 text-gray-600 flex items-center justify-center text-sm font-black border border-white/5">4</div>
+            <h3 class="font-bold text-gray-600">Automated Sales Funnels</h3>
+            <span class="ml-auto text-[9px] text-yellow-500 bg-yellow-500/10 px-3 py-1 rounded-full font-black tracking-widest uppercase border border-yellow-500/20">Locked</span>
           </div>
         </div>
-        <div class="module-card opacity-50 cursor-not-allowed">
-          <div class="flex items-center gap-3 mb-1">
-            <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-600 flex items-center justify-center text-sm font-bold">5</div>
-            <h3 class="font-bold text-gray-500">Email Marketing for Affiliates</h3>
-            <span class="ml-auto text-[10px] text-yellow-500 bg-yellow-500/10 px-2 py-1 rounded-lg font-bold">Coming Soon</span>
-          </div>
-        </div>
-        <div class="module-card opacity-50 cursor-not-allowed">
-          <div class="flex items-center gap-3 mb-1">
-            <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-600 flex items-center justify-center text-sm font-bold">6</div>
-            <h3 class="font-bold text-gray-500">Scaling to ₹1 Lakh/Month</h3>
-            <span class="ml-auto text-[10px] text-yellow-500 bg-yellow-500/10 px-2 py-1 rounded-lg font-bold">Coming Soon</span>
+        <div class="glass-card p-6 opacity-40 grayscale animate-slide" style="animation-delay: 0.5s;">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-white/5 text-gray-600 flex items-center justify-center text-sm font-black border border-white/5">5</div>
+            <h3 class="font-bold text-gray-600">Scaling to ₹1 Lakh/Month</h3>
+            <span class="ml-auto text-[9px] text-yellow-500 bg-yellow-500/10 px-3 py-1 rounded-full font-black tracking-widest uppercase border border-yellow-500/20">Locked</span>
           </div>
         </div>
       </div>
 
       <!-- Right: Sidebar -->
-      <div class="space-y-5">
+      <div class="space-y-6 animate-slide" style="animation-delay: 0.2s;">
         <!-- Student card -->
-        <div class="bg-[#0f0f0f] border border-white/5 rounded-2xl p-5">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center font-bold text-sm" id="user-avatar">S</div>
+        <div class="glass-card p-6">
+          <div class="flex items-center gap-4 mb-5">
+            <div class="w-12 h-12 rounded-2xl bg-red-600 flex items-center justify-center font-black text-lg border border-white/20 shadow-[0_10px_20px_rgba(220,38,38,0.3)]" id="user-avatar">S</div>
             <div>
-              <div class="text-sm font-bold">Student</div>
-              <div class="text-xs text-gray-600" id="sidebar-email">Loading...</div>
+              <div class="text-sm font-black text-white">ACTIVE STUDENT</div>
+              <div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-0.5" id="sidebar-email">Loading...</div>
             </div>
           </div>
-          <div class="text-xs text-gray-600 flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/></svg>
-            Enrolled — Lifetime Access
+          <div class="text-[10px] text-green-400 font-black tracking-[0.2em] uppercase flex items-center gap-2 bg-green-500/10 px-3 py-2 rounded-xl border border-green-500/20">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/></svg>
+            Lifetime Access Active
           </div>
         </div>
 
         <!-- Telegram community -->
-        <div class="bg-[#0d1a2a] border border-blue-900/30 rounded-2xl p-5">
-          <div class="flex items-center gap-2 mb-2">
-            <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/></svg>
-            <span class="font-bold text-sm text-blue-300">Join Community</span>
+        <div class="glass-card p-6 border-blue-900/30 bg-blue-950/5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/></svg>
+            </div>
+            <span class="font-black text-sm text-blue-300 uppercase tracking-widest">Community</span>
           </div>
-          <p class="text-gray-500 text-xs mb-3">Connect with other students in our private Telegram group.</p>
-          <a href="#" class="block w-full text-center text-xs font-bold bg-blue-600/20 text-blue-400 border border-blue-600/30 py-2.5 rounded-xl hover:bg-blue-600/30 transition-colors">Join Telegram →</a>
+          <p class="text-gray-500 text-[11px] font-medium leading-relaxed mb-5">Connect with 1,200+ students in our private Telegram blueprint group.</p>
+          <a href="#" class="block w-full text-center text-[10px] font-black tracking-widest uppercase bg-blue-600 text-white py-3.5 rounded-xl hover:bg-blue-500 transition-all shadow-lg shadow-blue-600/20">Join Telegram →</a>
         </div>
 
         <!-- Support -->
-        <div class="bg-[#0f0f0f] border border-white/5 rounded-2xl p-5">
-          <h4 class="font-bold text-sm mb-2">Need Help?</h4>
-          <p class="text-gray-600 text-xs mb-3">Reach out to Shashank directly.</p>
-          <a href="mailto:shashanksky376@gmial.com" class="block w-full text-center text-xs font-bold bg-white/5 text-gray-300 border border-white/5 py-2.5 rounded-xl hover:border-red-600/30 hover:text-white transition-colors">Email Support</a>
+        <div class="glass-card p-6 border-red-900/10">
+          <h4 class="font-black text-[10px] tracking-widest uppercase text-gray-400 mb-4">Support</h4>
+          <a href="mailto:shashanksky376@gmial.com" class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-red-600/30 transition-all group">
+            <div class="w-8 h-8 rounded-lg bg-red-600/20 flex items-center justify-center text-red-500 group-hover:bg-red-600 group-hover:text-white transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            </div>
+            <div class="text-[11px] font-bold text-gray-300 group-hover:text-white">Email Shashank</div>
+          </a>
         </div>
       </div>
     </div>

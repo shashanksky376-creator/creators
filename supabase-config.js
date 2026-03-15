@@ -28,9 +28,18 @@ function generateSessionToken() {
 // -------------------------------------------------------
 async function sendOTP(email) {
   const client = initSupabase();
+
+  // Pre-check: Is this user even in our enrolled list?
+  const enrollment = await checkEnrollment(email);
+  if (!enrollment) {
+    return { error: { message: "This email is not enrolled. Please purchase the course first." } };
+  }
+
+  // shouldCreateUser: true allows the auth user to be created on first login
+  // We already verified they are in our 'enrolled_users' table above.
   const { error } = await client.auth.signInWithOtp({
     email: email,
-    options: { shouldCreateUser: false }
+    options: { shouldCreateUser: true } 
   });
   return { error };
 }
