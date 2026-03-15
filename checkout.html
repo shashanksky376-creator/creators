@@ -174,6 +174,33 @@
                 <option value="+91">🇮🇳 +91</option>
                 <option value="+1">🇺🇸 +1</option>
                 <option value="+44">🇬🇧 +44</option>
+                <option value="+971">🇦🇪 +971</option>
+                <option value="+61">🇦🇺 +61</option>
+                <option value="+1">🇨🇦 +1</option>
+                <option value="+65">🇸🇬 +65</option>
+                <option value="+49">🇩🇪 +49</option>
+                <option value="+33">🇫🇷 +33</option>
+                <option value="+81">🇯🇵 +81</option>
+                <option value="+82">🇰🇷 +82</option>
+                <option value="+31">🇳🇱 +31</option>
+                <option value="+34">🇪🇸 +34</option>
+                <option value="+39">🇮🇹 +39</option>
+                <option value="+41">🇨🇭 +41</option>
+                <option value="+46">🇸🇪 +46</option>
+                <option value="+47">🇳🇴 +47</option>
+                <option value="+45">🇩🇰 +45</option>
+                <option value="+351">🇵🇹 +351</option>
+                <option value="+353">🇮🇪 +353</option>
+                <option value="+32">🇧🇪 +32</option>
+                <option value="+43">🇦🇹 +43</option>
+                <option value="+60">🇲🇾 +60</option>
+                <option value="+66">🇹🇭 +66</option>
+                <option value="+62">🇮🇩 +62</option>
+                <option value="+63">🇵🇭 +63</option>
+                <option value="+84">🇻🇳 +84</option>
+                <option value="+90">🇹🇷 +90</option>
+                <option value="+27">🇿🇦 +27</option>
+                <option value="+55">🇧🇷 +55</option>
               </select>
               <input id="phone" type="tel" placeholder="ಮೊಬೈಲ್ ಸಂಖ್ಯೆ" class="input-field">
             </div>
@@ -258,14 +285,35 @@
       new Razorpay(options).open();
     }
 
-    // Simple Timer
-    let time = 16 * 60 + 24;
-    setInterval(() => {
-      if (time <= 0) return;
-      time--;
-      document.getElementById('minutes').textContent = Math.floor(time / 60).toString().padStart(2, '0');
-      document.getElementById('seconds').textContent = (time % 60).toString().padStart(2, '0');
-    }, 1000);
+    // Dynamic Countdown (Target: Midnight US Eastern Time)
+    function updateCountdown() {
+      // US Eastern Time Offset (usually -5 or -4 depending on DST)
+      // For simplicity, we calculate based on the current local time relative to UTC
+      // then adjust to ET. However, a "24h cycle" reset is what users usually mean.
+      
+      const now = new Date();
+      // Target: Next Midnight in US Eastern Time
+      // We'll use a 24-hour reset cycle if specific timezone logic is overkill for static HTML,
+      // but let's try to mock the US Timezone feel.
+      const target = new Date();
+      target.setUTCHours(4, 0, 0, 0); // approx Midnight ET (UTC-4)
+      
+      if (now > target) {
+        target.setUTCDate(target.getUTCDate() + 1);
+      }
+
+      const diff = target - now;
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+      document.getElementById('minutes').textContent = mins.toString().padStart(2, '0');
+      document.getElementById('seconds').textContent = secs.toString().padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
 </body>
 </html>
