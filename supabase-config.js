@@ -28,9 +28,10 @@ function generateSessionToken() {
 // -------------------------------------------------------
 async function sendOTP(email) {
   const client = initSupabase();
+  const cleanEmail = email.toLowerCase().trim();
 
   // Pre-check: Is this user even in our enrolled list?
-  const enrollment = await checkEnrollment(email);
+  const enrollment = await checkEnrollment(cleanEmail);
   if (!enrollment) {
     return { error: { message: "This email is not enrolled. Please purchase the course first." } };
   }
@@ -38,7 +39,7 @@ async function sendOTP(email) {
   // shouldCreateUser: true allows the auth user to be created on first login
   // We already verified they are in our 'enrolled_users' table above.
   const { error } = await client.auth.signInWithOtp({
-    email: email,
+    email: cleanEmail,
     options: { shouldCreateUser: true } 
   });
   return { error };
@@ -49,8 +50,9 @@ async function sendOTP(email) {
 // -------------------------------------------------------
 async function verifyOTP(email, otp) {
   const client = initSupabase();
+  const cleanEmail = email.toLowerCase().trim();
   const { data, error } = await client.auth.verifyOtp({
-    email: email,
+    email: cleanEmail,
     token: otp,
     type: "email",
   });
@@ -63,7 +65,7 @@ async function verifyOTP(email, otp) {
     await client
       .from("enrolled_users")
       .update({ active_session_token: sessionToken })
-      .eq("email", email);
+      .eq("email", cleanEmail);
   }
 
   return { data, error };
@@ -75,10 +77,11 @@ async function verifyOTP(email, otp) {
 // -------------------------------------------------------
 async function checkEnrollment(email) {
   const client = initSupabase();
+  const cleanEmail = email.toLowerCase().trim();
   const { data, error } = await client
     .from("enrolled_users")
     .select("email, full_name, active_session_token")
-    .eq("email", email)
+    .eq("email", cleanEmail)
     .single();
 
   if (error || !data) return false;
@@ -110,11 +113,12 @@ async function validateActiveSession(email) {
 // -------------------------------------------------------
 async function enrollUser({ fullName, email, phone, razorpayPaymentId }) {
   const client = initSupabase();
+  const cleanEmail = email.toLowerCase().trim();
   const { data, error } = await client
     .from("enrolled_users")
     .upsert([{
       full_name: fullName || "",
-      email: email,
+      email: cleanEmail,
       phone: phone || null,
       razorpay_payment_id: razorpayPaymentId,
       enrolled_at: new Date().toISOString(),

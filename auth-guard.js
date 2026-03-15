@@ -16,7 +16,7 @@
     return;
   }
 
-  const email = session.user.email;
+  const email = session.user.email.toLowerCase();
 
   // Check enrollment
   const enrollment = await checkEnrollment(email);
@@ -29,7 +29,7 @@
   // ---- Single-session enforcement ----
   let localToken = localStorage.getItem("affiliate_pro_session");
   
-  // If no local token exists (e.g. user clicked a Magic Link), 
+  // If no local token exists (e.g. user clicked a Magic Link or logged in with Google), 
   // we initialize it if they are already in our enrollment list.
   if (!localToken) {
     localToken = generateSessionToken();
@@ -42,13 +42,15 @@
       .update({ active_session_token: localToken })
       .eq("email", email);
     
-    console.log("Initialized new session for Magic Link login:", email);
-  }
-
-  const isValidSession = await validateActiveSession(email);
-  if (!isValidSession) {
-    window.location.href = "/index.html?reason=session_expired";
-    return;
+    console.log("Initialized new session for direct login:", email);
+    
+    // We JUST set this, so we don't need to validate it immediately (race condition prevention)
+  } else {
+    const isValidSession = await validateActiveSession(email);
+    if (!isValidSession) {
+      window.location.href = "/index.html?reason=session_expired";
+      return;
+    }
   }
 
   // All good — store name for display
