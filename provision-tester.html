@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provision Tester | Affiliate PRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+    <div class="bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-700 max-w-md w-full text-center">
+        <h1 class="text-2xl font-bold mb-4">Provision Tester Account</h1>
+        <p class="text-gray-400 mb-6">Click the button below to add <span class="text-white font-mono">test@example.com</span> as a paid student in your database.</p>
+        
+        <button onclick="addTester()" id="test-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all active:scale-95">
+            Add Tester Account
+        </button>
+        
+        <div id="status" class="mt-4 text-sm font-medium"></div>
+        
+        <div class="mt-8 pt-6 border-t border-gray-700">
+            <a href="login.html" class="text-blue-400 hover:underline">Go to Login Page →</a>
+        </div>
+    </div>
+
+    <script>
+        async function addTester() {
+            const btn = document.getElementById('test-btn');
+            const status = document.getElementById('status');
+            
+            btn.disabled = true;
+            btn.textContent = 'Processing...';
+            status.textContent = '';
+
+            try {
+                const result = await enrollUser({
+                    fullName: "Tester Shashank",
+                    email: "test@example.com",
+                    phone: "9123456789",
+                    razorpayPaymentId: "pay_TEST_PROVISION_" + Date.now()
+                });
+
+                if (result.error) {
+                    status.className = "mt-4 text-sm font-medium text-red-500";
+                    status.textContent = "Error: " + result.error.message;
+                    btn.disabled = false;
+                    btn.textContent = 'Retry Adding Tester';
+                } else {
+                    status.className = "mt-4 text-sm font-medium text-green-500";
+                    status.textContent = "Successfully added! You can now login with test@example.com";
+                    btn.textContent = 'Tester Added ✅';
+                    btn.className = "w-full bg-green-600 cursor-default text-white font-bold py-3 rounded-lg";
+                }
+            } catch (e) {
+                status.className = "mt-4 text-sm font-medium text-red-500";
+                status.textContent = "System Error: Check console";
+                console.error(e);
+            }
+        }
+    </script>
+</body>
+</html>

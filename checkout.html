@@ -422,9 +422,13 @@
         theme: { color: "#dc2626" },
         handler: async function(response) {
           try {
-            if(window.supabase) {
-                // Potential integration point
-            }
+            // enrollment call
+            await enrollUser({
+              fullName: name,
+              email: email,
+              phone: phone,
+              razorpayPaymentId: response.razorpay_payment_id
+            });
             window.location.href = `thank-you.html?payment_id=${response.razorpay_payment_id}`;
           } catch(e) { console.error("Error:", e); }
         }
