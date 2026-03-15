@@ -7,6 +7,11 @@
   const session = await getSession();
 
   if (!session) {
+    // If we have a recovery/access token in the URL (from OAuth),
+    // wait a moment for Supabase to process it.
+    if (window.location.hash.includes('access_token')) {
+       return; 
+    }
     window.location.href = "/login.html?reason=auth";
     return;
   }
