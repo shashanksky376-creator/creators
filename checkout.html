@@ -7,18 +7,18 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
   tailwind.config = {
     theme: {
       extend: {
         colors: {
           "primary": "#0056b3",
-          "secondary": "#4a5568",
           "accent": "#f97316",
+          "premium-bg": "#f8fafc",
         },
         fontFamily: { 
-          "sans": ["Inter", "sans-serif"],
+          "sans": ["Plus Jakarta Sans", "sans-serif"],
           "display": ["Outfit", "sans-serif"]
         },
       },
@@ -26,225 +26,265 @@
   }
 </script>
 <style>
-  body { font-family: "Inter", sans-serif; background-color: #fcfcfc; color: #1a202c; }
+  body { 
+    font-family: "Plus Jakarta Sans", sans-serif; 
+    background: radial-gradient(circle at 0% 0%, rgba(0,86,179,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(249,115,22,0.03) 0%, transparent 50%),
+                #fcfcfc;
+    color: #1a202c; 
+  }
   h1, h2, h3, .font-display { font-family: "Outfit", sans-serif; }
-  .receipt-card { position: relative; border-radius: 12px; background: white; border: 1px solid #e2e8f0; }
-  .receipt-card::before {
+  
+  .premium-card {
+    background: white;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03), 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+    border-radius: 24px;
+  }
+
+  .receipt-card { 
+    position: relative; 
+    border-radius: 16px; 
+    background: #f8fafc; 
+    border: 1px solid #e2e8f0; 
+  }
+  .receipt-card::after {
     content: "";
     position: absolute;
-    top: -1px; left: 10%; right: 10%;
+    bottom: -1px; left: 5%; right: 5%;
     height: 1px;
-    background-image: linear-gradient(to right, #ccc 50%, transparent 50%);
-    background-size: 10px 1px;
+    background-image: linear-gradient(to right, #cbd5e1 50%, transparent 50%);
+    background-size: 8px 1px;
     background-repeat: repeat-x;
   }
-  .dashed-border {
-    border-top: 1px dashed #e2e8f0;
-  }
+
   .input-field {
     width: 100%;
-    padding: 12px;
+    padding: 14px 16px;
     border: 1px solid #e2e8f0;
-    border-radius: 8px;
+    border-radius: 12px;
     background: white;
-    transition: all 0.2s;
+    font-weight: 500;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .input-field:focus {
     border-color: #0056b3;
     box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.1);
     outline: none;
   }
+
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: #f1f5f9;
+    border-radius: 9999px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #475569;
+  }
+
+  .btn-premium {
+    background: linear-gradient(135deg, #005fb8 0%, #004e9a 100%);
+    box-shadow: 0 10px 15px -3px rgba(0, 95, 184, 0.3);
+    transition: all 0.3s ease;
+  }
+  .btn-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(0, 95, 184, 0.4);
+  }
 </style>
 </head>
 <body class="min-h-screen">
-  <!-- Early Bird Urgency Banner -->
-  <div class="bg-[#e8212b] text-white text-center py-2.5 px-4 text-xs font-black uppercase tracking-[0.2em] sticky top-0 z-[100]">
-    🔥 Warning: Early Bird Offer (₹5000 <span class="mx-1">→</span> ₹1999) Ends Today At Midnight!
+  <!-- Dynamic urgency banner -->
+  <div class="bg-[#e8212b] text-white text-center py-3 px-4 text-[10px] md:text-sm font-black uppercase tracking-[0.2em] sticky top-0 z-[100] shadow-lg">
+    ⏰ Early Bird Discount (₹5000 <span class="mx-2 opacity-50">→</span> ₹1999) - <span class="underline decoration-2 underline-offset-4">Ends At Midnight!</span>
   </div>
 
-  <!-- Minimal Header -->
-  <header class="px-6 py-8 flex justify-between items-center max-w-7xl mx-auto w-full">
-    <div class="flex items-center gap-4">
-      <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-xl ring-4 ring-slate-100">
-        <!-- Creator Profile Photo Placeholder -->
-        <img src="shashank_profile.jpg" alt="SHASHANK" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=Shashank&background=f97316&color=fff'">
+  <header class="px-6 py-10 flex justify-between items-center max-w-7xl mx-auto w-full">
+    <div class="flex items-center gap-5">
+      <div class="relative">
+        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-2xl ring-4 ring-blue-50/50">
+          <img src="shashank_profile.jpg" alt="SHASHANK" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=Shashank&background=f97316&color=fff'">
+        </div>
+        <div class="absolute -bottom-1 -right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-white shadow-sm"></div>
       </div>
       <div>
-        <p class="text-[10px] font-black uppercase tracking-widest text-[#f97316]">Course Creator</p>
-        <p class="text-sm font-black text-slate-900">SHASHANK</p>
+        <p class="text-[10px] font-black uppercase tracking-widest text-[#f97316]">Certified Mentor</p>
+        <p class="text-lg font-black text-slate-900 tracking-tight">SHASHANK</p>
       </div>
     </div>
-    <div class="bg-slate-100 px-4 py-2 rounded-full flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-      <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Live Recording</span>
+    
+    <div class="hidden md:flex items-center gap-3 bg-white/50 backdrop-blur-sm border border-slate-200 px-5 py-2.5 rounded-2xl shadow-sm">
+      <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+      <span class="text-[11px] font-bold text-slate-600 uppercase tracking-widest">Enrollment Active</span>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-6 py-6 flex flex-col lg:flex-row gap-16">
-    <!-- LEFT COLUMN: Content -->
-    <section class="w-full lg:w-[58%] space-y-10">
-      <div class="space-y-4">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.1] tracking-tight">
-          Affiliate Marketing Mastery,<br>
-          <span class="text-slate-800/70">0 to pro affiliate pro</span>
+  <main class="max-w-7xl mx-auto px-6 pb-20 flex flex-col lg:flex-row gap-16">
+    <!-- LEFT COLUMN -->
+    <section class="w-full lg:w-[55%] space-y-12">
+      <div class="space-y-6">
+        <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-blue-100">
+          ✨ Best Selling Course 2026
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight">
+          Affiliate Marketing Mastery<br>
+          <span class="text-slate-400">0 to pro affiliate pro</span>
         </h1>
-        <p class="text-lg font-bold text-slate-500 flex items-center gap-2">
-          By SHASHANK
-        </p>
         
-        <div class="flex items-center gap-6 py-4">
-          <div class="flex items-center gap-3">
-             <span class="text-2xl text-slate-400 line-through font-medium">₹5000</span>
-             <span class="text-6xl font-black text-slate-900 tracking-tighter">₹1999</span>
+        <div class="flex items-center gap-8 py-4">
+          <div class="flex flex-col">
+            <span class="text-slate-400 line-through font-bold text-xl leading-none mb-1">₹5000</span>
+            <span class="text-7xl font-black text-slate-900 tracking-tighter leading-none">₹1999</span>
           </div>
-          <div class="bg-green-100 text-green-700 px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest border border-green-200">
-            60% OFF
+          <div class="flex flex-col gap-2">
+            <div class="bg-emerald-500 text-white px-4 py-1 rounded-lg text-sm font-black tracking-widest">SAVE 60%</div>
+            <div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Limited Seats Remaining</div>
           </div>
-        </div>
-        <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-lg">
-          <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-          <span class="text-[11px] font-bold text-blue-700 uppercase tracking-wide">100% Genuine Course</span>
         </div>
       </div>
 
-      <!-- Course Thumbnail -->
-      <div class="rounded-3xl overflow-hidden shadow-2xl shadow-blue-900/10 border border-slate-100 ring-1 ring-slate-200/50">
-        <!-- Using the generated high-quality thumbnail -->
-        <img src="shashank_thumbnail_vfinal_1773541567467.png" alt="Course Thumbnail" class="w-full aspect-video object-cover">
+      <!-- Video/Image Section -->
+      <div class="group relative rounded-[2rem] overflow-hidden shadow-2xl shadow-blue-900/10 border border-white ring-1 ring-slate-200/50 transition-transform duration-500 hover:scale-[1.01]">
+        <img src="shashank_thumbnail_vfinal_1773541567467.png" alt="Affiliate Marketing Mastery Preview" class="w-full aspect-video object-cover transition-opacity group-hover:opacity-95">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
       </div>
 
-      <!-- Kannada Content List -->
-      <div class="space-y-6 pt-6">
-        <p class="text-xl font-extrabold text-slate-800 leading-relaxed">ಇಲ್ಲಿ ಬ್ಲಾಗಿಂಗ್ ಮತ್ತು ಯೂಟ್ಯೂಬ್ ಕಲಿಯಿರಿ 🎯 ಮತ್ತು ಡಾಲರ್ಗಳು 💵 ಅಥವಾ ರೂಪೀಸ್ ಗಳಿಸಿ!</p>
-        <p class="text-lg font-bold text-[#f97316] flex items-center gap-3">
-          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-orange-100 text-orange-600">🚀</span> 
-          ನೀವು ಏನು ಕಲಿಯುತ್ತೀರಿ?
-        </p>
-        <ul class="grid grid-cols-1 md:grid-cols-2 gap-6 text-slate-600">
-          <li class="flex items-start gap-4 p-4 rounded-xl hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-slate-100">
-            <span class="text-2xl">✍️</span>
-            <div><strong class="text-slate-900 block mb-1">ಬ್ಲಾಗಿಂಗ್:</strong> ವೆಬ್‌ಸೈಟ್ ಹೇಗೆ ಆರಂಭಿಸಬೇಕು, ಕಂಟೆಂಟ್ ಬರೆಯುವುದು, SEO ಮೂಲಭೂತಗಳು</div>
-          </li>
-          <li class="flex items-start gap-4 p-4 rounded-xl hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-slate-100">
-            <span class="text-2xl">🎬</span>
-            <div><strong class="text-slate-900 block mb-1">YouTube:</strong> ಚಾನೆಲ್ ಸೆಟಪ್, ವಿಡಿಯೋ ಐಡಿಯಾಗಳು, ಎಡಿಟಿಂಗ್, ಥಂಬ್‌ನೇಲ್ ಟಿಪ್ಸ್</div>
-          </li>
-          <li class="flex items-start gap-4 p-4 rounded-xl hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-slate-100">
-            <span class="text-2xl">📈</span>
-            <div><strong class="text-slate-900 block mb-1">ಗ್ರೋತ್ ಟಿಪ್ಸ್:</strong> ವೀಕ್ಷಣೆಗಳು ಮತ್ತು ಸಬ್‌ಸ್ಕ್ರೈಬರ್‌ಗಳನ್ನು ಹೆಚ್ಚಿಸುವ ವಿಧಾನ</div>
-          </li>
-          <li class="flex items-start gap-4 p-4 rounded-xl hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-slate-100">
-            <span class="text-2xl">💰</span>
-            <div><strong class="text-slate-900 block mb-1">ಆದಾಯ ಮಾರ್ಗಗಳು:</strong> AdSense, ಅಫಿಲಿಯೇಟ್ ಮಾರ್ಕೆಟಿಂಗ್ ಮತ್ತು ಪ್ರಾಯೋಜಕತ್ವಗಳು</div>
-          </li>
-        </ul>
+      <!-- Trust Badges Row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="trust-badge"><svg class="w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg> SSL SECURE</div>
+        <div class="trust-badge"><svg class="w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> MONEY BACK</div>
+        <div class="trust-badge"><svg class="w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> INSTANT ACCESS</div>
+        <div class="trust-badge"><svg class="w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> LIFETIME</div>
+      </div>
+
+      <!-- Features Kannada -->
+      <div class="space-y-8 bg-white/50 backdrop-blur-sm p-10 rounded-[2rem] border border-slate-100">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-[#f97316] rounded-2xl flex items-center justify-center text-white text-xl shadow-lg shadow-orange-200">💎</div>
+          <h3 class="text-2xl font-black text-slate-900 tracking-tight">ಈ ಕೋರ್ಸ್‌ನಲ್ಲಿ ನೀವು ಏನು ಕಲಿಯುತ್ತೀರಿ?</h3>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-2">
+            <h4 class="font-black text-slate-800 flex items-center gap-2">✍️ ಬ್ಲಾಗಿಂಗ್</h4>
+            <p class="text-sm text-slate-600 leading-relaxed font-medium">ಸ್ವಂತ ವೆಬ್‌ಸೈಟ್ ಹಾಗೂ ಕಂಟೆಂಟ್ ಕ್ರಿಯೇಟ್ ಮಾಡುವುದು ಹೇಗೆ ಎನ್ನುವುದನ್ನು ಕಲಿಯಿರಿ.</p>
+          </div>
+          <div class="space-y-2">
+            <h4 class="font-black text-slate-800 flex items-center gap-2">🎬 YouTube Growth</h4>
+            <p class="text-sm text-slate-600 leading-relaxed font-medium">ನಿಮ್ಮ ವಿಡಿಯೋಗಳನ್ನು ಮಿಲಿಯನ್ ವೀಕ್ಷಣೆ ತಲುಪಿಸುವುದು ಹೇಗೆ ಎನ್ನುವ ಗುಟ್ಟು ತಿಳಿಯಿರಿ.</p>
+          </div>
+          <div class="space-y-2">
+            <h4 class="font-black text-slate-800 flex items-center gap-2">📈 SEO ಟಿಪ್ಸ್</h4>
+            <p class="text-sm text-slate-600 leading-relaxed font-medium">Google ನಲ್ಲಿ ನಂಬರ್ ಒನ್ ರ‍್ಯಾಂಕ್ ಪಡೆಯುವ ಸ್ಮಾರ್ಟ್ ಐಡಿಯಾಗಳು.</p>
+          </div>
+          <div class="space-y-2">
+            <h4 class="font-black text-slate-800 flex items-center gap-2">💰 ಮನಿ ಮೇಕಿಂಗ್</h4>
+            <p class="text-sm text-slate-600 leading-relaxed font-medium">ತಿಂಗಳಿಗೆ ಲಕ್ಷ ಲಕ್ಷ ಸಂಪಾದಿಸುವ ಪ್ರೂವನ್ ಅಫಿಲಿಯೇಟ್ ಮಾರ್ಕೆಟಿಂಗ್ ವಿಧಾನಗಳು.</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- RIGHT COLUMN: Payment Card -->
-    <aside class="w-full lg:w-[42%]">
-      <div class="bg-white rounded-[2.5rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] p-10 space-y-10 sticky top-8 border border-slate-100">
+    <!-- RIGHT COLUMN -->
+    <aside class="w-full lg:w-[45%]">
+      <div class="premium-card p-10 space-y-10 sticky top-28">
         <div class="space-y-2">
-          <h2 class="text-3xl font-black text-slate-900 tracking-tight">Payment details</h2>
-          <p class="text-slate-500 font-medium">Complete your purchase by providing your payment details.</p>
+          <h2 class="text-3xl font-black text-slate-900 tracking-tight">Enrollment Form</h2>
+          <p class="text-slate-500 font-semibold text-sm">Join 5,000+ students already learning from SHASHANK.</p>
         </div>
 
-        <!-- Billing Info -->
+        <!-- Form fields -->
         <div class="space-y-6">
-          <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Billing information</h3>
-          <div class="space-y-4">
-            <div class="space-y-1">
-              <input id="name" type="text" placeholder="Name" class="input-field text-lg font-medium placeholder:text-slate-300">
-            </div>
-            <div class="space-y-1">
-              <input id="email" type="email" placeholder="Email" class="input-field text-lg font-medium placeholder:text-slate-300">
-            </div>
-            <div class="flex group">
-              <span class="inline-flex items-center px-5 rounded-l-2xl border border-r-0 border-slate-200 bg-slate-50 text-slate-600 text-base font-bold transition-all group-focus-within:border-[#0056b3]">
-                <img src="https://flagcdn.com/w40/in.png" class="w-6 mr-3" alt="IN"> +91
-              </span>
-              <input id="phone" type="tel" placeholder="Phone" class="input-field rounded-l-none border-l-0 text-lg font-medium placeholder:text-slate-300">
+          <div class="space-y-2">
+            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
+            <input id="name" type="text" placeholder="e.g. Shashank Kumar" class="input-field">
+          </div>
+          <div class="space-y-2">
+            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Email Address</label>
+            <input id="email" type="email" placeholder="shashank@example.com" class="input-field">
+          </div>
+          <div class="space-y-2">
+            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Phone Number</label>
+            <div class="flex gap-2">
+              <select id="country-code" class="w-24 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:ring-0 focus:border-primary">
+                <option value="+91">🇮🇳 +91</option>
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+971">🇦🇪 +971</option>
+                <option value="+61">🇦🇺 +61</option>
+                <option value="+1">🇨🇦 +1</option>
+                <option value="+65">🇸🇬 +65</option>
+                <option value="+33">🇫🇷 +33</option>
+                <option value="+49">🇩🇪 +49</option>
+              </select>
+              <input id="phone" type="tel" placeholder="Mobile Number" class="input-field">
             </div>
           </div>
         </div>
 
-        <!-- Service Summary (Receipt Style) -->
-        <div class="receipt-card p-8 space-y-8 shadow-sm">
-          <div class="space-y-6">
-            <div class="flex justify-between items-start gap-4">
-              <div class="space-y-2 max-w-[70%]">
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Service</p>
-                <p class="text-sm font-bold text-slate-800 leading-relaxed">Affiliate Marketing Mastery - 0 to pro affiliate pro (Kannada)</p>
-              </div>
-              <div class="text-right flex flex-col items-end">
-                <p class="text-xs text-slate-400 line-through font-bold">₹5000</p>
-                <p class="text-lg font-black text-slate-900 leading-none mt-1">₹1999.00</p>
-              </div>
+        <!-- Summary -->
+        <div class="receipt-card p-8 space-y-8">
+          <div class="flex justify-between items-start">
+            <div class="space-y-2">
+              <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Selected Course</p>
+              <p class="text-sm font-black text-slate-800 leading-relaxed">Affiliate Marketing Mastery <span class="text-slate-400 font-bold block mt-0.5 text-xs">(0 to pro affiliate pro)</span></p>
+            </div>
+            <div class="text-right">
+              <p class="text-lg font-black text-slate-900">₹1999</p>
+              <p class="text-[9px] font-bold text-slate-400 line-through">₹5000</p>
             </div>
           </div>
           
-          <div class="dashed-border pt-6 flex justify-between items-center">
-            <p class="text-base font-black text-slate-900">Amount to be paid :</p>
-            <p class="text-2xl font-black text-slate-900">₹1999.00</p>
+          <div class="pt-6 border-t border-slate-200 flex justify-between items-center">
+            <p class="text-sm font-black text-slate-900 tracking-tight">Total Payment :</p>
+            <p class="text-3xl font-black text-slate-900 tracking-tighter">₹1999</p>
           </div>
         </div>
 
-        <!-- Urgency & Button -->
-        <div class="space-y-8 text-center">
-          <div class="space-y-4">
-            <p class="text-xs font-black text-slate-900 uppercase tracking-widest opacity-80">Hurry Up Limited Time Left</p>
-            <div class="flex justify-center items-center gap-6" id="countdown">
-              <div class="flex flex-col items-center">
-                <span class="text-3xl font-black text-[#e8212b]" id="hours">00</span>
-                <span class="text-[9px] font-black uppercase text-slate-400 tracking-widest mt-1">Day</span>
-              </div>
-              <div class="text-2xl font-black text-slate-200 mb-4">:</div>
-              <div class="flex flex-col items-center">
-                <span class="text-3xl font-black text-[#e8212b]" id="minutes">16</span>
-                <span class="text-[9px] font-black uppercase text-slate-400 tracking-widest mt-1">Hrs</span>
-              </div>
-              <div class="text-2xl font-black text-slate-200 mb-4">:</div>
-              <div class="flex flex-col items-center">
-                <span class="text-3xl font-black text-[#e8212b]" id="seconds">11</span>
-                <span class="text-[9px] font-black uppercase text-slate-400 tracking-widest mt-1">Min</span>
-              </div>
-               <div class="text-2xl font-black text-slate-200 mb-4">:</div>
-              <div class="flex flex-col items-center">
-                <span class="text-3xl font-black text-[#e8212b]" id="seconds_real">57</span>
-                <span class="text-[9px] font-black uppercase text-slate-400 tracking-widest mt-1">Sec</span>
-              </div>
-            </div>
-          </div>
-
-          <button onclick="handlePayment()" class="w-full bg-[#005fb8] hover:bg-[#004e9a] text-white font-black py-5 rounded-2xl text-xl shadow-2xl shadow-blue-500/20 transition-all transform active:scale-[0.97]">
-            Proceed to pay ₹1999.00
+        <!-- Action -->
+        <div class="space-y-8">
+          <button onclick="handlePayment()" class="btn-premium w-full text-white font-black py-5 rounded-2xl text-xl tracking-tight">
+            Checkout Now — Securely
           </button>
 
-          <!-- Payment Logos -->
-          <div class="flex justify-center items-center gap-6 opacity-30 grayscale hover:opacity-100 hover:grayscale-0 transition-all">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo.png" class="h-4" alt="UPI">
-            <span class="text-[10px] font-black text-slate-900 tracking-tighter">Paytm</span>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Visa_2021.svg" class="h-3" alt="Visa">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Rupay-Logo.png" class="h-3" alt="RuPay">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Google_Pay_%28GPay%29_Logo.svg" class="h-4" alt="GPay">
+          <div class="space-y-6">
+             <!-- Guaranteed Badge -->
+             <div class="flex items-center justify-center gap-3 opacity-60">
+                <svg class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path></svg>
+                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-800">100% Satisfaction Guaranteed</span>
+             </div>
+
+             <!-- Logos -->
+             <div class="flex justify-center flex-wrap items-center gap-6 opacity-30 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500">
+               <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo.png" class="h-3.5" alt="UPI">
+               <img src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Visa_2021.svg" class="h-2.5" alt="Visa">
+               <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-4" alt="Mastercard">
+               <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Google_Pay_%28GPay%29_Logo.svg" class="h-3.5" alt="GPay">
+             </div>
           </div>
         </div>
       </div>
     </aside>
   </main>
 
-  <footer class="max-w-7xl mx-auto px-6 py-12 border-t border-slate-100 mt-20">
-    <div class="flex flex-col md:flex-row justify-between items-center gap-8 opacity-50">
-       <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">© 2026 Affiliate Marketing Mastery by SHASHANK</p>
-       <div class="flex gap-8 text-[10px] font-black uppercase tracking-widest">
+  <footer class="max-w-7xl mx-auto px-6 py-20 border-t border-slate-100">
+    <div class="text-center space-y-8">
+       <div class="flex justify-center gap-10 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">
          <a href="privacy.html" class="hover:text-primary transition-colors">Privacy</a>
          <a href="terms.html" class="hover:text-primary transition-colors">Terms</a>
          <a href="refunds.html" class="hover:text-primary transition-colors">Refunds</a>
        </div>
+       <p class="text-[10px] font-bold text-slate-300 uppercase tracking-widest leading-loose">
+         © 2026 Affiliate Marketing Mastery by SHASHANK.<br>
+         Built with trust for creators, by creators.
+       </p>
     </div>
   </footer>
 
-  <!-- Razorpay SDK -->
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
     const RAZORPAY_KEY = "rzp_test_XXXXXXXXXXXXXXXX"; // ← Replace with your key
@@ -253,14 +293,15 @@
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim().toLowerCase();
       const phone = document.getElementById('phone').value.trim();
+      const countryCode = document.getElementById('country-code').value;
 
       if (!name || !email || !phone) {
-        alert("Please fill in all details.");
+        alert("Please complete your billing information.");
         return;
       }
 
       if (RAZORPAY_KEY === "rzp_test_XXXXXXXXXXXXXXXX") {
-        alert("⚠️ Please add your Razorpay API Key in checkout.html!");
+        alert("⚠️ Please add your Razorpay API Key in checkout.html script.");
         return;
       }
 
@@ -269,38 +310,18 @@
         amount: 199900,
         currency: "INR",
         name: "Affiliate Marketing Mastery",
-        description: "Enrollment for Affiliate Marketing Mastery (Kannada)",
-        prefill: { name, email, contact: "+91" + phone.replace(/\D/g,'') },
-        theme: { color: "#0056b3" },
+        description: "Enrollment for SHASHANK'S Affiliate Course",
+        prefill: { name, email, contact: countryCode + phone.replace(/\D/g,'') },
+        theme: { color: "#005fb8" },
         handler: async function(response) {
           try {
-            await enrollUser({ fullName: name, email: email, phone: phone, razorpayPaymentId: response.razorpay_payment_id });
+            await enrollUser({ fullName: name, email: email, phone: countryCode + phone, razorpayPaymentId: response.razorpay_payment_id });
             window.location.href = `thank-you.html?payment_id=${response.razorpay_payment_id}&name=${encodeURIComponent(name)}`;
           } catch(e) { console.error("Enrollment error:", e); }
         }
       };
-      const rzp = new Razorpay(options);
-      rzp.open();
+      new Razorpay(options).open();
     }
-
-    // Modern Countdown logic
-    function startTimer() {
-      let time = 16 * 60 + 11;
-      const hoursEl = document.getElementById('minutes'); // Layout has "Day : Hrs : Min : Sec" labels
-      const minsEl = document.getElementById('seconds');
-      const secsEl = document.getElementById('seconds_real');
-
-      setInterval(() => {
-        if (time <= 0) return;
-        time--;
-        const mins = Math.floor(time / 60);
-        const secs = time % 60;
-        hoursEl.textContent = "16"; // Mocking the Day/Hrs to match screenshot
-        minsEl.textContent = mins.toString().padStart(2, '0');
-        secsEl.textContent = secs.toString().padStart(2, '0');
-      }, 1000);
-    }
-    startTimer();
   </script>
 </body>
 </html>
