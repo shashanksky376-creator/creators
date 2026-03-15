@@ -36,13 +36,15 @@
       z-index: 100;
       background: #080808;
       border-right: 1px solid var(--border);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    .sidebar.closed { transform: translateX(-100%); }
     .main-content {
       margin-left: 280px;
       min-height: 100vh;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    .main-content.expanded { margin-left: 0; }
     .lesson-item {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       border: 1px solid transparent;
@@ -70,16 +72,18 @@
     }
 
     .module-card {
-      background: linear-gradient(180deg, rgba(20, 20, 20, 0.8) 0%, rgba(10, 10, 10, 0.95) 100%);
+      background: linear-gradient(90deg, rgba(20, 20, 20, 0.8) 0%, rgba(10, 10, 10, 0.95) 100%);
       border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 32px;
-      padding: 32px;
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 24px;
+      padding: 24px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
       display: flex;
-      flex-direction: column;
-      gap: 28px;
+      flex-direction: row;
+      align-items: center;
+      gap: 32px;
+      width: 100%;
     }
     .module-card::before {
       content: '';
@@ -101,7 +105,9 @@
     .module-card:hover::before { opacity: 1; }
 
     .module-poster {
-      height: 160px;
+      width: 100px;
+      height: 100px;
+      flex-shrink: 0;
       border-radius: 20px;
       background: linear-gradient(135deg, #121212 0%, #050505 100%);
       display: flex;
@@ -140,9 +146,10 @@
     .custom-scroll::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
     @media (max-width: 1024px) {
-      .sidebar { transform: translateX(-100%); width: 300px; z-index: 250; }
+      .sidebar { transform: translateX(-100%); width: 300px; z-index: 250; left: 0; }
       .sidebar.open { transform: translateX(0); }
-      .main-content { margin-left: 0; padding-bottom: 80px; }
+      .sidebar.closed { transform: translateX(-100%); }
+      .main-content { margin-left: 0 !important; padding-bottom: 80px; }
       .sidebar-overlay { 
         position: fixed; 
         inset: 0; 
@@ -231,12 +238,18 @@
     </div>
   </aside>
 
-  <!-- Mobile Header -->
-  <header class="lg:hidden glass fixed top-0 inset-x-0 z-[140] h-16 flex items-center justify-between px-6 border-b border-white/5">
-    <div class="text-sm font-black tracking-widest uppercase">Affiliate<span class="text-primary">PRO</span></div>
-    <button onclick="toggleSidebar()" class="p-2 text-white bg-white/5 rounded-lg">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-    </button>
+  <!-- Unified Navbar -->
+  <header class="glass fixed top-0 right-0 z-[90] h-16 flex items-center justify-between px-6 transition-all duration-400" id="top-navbar" style="left: 280px;">
+    <div class="flex items-center gap-4">
+      <button onclick="toggleSidebar()" class="p-2 text-white bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/5">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+      </button>
+      <div class="hidden md:block text-xs font-black tracking-[0.2em] uppercase text-gray-500">Student Area / <span class="text-white">Dashboard</span></div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div id="nav-user-greeting" class="hidden sm:block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Welcome, <span id="nav-user-name" class="text-white">Student</span></div>
+      <div class="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white text-[10px] font-black uppercase shadow-lg shadow-red-600/20" id="nav-user-initial">?</div>
+    </div>
   </header>
 
   <!-- Mobile Bottom Nav -->
@@ -302,22 +315,23 @@
           <p class="text-gray-600 text-sm font-medium">Total 5 Modules • High Quality 4K Training</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" id="module-container">
+        <div class="grid grid-cols-1 gap-6" id="module-container">
           <!-- Module 1 -->
           <div class="module-card">
-            <div class="module-poster mb-2">
-              <svg class="w-12 h-12 text-red-500 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            <div class="module-poster">
+              <svg class="w-10 h-10 text-red-500 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
             </div>
-            <div class="space-y-4">
+            <div class="flex-1 space-y-2">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-black text-red-500 uppercase tracking-widest">Foundation</span>
+                <span class="text-[9px] font-black text-red-500 uppercase tracking-widest">Foundation</span>
                 <span class="status-badge locked">Locked</span>
               </div>
-              <h4 class="text-2xl font-black text-white leading-tight">Getting Started</h4>
-              <div class="space-y-3 pt-4">
-                <div onclick="selectLesson('Welcome & Roadmap', 'Your first steps in the Affiliate PRO system.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2e', '1', this)" class="lesson-item locked flex items-center gap-4 p-4 cursor-pointer">
-                  <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">01</div>
-                  <span class="flex-1 text-sm font-bold text-gray-400">Welcome & Goal Setting</span>
+              <h4 class="text-xl font-bold text-white tracking-tight">Getting Started</h4>
+              <p class="text-gray-500 text-xs leading-relaxed max-w-xl">Begin your journey with the fundamental roadmap and mindset for affiliate success.</p>
+              <div class="pt-3 flex flex-wrap gap-2">
+                <div onclick="selectLesson('Welcome & Roadmap', 'Your first steps in the Affiliate PRO system.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2e', '1', this)" class="lesson-item locked px-4 py-2 cursor-pointer flex items-center gap-3">
+                  <div class="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center text-[9px] font-black">01</div>
+                  <span class="text-xs font-bold text-gray-400">Welcome & Goal Setting</span>
                 </div>
               </div>
             </div>
@@ -325,19 +339,20 @@
 
           <!-- Module 2 -->
           <div class="module-card">
-            <div class="module-poster mb-2">
-              <svg class="w-12 h-12 text-blue-500 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <div class="module-poster">
+              <svg class="w-10 h-10 text-blue-500 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
-            <div class="space-y-4">
+            <div class="flex-1 space-y-2">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-black text-blue-400 uppercase tracking-widest">Research</span>
+                <span class="text-[9px] font-black text-blue-400 uppercase tracking-widest">Research</span>
                 <span class="status-badge locked">Locked</span>
               </div>
-              <h4 class="text-2xl font-black text-white leading-tight">Niche Mastery</h4>
-              <div class="space-y-3 pt-4">
-                <div onclick="selectLesson('Product Research', 'How to find products that sell themselves.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2f', '2', this)" class="lesson-item locked flex items-center gap-4 p-4 cursor-pointer">
-                  <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">02</div>
-                  <span class="flex-1 text-sm font-bold text-gray-400">Market Analysis</span>
+              <h4 class="text-xl font-bold text-white tracking-tight">Niche Mastery</h4>
+              <p class="text-gray-500 text-xs leading-relaxed max-w-xl">Learn how to identify high-converting niches and products that practically sell themselves.</p>
+              <div class="pt-3 flex flex-wrap gap-2">
+                <div onclick="selectLesson('Product Research', 'How to find products that sell themselves.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2f', '2', this)" class="lesson-item locked px-4 py-2 cursor-pointer flex items-center gap-3">
+                  <div class="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center text-[9px] font-black">02</div>
+                  <span class="text-xs font-bold text-gray-400">Market Analysis</span>
                 </div>
               </div>
             </div>
@@ -345,19 +360,20 @@
 
           <!-- Module 3 -->
           <div class="module-card">
-            <div class="module-poster mb-2">
-              <svg class="w-12 h-12 text-purple-500 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            <div class="module-poster">
+              <svg class="w-10 h-10 text-purple-500 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
             </div>
-            <div class="space-y-4">
+            <div class="flex-1 space-y-2">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-black text-purple-400 uppercase tracking-widest">Traffic</span>
+                <span class="text-[9px] font-black text-purple-400 uppercase tracking-widest">Traffic</span>
                 <span class="status-badge locked">Locked</span>
               </div>
-              <h4 class="text-2xl font-black text-white leading-tight">Traffic Generation</h4>
-              <div class="space-y-3 pt-4">
-                <div onclick="selectLesson('Organic Traffic Secrets', 'Build an audience without spending on ads.', '3ca776e0-fake-id-1', '3', this)" class="lesson-item locked flex items-center gap-4 p-4 cursor-pointer">
-                  <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">03</div>
-                  <span class="flex-1 text-sm font-bold text-gray-400">Social Media Funnels</span>
+              <h4 class="text-xl font-bold text-white tracking-tight">Traffic Generation</h4>
+              <p class="text-gray-500 text-xs leading-relaxed max-w-xl">Master the art of organic traffic and automated funnels to keep your sales pipeline full.</p>
+              <div class="pt-3 flex flex-wrap gap-2">
+                <div onclick="selectLesson('Organic Traffic Secrets', 'Build an audience without spending on ads.', '3ca776e0-fake-id-1', '3', this)" class="lesson-item locked px-4 py-2 cursor-pointer flex items-center gap-3">
+                  <div class="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center text-[9px] font-black">03</div>
+                  <span class="text-xs font-bold text-gray-400">Social Media Funnels</span>
                 </div>
               </div>
             </div>
@@ -365,19 +381,20 @@
 
           <!-- Module 4 -->
           <div class="module-card">
-            <div class="module-poster mb-2">
-              <svg class="w-12 h-12 text-amber-500 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+            <div class="module-poster">
+              <svg class="w-10 h-10 text-amber-500 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
             </div>
-            <div class="space-y-4">
+            <div class="flex-1 space-y-2">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-black text-amber-400 uppercase tracking-widest">Selling</span>
+                <span class="text-[9px] font-black text-amber-400 uppercase tracking-widest">Selling</span>
                 <span class="status-badge locked">Locked</span>
               </div>
-              <h4 class="text-2xl font-black text-white leading-tight">Content Sales</h4>
-              <div class="space-y-3 pt-4">
-                <div onclick="selectLesson('Copywriting Mastery', 'Write words that convert visitors to buyers.', '3ca776e0-fake-id-2', '4', this)" class="lesson-item locked flex items-center gap-4 p-4 cursor-pointer">
-                  <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">04</div>
-                  <span class="flex-1 text-sm font-bold text-gray-400">Sales Scripting</span>
+              <h4 class="text-xl font-bold text-white tracking-tight">Content Sales</h4>
+              <p class="text-gray-500 text-xs leading-relaxed max-w-xl">Optimize your content strategy for high conversion and maximum revenue per view.</p>
+              <div class="pt-3 flex flex-wrap gap-2">
+                <div onclick="selectLesson('Copywriting Mastery', 'Write words that convert visitors to buyers.', '3ca776e0-fake-id-2', '4', this)" class="lesson-item locked px-4 py-2 cursor-pointer flex items-center gap-3">
+                  <div class="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center text-[9px] font-black">04</div>
+                  <span class="text-xs font-bold text-gray-400">Sales Scripting</span>
                 </div>
               </div>
             </div>
@@ -385,19 +402,20 @@
 
           <!-- Module 5 -->
           <div class="module-card">
-            <div class="module-poster mb-2">
-              <svg class="w-12 h-12 text-emerald-500 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            <div class="module-poster">
+              <svg class="w-10 h-10 text-emerald-500 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
             </div>
-            <div class="space-y-4">
+            <div class="flex-1 space-y-2">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-black text-emerald-400 uppercase tracking-widest">Scaling</span>
+                <span class="text-[9px] font-black text-emerald-400 uppercase tracking-widest">Scaling</span>
                 <span class="status-badge locked">Locked</span>
               </div>
-              <h4 class="text-2xl font-black text-white leading-tight">Scale & Congrats</h4>
-              <div class="space-y-3 pt-4">
-                <div onclick="selectLesson('Scaling to ₹1L+', 'The advanced path to massive affiliate earnings.', '3ca776e0-fake-id-3', '5', this)" class="lesson-item locked flex items-center gap-4 p-4 cursor-pointer">
-                  <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">05</div>
-                  <span class="flex-1 text-sm font-bold text-gray-400">Massive Earnings</span>
+              <h4 class="text-xl font-bold text-white tracking-tight">Scale & Congrats</h4>
+              <p class="text-gray-500 text-xs leading-relaxed max-w-xl">Advanced strategies to take your affiliate business from side hustle to empire.</p>
+              <div class="pt-3 flex flex-wrap gap-2">
+                <div onclick="selectLesson('Scaling to ₹1L+', 'The advanced path to massive affiliate earnings.', '3ca776e0-fake-id-3', '5', this)" class="lesson-item locked px-4 py-2 cursor-pointer flex items-center gap-3">
+                  <div class="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center text-[9px] font-black">05</div>
+                  <span class="text-xs font-bold text-gray-400">Massive Earnings</span>
                 </div>
               </div>
             </div>
@@ -449,8 +467,25 @@
     const BUNNY_LIBRARY_ID = "348560";
 
     function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('sidebar-overlay').classList.toggle('active');
+      const sidebar = document.getElementById('sidebar');
+      const mainContent = document.querySelector('.main-content');
+      const topNavbar = document.getElementById('top-navbar');
+      const overlay = document.getElementById('sidebar-overlay');
+      
+      const isMobile = window.innerWidth <= 1024;
+      
+      if (isMobile) {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+      } else {
+        sidebar.classList.toggle('closed');
+        mainContent.classList.toggle('expanded');
+        if (sidebar.classList.contains('closed')) {
+          topNavbar.style.left = '0';
+        } else {
+          topNavbar.style.left = '280px';
+        }
+      }
     }
 
     function scrollToTop() {
@@ -550,17 +585,20 @@
       setTimeout(performUnlock, 1500); 
     }
 
-    // Auth Integration
     (async function() {
-      // The auth-guard.js script runs first and sets window.ENROLLED_USER
-      // We check for it every 100ms for up to 2 seconds to handle loading
       let checks = 0;
       const checkInterval = setInterval(() => {
         if (typeof window.ENROLLED_USER !== 'undefined') {
           const user = window.ENROLLED_USER;
+          const firstName = user.fullName.split(' ')[0].toUpperCase();
+          
           document.getElementById('user-name-display').textContent = user.fullName.toUpperCase();
           document.getElementById('user-email-display').textContent = user.email;
           document.getElementById('user-avatar').textContent = user.fullName[0].toUpperCase();
+          
+          // Navbar updates
+          document.getElementById('nav-user-name').textContent = firstName;
+          document.getElementById('nav-user-initial').textContent = user.fullName[0].toUpperCase();
           
           unlockDashboard();
           clearInterval(checkInterval);
