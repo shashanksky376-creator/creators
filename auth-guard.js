@@ -28,7 +28,7 @@
   if (!isValidSession) {
     // signOut() is called inside validateActiveSession if mismatch
     // Just in case it didn't redirect:
-    window.location.href = "/login.html?reason=session_expired";
+    window.location.href = "/index.html?reason=session_expired";
     return;
   }
 
@@ -42,7 +42,7 @@
   setInterval(async () => {
     const valid = await validateActiveSession(email);
     if (!valid) {
-      window.location.href = "/login.html?reason=session_expired";
+      window.location.href = "/index.html?reason=session_expired";
     }
   }, 60000);
 

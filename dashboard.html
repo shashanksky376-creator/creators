@@ -3,259 +3,289 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Course | Affiliate PRO</title>
+  <title>Student Portal | Affiliate PRO</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #050505; }
-    .glass-card { 
-      background: rgba(20, 20, 20, 0.6); 
-      backdrop-filter: blur(12px); 
-      border: 1px solid rgba(255,255,255,0.08); 
-      border-radius: 1.5rem; 
-      transition: all 0.3s ease;
+    :root {
+      --primary: #e8212b;
+      --dark: #050505;
+      --card: rgba(15, 15, 15, 0.6);
+      --border: rgba(255, 255, 255, 0.08);
     }
-    .glass-card:hover {
-      border-color: rgba(220,38,38,0.4);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    body { font-family: 'Poppins', sans-serif; background-color: var(--dark); color: #fff; overflow-x: hidden; }
+    h1, h2, h3, .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+    
+    .glass { 
+      background: var(--card); 
+      backdrop-filter: blur(24px) saturate(180%); 
+      border: 1px solid var(--border); 
     }
-    .lesson-item { 
-      padding: 0.85rem 1.25rem; 
-      border-radius: 1rem; 
-      cursor: pointer; 
-      transition: all 0.2s; 
+    .sidebar {
+      width: 280px;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 100;
+      background: #080808;
+      border-right: 1px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .main-content {
+      margin-left: 280px;
+      min-height: 100vh;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .lesson-item {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       border: 1px solid transparent;
+      border-radius: 12px;
     }
-    .lesson-item:hover { 
-      background: rgba(255,255,255,0.05); 
-      border-color: rgba(255,255,255,0.1);
-      padding-left: 1.5rem;
+    .lesson-item:hover {
+      background: rgba(232, 33, 43, 0.05);
+      border-color: rgba(232, 33, 43, 0.2);
+      transform: translateX(4px);
     }
-    .lesson-item.locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(100%); }
+    .lesson-item.active {
+      background: rgba(232, 33, 43, 0.1);
+      border-color: var(--primary);
+      box-shadow: 0 0 20px rgba(232, 33, 43, 0.15);
+    }
+    .lesson-item.locked { opacity: 0.3; filter: grayscale(1); cursor: not-allowed; }
     
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .video-wrap {
+      aspect-ratio: 16/9;
+      background: #000;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6);
     }
-    .animate-slide { animation: slideIn 0.5s ease-out forwards; }
-    
-    .nav-blur {
-      background: rgba(10, 10, 10, 0.8);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    
-    .progress-glow {
-      box-shadow: 0 0 15px rgba(220,38,38,0.4);
-    }
-    @media (max-width: 768px) {
-      .glass-card { border-radius: 1.25rem; }
-      h1 { font-size: 1.75rem !important; }
-      .lesson-item { padding: 0.75rem 1rem; }
+
+    .custom-scroll::-webkit-scrollbar { width: 5px; }
+    .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 10px; }
+    .custom-scroll::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+    @media (max-width: 1024px) {
+      .sidebar { transform: translateX(-100%); width: 100%; }
+      .sidebar.open { transform: translateX(0); }
+      .main-content { margin-left: 0; }
     }
   </style>
 </head>
-<body class="bg-[#050505] text-white min-h-screen">
+<body class="custom-scroll">
 
-  <!-- Auth Guard: Runs before page loads -->
+  <!-- Auth Guard -->
   <script src="supabase-config.js"></script>
   <script src="auth-guard.js"></script>
 
-  <!-- Header -->
-  <header class="nav-blur px-6 py-4 flex items-center justify-between sticky top-0 z-50">
-    <a href="index.html" class="flex items-center gap-2.5 group">
-      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white shadow-[0_0_20px_rgba(220,38,38,0.4)] group-hover:scale-105 transition-all">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-      </div>
-      <div>
-        <span class="text-lg font-black tracking-widest uppercase">Affiliate<span class="text-red-600">PRO</span></span>
-        <div class="text-[9px] text-gray-500 font-bold tracking-[0.2em] uppercase">Student Portal</div>
-      </div>
-    </a>
-    <div class="flex items-center gap-4">
-      <div id="user-email" class="text-xs text-gray-400 font-medium hidden md:block px-3 py-1.5 rounded-full bg-white/5 border border-white/5"></div>
-      <button onclick="signOut()" class="text-xs font-bold text-gray-400 hover:text-white hover:bg-red-600/20 hover:border-red-600/50 transition-all flex items-center gap-1.5 px-4 py-2 rounded-xl border border-white/10">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-        Logout
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar flex flex-col p-6">
+    <div class="mb-10 px-2 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-[0_0_20px_rgba(232,33,43,0.4)]">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg font-black tracking-widest uppercase text-white leading-none">Affiliate<span class="text-primary">PRO</span></span>
+          <span class="text-[9px] text-gray-500 font-bold tracking-[0.2em] uppercase mt-1">Student Portal</span>
+        </div>
+      </a>
+      <button onclick="toggleSidebar()" class="lg:hidden p-2 text-gray-400 hover:text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
       </button>
     </div>
+
+    <nav class="flex-1 space-y-2">
+      <a href="#" class="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-primary/10 text-primary border border-primary/20 font-bold text-sm">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+        Course Dashboard
+      </a>
+      <a href="#" onclick="alert('Bonuses coming soon!')" class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all font-bold text-sm">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5a2 2 0 10-2 2h2zm0 0h4l1 3H7l1-3h4z"></path></svg>
+        Free Bonuses
+      </a>
+      <a href="https://t.me/+fake_link" target="_blank" class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all font-bold text-sm">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
+        Telegram Group
+      </a>
+    </nav>
+
+    <!-- Support/User Card -->
+    <div class="mt-auto space-y-4">
+      <div class="glass p-4 rounded-2xl border-primary/5">
+        <div class="flex items-center gap-3 mb-3">
+          <div id="user-avatar" class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white font-black shadow-lg">?</div>
+          <div class="overflow-hidden">
+            <div id="user-name-display" class="text-xs font-black text-white uppercase tracking-tighter truncate">Student</div>
+            <div id="user-email-display" class="text-[9px] text-gray-500 font-bold truncate">Loading...</div>
+          </div>
+        </div>
+        <button onclick="signOut()" class="w-full py-2.5 bg-white/5 hover:bg-red-600/10 hover:text-red-500 border border-white/5 hover:border-red-600/20 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">Sign Out</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Mobile Header -->
+  <header class="lg:hidden glass fixed top-0 inset-x-0 z-[90] h-16 flex items-center justify-between px-6 border-b border-white/5">
+    <div class="text-sm font-black tracking-widest uppercase">Affiliate<span class="text-primary">PRO</span></div>
+    <button onclick="toggleSidebar()" class="p-2 text-white">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+    </button>
   </header>
 
-  <!-- Hero Banner -->
-  <div class="relative overflow-hidden border-b border-white/5 bg-[#0a0a0a]">
-    <div class="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent"></div>
-    <div class="max-w-5xl mx-auto px-6 py-12 relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 animate-slide">
-      <div>
-        <span class="inline-flex items-center gap-2 bg-green-500/10 text-green-400 text-[10px] font-black tracking-widest uppercase px-3 py-1.5 rounded-full mb-4 border border-green-500/20">
-          <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-          ACCESS GRANTED
-        </span>
-        <h1 class="text-3xl md:text-5xl font-black mb-3 tracking-tight">Affiliate Marketing Mastery</h1>
-        <p class="text-gray-500 text-sm font-medium">0 To Pro Affiliate Pro &nbsp;·&nbsp; ಕನ್ನಡ (Kannada) &nbsp;·&nbsp; By Shashank</p>
-      </div>
-      <div class="glass-card p-6 flex flex-col items-start md:items-end gap-3 min-w-[200px]">
-        <div class="text-[10px] text-gray-400 font-bold tracking-widest uppercase">Course Progress</div>
-        <div class="w-full md:w-48 h-2 bg-white/5 rounded-full overflow-hidden">
-          <div class="h-full bg-red-600 rounded-full w-0 transition-all duration-1000 progress-glow" id="progress-bar"></div>
-        </div>
-        <div class="text-sm font-black text-white"><span id="progress-text" class="text-red-500">0</span> <span class="text-gray-600 font-medium">/ 6 Modules</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Content -->
-  <main class="max-w-7xl mx-auto px-6 py-6 md:py-10">
-    <div class="grid lg:grid-cols-12 gap-8 items-start">
-
-      <!-- LEFT: Video Player & Info (8/12) -->
-      <div class="lg:col-span-8 space-y-6">
-        <!-- Video Container -->
-        <div class="glass-card overflow-hidden aspect-video relative group border-[#dc2626]/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]">
-          <div id="video-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-[#0a0a0a] text-center p-8 z-10 transition-opacity duration-500">
-            <div class="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center text-red-600 mb-6 border border-red-600/20">
-              <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
-            </div>
-            <h2 class="text-xl font-bold mb-2">Ready to Learn?</h2>
-            <p class="text-gray-500 text-sm max-w-sm">Select a lesson from the syllabus on the right to start watching.</p>
-          </div>
-          
-          <iframe id="bunny-player" 
-                  src="" 
-                  loading="lazy" 
-                  style="border:0;position:absolute;top:0;height:100%;width:100%;opacity:0;transition:opacity 0.5s;" 
-                  allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" 
-                  allowfullscreen="true">
-          </iframe>
-        </div>
-
-        <!-- Lesson Info -->
-        <div class="glass-card p-6 md:p-8 space-y-4 animate-slide">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <div id="current-module-tag" class="text-[10px] text-red-500 font-black tracking-widest uppercase mb-1">Introduction</div>
-              <h2 id="current-lesson-title" class="text-2xl md:text-3xl font-black tracking-tight">Welcome Student</h2>
-            </div>
-          </div>
-          <p id="current-lesson-desc" class="text-gray-400 text-sm leading-relaxed max-w-3xl">Please select a module to begin your training sessions.</p>
-        </div>
-      </div>
-
-      <!-- RIGHT: Module List (4/12) -->
-      <div class="lg:col-span-4 space-y-4 max-h-[80vh] overflow-y-auto pr-2 custom-scrollbar">
-        <h2 class="text-xs font-black text-gray-500 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
-          <span class="w-6 h-px bg-red-600/50"></span> Course Syllabus
-        </h2>
-
-        <!-- Module 1 -->
-        <div class="space-y-4">
-          <div class="glass-card p-5">
-            <div class="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-3">Module 1: Foundations</div>
-            <div class="space-y-2">
-              <div onclick="selectLesson('Course Overview', 'Getting started with the basics of the industry.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2e', this)" class="lesson-item flex items-center gap-3" data-module="Foundations">
-                <div class="w-8 h-8 rounded-lg bg-red-600/10 text-red-500 flex items-center justify-center text-xs font-black border border-red-600/20">01</div>
-                <div class="flex-1">
-                  <div class="text-[13px] font-bold text-gray-200">Welcome & Roadmap</div>
-                </div>
-                <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
-              </div>
-              <div onclick="selectLesson('Mindset for Success', 'The psychological foundation of a top affiliate.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2f', this)" class="lesson-item flex items-center gap-3" data-module="Foundations">
-                <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center text-xs font-black border border-white/5">02</div>
-                <div class="flex-1">
-                  <div class="text-[13px] font-bold text-gray-400">Mindset Mastery</div>
-                </div>
-                <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Module 2 -->
-        <div class="space-y-4">
-          <div class="glass-card p-5">
-            <div class="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-3">Module 2: Traffic Secrets</div>
-            <div class="space-y-2">
-              <div onclick="selectLesson('FB Ads 101', 'Setting up your first high-converting ad campaign.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a3a', this)" class="lesson-item flex items-center gap-3" data-module="Traffic Secrets">
-                <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center text-xs font-black border border-white/5">03</div>
-                <div class="flex-1">
-                  <div class="text-[13px] font-bold text-gray-400">Facebook Ads Setup</div>
-                </div>
-                <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
-              </div>
-              <div onclick="selectLesson('Organic IG Growth', 'Build a brand without spending a rupee on ads.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a3b', this)" class="lesson-item flex items-center gap-3" data-module="Traffic Secrets">
-                <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-400 flex items-center justify-center text-xs font-black border border-white/5">04</div>
-                <div class="flex-1">
-                  <div class="text-[13px] font-bold text-gray-400">Instagram Strategy</div>
-                </div>
-                <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-      <!-- Right: Sidebar -->
-      <div class="space-y-6 animate-slide" style="animation-delay: 0.2s;">
-        <!-- Student card -->
-        <div class="glass-card p-6">
-          <div class="flex items-center gap-4 mb-5">
-            <div class="w-12 h-12 rounded-2xl bg-red-600 flex items-center justify-center font-black text-lg border border-white/20 shadow-[0_10px_20px_rgba(220,38,38,0.3)]" id="user-avatar">S</div>
-            <div>
-              <div class="text-sm font-black text-white">ACTIVE STUDENT</div>
-              <div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-0.5" id="sidebar-email">Loading...</div>
-            </div>
-          </div>
-          <div class="text-[10px] text-green-400 font-black tracking-[0.2em] uppercase flex items-center gap-2 bg-green-500/10 px-3 py-2 rounded-xl border border-green-500/20">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-4-4 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z"/></svg>
+  <main class="main-content">
+    
+    <!-- Hero Header -->
+    <div class="relative py-12 px-6 lg:px-12 bg-[#080808] border-b border-white/5 overflow-hidden mt-16 lg:mt-0">
+      <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -mr-48 -mt-48"></div>
+      <div class="relative z-10 max-w-6xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-8">
+        <div>
+          <div class="inline-flex items-center gap-2 bg-green-500/10 text-green-500 text-[10px] font-black tracking-widest uppercase px-3 py-1.5 rounded-full mb-6 border border-green-500/10">
+            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
             Lifetime Access Active
           </div>
+          <h1 class="text-4xl lg:text-6xl font-black mb-2 tracking-tighter">Student Dashboard</h1>
+          <p class="text-gray-500 text-sm font-medium">Affiliate Mastery — From Beginner to Pro &nbsp;|&nbsp; ಕನ್ನಡ (Kannada)</p>
         </div>
-
-        <!-- Telegram community -->
-        <div class="glass-card p-6 border-blue-900/30 bg-blue-950/5">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/></svg>
-            </div>
-            <span class="font-black text-sm text-blue-300 uppercase tracking-widest">Community</span>
+        
+        <!-- Progress Counter -->
+        <div class="glass p-6 rounded-3xl min-w-[240px] border-white/5">
+          <div class="flex justify-between items-center mb-3">
+            <span class="text-[10px] font-black text-gray-500 uppercase tracking-widest">Course Progress</span>
+            <span id="progress-pct" class="text-xs font-black text-primary">0%</span>
           </div>
-          <p class="text-gray-500 text-[11px] font-medium leading-relaxed mb-5">Connect with 1,200+ students in our private Telegram blueprint group.</p>
-          <a href="#" class="block w-full text-center text-[10px] font-black tracking-widest uppercase bg-blue-600 text-white py-3.5 rounded-xl hover:bg-blue-500 transition-all shadow-lg shadow-blue-600/20">Join Telegram →</a>
+          <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden mb-3">
+            <div id="progress-bar" class="w-0 h-full bg-primary rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(232,33,43,0.4)]"></div>
+          </div>
+          <div class="text-xs font-bold text-white"><span id="completed-count">0</span> <span class="text-gray-500">/ 5 Modules Locked</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="max-w-7xl mx-auto p-6 lg:p-12">
+      <div class="grid lg:grid-cols-12 gap-10">
+        
+        <!-- Player Area -->
+        <div class="lg:col-span-8 space-y-8">
+          <div class="video-wrap relative group">
+            <div id="video-placeholder" class="absolute inset-0 z-20 bg-[#0a0a0a] flex flex-col items-center justify-center p-8 text-center transition-opacity duration-500">
+               <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6 border border-primary/20">
+                <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+               </div>
+               <h2 class="text-2xl font-black uppercase mb-2 tracking-widest">Select a Module</h2>
+               <p class="text-gray-500 text-sm max-w-xs">Start your training by selecting a session from the curriculum on the right.</p>
+            </div>
+            <iframe id="bunny-player" 
+                    src="" 
+                    loading="lazy" 
+                    style="border:0;position:absolute;top:0;height:100%;width:100%;opacity:0;transition:opacity 0.5s;" 
+                    allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" 
+                    allowfullscreen="true">
+            </iframe>
+          </div>
+
+          <div class="glass p-8 rounded-3xl space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <div id="cur-module-label" class="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-2">Syllabus</div>
+                <h2 id="cur-lesson-title" class="text-3xl md:text-4xl font-black tracking-tight leading-none">Welcome Student</h2>
+              </div>
+              <button onclick="scrollToSyllabus()" class="md:hidden w-full bg-primary/10 text-primary py-3 rounded-xl border border-primary/20 text-xs font-black uppercase tracking-widest">Next Lesson ↓</button>
+            </div>
+            <p id="cur-lesson-desc" class="text-gray-400 text-sm leading-relaxed max-w-4xl">Select your first module to begin. We recommend following the roadmap chronologically for the best results.</p>
+          </div>
         </div>
 
-        <!-- Support -->
-        <div class="glass-card p-6 border-red-900/10">
-          <h4 class="font-black text-[10px] tracking-widest uppercase text-gray-400 mb-4">Support</h4>
-          <a href="mailto:shashanksky376@gmail.com" class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-red-600/30 transition-all group">
-            <div class="w-8 h-8 rounded-lg bg-red-600/20 flex items-center justify-center text-red-500 group-hover:bg-red-600 group-hover:text-white transition-all">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        <!-- Sidebar Syllabus -->
+        <div class="lg:col-span-4 lg:max-h-[85vh] lg:overflow-y-auto custom-scroll pr-2 space-y-6" id="syllabus">
+          <h3 class="text-xs font-black text-gray-500 uppercase tracking-[0.3em] flex items-center gap-3">
+            <span class="w-8 h-px bg-primary/30"></span> Course Syllabus
+          </h3>
+          
+          <div class="space-y-4" id="module-container">
+            <!-- Module 1 -->
+            <div class="glass p-5 rounded-2xl border-white/5">
+              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">Module 1: Getting Started</div>
+              <div class="space-y-2">
+                <div onclick="selectLesson('Welcome & Roadmap', 'Your first steps in the Affiliate PRO system.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2e', '1', this)" class="lesson-item flex items-center gap-3 p-3">
+                  <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-[10px] font-black border border-primary/20">01</div>
+                  <div class="flex-1 text-[13px] font-bold text-gray-300">Welcome & Goal Setting</div>
+                  <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+                </div>
+              </div>
             </div>
-            <div class="text-[11px] font-bold text-gray-300 group-hover:text-white">Email Shashank</div>
-          </a>
+
+            <!-- Module 2 -->
+            <div class="glass p-5 rounded-2xl border-white/5">
+              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">Module 2: Niche Mastery</div>
+              <div class="space-y-2">
+                <div onclick="selectLesson('Product Research', 'How to find products that sell themselves.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2f', '2', this)" class="lesson-item flex items-center gap-3 p-3">
+                  <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-600 flex items-center justify-center text-[10px] font-black">02</div>
+                  <div class="flex-1 text-[13px] font-bold text-gray-500">Market Analysis</div>
+                  <svg class="w-4 h-4 text-gray-900" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module 3 -->
+            <div class="glass p-5 rounded-2xl border-white/5">
+              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">Module 3: Traffic Generation</div>
+              <div class="space-y-2">
+                <div onclick="selectLesson('Organic Traffic Secrets', 'Build an audience without spending on ads.', '3ca776e0-fake-id-1', '3', this)" class="lesson-item flex items-center gap-3 p-3">
+                  <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-600 flex items-center justify-center text-[10px] font-black">03</div>
+                  <div class="flex-1 text-[13px] font-bold text-gray-500">Social Media Funnels</div>
+                  <svg class="w-4 h-4 text-gray-900" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module 4 -->
+            <div class="glass p-5 rounded-2xl border-white/5">
+              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">Module 4: Content Sales</div>
+              <div class="space-y-2">
+                <div onclick="selectLesson('Copywriting Mastery', 'Write words that convert visitors to buyers.', '3ca776e0-fake-id-2', '4', this)" class="lesson-item flex items-center gap-3 p-3">
+                  <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-600 flex items-center justify-center text-[10px] font-black">04</div>
+                  <div class="flex-1 text-[13px] font-bold text-gray-500">Sales Scripting</div>
+                  <svg class="w-4 h-4 text-gray-900" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module 5 -->
+            <div class="glass p-5 rounded-2xl border-white/5">
+              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">Module 5: Scale & Congrats</div>
+              <div class="space-y-2">
+                <div onclick="selectLesson('Scaling to ₹1L+', 'The advanced path to massive affiliate earnings.', '3ca776e0-fake-id-3', '5', this)" class="lesson-item flex items-center gap-3 p-3">
+                  <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-600 flex items-center justify-center text-[10px] font-black">05</div>
+                  <div class="flex-1 text-[13px] font-bold text-gray-500">The Ultimate Celebration</div>
+                  <svg class="w-4 h-4 text-gray-900" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </main>
 
-  <style>
-    .active-lesson {
-      background: rgba(220, 38, 38, 0.05) !important;
-      border-color: rgba(220, 38, 38, 0.2) !important;
-    }
-    .active-lesson .text-gray-400, .active-lesson .text-gray-200 {
-      color: #fff !important;
-    }
-    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(220,38,38,0.2); border-radius: 10px; }
-  </style>
-
   <script>
-    const BUNNY_LIBRARY_ID = "348560"; // Example ID, please update with real one
+    const BUNNY_LIBRARY_ID = "348560";
 
-    function selectLesson(title, desc, videoId, element) {
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    function scrollToSyllabus() {
+      document.getElementById('syllabus').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function selectLesson(title, desc, videoId, modNum, element) {
       if (!videoId) return;
       
       const placeholder = document.getElementById('video-placeholder');
@@ -267,36 +297,31 @@
       player.src = `https://iframe.mediadelivery.net/embed/${BUNNY_LIBRARY_ID}/${videoId}?autoplay=true`;
       player.style.opacity = '1';
 
-      document.getElementById('current-lesson-title').textContent = title;
-      document.getElementById('current-lesson-desc').textContent = desc;
-      document.getElementById('current-module-tag').textContent = element.getAttribute('data-module');
+      document.getElementById('cur-lesson-title').textContent = title;
+      document.getElementById('cur-lesson-desc').textContent = desc;
+      document.getElementById('cur-module-label').textContent = `Module ${modNum}`;
 
-      document.querySelectorAll('.lesson-item').forEach(item => item.classList.remove('active-lesson'));
-      element.classList.add('active-lesson');
+      document.querySelectorAll('.lesson-item').forEach(item => item.classList.remove('active'));
+      element.classList.add('active');
       
-      // Auto-scroll to player on mobile
-      if (window.innerWidth < 1024) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+      // Update progress visualization (mocked)
+      const pct = (parseInt(modNum) / 5) * 100;
+      document.getElementById('progress-bar').style.width = pct + '%';
+      document.getElementById('progress-pct').textContent = Math.round(pct) + '%';
+      document.getElementById('completed-count').textContent = modNum;
+
+      if (window.innerWidth < 1024) toggleSidebar();
     }
 
-    // Auth & Info logic
+    // Auth Integration
     (async function() {
-      if(typeof getSession !== 'undefined') {
-        const session = await getSession();
-        if (session) {
-          const email = session.user.email;
-          document.querySelectorAll("#user-email, #sidebar-email").forEach(el => el.textContent = email);
-          const av = document.getElementById("user-avatar");
-          if (av && email) av.textContent = email[0].toUpperCase();
-        }
+      if (typeof window.ENROLLED_USER !== 'undefined') {
+        const user = window.ENROLLED_USER;
+        document.getElementById('user-name-display').textContent = user.fullName.toUpperCase();
+        document.getElementById('user-email-display').textContent = user.email;
+        document.getElementById('user-avatar').textContent = user.fullName[0].toUpperCase();
       }
     })();
-
-    function signOut() {
-      if(typeof supabase !== 'undefined') supabase.auth.signOut().then(() => window.location.href = "login.html");
-      else window.location.href = "login.html";
-    }
   </script>
 
 </body>

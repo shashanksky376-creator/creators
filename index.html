@@ -22,6 +22,20 @@
     }
   }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script>
+  // Fast auto-redirect if already logged in with valid session
+  (async () => {
+    try {
+      const session = await getSession();
+      if (session) {
+        const valid = await validateActiveSession(session.user.email);
+        if (valid) window.location.href = "dashboard.html";
+      }
+    } catch(e) {}
+  })();
+</script>
 <style>
   body { background-color: #111111; color: #ffffff; }
   .glass-card { background: rgba(27, 27, 27, 0.7); backdrop-filter: blur(12px); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37); }
