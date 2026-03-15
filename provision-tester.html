@@ -11,8 +11,11 @@
 <body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
     <div class="bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-700 max-w-md w-full text-center">
         <h1 class="text-2xl font-bold mb-4">Provision Tester Account</h1>
-        <p class="text-gray-400 mb-6">Click the button below to add <span class="text-white font-mono">test@example.com</span> as a paid student in your database.</p>
+        <p class="text-gray-400 mb-6">Enter an email address to add it as a paid student in your database.</p>
         
+        <input type="email" id="tester-email" placeholder="enter your email" value="akashreddy55055@gmail.com" 
+               class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 mb-4 text-white focus:border-blue-500 outline-none">
+
         <button onclick="addTester()" id="test-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all active:scale-95">
             Add Tester Account
         </button>
@@ -26,9 +29,16 @@
 
     <script>
         async function addTester() {
+            const emailInput = document.getElementById('tester-email');
+            const email = emailInput.value.trim();
             const btn = document.getElementById('test-btn');
             const status = document.getElementById('status');
             
+            if(!email) {
+                alert("Please enter an email");
+                return;
+            }
+
             btn.disabled = true;
             btn.textContent = 'Processing...';
             status.textContent = '';
@@ -36,7 +46,7 @@
             try {
                 const result = await enrollUser({
                     fullName: "Tester Shashank",
-                    email: "test@example.com",
+                    email: email,
                     phone: "9123456789",
                     razorpayPaymentId: "pay_TEST_PROVISION_" + Date.now()
                 });
