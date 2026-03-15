@@ -1108,25 +1108,59 @@ updateTimer();
 setInterval(updateTimer, 1000);
 </script>
 <!-- FOOTER -->
-<footer style="background:var(--dark); border-top:1px solid rgba(255,255,255,0.05); padding:80px 20px 40px;">
-  <div style="max-width:1100px; margin:0 auto; text-align:center; display:flex; flex-direction:column; gap:40px;">
-    <div style="margin-bottom:48px;">
-        <h2 style="font-family:'Bebas Neue',sans-serif; font-size:42px; margin-bottom:12px;">Affiliate Marketing Mastery</h2>
-        <p style="color:var(--muted); font-size:14px; max-width:600px; margin:0 auto;">ನೀವು ನಿಮ್ಮ ಮನೆಯಲ್ಲೇ ಕುಳಿತು ಸಂಪೂರ್ಣ ಕನ್ನಡದಲ್ಲಿ ಅಫಿಲಿಯೇಟ್ ಮಾರ್ಕೆಟಿಂಗ್ ಕಲಿಯಬಹುದು. ನಿಮ್ಮ ಜೀವನವನ್ನೇ ಬದಲಿಸುವ ಸರಿಯಾದ ಸುರ್ಖಾನೆ ಈಗಲೇ ಪಡೆಯಿರಿ.</p>
-    </div>
-    
-    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:40px; margin-bottom:48px;">
-        <a href="index.html" style="color:var(--text); text-decoration:none; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Home</a>
-        <a href="privacy.html" style="color:var(--muted); text-decoration:none; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Privacy</a>
-        <a href="terms.html" style="color:var(--muted); text-decoration:none; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Terms</a>
-        <a href="refunds.html" style="color:var(--muted); text-decoration:none; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Refunds</a>
+<footer class="bg-[#0a0a0a] border-t border-white/5 pt-20 pb-10 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+      <!-- Brand & Info -->
+      <div class="space-y-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center text-white shadow-[0_0_20px_rgba(220,38,38,0.3)]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-lg font-black tracking-widest uppercase text-white">Affiliate<span class="text-red-600">PRO</span></span>
+            <span class="text-[9px] text-gray-500 font-bold tracking-[0.2em] uppercase leading-none mt-1">By Shashank</span>
+          </div>
+        </div>
+        <p class="text-gray-500 text-sm leading-relaxed max-w-sm">Learn the step-by-step strategies to build a massive online presence and earn ₹1L/month — entirely in Kannada.</p>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-white text-xs font-extrabold tracking-[0.2em] uppercase mb-6 flex items-center gap-2">
+          <span class="w-4 h-px bg-red-600"></span> Contact Us
+        </h4>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3">
+            <svg class="w-4 h-4 text-red-500 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <a href="mailto:shashanksky376@gmail.com" class="text-gray-500 text-sm hover:text-white transition-colors">shashanksky376@gmail.com</a>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-4 h-4 text-red-500 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span class="text-gray-500 text-sm tracking-wide">Support Hours: 10AM – 6PM IST<br>Mon – Sat</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <h4 class="text-white text-xs font-extrabold tracking-[0.2em] uppercase mb-6 flex items-center gap-2">
+          <span class="w-4 h-px bg-red-600"></span> Legal
+        </h4>
+        <ul class="space-y-3">
+          <li><a href="terms.html" class="text-gray-500 text-sm hover:text-white hover:pl-1 transition-all duration-200">Terms & Conditions</a></li>
+          <li><a href="privacy.html" class="text-gray-500 text-sm hover:text-white hover:pl-1 transition-all duration-200">Privacy Policy</a></li>
+          <li><a href="refunds.html" class="text-gray-500 text-sm hover:text-white hover:pl-1 transition-all duration-200">Cancellation & Refund Policy</a></li>
+        </ul>
+      </div>
     </div>
 
-    <div style="border-top:1px solid rgba(255,255,255,0.05); padding-top:32px;">
-        <p style="color:var(--muted); font-size:12px;">&copy; 2026 Affiliate PRO. All rights reserved. <br/> For support: shashanksky376@gmail.com</p>
-        <div style="margin-top:24px; opacity:0.3; filter:grayscale(1);">
-            <img src="https://razorpay.com/assets/razorpay-logo.svg" alt="Razorpay" style="height:14px;">
-        </div>
+    <!-- Bottom Bar -->
+    <div class="border-t border-white/5 pt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <p class="text-gray-600 text-sm">© 2026 Affiliate PRO — Shashank. All rights reserved.</p>
+      <div class="flex items-center gap-6">
+        <img src="https://razorpay.com/assets/razorpay-logo.svg" alt="Razorpay Secure" class="h-4 opacity-50 grayscale hover:grayscale-0 transition-all cursor-help">
+      </div>
     </div>
   </div>
 </footer>
