@@ -142,6 +142,8 @@ nav{display:none;}
 .mod-num{width:30px;height:30px;background:var(--red);border-radius:7px;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .mod-name{font-size:14px;font-weight:600;}
 .mod-badge{font-size:11px;background:rgba(224,28,28,0.12);color:var(--red);padding:4px 12px;border-radius:20px;font-weight:600;white-space:nowrap;}
+.mod-item.locked{cursor:not-allowed;position:relative;}
+.mod-item.locked:hover{border-color:rgba(255,255,255,0.08);}
 .mod-lessons{padding:0 22px;max-height:0;overflow:hidden;transition:max-height .3s ease;}
 .mod-item.open .mod-lessons{max-height:300px;}
 .lesson-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-top:1px solid #1f1f1f;font-size:13px;color:var(--muted);}
@@ -654,7 +656,7 @@ footer p{font-size:12.5px;color:var(--muted);}
   <p class="sec-p center" style="max-width:640px;margin:8px auto 0;">Join over 1,000 members and learn step-by-step strategies to earn online through affiliate marketing.</p>
   <div class="cur-layout">
     <div class="mod-list">
-      <div class="mod-item" onclick="toggleMod(this)">
+      <div class="mod-item locked" onclick="toggleMod(this)">
         <div class="mod-hdr">
           <div class="mod-left"><div class="mod-num">1</div><div class="mod-name">🔒 Welcome To The Course!</div></div>
           <span class="mod-badge">Module 1</span>
@@ -667,7 +669,7 @@ footer p{font-size:12.5px;color:var(--muted);}
           <div class="lesson-row"><span>🔒 Tools You'll Need</span><span>04:41</span></div>
         </div>
       </div>
-      <div class="mod-item" onclick="toggleMod(this)">
+      <div class="mod-item locked" onclick="toggleMod(this)">
         <div class="mod-hdr">
           <div class="mod-left"><div class="mod-num">2</div><div class="mod-name">🔒 Niche Selection & Product Research</div></div>
           <span class="mod-badge">Module 2</span>
@@ -678,7 +680,7 @@ footer p{font-size:12.5px;color:var(--muted);}
           <div class="lesson-row"><span>🔒 Evaluating Product Quality</span><span>06:30</span></div>
         </div>
       </div>
-      <div class="mod-item" onclick="toggleMod(this)">
+      <div class="mod-item locked" onclick="toggleMod(this)">
         <div class="mod-hdr">
           <div class="mod-left"><div class="mod-num">3</div><div class="mod-name">🔒 Building Your Traffic Sources</div></div>
           <span class="mod-badge">Module 3</span>
@@ -689,7 +691,7 @@ footer p{font-size:12.5px;color:var(--muted);}
           <div class="lesson-row"><span>🔒 Social Media Traffic Hacks</span><span>07:30</span></div>
         </div>
       </div>
-      <div class="mod-item" onclick="toggleMod(this)">
+      <div class="mod-item locked" onclick="toggleMod(this)">
         <div class="mod-hdr">
           <div class="mod-left"><div class="mod-num">4</div><div class="mod-name">🔒 Content Creation & Promotion</div></div>
           <span class="mod-badge">Module 4</span>
@@ -700,7 +702,7 @@ footer p{font-size:12.5px;color:var(--muted);}
           <div class="lesson-row"><span>🔒 Link Placement Strategy</span><span>05:20</span></div>
         </div>
       </div>
-      <div class="mod-item" onclick="toggleMod(this)">
+      <div class="mod-item locked" onclick="toggleMod(this)">
         <div class="mod-hdr">
           <div class="mod-left"><div class="mod-num">5</div><div class="mod-name">🔒 Earning Lakhs of Rupees</div></div>
           <span class="mod-badge">Module 5</span>
@@ -711,7 +713,7 @@ footer p{font-size:12.5px;color:var(--muted);}
           <div class="lesson-row"><span>🔒 My ₹17L Income Breakdown</span><span>11:00</span></div>
         </div>
       </div>
-      <div class="mod-item" onclick="toggleMod(this)">
+      <div class="mod-item locked" onclick="toggleMod(this)">
         <div class="mod-hdr">
           <div class="mod-left"><div class="mod-num">6</div><div class="mod-name">🔒 Congratulations, You Made It! 🎉</div></div>
           <span class="mod-badge">Module 6</span>
@@ -1071,6 +1073,10 @@ function vidPrev(){vIdx--; renderVid();}
 
 /* ── MODULE ACCORDION ── */
 function toggleMod(el){
+  if(el.classList.contains('locked')){
+    alert("Register now to unlock the full curriculum and start learning!");
+    return;
+  }
   const open = el.classList.contains('open');
   document.querySelectorAll('.mod-item').forEach(m => m.classList.remove('open'));
   if(!open) el.classList.add('open');
