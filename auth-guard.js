@@ -4,14 +4,16 @@
 // =====================================================
 
 (async function () {
-  const session = await getSession();
+  let session = await getSession();
+ 
+  // If no session yet but we have an OAuth access token in the URL,
+  // wait a moment for Supabase to process it.
+  if (!session && window.location.hash.includes('access_token')) {
+    await new Promise(r => setTimeout(r, 1000));
+    session = await getSession();
+  }
 
   if (!session) {
-    // If we have a recovery/access token in the URL (from OAuth),
-    // wait a moment for Supabase to process it.
-    if (window.location.hash.includes('access_token')) {
-       return; 
-    }
     window.location.href = "/login.html?reason=auth";
     return;
   }
