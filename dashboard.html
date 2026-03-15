@@ -209,7 +209,7 @@
           <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden mb-3">
             <div id="progress-bar" class="w-0 h-full bg-primary rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(232,33,43,0.4)]"></div>
           </div>
-          <div class="text-xs font-bold text-white"><span id="completed-count">0</span> <span class="text-gray-500">/ 5 Modules Locked</span></div>
+          <div class="text-xs font-bold text-white"><span id="completed-count">0</span> <span class="text-gray-500">/ 5 Modules (Content Locked)</span></div>
         </div>
       </div>
     </div>
@@ -222,11 +222,11 @@
         <div class="lg:col-span-8 space-y-8">
           <div class="video-wrap relative group">
             <div id="video-placeholder" class="absolute inset-0 z-20 bg-[#0a0a0a] flex flex-col items-center justify-center p-8 text-center transition-opacity duration-500">
-               <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6 border border-primary/20">
-                <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+               <div class="w-20 h-20 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 mb-6 border border-red-500/20">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                </div>
-               <h2 class="text-2xl font-black uppercase mb-2 tracking-widest">Select a Module</h2>
-               <p class="text-gray-500 text-sm max-w-xs">Start your training by selecting a session from the curriculum on the right.</p>
+               <h2 class="text-2xl font-black uppercase mb-2 tracking-widest text-red-500">Content Locked</h2>
+               <p class="text-gray-500 text-sm max-w-xs">Access to these modules is restricted. Please complete your enrollment to unlock the full Affiliate PRO training.</p>
             </div>
             <iframe id="bunny-player" 
                     src="" 
@@ -258,60 +258,60 @@
           <div class="space-y-4" id="module-container">
             <!-- Module 1 -->
             <div class="glass p-5 rounded-2xl border-white/5">
-              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">Module 1: Getting Started</div>
+              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">🔒 Module 1: Getting Started</div>
               <div class="space-y-2">
                 <div onclick="selectLesson('Welcome & Roadmap', 'Your first steps in the Affiliate PRO system.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2e', '1', this)" class="lesson-item locked flex items-center gap-3 p-3">
                   <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-[10px] font-black border border-primary/20">01</div>
-                  <div class="flex-1 text-[13px] font-bold text-gray-300">Welcome & Goal Setting</div>
-                  <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+                  <div class="flex-1 text-[13px] font-bold text-gray-300">🔒 Welcome & Goal Setting</div>
+                  <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 </div>
               </div>
             </div>
 
             <!-- Module 2 -->
             <div class="glass p-5 rounded-2xl border-white/5">
-              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">Module 2: Niche Mastery</div>
+              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">🔒 Module 2: Niche Mastery</div>
               <div class="space-y-2">
                 <div onclick="selectLesson('Product Research', 'How to find products that sell themselves.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2f', '2', this)" class="lesson-item locked flex items-center gap-3 p-3">
                   <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-600 flex items-center justify-center text-[10px] font-black">02</div>
-                  <div class="flex-1 text-[13px] font-bold text-gray-500">Market Analysis</div>
-                  <svg class="w-4 h-4 text-gray-900" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+                  <div class="flex-1 text-[13px] font-bold text-gray-500">🔒 Market Analysis</div>
+                  <svg class="w-4 h-4 text-gray-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 </div>
               </div>
             </div>
 
             <!-- Module 3 -->
             <div class="glass p-5 rounded-2xl border-white/5">
-              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">Module 3: Traffic Generation</div>
+              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">🔒 Module 3: Traffic Generation</div>
               <div class="space-y-2">
                 <div onclick="selectLesson('Organic Traffic Secrets', 'Build an audience without spending on ads.', '3ca776e0-fake-id-1', '3', this)" class="lesson-item locked flex items-center gap-3 p-3">
                   <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-600 flex items-center justify-center text-[10px] font-black">03</div>
-                  <div class="flex-1 text-[13px] font-bold text-gray-500">Social Media Funnels</div>
-                  <svg class="w-4 h-4 text-gray-900" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+                  <div class="flex-1 text-[13px] font-bold text-gray-500">🔒 Social Media Funnels</div>
+                  <svg class="w-4 h-4 text-gray-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 </div>
               </div>
             </div>
 
             <!-- Module 4 -->
             <div class="glass p-5 rounded-2xl border-white/5">
-              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">Module 4: Content Sales</div>
+              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">🔒 Module 4: Content Sales</div>
               <div class="space-y-2">
                 <div onclick="selectLesson('Copywriting Mastery', 'Write words that convert visitors to buyers.', '3ca776e0-fake-id-2', '4', this)" class="lesson-item locked flex items-center gap-3 p-3">
                   <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-600 flex items-center justify-center text-[10px] font-black">04</div>
-                  <div class="flex-1 text-[13px] font-bold text-gray-500">Sales Scripting</div>
-                  <svg class="w-4 h-4 text-gray-900" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+                  <div class="flex-1 text-[13px] font-bold text-gray-500">🔒 Sales Scripting</div>
+                  <svg class="w-4 h-4 text-gray-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 </div>
               </div>
             </div>
 
             <!-- Module 5 -->
             <div class="glass p-5 rounded-2xl border-white/5">
-              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">Module 5: Scale & Congrats</div>
+              <div class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">🔒 Module 5: Scale & Congrats</div>
               <div class="space-y-2">
                 <div onclick="selectLesson('Scaling to ₹1L+', 'The advanced path to massive affiliate earnings.', '3ca776e0-fake-id-3', '5', this)" class="lesson-item locked flex items-center gap-3 p-3">
                   <div class="w-8 h-8 rounded-lg bg-white/5 text-gray-600 flex items-center justify-center text-[10px] font-black">05</div>
-                  <div class="flex-1 text-[13px] font-bold text-gray-500">The Ultimate Celebration</div>
-                  <svg class="w-4 h-4 text-gray-900" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.5 16.5v-9l7 4.5-7 4.5z"/></svg>
+                  <div class="flex-1 text-[13px] font-bold text-gray-500">🔒 The Ultimate Celebration</div>
+                  <svg class="w-4 h-4 text-gray-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 </div>
               </div>
             </div>
