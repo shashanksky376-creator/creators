@@ -13,9 +13,9 @@
     theme: {
       extend: {
         colors: {
-          "primary": "#2563eb",
-          "primary-dark": "#1d4ed8",
-          "accent": "#ef4444",
+          "primary": "#dc2626",
+          "primary-dark": "#b91c1c",
+          "accent": "#dc2626",
         },
         fontFamily: { 
           "sans": ["Inter", "sans-serif"],
@@ -62,33 +62,94 @@
     flex-shrink: 0;
   }
 
-  /* Compact footer for checkout */
-  .footer-checkout {
-    background: #ffffff;
-    border-top: 1px solid #f1f5f9;
-    padding: 40px 0;
+  .nav-island {
+    position: fixed;
+    top: 3.5rem; /* Below urgency banner */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    height: 64px;
+    background: rgba(17, 17, 17, 0.7);
+    backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .nav-island.scrolled {
+    top: 1rem;
+    height: 56px;
+    background: rgba(10, 10, 10, 0.85);
+    max-width: 1100px;
+  }
+  .nav-link {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+  }
+  .nav-link:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.05);
   }
 </style>
 </head>
 <body class="min-h-screen">
 
   <!-- Urgency Banner -->
-  <div class="bg-blue-600 text-white text-center py-2 text-xs font-bold uppercase tracking-widest sticky top-0 z-[100]">
+  <div class="bg-red-600 text-white text-center py-2 text-[10px] font-black uppercase tracking-widest sticky top-0 z-[1001]" id="urgencyBanner">
     🔥 ಆಫರ್ ಮುಗಿಯಲು ಸಮಯ ಬಾಕಿ ಇದೆ: <span id="hours-banner">00</span>:<span id="mins-banner">00</span>:<span id="secs-banner">00</span>
   </div>
 
-  <div class="max-w-6xl mx-auto px-4 lg:px-8 py-10 md:py-16">
+  <!-- Navbar -->
+  <header class="nav-island" id="mainHeader">
+    <div class="flex items-center gap-4">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white shadow-[0_4px_12px_rgba(220,38,38,0.4)] group-hover:scale-105 transition-all duration-300">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-sm font-black tracking-widest uppercase text-white leading-none">Affiliate<span class="text-red-600">PRO</span></span>
+          <span class="text-[7px] text-gray-500 font-bold tracking-[0.2em] uppercase leading-none mt-0.5">By Shashank</span>
+        </div>
+      </a>
+    </div>
+
+    <nav class="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/5">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="affiliate-mastery (9).html" class="nav-link">Blueprint</a>
+      <a href="login.html" class="nav-link">Login</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <div class="px-4 py-2 bg-green-500/10 text-green-600 text-[10px] font-bold uppercase tracking-widest rounded-lg border border-green-500/20">
+        Secure Payment
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-6xl mx-auto px-4 lg:px-8 pt-28 pb-10 md:pb-16">
     <div class="flex flex-col lg:flex-row gap-12 items-start">
       
       <!-- LEFT COLUMN: Product Info -->
       <div class="w-full lg:w-[60%] space-y-10">
         <header>
-          <div class="flex items-center gap-2 text-blue-600 font-bold text-xs uppercase tracking-widest mb-4">
+          <div class="flex items-center gap-2 text-red-600 font-bold text-xs uppercase tracking-widest mb-4">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
             100% Secure Checkout
           </div>
           <h1 class="text-3xl md:text-4xl font-black text-slate-900 leading-tight mb-6">
-            Affiliate Marketing Mastery — <span class="text-blue-600">0 To Pro Affiliate Pro</span>
+            Affiliate Marketing Mastery — <span class="text-red-600">0 To Pro Affiliate Pro</span>
           </h1>
         </header>
 
@@ -244,21 +305,31 @@
     </div>
   </div>
 
-  <footer class="footer-checkout">
+  <footer class="footer-checkout py-12 border-t border-slate-100 bg-white">
     <div class="max-w-6xl mx-auto px-4 text-center space-y-6">
         <div class="flex flex-wrap justify-center gap-8 md:gap-12">
-            <a href="privacy.html" class="text-xs font-bold text-slate-400 hover:text-blue-600 transition-colors uppercase tracking-widest">Privacy Policy</a>
-            <a href="terms.html" class="text-xs font-bold text-slate-400 hover:text-blue-600 transition-colors uppercase tracking-widest">Terms & Conditions</a>
-            <a href="refunds.html" class="text-xs font-bold text-slate-400 hover:text-blue-600 transition-colors uppercase tracking-widest">Refund Policy</a>
+            <a href="privacy.html" class="text-xs font-bold text-slate-400 hover:text-red-600 transition-colors uppercase tracking-widest">Privacy Policy</a>
+            <a href="terms.html" class="text-xs font-bold text-slate-400 hover:text-red-600 transition-colors uppercase tracking-widest">Terms & Conditions</a>
+            <a href="refunds.html" class="text-xs font-bold text-slate-400 hover:text-red-600 transition-colors uppercase tracking-widest">Refund Policy</a>
         </div>
         <div class="pt-6 border-t border-slate-50">
-            <p class="text-[11px] text-slate-400 font-medium">&copy; 2026 Shashank Academy. All rights reserved. <br class="md:hidden"> Powered by Razorpay.</p>
+            <p class="text-[11px] text-slate-400 font-medium">&copy; 2026 Affiliate PRO — Shashank. All rights reserved. <br class="md:hidden"> Powered by Razorpay.</p>
         </div>
     </div>
   </footer>
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
+    // Header Scroll interaction
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('mainHeader');
+      if (window.scrollY > 30) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
     const RAZORPAY_KEY = "rzp_test_XXXXXXXXXXXXXXXX"; // Real key should be here
 
     function handlePayment() {
@@ -276,10 +347,10 @@
         key: RAZORPAY_KEY,
         amount: 199900,
         currency: "INR",
-        name: "Shashank Academy",
+        name: "Affiliate PRO",
         description: "Affiliate Marketing Mastery",
         prefill: { name, email, contact: countryCode + phone.replace(/\D/g,'') },
-        theme: { color: "#2563eb" },
+        theme: { color: "#dc2626" },
         handler: async function(response) {
           try {
             if(window.supabase) {

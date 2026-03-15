@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Affiliate Marketing Mastery – Shashank Academy</title>
+<title>Affiliate Marketing Mastery – Affiliate PRO</title>
+<script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet"/>
 <style>
 :root{--red:#e01c1c;--red-dark:#b01515;--dark:#080808;--dark2:#101010;--dark3:#181818;--dark4:#202020;--text:#ffffff;--muted:#999;--green:#22c55e;--gold:#f59e0b;}
@@ -180,7 +181,6 @@ nav{display:none;}
 .ss-lbl{font-size:12px;color:var(--muted);margin-top:3px;}
 /* Bottom row — rating */
 .ss-bottom{padding:16px 22px 20px;display:flex;align-items:center;justify-content:space-between;}
-.ss-rating-left{}
 .ss-stars-row{display:flex;gap:3px;margin-bottom:4px;}
 .ss-star{font-size:18px;line-height:1;}
 .ss-star.full{color:var(--gold);}
@@ -325,28 +325,52 @@ footer p{font-size:12.5px;color:var(--muted);}
   .sticky-bar{padding:10px 20px;}
 }
 
-/* ══ HEADER — clean single bar ══ */
-.nav-wrapper{position:fixed;top:0;left:0;right:0;z-index:1001;background:rgba(6,6,6,0.98);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,0.07);box-shadow:0 2px 24px rgba(0,0,0,0.6);}
-.nav-wrapper::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--red) 25%,#ff5555 50%,var(--red) 75%,transparent);}
-.nav-top{height:64px;padding:0 48px;display:flex;align-items:center;gap:0;}
-/* logo */
-.logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:#fff;flex-shrink:0;margin-right:40px;}
-.logo-mark{width:34px;height:34px;background:var(--red);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:17px;flex-shrink:0;}
-.logo-words{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;line-height:1.1;}
-.logo-words span{color:var(--red);}
-/* nav links — fills remaining space */
-.nav-center-links{display:flex;gap:2px;list-style:none;flex:1;}
-.nav-center-links a{color:rgba(255,255,255,0.45);text-decoration:none;font-size:12.5px;font-weight:500;padding:6px 13px;border-radius:7px;transition:.18s;display:flex;align-items:center;gap:4px;white-space:nowrap;}
-.nav-center-links a:hover{color:rgba(255,255,255,0.9);background:rgba(255,255,255,0.05);}
-.nav-center-links a.active{color:#fff;font-weight:600;background:rgba(224,28,28,0.1);border:1px solid rgba(224,28,28,0.3);}
-.soon-tag{font-size:8px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.3);padding:1px 5px;border-radius:3px;letter-spacing:.5px;text-transform:uppercase;font-weight:600;}
-/* right side */
-.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto;}
-.nav-divider{width:1px;height:22px;background:rgba(255,255,255,0.09);margin:0 6px;}
-.nav-login-btn{background:transparent;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);padding:8px 18px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:12.5px;font-weight:500;cursor:pointer;transition:.18s;white-space:nowrap;}
-.nav-login-btn:hover{border-color:rgba(255,255,255,0.4);color:#fff;}
-.nav-enroll-btn{background:var(--red);color:#fff;border:none;padding:9px 22px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;letter-spacing:.3px;white-space:nowrap;}
-.nav-enroll-btn:hover{background:var(--red-dark);box-shadow:0 4px 16px rgba(224,28,28,0.4);}
+  .nav-island {
+    position: fixed;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    height: 64px;
+    background: rgba(17, 17, 17, 0.7);
+    backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .nav-island.scrolled {
+    top: 1rem;
+    height: 56px;
+    background: rgba(10, 10, 10, 0.85);
+    max-width: 1100px;
+  }
+  .nav-link {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+  }
+  .nav-link:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.05);
+  }
+  .nav-link.active {
+    color: #fff;
+    background: rgba(224, 28, 28, 0.1);
+    border: 1px solid rgba(224, 28, 28, 0.2);
+  }
 /* timer blocks used in sticky bar */
 .timer-blocks{display:flex;align-items:center;gap:3px;}
 .t-block{display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,0.08);border-radius:4px;padding:2px 6px;min-width:28px;}
@@ -368,27 +392,42 @@ footer p{font-size:12.5px;color:var(--muted);}
 </head>
 <body>
 
-<!-- ── HEADER ── -->
-<div class="nav-wrapper" id="mainNav">
-  <div class="nav-top">
-    <a class="logo" href="index.html">
-      <div class="logo-mark">S</div>
-      <div class="logo-words"><span>SHASHANK</span><br>ACADEMY</div>
+<!-- Navbar -->
+<header class="nav-island" id="mainHeader">
+  <div class="flex items-center gap-4">
+    <a href="index.html" class="flex items-center gap-2.5 group">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white shadow-[0_4px_12px_rgba(220,38,38,0.4)] group-hover:scale-105 transition-all duration-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-sm font-black tracking-widest uppercase text-white">Affiliate<span class="text-red-600">PRO</span></span>
+        <span class="text-[7px] text-gray-500 font-bold tracking-[0.2em] uppercase leading-none mt-0.5">By Shashank</span>
+      </div>
     </a>
-    <ul class="nav-center-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="#home" class="active">Affiliate Mastery</a></li>
-      <li><a href="#instructor">About</a></li>
-      <li><a href="#instructor">About</a></li>
-    </ul>
-    <div class="nav-right">
-      <div class="nav-divider"></div>
-      <a href="login.html" class="nav-login-btn">Login</a>
-      <a href="checkout.html" class="nav-enroll-btn">Enroll ₹1,999 →</a>
-    </div>
   </div>
-</div>
-<nav></nav>
+
+  <nav class="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/5">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="affiliate-mastery (9).html" class="nav-link active">Blueprint</a>
+    <a href="#instructor" class="nav-link text-white/40">About</a>
+  </nav>
+
+  <div class="flex items-center gap-3">
+    <a href="login.html" class="hidden sm:block text-xs font-bold text-gray-400 hover:text-white transition-colors px-4">Login</a>
+    <a href="checkout.html" class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white text-[11px] font-black uppercase tracking-widest rounded-xl shadow-[0_8px_16px_rgba(220,38,38,0.25)] hover:shadow-[0_12px_24px_rgba(220,38,38,0.4)] hover:-translate-y-0.5 transition-all duration-300">Enroll Now</a>
+  </div>
+</header>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('mainHeader');
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+</script>
 
 <!-- HERO -->
 <section class="hero" id="home">
