@@ -429,6 +429,10 @@
               phone: phone,
               razorpayPaymentId: response.razorpay_payment_id
             });
+
+            // Automatically trigger the login code so it's in their inbox when they arrive
+            await sendOTP(email);
+
             window.location.href = `thank-you.html?payment_id=${response.razorpay_payment_id}`;
           } catch(e) { console.error("Error:", e); }
         }
