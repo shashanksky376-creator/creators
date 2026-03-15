@@ -368,14 +368,52 @@
       if (window.innerWidth < 1024) toggleSidebar();
     }
 
+    function unlockDashboard() {
+      console.log("🔓 Unlocking dashboard for pro member...");
+      
+      // 1. Remove visual lock from lessons
+      document.querySelectorAll('.lesson-item').forEach(item => {
+        item.classList.remove('locked');
+        // Remove 🔒 from lesson text
+        const textNode = item.querySelector('.flex-1');
+        if (textNode) textNode.textContent = textNode.textContent.replace('🔒 ', '');
+        // Remove 🔒 from module headers
+        const moduleHeader = item.parentElement.previousElementSibling;
+        if (moduleHeader && moduleHeader.textContent.includes('🔒')) {
+          moduleHeader.textContent = moduleHeader.textContent.replace('🔒 ', '');
+        }
+      });
+
+      // 2. Hide "Content Locked" placeholder
+      const placeholder = document.getElementById('video-placeholder');
+      if (placeholder) {
+        placeholder.style.display = 'none';
+      }
+
+      // 3. Update progress text
+      const progressText = document.querySelector('#completed-count').parentElement;
+      if (progressText) {
+        progressText.innerHTML = '<span id="completed-count">0</span> <span class="text-gray-500">/ 5 Modules Completed</span>';
+      }
+    }
+
     // Auth Integration
     (async function() {
-      if (typeof window.ENROLLED_USER !== 'undefined') {
-        const user = window.ENROLLED_USER;
-        document.getElementById('user-name-display').textContent = user.fullName.toUpperCase();
-        document.getElementById('user-email-display').textContent = user.email;
-        document.getElementById('user-avatar').textContent = user.fullName[0].toUpperCase();
-      }
+      // The auth-guard.js script runs first and sets window.ENROLLED_USER
+      // We check for it every 100ms for up to 2 seconds to handle loading
+      let checks = 0;
+      const checkInterval = setInterval(() => {
+        if (typeof window.ENROLLED_USER !== 'undefined') {
+          const user = window.ENROLLED_USER;
+          document.getElementById('user-name-display').textContent = user.fullName.toUpperCase();
+          document.getElementById('user-email-display').textContent = user.email;
+          document.getElementById('user-avatar').textContent = user.fullName[0].toUpperCase();
+          
+          unlockDashboard();
+          clearInterval(checkInterval);
+        }
+        if (checks++ > 20) clearInterval(checkInterval);
+      }, 100);
     })();
   </script>
 
