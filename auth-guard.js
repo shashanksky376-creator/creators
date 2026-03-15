@@ -18,39 +18,48 @@
     return;
   }
 
-  const email = session.user.email.toLowerCase();
+  const email = session.user.email.toLowerCase().trim();
 
   // Check enrollment
   const enrollment = await checkEnrollment(email);
   if (!enrollment) {
+    console.warn("User not found in enrollment table:", email);
     await signOut();
     window.location.href = "/login.html?reason=not_enrolled";
     return;
   }
 
   // ---- Single-session enforcement ----
-  let localToken = localStorage.getItem("affiliate_pro_session");
+  const sessionKey = `af_pro_session_${email}`;
+  let localToken = localStorage.getItem(sessionKey);
   
   // If no local token exists (e.g. user clicked a Magic Link or logged in with Google), 
   // we initialize it if they are already in our enrollment list.
   if (!localToken) {
     localToken = generateSessionToken();
-    localStorage.setItem("affiliate_pro_session", localToken);
+    localStorage.setItem(sessionKey, localToken);
+    localStorage.setItem("affiliate_pro_last_user", email);
     
     // Update the DB so our local token matches
     const client = initSupabase();
-    await client
+    const { error: updateError } = await client
       .from("enrolled_users")
       .update({ active_session_token: localToken })
       .eq("email", email);
     
-    console.log("Initialized new session for direct login:", email);
+    if (updateError) {
+      console.error("Failed to initialize session in DB:", updateError);
+    } else {
+      console.log("Initialized new session for:", email);
+    }
     
-    // We JUST set this, so we don't need to validate it immediately (race condition prevention)
+    // We JUST set this, so we don't need to validate it immediately
   } else {
+    // Validate that the existing local token matches the DB
     const isValidSession = await validateActiveSession(email);
     if (!isValidSession) {
-      window.location.href = "/index.html?reason=session_expired";
+      console.error("Session invalid for:", email);
+      // Redirect happens inside validateActiveSession -> signOut
       return;
     }
   }

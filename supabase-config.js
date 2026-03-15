@@ -60,12 +60,21 @@ async function verifyOTP(email, otp) {
   if (!error) {
     // Write a new session token — this invalidates any other device's session
     const sessionToken = generateSessionToken();
-    localStorage.setItem("affiliate_pro_session", sessionToken);
+    
+    // Store with user-specific keys to avoid stale tokens from other users
+    localStorage.setItem(`af_pro_session_${cleanEmail}`, sessionToken);
+    localStorage.setItem("affiliate_pro_last_user", cleanEmail);
 
-    await client
+    const { error: updateError } = await client
       .from("enrolled_users")
       .update({ active_session_token: sessionToken })
       .eq("email", cleanEmail);
+      
+    if (updateError) {
+      console.error("Failed to update active session token in DB:", updateError);
+    } else {
+      console.log("Session token updated successfully for:", cleanEmail);
+    }
   }
 
   return { data, error };
@@ -93,19 +102,41 @@ async function checkEnrollment(email) {
 // (Prevents two users logged in simultaneously on the same account)
 // -------------------------------------------------------
 async function validateActiveSession(email) {
-  const localToken = localStorage.getItem("affiliate_pro_session");
-  if (!localToken) return false;
-
-  const enrollment = await checkEnrollment(email);
-  if (!enrollment) return false;
-
-  // If DB token differs from local token, another device has logged in
-  if (enrollment.active_session_token !== localToken) {
-    await signOut();
+  const cleanEmail = email.toLowerCase().trim();
+  const localToken = localStorage.getItem(`af_pro_session_${cleanEmail}`);
+  
+  if (!localToken) {
+    console.warn("No local session token found for:", cleanEmail);
     return false;
   }
 
-  return true;
+  try {
+    const enrollment = await checkEnrollment(cleanEmail);
+    if (!enrollment) return false;
+
+    // If DB has no token yet, this might be a first-time login or transition.
+    // We allow it to pass and the auth-guard will initialize it.
+    if (!enrollment.active_session_token) {
+      console.log("No token in DB yet for:", cleanEmail);
+      return true;
+    }
+
+    // If DB token differs from local token, another device has logged in
+    if (enrollment.active_session_token !== localToken) {
+      console.error("Session mismatch! Other device likely logged in.", {
+        db: enrollment.active_session_token,
+        local: localToken
+      });
+      await signOut();
+      return false;
+    }
+
+    return true;
+  } catch (e) {
+    console.error("Error validating session:", e);
+    // On network error, we don't kick the user out immediately to avoid frustration
+    return true; 
+  }
 }
 
 // -------------------------------------------------------
