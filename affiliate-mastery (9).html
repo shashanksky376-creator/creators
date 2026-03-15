@@ -164,9 +164,9 @@ nav{display:none;}
 
 /* STUDENTS / VIDEO CAROUSEL */
 .students-sec{background:var(--dark2);}
-.students-layout{display:grid;grid-template-columns:260px 1fr;gap:48px;align-items:start;margin-top:48px;}
-.students-left h2{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1.05;margin-bottom:10px;}
-.students-left p{font-size:14px;color:var(--muted);margin-bottom:20px;}
+.students-layout{display:grid;grid-template-columns:260px 1fr;gap:32px;align-items:start;margin-top:24px;}
+.students-left h2{font-family:'Bebas Neue',sans-serif;font-size:46px;line-height:1;margin-bottom:8px;}
+.students-left p{font-size:13px;color:var(--muted);margin-bottom:16px;}
 .ss-box{background:var(--dark3);border:1px solid #242424;border-radius:20px;padding:0;overflow:hidden;}
 /* Top row — student count */
 .ss-top{padding:20px 22px 16px;border-bottom:1px solid #242424;}
@@ -531,7 +531,37 @@ footer p{font-size:12.5px;color:var(--muted);}
     <a href="checkout.html" class="btn-blueprint">Access the Blueprint →</a>
     <span style="font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase;">Limited Time Launch Offer</span>
   </div>
+
+<!-- LIFETIME ACCESS BANNER -->
+<section style="background: linear-gradient(90deg, #1a1a1a 0%, #2a0000 50%, #1a1a1a 100%); border-top: 1px solid rgba(220,38,38,0.3); border-bottom: 1px solid rgba(220,38,38,0.3); padding: 24px 0;">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-12">
+    <div class="flex items-center gap-4">
+      <div class="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center text-red-600 border border-red-600/50">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+      </div>
+      <div>
+        <h4 class="text-white font-black text-xl uppercase tracking-tighter leading-none">Lifetime Access Included</h4>
+        <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mt-1">Pay once, learn forever</p>
+      </div>
+    </div>
+    <div class="h-8 w-px bg-white/10 hidden md:block"></div>
+    <div class="flex items-center gap-6">
+      <div class="text-center">
+        <div class="text-red-500 font-black text-xl">∞</div>
+        <div class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Validity</div>
+      </div>
+      <div class="text-center">
+        <div class="text-red-500 font-black text-xl">24/7</div>
+        <div class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Availability</div>
+      </div>
+      <div class="text-center">
+        <div class="text-red-500 font-black text-xl">KRC</div>
+        <div class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Support</div>
+      </div>
+    </div>
+  </div>
 </section>
+
 
 
 <!-- TRAILER -->
@@ -542,133 +572,6 @@ footer p{font-size:12.5px;color:var(--muted);}
   <div class="trailer-wrap">
     <div class="play-circle">
       <svg width="30" height="30" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-    </div>
-  </div>
-</section>
-
-<!-- WHY -->
-<section class="sec" style="background:var(--dark);">
-  <div class="sec-label">✦ &nbsp;Why This Course</div>
-  <div class="why-grid">
-    <div class="wc">
-      <div class="wc-icon">💸</div>
-      <h3>Learn A–Z About<br>Affiliate Marketing</h3>
-      <p>ಈ ಕೋರ್ಸ್‌ನಲ್ಲಿ Affiliate Marketing ಜಗತ್ತಿನ ತಂತ್ರಗಳನ್ನು A–Z ತಿಳಿಯಿರಿ. ತಿಂಗಳಿಗೆ ₹50,000 ರಿಂದ ₹1 ಲಕ್ಷ ಗಳಿಸುವ ನಿಮ್ಮ ಕನಸನ್ನು ನನಸಾಗಿಸಿ.</p>
-    </div>
-    <div class="wc">
-      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:14px;">Affiliate Royalty: <span style="color:var(--red)">Shashank's</span><br>Massive Earning Milestones</h3>
-      <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Multiple successful income streams, proven & real.</p>
-      <div class="ms-row">
-        <div class="ms"><div class="n">₹17L+</div><div class="l">Affiliate Income</div></div>
-        <div class="ms feat"><div class="n">$6,785</div><div class="l">YouTube Revenue</div></div>
-        <div class="ms"><div class="n">10K+</div><div class="l">Students</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EARNING PROOF CAROUSEL -->
-<section class="sec" id="proof" style="background:var(--dark2);">
-  <div class="sec-label">💰 &nbsp;Real Results</div>
-  <h2 class="sec-h"><em>Earning</em> Proof</h2>
-  <p class="sec-p">Real numbers. Real screenshots. No fake claims — scrolling through 6 proof cards.</p>
-  <div class="proof-outer">
-    <div class="proof-track-wrap">
-      <div class="proof-track" id="proofTrack">
-        <div class="proof-slide act-slide">
-          <div class="ps-badge">Affiliate Income</div>
-          <div class="ps-amount">₹17,88,004</div>
-          <div class="ps-sub">Total Affiliate Earnings Lifetime</div>
-          <div class="ps-info">Top Earner Proof via Platform Dashboard<br><span style="color:var(--green)">Sreekumar: ₹23.6L · Mohamed: ₹30.7L</span></div>
-          <div class="ps-bars"><div class="pb" style="height:30%"></div><div class="pb" style="height:42%"></div><div class="pb h" style="height:62%"></div><div class="pb h" style="height:78%"></div><div class="pb h" style="height:92%"></div><div class="pb h" style="height:100%"></div></div>
-        </div>
-        <div class="proof-slide">
-          <div class="ps-badge">YouTube AdSense</div>
-          <div class="ps-amount">$6,785.11</div>
-          <div class="ps-sub">Estimated Revenue Since Published</div>
-          <div class="ps-info"><span style="color:var(--green)">Views: 412.8K · Watch: 206.5K hrs</span><br>Subscribers: +4.3K · Sun Nov 9 $832</div>
-          <div class="ps-bars"><div class="pb" style="height:20%"></div><div class="pb" style="height:33%"></div><div class="pb h" style="height:55%"></div><div class="pb h" style="height:72%"></div><div class="pb h" style="height:88%"></div><div class="pb h" style="height:100%"></div></div>
-        </div>
-        <div class="proof-slide">
-          <div class="ps-badge">Rewards — Account 1</div>
-          <div class="ps-amount">₹2,34,250</div>
-          <div class="ps-sub">Total Lifetime Rewards</div>
-          <div class="ps-info"><span style="color:var(--green)">2,161 Received · 104 In Progress</span><br>76 In Progress · 1,879 Received</div>
-          <div class="ps-bars"><div class="pb" style="height:38%"></div><div class="pb h" style="height:55%"></div><div class="pb h" style="height:68%"></div><div class="pb h" style="height:80%"></div><div class="pb h" style="height:93%"></div><div class="pb h" style="height:100%"></div></div>
-        </div>
-        <div class="proof-slide">
-          <div class="ps-badge">Rewards — Account 2</div>
-          <div class="ps-amount">₹2,06,050</div>
-          <div class="ps-sub">Secondary Affiliate Rewards Account</div>
-          <div class="ps-info"><span style="color:var(--green)">Multiple active campaigns</span><br>Consistent monthly payouts</div>
-          <div class="ps-bars"><div class="pb" style="height:25%"></div><div class="pb" style="height:40%"></div><div class="pb h" style="height:58%"></div><div class="pb h" style="height:75%"></div><div class="pb h" style="height:90%"></div><div class="pb h" style="height:100%"></div></div>
-        </div>
-        <div class="proof-slide">
-          <div class="ps-badge">Google AdSense</div>
-          <div class="ps-amount">$3,913.87</div>
-          <div class="ps-sub">Estimated Revenue — 90 Days Window</div>
-          <div class="ps-info">Since Published · Previous 2 days processing<br><span style="color:var(--green)">Channel verified & monetized</span></div>
-          <div class="ps-bars"><div class="pb" style="height:18%"></div><div class="pb" style="height:30%"></div><div class="pb h" style="height:52%"></div><div class="pb h" style="height:68%"></div><div class="pb h" style="height:84%"></div><div class="pb h" style="height:100%"></div></div>
-        </div>
-        <div class="proof-slide">
-          <div class="ps-badge">2nd Channel Revenue</div>
-          <div class="ps-amount">$1,157.67</div>
-          <div class="ps-sub">Estimated Revenue — Second Channel</div>
-          <div class="ps-info">Multiple channels · Multiple income streams<br><span style="color:var(--green)">Diversified affiliate portfolio</span></div>
-          <div class="ps-bars"><div class="pb" style="height:22%"></div><div class="pb" style="height:35%"></div><div class="pb" style="height:48%"></div><div class="pb h" style="height:65%"></div><div class="pb h" style="height:82%"></div><div class="pb h" style="height:100%"></div></div>
-        </div>
-      </div>
-    </div>
-    <div class="car-controls">
-      <div class="car-dots" id="proofDots">
-        <div class="cdot act" onclick="goProof(0)"></div>
-        <div class="cdot" onclick="goProof(1)"></div>
-        <div class="cdot" onclick="goProof(2)"></div>
-        <div class="cdot" onclick="goProof(3)"></div>
-      </div>
-      <div class="car-arrows">
-        <button class="c-arr" onclick="proofPrev()">←</button>
-        <button class="c-arr" onclick="proofNext()">→</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LEARN -->
-<section class="sec" style="background:var(--dark);">
-  <div class="sec-label" style="display:block;text-align:center;">✦ &nbsp;Learn</div>
-  <h2 class="sec-h center">ನೀವು ಈ ಕೋರ್ಸ್‌ನಲ್ಲಿ ಏನು ಕಲಿಯುತ್ತೀರಿ?</h2>
-  <p class="sec-p center" style="max-width:560px;margin:16px auto 32px;color:rgba(255,255,255,0.6);font-weight:500;">ನೀವು ಇಲ್ಲಿ ಪ್ರಾಕ್ಟಿಕಲ್ ಜ್ಞಾನದ ಮೂಲಕ ನಿಮ್ಮ ಮನೆಯಲ್ಲೇ ಕುಳಿತು ಕನ್ನಡದಲ್ಲಿ ಟೈಪಿಂಗ್ ಮಾಡಿ ಪ್ರತಿ ತಿಂಗಳು 1 ಲಕ್ಷಕ್ಕೂ ಹೆಚ್ಚಿನ ಹಣ ಗಳಿಸುವುದನ್ನು ನೀವು ಇಲ್ಲಿ ಕಲಿಯುತ್ತೀರಿ.</p>
-  <div class="learn-grid">
-    <div class="lc">
-      <div class="lc-icon">🎯</div>
-      <h3>Product research method</h3>
-      <p>Master the art of finding high-demand, low-competition products that sell like crazy. Focus on niche selection that builds long-term authority.</p>
-    </div>
-    <div class="lc">
-      <div class="lc-icon">📈</div>
-      <h3>Instagram growth strategy</h3>
-      <p>Build a massive following and drive consistent traffic to your affiliate links using proven social media growth hacks.</p>
-    </div>
-    <div class="lc">
-      <div class="lc-icon">💰</div>
-      <h3>Selling strategy & Secrets</h3>
-      <p>Learn the exact methods used to convert visitors into buyers and generate significant commissions daily.</p>
-    </div>
-    <div class="lc">
-      <div class="lc-icon">🔒</div>
-      <h3>Customer conversion secrets</h3>
-      <p>Master the psychology of online sales and use automated funnels to make money while you sleep.</p>
-    </div>
-    <div class="lc">
-      <div class="lc-icon">🚀</div>
-      <h3>Daily income growth methods</h3>
-      <p>Scale your business with advanced strategies to increase your daily earnings and build a passive income empire.</p>
-    </div>
-    <div class="lc">
-      <div class="lc-icon">🎓</div>
-      <h3>Step-by-step training</h3>
-      <p>A complete, easy-to-follow blueprint that takes you from zero to expert in affiliate marketing in Kannada.</p>
     </div>
   </div>
 </section>
@@ -768,6 +671,136 @@ footer p{font-size:12.5px;color:var(--muted);}
     </div>
   </div>
 </section>
+
+
+<!-- WHY -->
+<section class="sec" style="background:var(--dark);">
+  <div class="sec-label">✦ &nbsp;Why This Course</div>
+  <div class="why-grid">
+    <div class="wc">
+      <div class="wc-icon">💸</div>
+      <h3>Learn A–Z About<br>Affiliate Marketing</h3>
+      <p>ಈ ಕೋರ್ಸ್‌ನಲ್ಲಿ Affiliate Marketing ಜಗತ್ತಿನ ತಂತ್ರಗಳನ್ನು A–Z ತಿಳಿಯಿರಿ. ತಿಂಗಳಿಗೆ ₹50,000 ರಿಂದ ₹1 ಲಕ್ಷ ಗಳಿಸುವ ನಿಮ್ಮ ಕನಸನ್ನು ನನಸಾಗಿಸಿ.</p>
+    </div>
+    <div class="wc">
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:14px;">Affiliate Royalty: <span style="color:var(--red)">Shashank's</span><br>Massive Earning Milestones</h3>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Multiple successful income streams, proven & real.</p>
+      <div class="ms-row">
+        <div class="ms"><div class="n">₹17L+</div><div class="l">Affiliate Income</div></div>
+        <div class="ms feat"><div class="n">$6,785</div><div class="l">YouTube Revenue</div></div>
+        <div class="ms"><div class="n">10K+</div><div class="l">Students</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EARNING PROOF CAROUSEL -->
+<section class="sec" id="proof" style="background:var(--dark2);">
+  <div class="sec-label">💰 &nbsp;Real Results</div>
+  <h2 class="sec-h"><em>Earning</em> Proof</h2>
+  <p class="sec-p">Real numbers. Real screenshots. No fake claims — scrolling through 6 proof cards.</p>
+  <div class="proof-outer">
+    <div class="proof-track-wrap">
+      <div class="proof-track" id="proofTrack">
+        <div class="proof-slide act-slide">
+          <div class="ps-badge">Affiliate Income</div>
+          <div class="ps-amount">₹17,88,004</div>
+          <div class="ps-sub">Total Affiliate Earnings Lifetime</div>
+          <div class="ps-info">Top Earner Proof via Platform Dashboard<br><span style="color:var(--green)">Sreekumar: ₹23.6L · Mohamed: ₹30.7L</span></div>
+          <div class="ps-bars"><div class="pb" style="height:30%"></div><div class="pb" style="height:42%"></div><div class="pb h" style="height:62%"></div><div class="pb h" style="height:78%"></div><div class="pb h" style="height:92%"></div><div class="pb h" style="height:100%"></div></div>
+        </div>
+        <div class="proof-slide">
+          <div class="ps-badge">YouTube AdSense</div>
+          <div class="ps-amount">$6,785.11</div>
+          <div class="ps-sub">Estimated Revenue Since Published</div>
+          <div class="ps-info"><span style="color:var(--green)">Views: 412.8K · Watch: 206.5K hrs</span><br>Subscribers: +4.3K · Sun Nov 9 $832</div>
+          <div class="ps-bars"><div class="pb" style="height:20%"></div><div class="pb" style="height:33%"></div><div class="pb h" style="height:55%"></div><div class="pb h" style="height:72%"></div><div class="pb h" style="height:88%"></div><div class="pb h" style="height:100%"></div></div>
+        </div>
+        <div class="proof-slide">
+          <div class="ps-badge">Rewards — Account 1</div>
+          <div class="ps-amount">₹2,34,250</div>
+          <div class="ps-sub">Total Lifetime Rewards</div>
+          <div class="ps-info"><span style="color:var(--green)">2,161 Received · 104 In Progress</span><br>76 In Progress · 1,879 Received</div>
+          <div class="ps-bars"><div class="pb" style="height:38%"></div><div class="pb h" style="height:55%"></div><div class="pb h" style="height:68%"></div><div class="pb h" style="height:80%"></div><div class="pb h" style="height:93%"></div><div class="pb h" style="height:100%"></div></div>
+        </div>
+        <div class="proof-slide">
+          <div class="ps-badge">Rewards — Account 2</div>
+          <div class="ps-amount">₹2,06,050</div>
+          <div class="ps-sub">Secondary Affiliate Rewards Account</div>
+          <div class="ps-info"><span style="color:var(--green)">Multiple active campaigns</span><br>Consistent monthly payouts</div>
+          <div class="ps-bars"><div class="pb" style="height:25%"></div><div class="pb" style="height:40%"></div><div class="pb h" style="height:58%"></div><div class="pb h" style="height:75%"></div><div class="pb h" style="height:90%"></div><div class="pb h" style="height:100%"></div></div>
+        </div>
+        <div class="proof-slide">
+          <div class="ps-badge">Google AdSense</div>
+          <div class="ps-amount">$3,913.87</div>
+          <div class="ps-sub">Estimated Revenue — 90 Days Window</div>
+          <div class="ps-info">Since Published · Previous 2 days processing<br><span style="color:var(--green)">Channel verified & monetized</span></div>
+          <div class="ps-bars"><div class="pb" style="height:18%"></div><div class="pb" style="height:30%"></div><div class="pb h" style="height:52%"></div><div class="pb h" style="height:68%"></div><div class="pb h" style="height:84%"></div><div class="pb h" style="height:100%"></div></div>
+        </div>
+        <div class="proof-slide">
+          <div class="ps-badge">2nd Channel Revenue</div>
+          <div class="ps-amount">$1,157.67</div>
+          <div class="ps-sub">Estimated Revenue — Second Channel</div>
+          <div class="ps-info">Multiple channels · Multiple income streams<br><span style="color:var(--green)">Diversified affiliate portfolio</span></div>
+          <div class="ps-bars"><div class="pb" style="height:22%"></div><div class="pb" style="height:35%"></div><div class="pb" style="height:48%"></div><div class="pb h" style="height:65%"></div><div class="pb h" style="height:82%"></div><div class="pb h" style="height:100%"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="car-controls">
+      <div class="car-dots" id="proofDots">
+        <div class="cdot act" onclick="goProof(0)"></div>
+        <div class="cdot" onclick="goProof(1)"></div>
+        <div class="cdot" onclick="goProof(2)"></div>
+        <div class="cdot" onclick="goProof(3)"></div>
+      </div>
+      <div class="car-arrows">
+        <button class="c-arr" onclick="proofPrev()">←</button>
+        <button class="c-arr" onclick="proofNext()">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEARN -->
+<section class="sec" style="background:var(--dark);">
+  <div class="sec-label" style="display:block;text-align:center;">✦ &nbsp;Learn</div>
+  <h2 class="sec-h center">ನೀವು ಈ ಕೋರ್ಸ್‌ನಲ್ಲಿ ಏನು ಕಲಿಯುತ್ತೀರಿ?</h2>
+  <p class="sec-p center" style="max-width:560px;margin:16px auto 32px;color:rgba(255,255,255,0.6);font-weight:500;">ನೀವು ಇಲ್ಲಿ ಪ್ರಾಕ್ಟಿಕಲ್ ಜ್ಞಾನದ ಮೂಲಕ ನಿಮ್ಮ ಮನೆಯಲ್ಲೇ ಕುಳಿತು ಕನ್ನಡದಲ್ಲಿ ಟೈಪಿಂಗ್ ಮಾಡಿ ಪ್ರತಿ ತಿಂಗಳು 1 ಲಕ್ಷಕ್ಕೂ ಹೆಚ್ಚಿನ ಹಣ ಗಳಿಸುವುದನ್ನು ನೀವು ಇಲ್ಲಿ ಕಲಿಯುತ್ತೀರಿ.</p>
+  <div class="learn-grid">
+    <div class="lc">
+      <div class="lc-icon">🎯</div>
+      <h3>Product research method</h3>
+      <p>Master the art of finding winning products using proven research methods. Focus on niche selection that builds long-term authority.</p>
+    </div>
+    <div class="lc">
+      <div class="lc-icon">📈</div>
+      <h3>Instagram growth & selling strategy</h3>
+      <p>Build a massive following and drive consistent traffic to your business using proven growth & selling hacks.</p>
+    </div>
+    <div class="lc">
+      <div class="lc-icon">💰</div>
+      <h3>Customer conversion secrets</h3>
+      <p>Learn the exact methods used to convert visitors into loyal customers and generate significant income daily.</p>
+    </div>
+    <div class="lc">
+      <div class="lc-icon">🔒</div>
+      <h3>Daily income growth methods</h3>
+      <p>Scale your business with advanced strategies to increase your daily earnings and build a passive income empire.</p>
+    </div>
+    <div class="lc">
+      <div class="lc-icon">🚀</div>
+      <h3>Step by step training</h3>
+      <p>A complete, easy-to-follow blueprint that takes you from zero to expert in affiliate marketing in Kannada.</p>
+    </div>
+    <div class="lc">
+      <div class="lc-icon">🎓</div>
+      <h3>Learn Anytime & Anywhere</h3>
+      <p>Access your training from any device, at any time. Lifetime access guaranteed for all students.</p>
+    </div>
+  </div>
+</section>
+
+
 
 <!-- OUR STUDENTS LOVE US -->
 <section class="sec students-sec">
