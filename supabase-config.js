@@ -124,6 +124,20 @@ async function enrollUser({ fullName, email, phone, razorpayPaymentId }) {
 }
 
 // -------------------------------------------------------
+// AUTH: Sign in with Google (OAuth)
+// -------------------------------------------------------
+async function signInWithGoogle() {
+  const client = initSupabase();
+  const { error } = await client.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: window.location.origin + '/dashboard.html'
+    }
+  });
+  return { error };
+}
+
+// -------------------------------------------------------
 // SESSION: Get current logged-in Supabase session
 // -------------------------------------------------------
 async function getSession() {
