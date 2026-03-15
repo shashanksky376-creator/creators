@@ -23,9 +23,11 @@
   // Check enrollment
   const enrollment = await checkEnrollment(email);
   if (!enrollment) {
-    console.warn("User not found in enrollment table:", email);
-    await signOut();
-    window.location.href = "/login.html?reason=not_enrolled";
+    console.warn("Unauthorized access attempt from:", email);
+    // Forcefully clear everything and logout session
+    await signOut(); 
+    localStorage.clear(); 
+    window.location.replace("/login.html?reason=not_enrolled");
     return;
   }
 
