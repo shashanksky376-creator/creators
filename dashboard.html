@@ -413,39 +413,55 @@
     function unlockDashboard() {
       console.log("🔓 Unlocking dashboard for pro member...");
       
-      // 1. Remove visual lock from lessons and modules
-      document.querySelectorAll('.lesson-item').forEach(item => {
-        item.classList.remove('locked');
-        // Remove 🔒 from lesson text
-        const textNode = item.querySelector('.flex-1');
-        if (textNode) textNode.textContent = textNode.textContent.replace('🔒 ', '');
-        
-        // Remove 🔒 from module headers in cards
-        const moduleCard = item.closest('.module-card');
-        if (moduleCard) {
-          const h4 = moduleCard.querySelector('h4');
-          if (h4 && h4.textContent.includes('🔒')) {
-            h4.textContent = h4.textContent.replace('🔒 ', '');
-          }
-          const badge = moduleCard.querySelector('.text-[8px]');
-          if (badge) {
-            badge.textContent = 'Unlocked';
-            badge.classList.remove('text-gray-500');
-            badge.classList.add('text-green-500', 'bg-green-500/10');
-          }
+      try {
+        // 1. Hide "Content Locked" placeholder immediately
+        const placeholder = document.getElementById('video-placeholder');
+        if (placeholder) {
+          placeholder.style.display = 'none';
+          console.log("✓ Placeholder hidden");
         }
-      });
 
-      // 2. Hide "Content Locked" placeholder
-      const placeholder = document.getElementById('video-placeholder');
-      if (placeholder) {
-        placeholder.style.display = 'none';
-      }
+        // 2. Remove visual lock from lessons and modules
+        const lessonItems = document.querySelectorAll('.lesson-item');
+        console.log(`Found ${lessonItems.length} lesson items to unlock`);
+        
+        lessonItems.forEach(item => {
+          item.classList.remove('locked');
+          
+          // Remove 🔒 from lesson text
+          const textNode = item.querySelector('.flex-1');
+          if (textNode && textNode.textContent.includes('🔒')) {
+            textNode.textContent = textNode.textContent.replace('🔒 ', '');
+          }
+          
+          // Remove 🔒 from module headers in cards
+          const moduleCard = item.closest('.module-card');
+          if (moduleCard) {
+            const h4 = moduleCard.querySelector('h4');
+            if (h4 && h4.textContent.includes('🔒')) {
+              h4.textContent = h4.textContent.replace('🔒 ', '');
+            }
+            const badge = moduleCard.querySelector('.text-[8px]');
+            if (badge && (badge.textContent.trim().toLowerCase() === 'locked')) {
+              badge.textContent = 'Unlocked';
+              badge.classList.remove('text-gray-500');
+              badge.classList.add('text-green-500', 'bg-green-500/10');
+            }
+          }
+        });
 
-      // 3. Update progress text
-      const progressText = document.querySelector('#completed-count').parentElement;
-      if (progressText) {
-        progressText.innerHTML = '<span id="completed-count">0</span> <span class="text-gray-500">/ 5 Modules Completed</span>';
+        // 3. Update progress text
+        const countEl = document.getElementById('completed-count');
+        if (countEl && countEl.parentElement) {
+          countEl.parentElement.innerHTML = '<span id="completed-count">0</span> <span class="text-gray-500">/ 5 Modules Completed</span>';
+        }
+
+        console.log("✅ Dashboard Unlocked Successfully");
+      } catch (err) {
+        console.error("❌ Error during dashboard unlock:", err);
+        // Fallback: guaranteed hide of placeholder at least
+        const placeholder = document.getElementById('video-placeholder');
+        if (placeholder) placeholder.style.display = 'none';
       }
     }
 
