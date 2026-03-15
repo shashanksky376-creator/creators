@@ -5,7 +5,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Affiliate Marketing Mastery | Shashank</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script>
   tailwind.config = {
     theme: {
@@ -130,6 +130,24 @@
   .delay-200 { animation-delay: 200ms; }
   .delay-300 { animation-delay: 300ms; }
   .delay-500 { animation-delay: 500ms; }
+
+  /* SECTION UTILS */
+  :root {
+    --red: #e01c1c;
+    --red-dark: #b01515;
+    --dark2: #101010;
+  }
+  .sec { padding: 60px 40px; }
+  .sec-label { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--red); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .sec-h { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 2px; line-height: 1; }
+  .sec-h em { color: var(--red); font-style: normal; }
+  .sec-p { color: #999; font-size: 15px; margin-top: 8px; }
+  .center { text-align: center; }
+
+  /* TRAILER (VIDEO) */
+  .trailer-wrap { max-width: 940px; margin: 48px auto 0; border: 1.5px solid rgba(224,28,28,0.25); border-radius: 20px; overflow: hidden; position: relative; aspect-ratio: 16/9; cursor: pointer; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg,#180000,#0a0a0a); }
+  .trailer-wrap:hover .play-circle { transform: scale(1.12); }
+  .play-circle { width: 86px; height: 86px; background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); transition: .3s; z-index: 3; }
 </style>
 </head>
 <body class="font-sans antialiased text-white">
@@ -313,6 +331,18 @@
         </div>
         <span class="text-xs font-bold tracking-widest text-gray-400 group-hover:text-white transition-colors uppercase">passive income</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRODUCTION VIDEO -->
+<section class="sec center" style="background:var(--dark2);">
+  <div class="sec-label" style="display:inline-flex;">▶ &nbsp;Introduction</div>
+  <h2 class="sec-h">Watch <em>Video</em></h2>
+  <p class="sec-p">Learn how our system works in minutes</p>
+  <div class="trailer-wrap mt-12">
+    <div class="play-circle">
+      <svg width="30" height="30" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
     </div>
   </div>
 </section>
