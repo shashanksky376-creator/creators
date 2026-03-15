@@ -411,58 +411,64 @@
     }
 
     function unlockDashboard() {
-      console.log("🔓 Unlocking dashboard for pro member...");
+      console.log("🔓 NUCLEAR UNLOCK: Releasing all pro curriculum content...");
       
-      try {
-        // 1. Hide "Content Locked" placeholder immediately
-        const placeholder = document.getElementById('video-placeholder');
-        if (placeholder) {
-          placeholder.style.display = 'none';
-          console.log("✓ Placeholder hidden");
-        }
-
-        // 2. Remove visual lock from lessons and modules
-        const lessonItems = document.querySelectorAll('.lesson-item');
-        console.log(`Found ${lessonItems.length} lesson items to unlock`);
-        
-        lessonItems.forEach(item => {
-          item.classList.remove('locked');
-          
-          // Remove 🔒 from lesson text
-          const textNode = item.querySelector('.flex-1');
-          if (textNode && textNode.textContent.includes('🔒')) {
-            textNode.textContent = textNode.textContent.replace('🔒 ', '');
+      const performUnlock = () => {
+        try {
+          // 1. Hide the primary lock overlay
+          const placeholder = document.getElementById('video-placeholder');
+          if (placeholder) {
+            placeholder.style.display = 'none';
           }
-          
-          // Remove 🔒 from module headers in cards
-          const moduleCard = item.closest('.module-card');
-          if (moduleCard) {
-            const h4 = moduleCard.querySelector('h4');
-            if (h4 && h4.textContent.includes('🔒')) {
-              h4.textContent = h4.textContent.replace('🔒 ', '');
-            }
-            const badge = moduleCard.querySelector('.text-[8px]');
-            if (badge && (badge.textContent.trim().toLowerCase() === 'locked')) {
-              badge.textContent = 'Unlocked';
-              badge.classList.remove('text-gray-500');
-              badge.classList.add('text-green-500', 'bg-green-500/10');
+
+          // 2. Clear ALL 'locked' classes and attributes
+          document.querySelectorAll('.locked, [data-locked="true"]').forEach(el => {
+            el.classList.remove('locked');
+            el.style.opacity = '1';
+            el.style.filter = 'none';
+            el.style.cursor = 'pointer';
+          });
+
+          // 3. Remove EVERY 🔒 emoji from the entire page
+          const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+          let node;
+          while(node = walker.nextNode()) {
+            if (node.nodeValue.includes('🔒')) {
+              node.nodeValue = node.nodeValue.replace(/🔒/g, '').trim();
             }
           }
-        });
 
-        // 3. Update progress text
-        const countEl = document.getElementById('completed-count');
-        if (countEl && countEl.parentElement) {
-          countEl.parentElement.innerHTML = '<span id="completed-count">0</span> <span class="text-gray-500">/ 5 Modules Completed</span>';
+          // 4. Update all status badges from "Locked" to "Unlocked"
+          document.querySelectorAll('.module-card .text-\\[8px\\], .badge, span').forEach(el => {
+            const txt = el.textContent.toLowerCase().trim();
+            if (txt === 'locked' || txt.includes('lock')) {
+              el.textContent = 'Unlocked';
+              el.className = el.className.replace(/text-gray-500/g, 'text-green-500').replace(/bg-white\/5/g, 'bg-green-500/10');
+              el.classList.add('text-green-500', 'bg-green-500/10');
+            }
+          });
+
+          // 5. Ensure "Enroll Now" calls to action are hidden or changed
+          document.querySelectorAll('a[href="checkout.html"]').forEach(btn => {
+            if (btn.textContent.toLowerCase().includes('unlock') || btn.textContent.toLowerCase().includes('enroll')) {
+              btn.textContent = 'Curriculum Unlocked ✓';
+              btn.classList.add('pointer-events-none', 'opacity-50');
+              btn.classList.remove('bg-red-600', 'hover:bg-red-700');
+              btn.classList.add('bg-green-600/20', 'text-green-500');
+            }
+          });
+
+          console.log("✅ Nuclear Unlock Complete");
+        } catch (err) {
+          console.error("Critical error during nuclear unlock:", err);
         }
+      };
 
-        console.log("✅ Dashboard Unlocked Successfully");
-      } catch (err) {
-        console.error("❌ Error during dashboard unlock:", err);
-        // Fallback: guaranteed hide of placeholder at least
-        const placeholder = document.getElementById('video-placeholder');
-        if (placeholder) placeholder.style.display = 'none';
-      }
+      // Run immediately
+      performUnlock();
+      // Run again after a short delay to catch anything missed by internal DOM updates
+      setTimeout(performUnlock, 500);
+      setTimeout(performUnlock, 1500); 
     }
 
     // Auth Integration

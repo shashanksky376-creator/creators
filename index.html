@@ -29,9 +29,14 @@
   (async () => {
     try {
       const session = await getSession();
-      if (session) {
-        const valid = await validateActiveSession(session.user.email);
-        if (valid) window.location.href = "dashboard.html";
+      if (session && session.user) {
+        // Only redirect if they aren't trying to browse the landing page intentionally
+        // and we are CERTAIN they are enrolled
+        const enrollment = await checkEnrollment(session.user.email);
+        if (enrollment && !window.location.search.includes('stay')) {
+          const valid = await validateActiveSession(session.user.email);
+          if (valid) window.location.href = "dashboard.html";
+        }
       }
     } catch(e) {}
   })();
@@ -186,13 +191,39 @@
     <a href="#about" class="nav-link">ABOUT</a>
   </nav>
 
-  <div class="flex items-center gap-2 sm:gap-3">
-    <a href="login.html" class="hidden sm:block text-xs font-bold text-gray-400 hover:text-white transition-colors px-4">Login</a>
-    <a href="affiliate-mastery (9).html" class="px-4 sm:px-5 py-2 sm:py-2.5 bg-red-600 hover:bg-red-700 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-widest rounded-xl shadow-[0_8px_16px_rgba(220,38,38,0.25)] hover:shadow-[0_12px_24px_rgba(220,38,38,0.4)] hover:-translate-y-0.5 transition-all duration-300">Enroll Now</a>
+  <div class="flex items-center gap-2 sm:gap-3" id="nav-auth-group">
+    <a href="login.html" id="nav-login-btn" class="hidden sm:block text-xs font-bold text-gray-400 hover:text-white transition-colors px-4">Login</a>
+    <a href="affiliate-mastery (9).html" id="nav-enroll-btn" class="px-4 sm:px-5 py-2 sm:py-2.5 bg-red-600 hover:bg-red-700 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-widest rounded-xl shadow-[0_8px_16px_rgba(220,38,38,0.25)] hover:shadow-[0_12px_24px_rgba(220,38,38,0.4)] hover:-translate-y-0.5 transition-all duration-300">Enroll Now</a>
   </div>
 </header>
 
 <script>
+  // Dynamic Auth Header Update
+  (async () => {
+    try {
+      const session = await getSession();
+      if (session && session.user) {
+        const loginBtn = document.getElementById('nav-login-btn');
+        const enrollBtn = document.getElementById('nav-enroll-btn');
+        const enrollment = await checkEnrollment(session.user.email);
+        
+        if (loginBtn && enrollment) {
+          const firstName = enrollment.full_name.split(' ')[0];
+          loginBtn.innerHTML = `Hi, ${firstName} 👋`;
+          loginBtn.href = "dashboard.html";
+          loginBtn.classList.remove('text-gray-400', 'hidden');
+          loginBtn.classList.add('text-white', 'sm:block');
+          
+          if (enrollBtn) {
+            enrollBtn.textContent = 'Dashboard';
+            enrollBtn.href = 'dashboard.html';
+          }
+        }
+      }
+    } catch (e) {
+      console.warn("Home header auth check skipped:", e);
+    }
+  })();
   window.addEventListener('scroll', () => {
     const header = document.getElementById('mainHeader');
     if (window.scrollY > 50) {
