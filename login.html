@@ -250,6 +250,8 @@
     }
 
     async function handleGoogleLogin() {
+        // Clear local token to ensure a fresh session is initialized on redirect
+        localStorage.removeItem("affiliate_pro_session");
         const { error } = await signInWithGoogle();
         if (error) alert("Google Login Error: " + error.message);
     }
