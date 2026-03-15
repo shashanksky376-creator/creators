@@ -1023,20 +1023,7 @@ footer p{font-size:12.5px;color:var(--muted);}
 </section>
 
 
-<!-- STICKY -->
-<div class="sticky-bar">
-  <div class="sticky-left">
-    <span class="sticky-offer-label">⚡ <strong>Offer ends</strong> — resets at midnight IST</span>
-    <div class="sticky-timer">
-      <div class="sticky-t-block"><span class="sticky-t-num" id="sHH">00</span><span class="sticky-t-lbl">Hrs</span></div>
-      <span class="sticky-t-sep">:</span>
-      <div class="sticky-t-block"><span class="sticky-t-num" id="sMM">00</span><span class="sticky-t-lbl">Min</span></div>
-      <span class="sticky-t-sep">:</span>
-      <div class="sticky-t-block"><span class="sticky-t-num" id="sSS">00</span><span class="sticky-t-lbl">Sec</span></div>
-    </div>
-  </div>
-  <button class="btn-sticky" onclick="gotoSection('curriculum')">JOIN NOW — ₹1,999</button>
-</div>
+
 
 <script>
 function gotoSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
@@ -1137,13 +1124,6 @@ function updateTimer() {
   if(elH) elH.textContent = pad(hh);
   if(elM) elM.textContent = pad(mm);
   if(elS) elS.textContent = pad(ss);
-  // sticky bar timer (same time)
-  const sH = document.getElementById('sHH');
-  const sM = document.getElementById('sMM');
-  const sS = document.getElementById('sSS');
-  if(sH) sH.textContent = pad(hh);
-  if(sM) sM.textContent = pad(mm);
-  if(sS) sS.textContent = pad(ss);
 }
 updateTimer();
 setInterval(updateTimer, 1000);

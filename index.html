@@ -698,31 +698,31 @@
     observer.observe(el);
   });
 
-  // Simple Countdown Timer
-  function startTimer(duration, display) {
-    let timer = duration, hours, minutes, seconds;
-    setInterval(function () {
-      hours = parseInt(timer / 3600, 10);
-      minutes = parseInt((timer % 3600) / 60, 10);
-      seconds = parseInt(timer % 60, 10);
+  // Midnight IST Countdown Timer
+  function updateTimer() {
+    const now = new Date();
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    const ist = new Date(utc + istOffset);
 
-      hours = hours < 10 ? "0" + hours : hours;
-      minutes = minutes < 10 ? "0" + minutes : minutes;
-      seconds = seconds < 10 ? "0" + seconds : seconds;
+    const midnight = new Date(ist);
+    midnight.setHours(24, 0, 0, 0);
+    const diff = midnight - ist;
 
-      display.textContent = hours + ":" + minutes + ":" + seconds;
+    const hh = Math.floor(diff / (1000 * 60 * 60));
+    const mm = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const ss = Math.floor((diff % (1000 * 60)) / 1000);
 
-      if (--timer < 0) {
-        timer = duration;
-      }
-    }, 1000);
+    const pad = n => String(n).padStart(2, '0');
+    const display = document.querySelector('#mobile-timer');
+    if (display) {
+      display.textContent = pad(hh) + ":" + pad(mm) + ":" + pad(ss);
+    }
   }
 
   window.onload = function () {
-    const mobileTimer = document.querySelector('#mobile-timer');
-    if (mobileTimer) {
-      startTimer(28800 + Math.random() * 3600, mobileTimer); // ~8 hours initial
-    }
+    updateTimer();
+    setInterval(updateTimer, 1000);
   };
 </script>
 
