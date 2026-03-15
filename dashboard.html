@@ -70,16 +70,69 @@
     }
 
     .module-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 24px;
-      transition: all 0.3s ease;
+      background: linear-gradient(180deg, rgba(20, 20, 20, 0.8) 0%, rgba(10, 10, 10, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 32px;
+      padding: 32px;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-col;
+      gap: 20px;
+    }
+    .module-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(232, 33, 43, 0.3), transparent);
+      opacity: 0;
+      transition: opacity 0.5s;
     }
     .module-card:hover {
-      border-color: rgba(255,255,255,0.12);
-      transform: translateY(-2px);
+      border-color: rgba(232, 33, 43, 0.2);
+      transform: translateY(-8px) scale(1.02);
+      background: linear-gradient(180deg, rgba(25, 25, 25, 0.9) 0%, rgba(15, 15, 15, 0.98) 100%);
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5), 0 0 40px rgba(232, 33, 43, 0.05);
     }
+    .module-card:hover::before { opacity: 1; }
+
+    .module-poster {
+      height: 160px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #121212 0%, #050505 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .module-poster-glow {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: var(--primary);
+      filter: blur(80px);
+      opacity: 0.15;
+      transition: all 0.5s;
+    }
+    .module-card:hover .module-poster-glow { opacity: 0.3; transform: scale(1.5); }
+
+    .status-badge {
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      transition: all 0.3s;
+    }
+    .status-badge.locked { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.05); }
+    .status-badge.unlocked { background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.2); box-shadow: 0 0 20px rgba(34, 197, 94, 0.1); }
 
     .custom-scroll::-webkit-scrollbar { width: 5px; }
     .custom-scroll::-webkit-scrollbar-track { background: transparent; }
@@ -282,78 +335,108 @@
           <p class="text-gray-600 text-sm font-medium">Total 5 Modules • High Quality 4K Training</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="module-container">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" id="module-container">
           <!-- Module 1 -->
           <div class="module-card">
-            <div class="flex items-center justify-between mb-6">
-               <div class="text-[10px] font-black text-primary uppercase tracking-widest">Module 01</div>
-               <div class="px-2 py-1 rounded bg-white/5 border border-white/5 text-[8px] font-black text-gray-500 uppercase tracking-widest">Locked</div>
+            <div class="module-poster">
+              <div class="module-poster-glow"></div>
+              <svg class="w-16 h-16 text-primary z-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
             </div>
-            <h4 class="text-xl font-black text-white mb-6 leading-none">🔒 Getting Started</h4>
-            <div class="space-y-3">
-              <div onclick="selectLesson('Welcome & Roadmap', 'Your first steps in the Affiliate PRO system.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2e', '1', this)" class="lesson-item locked flex items-center gap-4 p-4">
-                <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">01</div>
-                <span class="flex-1 text-sm font-bold text-gray-400">🔒 Welcome & Goal Setting</span>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-black text-primary uppercase tracking-widest">Foundation</span>
+                <span class="status-badge locked">Locked</span>
+              </div>
+              <h4 class="text-2xl font-black text-white leading-tight">Getting Started</h4>
+              <div class="space-y-3 pt-4">
+                <div onclick="selectLesson('Welcome & Roadmap', 'Your first steps in the Affiliate PRO system.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2e', '1', this)" class="lesson-item locked flex items-center gap-4 p-4 cursor-pointer">
+                  <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">01</div>
+                  <span class="flex-1 text-sm font-bold text-gray-400">Welcome & Goal Setting</span>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Module 2 -->
           <div class="module-card">
-            <div class="flex items-center justify-between mb-6">
-               <div class="text-[10px] font-black text-primary uppercase tracking-widest">Module 02</div>
-               <div class="px-2 py-1 rounded bg-white/5 border border-white/5 text-[8px] font-black text-gray-500 uppercase tracking-widest">Locked</div>
+            <div class="module-poster">
+              <div class="module-poster-glow" style="background: #3b82f6;"></div>
+              <svg class="w-16 h-16 text-blue-500 z-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
-            <h4 class="text-xl font-black text-white mb-6 leading-none">🔒 Niche Mastery</h4>
-            <div class="space-y-3">
-              <div onclick="selectLesson('Product Research', 'How to find products that sell themselves.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2f', '2', this)" class="lesson-item locked flex items-center gap-4 p-4">
-                <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">02</div>
-                <span class="flex-1 text-sm font-bold text-gray-500">🔒 Market Analysis</span>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-black text-blue-500 uppercase tracking-widest">Research</span>
+                <span class="status-badge locked">Locked</span>
+              </div>
+              <h4 class="text-2xl font-black text-white leading-tight">Niche Mastery</h4>
+              <div class="space-y-3 pt-4">
+                <div onclick="selectLesson('Product Research', 'How to find products that sell themselves.', '8867a5b3-3df8-45a7-96a3-6b71f93f5a2f', '2', this)" class="lesson-item locked flex items-center gap-4 p-4 cursor-pointer">
+                  <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">02</div>
+                  <span class="flex-1 text-sm font-bold text-gray-400">Market Analysis</span>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Module 3 -->
           <div class="module-card">
-            <div class="flex items-center justify-between mb-6">
-               <div class="text-[10px] font-black text-primary uppercase tracking-widest">Module 03</div>
-               <div class="px-2 py-1 rounded bg-white/5 border border-white/5 text-[8px] font-black text-gray-500 uppercase tracking-widest">Locked</div>
+            <div class="module-poster">
+              <div class="module-poster-glow" style="background: #a855f7;"></div>
+              <svg class="w-16 h-16 text-purple-500 z-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
             </div>
-            <h4 class="text-xl font-black text-white mb-6 leading-none">🔒 Traffic Generation</h4>
-            <div class="space-y-3">
-              <div onclick="selectLesson('Organic Traffic Secrets', 'Build an audience without spending on ads.', '3ca776e0-fake-id-1', '3', this)" class="lesson-item locked flex items-center gap-4 p-4">
-                <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">03</div>
-                <span class="flex-1 text-sm font-bold text-gray-400">🔒 Social Media Funnels</span>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-black text-purple-500 uppercase tracking-widest">Traffic</span>
+                <span class="status-badge locked">Locked</span>
+              </div>
+              <h4 class="text-2xl font-black text-white leading-tight">Traffic Generation</h4>
+              <div class="space-y-3 pt-4">
+                <div onclick="selectLesson('Organic Traffic Secrets', 'Build an audience without spending on ads.', '3ca776e0-fake-id-1', '3', this)" class="lesson-item locked flex items-center gap-4 p-4 cursor-pointer">
+                  <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">03</div>
+                  <span class="flex-1 text-sm font-bold text-gray-400">Social Media Funnels</span>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Module 4 -->
           <div class="module-card">
-            <div class="flex items-center justify-between mb-6">
-               <div class="text-[10px] font-black text-primary uppercase tracking-widest">Module 04</div>
-               <div class="px-2 py-1 rounded bg-white/5 border border-white/5 text-[8px] font-black text-gray-500 uppercase tracking-widest">Locked</div>
+            <div class="module-poster">
+              <div class="module-poster-glow" style="background: #f59e0b;"></div>
+              <svg class="w-16 h-16 text-amber-500 z-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
             </div>
-            <h4 class="text-xl font-black text-white mb-6 leading-none">🔒 Content Sales</h4>
-            <div class="space-y-3">
-              <div onclick="selectLesson('Copywriting Mastery', 'Write words that convert visitors to buyers.', '3ca776e0-fake-id-2', '4', this)" class="lesson-item locked flex items-center gap-4 p-4">
-                <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">04</div>
-                <span class="flex-1 text-sm font-bold text-gray-400">🔒 Sales Scripting</span>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-black text-amber-500 uppercase tracking-widest">Selling</span>
+                <span class="status-badge locked">Locked</span>
+              </div>
+              <h4 class="text-2xl font-black text-white leading-tight">Content Sales</h4>
+              <div class="space-y-3 pt-4">
+                <div onclick="selectLesson('Copywriting Mastery', 'Write words that convert visitors to buyers.', '3ca776e0-fake-id-2', '4', this)" class="lesson-item locked flex items-center gap-4 p-4 cursor-pointer">
+                  <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">04</div>
+                  <span class="flex-1 text-sm font-bold text-gray-400">Sales Scripting</span>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Module 5 -->
           <div class="module-card">
-            <div class="flex items-center justify-between mb-6">
-               <div class="text-[10px] font-black text-primary uppercase tracking-widest">Module 05</div>
-               <div class="px-2 py-1 rounded bg-white/5 border border-white/5 text-[8px] font-black text-gray-500 uppercase tracking-widest">Locked</div>
+            <div class="module-poster">
+              <div class="module-poster-glow" style="background: #10b981;"></div>
+              <svg class="w-16 h-16 text-emerald-500 z-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
             </div>
-            <h4 class="text-xl font-black text-white mb-6 leading-none">🔒 Scale & Congrats</h4>
-            <div class="space-y-3">
-              <div onclick="selectLesson('Scaling to ₹1L+', 'The advanced path to massive affiliate earnings.', '3ca776e0-fake-id-3', '5', this)" class="lesson-item locked flex items-center gap-4 p-4">
-                <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">05</div>
-                <span class="flex-1 text-sm font-bold text-gray-400">🔒 Massive Earnings</span>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Scaling</span>
+                <span class="status-badge locked">Locked</span>
+              </div>
+              <h4 class="text-2xl font-black text-white leading-tight">Scale & Congrats</h4>
+              <div class="space-y-3 pt-4">
+                <div onclick="selectLesson('Scaling to ₹1L+', 'The advanced path to massive affiliate earnings.', '3ca776e0-fake-id-3', '5', this)" class="lesson-item locked flex items-center gap-4 p-4 cursor-pointer">
+                  <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 text-[11px] font-black">05</div>
+                  <span class="flex-1 text-sm font-bold text-gray-400">Massive Earnings</span>
+                </div>
               </div>
             </div>
           </div>
@@ -439,13 +522,10 @@
           }
 
           // 4. Update all status badges from "Locked" to "Unlocked"
-          document.querySelectorAll('.module-card .text-\\[8px\\], .badge, span').forEach(el => {
-            const txt = el.textContent.toLowerCase().trim();
-            if (txt === 'locked' || txt.includes('lock')) {
-              el.textContent = 'Unlocked';
-              el.className = el.className.replace(/text-gray-500/g, 'text-green-500').replace(/bg-white\/5/g, 'bg-green-500/10');
-              el.classList.add('text-green-500', 'bg-green-500/10');
-            }
+          document.querySelectorAll('.status-badge').forEach(el => {
+            el.textContent = 'Unlocked';
+            el.classList.remove('locked');
+            el.classList.add('unlocked');
           });
 
           // 5. Ensure "Enroll Now" calls to action are hidden or changed
