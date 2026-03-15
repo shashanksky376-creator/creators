@@ -22,12 +22,26 @@
   }
 
   // ---- Single-session enforcement ----
-  // If a different device/browser has logged in after this one,
-  // the DB token will differ from our local token → sign out this device.
+  let localToken = localStorage.getItem("affiliate_pro_session");
+  
+  // If no local token exists (e.g. user clicked a Magic Link), 
+  // we initialize it if they are already in our enrollment list.
+  if (!localToken) {
+    localToken = generateSessionToken();
+    localStorage.setItem("affiliate_pro_session", localToken);
+    
+    // Update the DB so our local token matches
+    const client = initSupabase();
+    await client
+      .from("enrolled_users")
+      .update({ active_session_token: localToken })
+      .eq("email", email);
+    
+    console.log("Initialized new session for Magic Link login:", email);
+  }
+
   const isValidSession = await validateActiveSession(email);
   if (!isValidSession) {
-    // signOut() is called inside validateActiveSession if mismatch
-    // Just in case it didn't redirect:
     window.location.href = "/index.html?reason=session_expired";
     return;
   }
