@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Affiliate PRO</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #e8212b;
+      --dark: #050505;
+      --darker: #020202;
+      --card: rgba(15, 15, 15, 0.6);
+      --border: rgba(255, 255, 255, 0.08);
+    }
+    body { font-family: 'Poppins', sans-serif; background-color: var(--darker); color: #fff; min-height: 100vh; }
+    h1, h2, h3, .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+    .glass { background: var(--card); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: 20px; }
+    .table-container { overflow-x: auto; }
+    table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+    th { text-align: left; padding: 16px; font-size: 10px; font-weight: 800; text-transform: uppercase; color: #666; letter-spacing: 1px; }
+    td { background: rgba(255,255,255,0.02); padding: 16px; font-size: 13px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    td:first-child { border-left: 1px solid var(--border); border-radius: 12px 0 0 12px; }
+    td:last-child { border-right: 1px solid var(--border); border-radius: 0 12px 12px 0; }
+    tr:hover td { background: rgba(255,255,255,0.05); }
+    .search-input { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 12px 20px; color: #fff; width: 100%; max-width: 400px; outline: none; transition: border-color 0.3s; }
+    .search-input:focus { border-color: var(--primary); }
+    .loading-spinner { border: 3px solid rgba(255, 255, 255, 0.1); border-radius: 50%; border-top: 3px solid var(--primary); width: 40px; height: 40px; animation: spin 1s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  </style>
+</head>
+<body class="p-4 md:p-10">
+
+  <!-- ADMIN PROTECTION SCRIPT -->
+  <script>
+    (async () => {
+      const session = await getSession();
+      if (!session || !isAdmin(session.user.email)) {
+        window.location.replace("index.html?reason=unauthorized");
+      }
+    })();
+  </script>
+
+  <div class="max-w-7xl mx-auto space-y-10">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-red-600 flex items-center justify-center text-white shadow-lg">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        </div>
+        <div>
+          <h1 class="text-4xl font-black uppercase tracking-tight">Admin <span class="text-red-600 italic">Dashboard</span></h1>
+          <p class="text-gray-500 text-xs font-bold uppercase tracking-widest">Enrolled Students & Revenue Monitoring</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="dashboard.html" class="px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">Student Portal</a>
+        <button onclick="signOut()" class="px-5 py-2.5 bg-red-600/10 hover:bg-red-600/20 text-red-500 border border-red-600/20 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="glass p-8">
+        <h3 class="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-2">Total Students</h3>
+        <p id="stat-total-students" class="text-5xl font-black bebas">0</p>
+      </div>
+      <div class="glass p-8">
+        <h3 class="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-2">Total Revenue</h3>
+        <p id="stat-total-revenue" class="text-5xl font-black bebas text-green-500">₹0</p>
+      </div>
+      <div class="glass p-8">
+        <h3 class="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-2">Average Ticket</h3>
+        <p class="text-5xl font-black bebas tracking-tight">₹1,999</p>
+      </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="glass p-8 space-y-8">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <h2 class="text-2xl font-bold tracking-tight">Enrolled Students List</h2>
+        <input type="text" id="studentSearch" placeholder="Search by name or email..." class="search-input" onkeyup="filterTable()">
+      </div>
+
+      <div id="loading-area" class="flex flex-col items-center justify-center py-20 gap-4">
+        <div class="loading-spinner"></div>
+        <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Fetching student records...</p>
+      </div>
+
+      <div id="table-area" class="table-container hidden">
+        <table id="studentsTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Razorpay ID</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="studentData">
+            <!-- Data will be injected here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div id="empty-area" class="hidden text-center py-20 text-gray-500">
+        <svg class="w-16 h-16 mx-auto mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+        <p class="text-sm font-bold uppercase tracking-widest">No students found.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let allStudents = [];
+
+    async function loadData() {
+      const { data, error } = await getAllEnrolledUsers();
+      
+      const loadingArea = document.getElementById('loading-area');
+      const tableArea = document.getElementById('table-area');
+      const emptyArea = document.getElementById('empty-area');
+
+      loadingArea.classList.add('hidden');
+
+      if (error || !data || data.length === 0) {
+        emptyArea.classList.remove('hidden');
+        return;
+      }
+
+      allStudents = data;
+      tableArea.classList.remove('hidden');
+
+      // Update Stats
+      document.getElementById('stat-total-students').textContent = data.length.toLocaleString();
+      document.getElementById('stat-total-revenue').textContent = '₹' + (data.length * 1999).toLocaleString();
+
+      renderTable(data);
+    }
+
+    function renderTable(students) {
+      const tbody = document.getElementById('studentData');
+      tbody.innerHTML = '';
+
+      students.forEach(s => {
+        const date = new Date(s.enrolled_at).toLocaleDateString('en-IN', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric'
+        });
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><div class="font-black text-white uppercase tracking-tight">${s.full_name || 'N/A'}</div></td>
+          <td><div class="text-gray-400 font-medium">${s.email}</div></td>
+          <td><div class="text-xs font-bold text-gray-400">${s.phone || 'N/A'}</div></td>
+          <td><div class="text-[10px] font-mono text-gray-500 px-2 py-1 bg-white/5 rounded border border-white/5 inline-block">${s.razorpay_payment_id || 'Legacy'}</div></td>
+          <td><div class="text-[10px] font-black text-gray-400 uppercase tracking-widest">${date}</div></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterTable() {
+      const query = document.getElementById('studentSearch').value.toLowerCase();
+      const filtered = allStudents.filter(s => 
+        (s.full_name && s.full_name.toLowerCase().includes(query)) || 
+        (s.email && s.email.toLowerCase().includes(query)) ||
+        (s.phone && s.phone.includes(query))
+      );
+      renderTable(filtered);
+    }
+
+    window.onload = loadData;
+  </script>
+
+</body>
+</html>

@@ -7,6 +7,9 @@
 const SUPABASE_URL = "https://qezdknrauecfankgfhtt.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFlemRrbnJhdWVjZmFua2dmaHR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MTkyODcsImV4cCI6MjA4OTA5NTI4N30.wEZEMIUrB_Z4OqPcIl2ptPCHyiZY1xNWN8QexvRwk_0";
 
+// --- ADMIN CONFIGURATION ---
+const ADMIN_EMAILS = ["shashanksky376@gmail.com", "akash.ai.dev@gmail.com"]; // Added dev email for testing if needed
+
 let _supabase = null;
 
 function initSupabase() {
@@ -95,6 +98,27 @@ async function checkEnrollment(email) {
 
   if (error || !data) return false;
   return data;
+}
+
+// -------------------------------------------------------
+// ADMIN: Check if email is in the admin list
+// -------------------------------------------------------
+function isAdmin(email) {
+  if (!email) return false;
+  return ADMIN_EMAILS.includes(email.toLowerCase().trim());
+}
+
+// -------------------------------------------------------
+// ADMIN: Get all enrolled users (sorted by enrollment date)
+// -------------------------------------------------------
+async function getAllEnrolledUsers() {
+  const client = initSupabase();
+  const { data, error } = await client
+    .from("enrolled_users")
+    .select("full_name, email, phone, razorpay_payment_id, enrolled_at")
+    .order("enrolled_at", { ascending: false });
+    
+  return { data, error };
 }
 
 // -------------------------------------------------------
