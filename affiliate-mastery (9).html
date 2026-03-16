@@ -75,20 +75,19 @@ nav{display:none;}
 .pk{width:18px;height:18px;border-radius:50%;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;color:var(--green);font-size:10px;flex-shrink:0;}
 
 /* SECTION UTILS */
-.sec{padding:60px 40px;}
-.sec-label{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--red);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;}
-.sec-h{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;line-height:1;}
+.sec{padding:100px 0;}
+.container{max-width:1300px;margin:0 auto;padding:0 40px;}
+.sec-label{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--red);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;width:100%;justify-content:center;}
+.sec-h{font-family:'Bebas Neue',sans-serif;font-size:64px;letter-spacing:2px;line-height:0.95;width:100%;text-align:center;}
 .sec-h em{color:var(--red);font-style:normal;}
-.sec-p{color:var(--muted);font-size:15px;margin-top:8px;}
+.sec-p{color:var(--muted);font-size:16px;margin:16px auto 0;max-width:700px;text-align:center;}
 .center{text-align:center;}
 
 /* TRAILER */
-.trailer-wrap{max-width:940px;margin:48px auto 0;border:1.5px solid rgba(224,28,28,0.25);border-radius:20px;overflow:hidden;position:relative;aspect-ratio:16/9;cursor:pointer;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#180000,#0a0a0a);}
-.trailer-wrap:hover .play-circle{transform:scale(1.12);}
-.trailer-bg-text{position:absolute;bottom:36px;left:44px;z-index:2;}
-.trailer-bg-text h3{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;}
-.trailer-bg-text p{font-size:15px;color:rgba(255,255,255,0.6);margin-top:4px;}
-.play-circle{width:86px;height:86px;background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);transition:.3s;z-index:3;}
+.trailer-wrap{width:100%;max-width:1280px;margin:64px auto 0;border:1.5px solid rgba(224,28,28,0.25);border-radius:24px;overflow:hidden;position:relative;aspect-ratio:16/9;cursor:pointer;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#180000,#0a0a0a);transition:0.4s;}
+.trailer-wrap:hover{border-color:rgba(224,28,28,0.5);transform:scale(1.015);}
+.trailer-wrap:hover .play-circle{transform:scale(1.1);background:rgba(255,255,255,0.2);}
+.play-circle{width:120px;height:120px;background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(12px);transition:.3s;z-index:3;}
 
 /* WHY */
 .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px;}
@@ -133,7 +132,7 @@ nav{display:none;}
 .lc p{font-size:14px;color:var(--muted);line-height:1.85;}
 
 /* CURRICULUM */
-.cur-layout{display:grid;grid-template-columns:1fr 340px;gap:48px;margin-top:48px;}
+.cur-layout{display:grid;grid-template-columns:1fr 400px;gap:56px;margin-top:48px;}
 .mod-list{display:flex;flex-direction:column;gap:10px;}
 .mod-item{background:var(--dark3);border:1px solid #1f1f1f;border-radius:12px;overflow:hidden;cursor:pointer;transition:.2s;}
 .mod-item:hover{border-color:rgba(224,28,28,0.3);}
@@ -164,12 +163,12 @@ nav{display:none;}
 
 /* STUDENTS / VIDEO CAROUSEL */
 .students-sec{background:var(--dark2); padding: 50px 0;}
-.students-layout{display:grid;grid-template-columns:300px 1fr;gap:40px;align-items:start;margin-top:20px;max-width:1300px;margin-left:auto;margin-right:auto;padding:0 30px;}
+.students-layout{display:grid;grid-template-columns:380px 1fr;gap:48px;align-items:start;margin-top:20px;padding:0 30px;}
 .students-left h2{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:0.9;margin-bottom:12px;color: #fff;}
 .students-left p{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.5;}
-.ss-box{background:rgba(24,24,24,0.6);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);border-radius:24px;padding:0;overflow:hidden;}
+.ss-box{background:rgba(24,24,24,0.6);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);border-radius:24px;padding:0;overflow:hidden;width:100%;}
 /* Top row — student count */
-.ss-top{padding:20px 22px 16px;border-bottom:1px solid #242424;}
+.ss-top{padding:24px 28px 20px;border-bottom:1px solid rgba(255,255,255,0.05);}
 .ss-avs{display:flex;align-items:center;margin-bottom:12px;}
 .ss-av{width:32px;height:32px;border-radius:50%;border:2.5px solid var(--dark3);background:var(--red);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-left:-9px;flex-shrink:0;}
 .ss-av:first-child{margin-left:0;}
@@ -178,33 +177,33 @@ nav{display:none;}
 .ss-av:nth-child(3){background:#a00a0a;}
 .ss-av.more{background:var(--dark4);color:var(--muted);font-size:9px;font-weight:600;border-color:var(--dark3);}
 .ss-count-row{display:flex;align-items:baseline;gap:6px;}
-.ss-count{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1;color:#fff;}
-.ss-count-sub{font-size:11px;color:var(--red);font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
-.ss-lbl{font-size:12px;color:var(--muted);margin-top:3px;}
+.ss-count{font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;color:#fff;}
+.ss-count-sub{font-size:12px;color:var(--red);font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+.ss-lbl{font-size:13px;color:var(--muted);margin-top:4px;}
 /* Bottom row — rating */
-.ss-bottom{padding:16px 22px 20px;display:flex;align-items:center;justify-content:space-between;}
+.ss-bottom{padding:20px 28px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.02);}
 .ss-stars-row{display:flex;gap:3px;margin-bottom:4px;}
-.ss-star{font-size:18px;line-height:1;}
+.ss-star{font-size:20px;line-height:1;}
 .ss-star.full{color:var(--gold);}
 .ss-star.half{background:linear-gradient(90deg,var(--gold) 50%,rgba(255,255,255,0.15) 50%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .ss-star.empty{color:rgba(255,255,255,0.15);}
 .ss-score-row{display:flex;align-items:baseline;gap:4px;}
-.ss-score{font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1;}
-.ss-score-max{font-size:13px;color:var(--muted);}
+.ss-score{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;line-height:1;}
+.ss-score-max{font-size:14px;color:var(--muted);}
 .ss-rating-right{text-align:right;}
-.ss-reviews-num{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--red);}
-.ss-reviews-lbl{font-size:11px;color:var(--muted);margin-top:2px;}
+.ss-reviews-num{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--red);}
+.ss-reviews-lbl{font-size:12px;color:var(--muted);margin-top:2px;}
 .vid-wrap{overflow:hidden;}
-.vid-track{display:flex;gap:20px;transition:transform .5s cubic-bezier(.65,0,.35,1);padding:10px 0;}
-.vid-card{flex:0 0 280px;border-radius:20px;overflow:hidden;position:relative;cursor:pointer;background:rgba(25,25,25,0.4);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);transition:0.3s;}
+.vid-track{display:flex;gap:24px;transition:transform .5s cubic-bezier(.65,0,.35,1);padding:10px 0;}
+.vid-card{flex:0 0 260px;border-radius:24px;overflow:hidden;position:relative;cursor:pointer;background:rgba(25,25,25,0.4);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);transition:0.3s;height:420px;}
 .vid-card:hover{transform:translateY(-8px);border-color:rgba(224,28,28,0.4);box-shadow:0 20px 40px rgba(0,0,0,0.4);}
-.vid-thumb{height:320px;background:linear-gradient(135deg,#1a1a1a,#2a1a1a);display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;}
+.vid-thumb{height:280px;background:linear-gradient(135deg,#1a1a1a,#2a1a1a);display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;}
 .vid-ov{position:absolute;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;opacity:0;transition:.3s;}
 .vid-play{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:20px;}
-.vid-footer{padding:16px;background:linear-gradient(transparent,rgba(0,0,0,0.9));position:absolute;bottom:0;left:0;right:0;}
+.vid-footer{padding:16px 20px 20px;background:linear-gradient(transparent,rgba(0,0,0,0.9));position:absolute;bottom:0;left:0;right:0;}
 .vid-name{font-size:16px;font-weight:700;margin-bottom:4px;}
 .vid-stars{color:var(--gold);font-size:14px;}
-.vid-arrows{display:flex;gap:12px;margin-top:24px;justify-content:center;}
+.vid-arrows{display:flex;gap:16px;margin-top:32px;justify-content:center;}
 
 /* REVIEWS */
 .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px;}
@@ -306,14 +305,20 @@ footer p{font-size:12.5px;color:var(--muted);}
 .hero-content > *:nth-child(7){animation-delay:.7s}
 
 @media(max-width:900px){
+  .container{padding:0 24px;}
   nav{padding:0 20px;}.nav-links{display:none;}
   .hero{grid-template-columns:1fr;}.hero-content{padding:90px 20px 60px;}.hero h1{font-size:52px;}.hero-right{display:none;}
-  .sec{padding:60px 20px;}
-  .why-grid,.learn-grid,.cur-layout,.inst-layout,.reviews-grid{grid-template-columns:1fr;}
-  .students-layout{grid-template-columns:1fr;}
+  .sec{padding:60px 0;}
+  .why-grid,.learn-grid,.cur-layout,.inst-layout,.reviews-grid,.work-grid{grid-template-columns:1fr; gap:32px;}
+  .cur-layout{grid-template-columns:1fr !important;}
+  .students-layout{grid-template-columns:1fr; gap:40px;}
+  .sid{position:relative; top:0;}
   .bottom-cta{padding:60px 20px;}.bottom-cta h2{font-size:48px;}
   footer{flex-direction:column;gap:12px;text-align:center;padding:28px 20px;}
   .sticky-bar{padding:10px 20px;}
+  .proof-slide{flex:0 0 100%;}
+  .vid-card{flex:0 0 100%;}
+  .sec-h{font-size:42px;}
 }
 
   .nav-island {
@@ -342,14 +347,18 @@ footer p{font-size:12.5px;color:var(--muted);}
   @media (max-width: 640px) {
     .nav-island {
       width: 95%;
-      padding: 0 0.75rem;
+      padding: 0 1rem;
       height: 60px;
       top: 1rem;
     }
+    .nav-island span.text-\[7px\] { display: none; }
     .nav-link {
       padding: 0.4rem 0.6rem;
       font-size: 11px;
     }
+    .btn-blueprint { padding: 16px 32px; font-size: 16px; }
+    .hb-title { font-size: 48px; }
+    .hb-now { font-size: 44px; }
   }
   .nav-link {
     font-size: 13px;
@@ -434,6 +443,25 @@ footer p{font-size:12.5px;color:var(--muted);}
   .work-grid { grid-template-columns: 1fr; }
 }
 
+.lt-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+.lt-banner svg { color: var(--red); }
+
 </style>
 </head>
 <body>
@@ -506,6 +534,11 @@ footer p{font-size:12.5px;color:var(--muted);}
   <h1 class="hb-title">The Affiliate Marketing <em>Blueprint</em> 2025</h1>
   <p class="hb-sub">Learn the step-by-step strategies to build a massive online presence and earn ₹1L/month — entirely in Kannada.</p>
   
+  <div class="lt-banner">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+    Lifetime Access Included
+  </div>
+
   <div class="hb-price-row">
     <div class="hb-now">₹1,999</div>
     <div class="hb-was">₹5,000</div>
@@ -531,19 +564,18 @@ footer p{font-size:12.5px;color:var(--muted);}
     <a href="checkout.html" class="btn-blueprint">Access the Blueprint →</a>
     <span style="font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase;">Limited Time Launch Offer</span>
   </div>
-
-
-
-
+</section>
 
 <!-- TRAILER -->
-<section class="sec center" style="background:var(--dark2);">
-  <div class="sec-label" style="display:inline-flex;">▶ &nbsp;Preview</div>
-  <h2 class="sec-h">Watch <em>Trailer</em></h2>
-  <p class="sec-p">See what's inside before you join</p>
-  <div class="trailer-wrap">
-    <div class="play-circle">
-      <svg width="30" height="30" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+<section class="sec center" style="background:var(--dark2); padding: 100px 0;">
+  <div class="container">
+    <div class="sec-label" style="display:inline-flex;">▶ &nbsp;Preview</div>
+    <h2 class="sec-h">Watch <em>Trailer</em></h2>
+    <p class="sec-p">See what's inside before you join</p>
+    <div class="trailer-wrap">
+      <div class="play-circle">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
     </div>
   </div>
 </section>
@@ -552,128 +584,134 @@ footer p{font-size:12.5px;color:var(--muted);}
 
 
 <!-- WHY -->
-<section class="sec" style="background:var(--dark);">
-  <div class="sec-label">✦ &nbsp;Why This Course</div>
-  <div class="why-grid">
-    <div class="wc">
-      <div class="wc-icon">💸</div>
-      <h3>Learn A–Z About<br>Affiliate Marketing</h3>
-      <p>ಈ ಕೋರ್ಸ್‌ನಲ್ಲಿ Affiliate Marketing ಜಗತ್ತಿನ ತಂತ್ರಗಳನ್ನು A–Z ತಿಳಿಯಿರಿ. ತಿಂಗಳಿಗೆ ₹50,000 ರಿಂದ ₹1 ಲಕ್ಷ ಗಳಿಸುವ ನಿಮ್ಮ ಕನಸನ್ನು ನನಸಾಗಿಸಿ.</p>
-    </div>
-    <div class="wc">
-      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:14px;">Affiliate Royalty: <span style="color:var(--red)">Shashank's</span><br>Massive Earning Milestones</h3>
-      <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Multiple successful income streams, proven & real.</p>
-      <div class="ms-row">
-        <div class="ms"><div class="n">₹17L+</div><div class="l">Affiliate Income</div></div>
-        <div class="ms feat"><div class="n">$6,785</div><div class="l">YouTube Revenue</div></div>
-        <div class="ms"><div class="n">10K+</div><div class="l">Students</div></div>
+<section class="sec" style="background:var(--dark); padding: 100px 0;">
+  <div class="container">
+    <div class="sec-label">✦ &nbsp;Why This Course</div>
+    <div class="why-grid">
+      <div class="wc">
+        <div class="wc-icon">💸</div>
+        <h3>Learn A–Z About<br>Affiliate Marketing</h3>
+        <p>ಈ ಕೋರ್ಸ್‌ನಲ್ಲಿ Affiliate Marketing ಜಗತ್ತಿನ ತಂತ್ರಗಳನ್ನು A–Z ತಿಳಿಯಿರಿ. ತಿಂಗಳಿಗೆ ₹50,000 ರಿಂದ ₹1 ಲಕ್ಷ ಗಳಿಸುವ ನಿಮ್ಮ ಕನಸನ್ನು ನನಸಾಗಿಸಿ.</p>
+      </div>
+      <div class="wc">
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:14px;">Affiliate Royalty: <span style="color:var(--red)">Shashank's</span><br>Massive Earning Milestones</h3>
+        <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Multiple successful income streams, proven & real.</p>
+        <div class="ms-row">
+          <div class="ms"><div class="n">₹17L+</div><div class="l">Affiliate Income</div></div>
+          <div class="ms feat"><div class="n">$6,785</div><div class="l">YouTube Revenue</div></div>
+          <div class="ms"><div class="n">10K+</div><div class="l">Students</div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- EARNING PROOF CAROUSEL -->
-<section class="sec" id="proof" style="background:var(--dark2);">
-  <div class="sec-label">💰 &nbsp;Real Results</div>
-  <h2 class="sec-h"><em>Earning</em> Proof</h2>
-  <p class="sec-p">Real numbers. Real screenshots. No fake claims — scrolling through 6 proof cards.</p>
-  <div class="proof-outer">
-    <div class="proof-track-wrap">
-      <div class="proof-track" id="proofTrack">
-        <div class="proof-slide act-slide">
-          <div class="ps-badge">Affiliate Income</div>
-          <div class="ps-amount">₹17,88,004</div>
-          <div class="ps-sub">Total Affiliate Earnings Lifetime</div>
-          <div class="ps-info">Top Earner Proof via Platform Dashboard<br><span style="color:var(--green)">Sreekumar: ₹23.6L · Mohamed: ₹30.7L</span></div>
-          <div class="ps-bars"><div class="pb" style="height:30%"></div><div class="pb" style="height:42%"></div><div class="pb h" style="height:62%"></div><div class="pb h" style="height:78%"></div><div class="pb h" style="height:92%"></div><div class="pb h" style="height:100%"></div></div>
-        </div>
-        <div class="proof-slide">
-          <div class="ps-badge">YouTube AdSense</div>
-          <div class="ps-amount">$6,785.11</div>
-          <div class="ps-sub">Estimated Revenue Since Published</div>
-          <div class="ps-info"><span style="color:var(--green)">Views: 412.8K · Watch: 206.5K hrs</span><br>Subscribers: +4.3K · Sun Nov 9 $832</div>
-          <div class="ps-bars"><div class="pb" style="height:20%"></div><div class="pb" style="height:33%"></div><div class="pb h" style="height:55%"></div><div class="pb h" style="height:72%"></div><div class="pb h" style="height:88%"></div><div class="pb h" style="height:100%"></div></div>
-        </div>
-        <div class="proof-slide">
-          <div class="ps-badge">Rewards — Account 1</div>
-          <div class="ps-amount">₹2,34,250</div>
-          <div class="ps-sub">Total Lifetime Rewards</div>
-          <div class="ps-info"><span style="color:var(--green)">2,161 Received · 104 In Progress</span><br>76 In Progress · 1,879 Received</div>
-          <div class="ps-bars"><div class="pb" style="height:38%"></div><div class="pb h" style="height:55%"></div><div class="pb h" style="height:68%"></div><div class="pb h" style="height:80%"></div><div class="pb h" style="height:93%"></div><div class="pb h" style="height:100%"></div></div>
-        </div>
-        <div class="proof-slide">
-          <div class="ps-badge">Rewards — Account 2</div>
-          <div class="ps-amount">₹2,06,050</div>
-          <div class="ps-sub">Secondary Affiliate Rewards Account</div>
-          <div class="ps-info"><span style="color:var(--green)">Multiple active campaigns</span><br>Consistent monthly payouts</div>
-          <div class="ps-bars"><div class="pb" style="height:25%"></div><div class="pb" style="height:40%"></div><div class="pb h" style="height:58%"></div><div class="pb h" style="height:75%"></div><div class="pb h" style="height:90%"></div><div class="pb h" style="height:100%"></div></div>
-        </div>
-        <div class="proof-slide">
-          <div class="ps-badge">Google AdSense</div>
-          <div class="ps-amount">$3,913.87</div>
-          <div class="ps-sub">Estimated Revenue — 90 Days Window</div>
-          <div class="ps-info">Since Published · Previous 2 days processing<br><span style="color:var(--green)">Channel verified & monetized</span></div>
-          <div class="ps-bars"><div class="pb" style="height:18%"></div><div class="pb" style="height:30%"></div><div class="pb h" style="height:52%"></div><div class="pb h" style="height:68%"></div><div class="pb h" style="height:84%"></div><div class="pb h" style="height:100%"></div></div>
-        </div>
-        <div class="proof-slide">
-          <div class="ps-badge">2nd Channel Revenue</div>
-          <div class="ps-amount">$1,157.67</div>
-          <div class="ps-sub">Estimated Revenue — Second Channel</div>
-          <div class="ps-info">Multiple channels · Multiple income streams<br><span style="color:var(--green)">Diversified affiliate portfolio</span></div>
-          <div class="ps-bars"><div class="pb" style="height:22%"></div><div class="pb" style="height:35%"></div><div class="pb" style="height:48%"></div><div class="pb h" style="height:65%"></div><div class="pb h" style="height:82%"></div><div class="pb h" style="height:100%"></div></div>
+<section class="sec" id="proof" style="background:var(--dark2); padding: 100px 0;">
+  <div class="container">
+    <div class="sec-label">💰 &nbsp;Real Results</div>
+    <h2 class="sec-h"><em>Earning</em> Proof</h2>
+    <p class="sec-p">Real numbers. Real screenshots. No fake claims — scrolling through 6 proof cards.</p>
+    <div class="proof-outer">
+      <div class="proof-track-wrap">
+        <div class="proof-track" id="proofTrack">
+          <div class="proof-slide act-slide">
+            <div class="ps-badge">Affiliate Income</div>
+            <div class="ps-amount">₹17,88,004</div>
+            <div class="ps-sub">Total Affiliate Earnings Lifetime</div>
+            <div class="ps-info">Top Earner Proof via Platform Dashboard<br><span style="color:var(--green)">Sreekumar: ₹23.6L · Mohamed: ₹30.7L</span></div>
+            <div class="ps-bars"><div class="pb" style="height:30%"></div><div class="pb" style="height:42%"></div><div class="pb h" style="height:62%"></div><div class="pb h" style="height:78%"></div><div class="pb h" style="height:92%"></div><div class="pb h" style="height:100%"></div></div>
+          </div>
+          <div class="proof-slide">
+            <div class="ps-badge">YouTube AdSense</div>
+            <div class="ps-amount">$6,785.11</div>
+            <div class="ps-sub">Estimated Revenue Since Published</div>
+            <div class="ps-info"><span style="color:var(--green)">Views: 412.8K · Watch: 206.5K hrs</span><br>Subscribers: +4.3K · Sun Nov 9 $832</div>
+            <div class="ps-bars"><div class="pb" style="height:20%"></div><div class="pb" style="height:33%"></div><div class="pb h" style="height:55%"></div><div class="pb h" style="height:72%"></div><div class="pb h" style="height:88%"></div><div class="pb h" style="height:100%"></div></div>
+          </div>
+          <div class="proof-slide">
+            <div class="ps-badge">Rewards — Account 1</div>
+            <div class="ps-amount">₹2,34,250</div>
+            <div class="ps-sub">Total Lifetime Rewards</div>
+            <div class="ps-info"><span style="color:var(--green)">2,161 Received · 104 In Progress</span><br>76 In Progress · 1,879 Received</div>
+            <div class="ps-bars"><div class="pb" style="height:38%"></div><div class="pb h" style="height:55%"></div><div class="pb h" style="height:68%"></div><div class="pb h" style="height:80%"></div><div class="pb h" style="height:93%"></div><div class="pb h" style="height:100%"></div></div>
+          </div>
+          <div class="proof-slide">
+            <div class="ps-badge">Rewards — Account 2</div>
+            <div class="ps-amount">₹2,06,050</div>
+            <div class="ps-sub">Secondary Affiliate Rewards Account</div>
+            <div class="ps-info"><span style="color:var(--green)">Multiple active campaigns</span><br>Consistent monthly payouts</div>
+            <div class="ps-bars"><div class="pb" style="height:25%"></div><div class="pb" style="height:40%"></div><div class="pb h" style="height:58%"></div><div class="pb h" style="height:75%"></div><div class="pb h" style="height:90%"></div><div class="pb h" style="height:100%"></div></div>
+          </div>
+          <div class="proof-slide">
+            <div class="ps-badge">Google AdSense</div>
+            <div class="ps-amount">$3,913.87</div>
+            <div class="ps-sub">Estimated Revenue — 90 Days Window</div>
+            <div class="ps-info">Since Published · Previous 2 days processing<br><span style="color:var(--green)">Channel verified & monetized</span></div>
+            <div class="ps-bars"><div class="pb" style="height:18%"></div><div class="pb" style="height:30%"></div><div class="pb h" style="height:52%"></div><div class="pb h" style="height:68%"></div><div class="pb h" style="height:84%"></div><div class="pb h" style="height:100%"></div></div>
+          </div>
+          <div class="proof-slide">
+            <div class="ps-badge">2nd Channel Revenue</div>
+            <div class="ps-amount">$1,157.67</div>
+            <div class="ps-sub">Estimated Revenue — Second Channel</div>
+            <div class="ps-info">Multiple channels · Multiple income streams<br><span style="color:var(--green)">Diversified affiliate portfolio</span></div>
+            <div class="ps-bars"><div class="pb" style="height:22%"></div><div class="pb" style="height:35%"></div><div class="pb" style="height:48%"></div><div class="pb h" style="height:65%"></div><div class="pb h" style="height:82%"></div><div class="pb h" style="height:100%"></div></div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="car-controls">
-      <div class="car-dots" id="proofDots">
-        <div class="cdot act" onclick="goProof(0)"></div>
-        <div class="cdot" onclick="goProof(1)"></div>
-        <div class="cdot" onclick="goProof(2)"></div>
-        <div class="cdot" onclick="goProof(3)"></div>
-      </div>
-      <div class="car-arrows">
-        <button class="c-arr" onclick="proofPrev()">←</button>
-        <button class="c-arr" onclick="proofNext()">→</button>
+      <div class="car-controls">
+        <div class="car-dots" id="proofDots">
+          <div class="cdot act" onclick="goProof(0)"></div>
+          <div class="cdot" onclick="goProof(1)"></div>
+          <div class="cdot" onclick="goProof(2)"></div>
+          <div class="cdot" onclick="goProof(3)"></div>
+        </div>
+        <div class="car-arrows">
+          <button class="c-arr" onclick="proofPrev()">←</button>
+          <button class="c-arr" onclick="proofNext()">→</button>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- LEARN -->
-<section class="sec" style="background:var(--dark);">
-  <div class="sec-label" style="display:block;text-align:center;">✦ &nbsp;Learn</div>
-  <h2 class="sec-h center">ನೀವು ಈ ಕೋರ್ಸ್‌ನಲ್ಲಿ ಏನು ಕಲಿಯುತ್ತೀರಿ?</h2>
-  <p class="sec-p center" style="max-width:560px;margin:16px auto 32px;color:rgba(255,255,255,0.6);font-weight:500;">ನೀವು ಇಲ್ಲಿ ಪ್ರಾಕ್ಟಿಕಲ್ ಜ್ಞಾನದ ಮೂಲಕ ನಿಮ್ಮ ಮನೆಯಲ್ಲೇ ಕುಳಿತು ಕನ್ನಡದಲ್ಲಿ ಟೈಪಿಂಗ್ ಮಾಡಿ ಪ್ರತಿ ತಿಂಗಳು 1 ಲಕ್ಷಕ್ಕೂ ಹೆಚ್ಚಿನ ಹಣ ಗಳಿಸುವುದನ್ನು ನೀವು ಇಲ್ಲಿ ಕಲಿಯುತ್ತೀರಿ.</p>
-  <div class="learn-grid">
-    <div class="lc">
-      <div class="lc-icon">🎯</div>
-      <h3>Product research method</h3>
-      <p>Master the art of finding winning products using proven research methods. Focus on niche selection that builds long-term authority.</p>
-    </div>
-    <div class="lc">
-      <div class="lc-icon">📈</div>
-      <h3>Instagram growth & selling strategy</h3>
-      <p>Build a massive following and drive consistent traffic to your business using proven growth & selling hacks.</p>
-    </div>
-    <div class="lc">
-      <div class="lc-icon">💰</div>
-      <h3>Customer conversion secrets</h3>
-      <p>Learn the exact methods used to convert visitors into loyal customers and generate significant income daily.</p>
-    </div>
-    <div class="lc">
-      <div class="lc-icon">🔒</div>
-      <h3>Daily income growth methods</h3>
-      <p>Scale your business with advanced strategies to increase your daily earnings and build a passive income empire.</p>
-    </div>
-    <div class="lc">
-      <div class="lc-icon">🚀</div>
-      <h3>Step by step training</h3>
-      <p>A complete, easy-to-follow blueprint that takes you from zero to expert in affiliate marketing in Kannada.</p>
-    </div>
-    <div class="lc">
-      <div class="lc-icon">🎓</div>
-      <h3>Learn Anytime & Anywhere</h3>
-      <p>Access your training from any device, at any time. Lifetime access guaranteed for all students.</p>
+<section class="sec" style="background:var(--dark); padding: 100px 0;">
+  <div class="container">
+    <div class="sec-label" style="display:block;text-align:center;">✦ &nbsp;Learn</div>
+    <h2 class="sec-h center">ನೀವು ಈ ಕೋರ್ಸ್‌ನಲ್ಲಿ ಏನು ಕಲಿಯುತ್ತೀರಿ?</h2>
+    <p class="sec-p center" style="max-width:560px;margin:16px auto 32px;color:rgba(255,255,255,0.6);font-weight:500;">ನೀವು ಇಲ್ಲಿ ಪ್ರಾಕ್ಟಿಕಲ್ ಜ್ಞಾನದ ಮೂಲಕ ನಿಮ್ಮ ಮನೆಯಲ್ಲೇ ಕುಳಿತು ಕನ್ನಡದಲ್ಲಿ ಟೈಪಿಂಗ್ ಮಾಡಿ ಪ್ರತಿ ತಿಂಗಳು 1 ಲಕ್ಷಕ್ಕೂ ಹೆಚ್ಚಿನ ಹಣ ಗಳಿಸುವುದನ್ನು ನೀವು ಇಲ್ಲಿ ಕಲಿಯುತ್ತೀರಿ.</p>
+    <div class="learn-grid">
+      <div class="lc">
+        <div class="lc-icon">🎯</div>
+        <h3>Product research method</h3>
+        <p>Master the art of finding winning products using proven research methods. Focus on niche selection that builds long-term authority.</p>
+      </div>
+      <div class="lc">
+        <div class="lc-icon">📈</div>
+        <h3>Instagram growth & selling strategy</h3>
+        <p>Build a massive following and drive consistent traffic to your business using proven growth & selling hacks.</p>
+      </div>
+      <div class="lc">
+        <div class="lc-icon">💰</div>
+        <h3>Customer conversion secrets</h3>
+        <p>Learn the exact methods used to convert visitors into loyal customers and generate significant income daily.</p>
+      </div>
+      <div class="lc">
+        <div class="lc-icon">🔒</div>
+        <h3>Daily income growth methods</h3>
+        <p>Scale your business with advanced strategies to increase your daily earnings and build a passive income empire.</p>
+      </div>
+      <div class="lc">
+        <div class="lc-icon">🚀</div>
+        <h3>Step by step training</h3>
+        <p>A complete, easy-to-follow blueprint that takes you from zero to expert in affiliate marketing in Kannada.</p>
+      </div>
+      <div class="lc">
+        <div class="lc-icon">🎓</div>
+        <h3>Learn Anytime & Anywhere</h3>
+        <p>Access your training from any device, at any time. Lifetime access guaranteed for all students.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -681,9 +719,10 @@ footer p{font-size:12.5px;color:var(--muted);}
 
 
 <!-- OUR STUDENTS LOVE US -->
-<section class="sec students-sec">
-  <div class="students-layout">
-    <div class="students-left">
+<section class="sec students-sec" style="padding: 100px 0;">
+  <div class="container">
+    <div class="students-layout">
+      <div class="students-left" style="display: flex; flex-direction: column; justify-content: center;">
       <h2>Our students<br>love us</h2>
       <p>1,247 people already part of this community</p>
       <div class="ss-box">
@@ -740,10 +779,11 @@ footer p{font-size:12.5px;color:var(--muted);}
 </section>
 
 <!-- REVIEWS -->
-<section class="sec" style="background:var(--dark);">
-  <div class="sec-label">💬 &nbsp;Reviews</div>
-  <h2 class="sec-h">What Students <em>Say</em></h2>
-  <p class="sec-p">Honest feedback from real learners who took the course</p>
+<section class="sec" style="background:var(--dark); padding: 100px 0;">
+  <div class="container">
+    <div class="sec-label">💬 &nbsp;Reviews</div>
+    <h2 class="sec-h">What Students <em>Say</em></h2>
+    <p class="sec-p">Honest feedback from real learners who took the course</p>
   <div class="reviews-grid">
     <div class="rev-card">
       <div class="rev-qi">❝</div>
@@ -777,13 +817,15 @@ footer p{font-size:12.5px;color:var(--muted);}
     </div>
   </div>
   <div class="see-more"><button class="btn-primary">See More Reviews</button></div>
+  </div> <!-- END CONTAINER -->
 </section>
 
 <!-- CURRICULUM -->
-<section class="sec" id="curriculum" style="background:var(--dark2);">
-  <h2 class="sec-h center"><em>Affiliate Marketing Mastery</em> Course Curriculum</h2>
-  <p class="sec-p center" style="max-width:640px;margin:8px auto 0;">Join over 1,000 members and learn step-by-step strategies to earn online through affiliate marketing.</p>
-  <div class="cur-layout">
+<section class="sec" id="curriculum" style="background:var(--dark2); padding: 100px 0;">
+  <div class="container">
+    <h2 class="sec-h center"><em>Affiliate Marketing Mastery</em> Course Curriculum</h2>
+    <p class="sec-p center" style="max-width:640px;margin:16px auto 0;">Join over 1,000 members and learn step-by-step strategies to earn online through affiliate marketing.</p>
+    <div class="cur-layout">
     <div class="mod-list">
       <div class="mod-item locked" onclick="toggleMod(this)">
         <div class="mod-hdr">
@@ -876,8 +918,9 @@ footer p{font-size:12.5px;color:var(--muted);}
 </section>
 
 <!-- INSTRUCTOR -->
-<section class="sec" id="instructor" style="background:var(--dark2);">
-  <div class="inst-layout">
+<section class="sec" id="instructor" style="background:var(--dark2); padding: 100px 0;">
+  <div class="container">
+    <div class="inst-layout">
     <div>
       <div class="inst-badge">⭐ &nbsp;Meet your instructor</div>
       <div class="inst-profile-top">
@@ -947,12 +990,13 @@ footer p{font-size:12.5px;color:var(--muted);}
 
 
 <!-- MY WORK SECTION -->
-<section class="sec" id="work" style="background:var(--dark);">
-  <div class="center">
-    <div class="sec-label">My Digital Presence</div>
-    <h2 class="sec-h">My <em>Work</em></h2>
-    <p class="sec-p">Explore my channels and social media impact</p>
-  </div>
+<section class="sec" id="work" style="background:var(--dark); padding-top:100px; padding-bottom:100px;">
+  <div class="container">
+    <div class="center">
+      <div class="sec-label">My Digital Presence</div>
+      <h2 class="sec-h">My <em>Work</em></h2>
+      <p class="sec-p">Explore my channels and social media impact</p>
+    </div>
   
   <div class="work-grid">
     <!-- Card 1 -->
@@ -1003,11 +1047,13 @@ footer p{font-size:12.5px;color:var(--muted);}
       </div>
     </div>
   </div>
+</div>
 </section>
 
-<section class="sec" style="background:var(--dark2);">
-  <h2 class="sec-h center">Frequently Asked <em>Questions</em></h2>
-  <div class="faq-inner">
+<section class="sec" style="background:var(--dark2); padding-top:100px; padding-bottom:100px;">
+  <div class="container">
+    <h2 class="sec-h center">Frequently Asked <em>Questions</em></h2>
+    <div class="faq-inner">
     <div class="faq-it open" onclick="toggleFaq(this)">
       <div class="faq-q">Will Shashank teach this course himself? <span class="faq-ch">⌄</span></div>
       <div class="faq-a">Yes! Shashank personally teaches every module in his own voice. You get direct access to his proven strategies and real earnings experience in affiliate marketing.</div>
@@ -1033,6 +1079,7 @@ footer p{font-size:12.5px;color:var(--muted);}
       <div class="faq-a">After completing, you'll choose a profitable niche, find and promote affiliate products, drive traffic, and start earning ₹50,000 to ₹1,00,000 per month through affiliate marketing.</div>
     </div>
   </div>
+</div>
 </section>
 
 
@@ -1072,7 +1119,7 @@ let vIdx = 0;
 function getVidW(){
   const t = document.getElementById('vidTrack');
   const c = t ? t.querySelector('.vid-card') : null;
-  return c ? c.offsetWidth + 16 : 0;
+  return c ? c.offsetWidth + 24 : 0;
 }
 function renderVid(){
   const track = document.getElementById('vidTrack');
