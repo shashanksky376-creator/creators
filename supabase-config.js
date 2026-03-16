@@ -149,9 +149,10 @@ async function validateActiveSession(email) {
     if (enrollment.active_session_token !== localToken) {
       console.error("Session mismatch! Other device likely logged in.", {
         db: enrollment.active_session_token,
-        local: localToken
+        local: localToken,
+        time: new Date().toLocaleTimeString()
       });
-      await signOut();
+      await signOut("multi_device");
       return false;
     }
 
@@ -208,7 +209,7 @@ async function getSession() {
 // -------------------------------------------------------
 // AUTH: Sign out and clear local session token
 // -------------------------------------------------------
-async function signOut() {
+async function signOut(reason = "") {
   const client = initSupabase();
   
   // Get current user to clear their specific token
@@ -220,5 +221,8 @@ async function signOut() {
   
   localStorage.removeItem("affiliate_pro_last_user");
   await client.auth.signOut();
-  window.location.href = "/index.html";
+  
+  let target = "/index.html";
+  if (reason) target += `?reason=${reason}`;
+  window.location.href = target;
 }

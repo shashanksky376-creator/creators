@@ -71,6 +71,7 @@
     email: email,
     fullName: enrollment.full_name || "Student"
   };
+  window.IS_ADMIN = isAdmin(email);
 
   // Poll every 60s to catch remote logouts
   setInterval(async () => {

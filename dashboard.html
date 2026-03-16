@@ -233,7 +233,10 @@
         <div class="flex items-center gap-3 mb-3">
           <div id="user-avatar" class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white font-black shadow-lg">?</div>
           <div class="overflow-hidden">
-            <div id="user-name-display" class="text-xs font-black text-white uppercase tracking-tighter truncate">Student</div>
+            <div class="flex items-center gap-1.5 overflow-hidden">
+              <span id="user-name-display" class="text-xs font-black text-white uppercase tracking-tighter truncate">Student</span>
+              <span id="admin-badge" class="hidden px-1 py-0.5 bg-amber-400 text-[6px] font-black text-black rounded uppercase tracking-widest flex-shrink-0">Admin</span>
+            </div>
             <div id="user-email-display" class="text-[9px] text-gray-500 font-bold truncate">Loading...</div>
           </div>
         </div>
@@ -605,9 +608,14 @@
           document.getElementById('nav-user-initial').textContent = user.fullName[0].toUpperCase();
           
           // Show admin link if applicable
-          if (isAdmin(user.email)) {
+          if (window.IS_ADMIN) {
+            console.log("🛠️ Admin mode verified for:", user.email);
             const adminLink = document.getElementById('admin-panel-link');
+            const adminBadge = document.getElementById('admin-badge');
             if (adminLink) adminLink.classList.remove('hidden');
+            if (adminBadge) adminBadge.classList.remove('hidden');
+          } else {
+            console.log("👤 Standard user mode for:", user.email);
           }
 
           unlockDashboard();
