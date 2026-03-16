@@ -163,11 +163,11 @@ nav{display:none;}
 .pk-dot{width:18px;height:18px;border-radius:50%;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;color:var(--green);font-size:10px;flex-shrink:0;}
 
 /* STUDENTS / VIDEO CAROUSEL */
-.students-sec{background:var(--dark2);}
-.students-layout{display:grid;grid-template-columns:260px 1fr;gap:32px;align-items:start;margin-top:24px;}
-.students-left h2{font-family:'Bebas Neue',sans-serif;font-size:46px;line-height:1;margin-bottom:8px;}
-.students-left p{font-size:13px;color:var(--muted);margin-bottom:16px;}
-.ss-box{background:var(--dark3);border:1px solid #242424;border-radius:20px;padding:0;overflow:hidden;}
+.students-sec{background:var(--dark2); padding: 50px 0;}
+.students-layout{display:grid;grid-template-columns:300px 1fr;gap:40px;align-items:start;margin-top:20px;max-width:1300px;margin-left:auto;margin-right:auto;padding:0 30px;}
+.students-left h2{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:0.9;margin-bottom:12px;color: #fff;}
+.students-left p{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.5;}
+.ss-box{background:rgba(24,24,24,0.6);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);border-radius:24px;padding:0;overflow:hidden;}
 /* Top row — student count */
 .ss-top{padding:20px 22px 16px;border-bottom:1px solid #242424;}
 .ss-avs{display:flex;align-items:center;margin-bottom:12px;}
@@ -195,16 +195,16 @@ nav{display:none;}
 .ss-reviews-num{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--red);}
 .ss-reviews-lbl{font-size:11px;color:var(--muted);margin-top:2px;}
 .vid-wrap{overflow:hidden;}
-.vid-track{display:flex;gap:16px;transition:transform .5s cubic-bezier(.65,0,.35,1);}
-.vid-card{flex:0 0 240px;border-radius:16px;overflow:hidden;position:relative;cursor:pointer;background:#111;border:1px solid #1f1f1f;}
-.vid-card:hover .vid-ov{opacity:1;}
-.vid-thumb{height:260px;background:linear-gradient(135deg,#1a1a1a,#2a1a1a);display:flex;align-items:center;justify-content:center;font-size:56px;position:relative;}
+.vid-track{display:flex;gap:20px;transition:transform .5s cubic-bezier(.65,0,.35,1);padding:10px 0;}
+.vid-card{flex:0 0 280px;border-radius:20px;overflow:hidden;position:relative;cursor:pointer;background:rgba(25,25,25,0.4);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);transition:0.3s;}
+.vid-card:hover{transform:translateY(-8px);border-color:rgba(224,28,28,0.4);box-shadow:0 20px 40px rgba(0,0,0,0.4);}
+.vid-thumb{height:320px;background:linear-gradient(135deg,#1a1a1a,#2a1a1a);display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;}
 .vid-ov{position:absolute;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;opacity:0;transition:.3s;}
 .vid-play{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:20px;}
-.vid-footer{padding:12px 14px;background:linear-gradient(transparent,rgba(0,0,0,0.85));position:absolute;bottom:0;left:0;right:0;}
-.vid-name{font-size:14px;font-weight:600;}
-.vid-stars{color:var(--gold);font-size:12px;}
-.vid-arrows{display:flex;gap:10px;margin-top:16px;}
+.vid-footer{padding:16px;background:linear-gradient(transparent,rgba(0,0,0,0.9));position:absolute;bottom:0;left:0;right:0;}
+.vid-name{font-size:16px;font-weight:700;margin-bottom:4px;}
+.vid-stars{color:var(--gold);font-size:14px;}
+.vid-arrows{display:flex;gap:12px;margin-top:24px;justify-content:center;}
 
 /* REVIEWS */
 .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px;}
@@ -532,35 +532,7 @@ footer p{font-size:12.5px;color:var(--muted);}
     <span style="font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase;">Limited Time Launch Offer</span>
   </div>
 
-<!-- LIFETIME ACCESS BANNER -->
-<section style="background: linear-gradient(90deg, #1a1a1a 0%, #2a0000 50%, #1a1a1a 100%); border-top: 1px solid rgba(220,38,38,0.3); border-bottom: 1px solid rgba(220,38,38,0.3); padding: 24px 0;">
-  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-12">
-    <div class="flex items-center gap-4">
-      <div class="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center text-red-600 border border-red-600/50">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-      </div>
-      <div>
-        <h4 class="text-white font-black text-xl uppercase tracking-tighter leading-none">Lifetime Access Included</h4>
-        <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mt-1">Pay once, learn forever</p>
-      </div>
-    </div>
-    <div class="h-8 w-px bg-white/10 hidden md:block"></div>
-    <div class="flex items-center gap-6">
-      <div class="text-center">
-        <div class="text-red-500 font-black text-xl">∞</div>
-        <div class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Validity</div>
-      </div>
-      <div class="text-center">
-        <div class="text-red-500 font-black text-xl">24/7</div>
-        <div class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Availability</div>
-      </div>
-      <div class="text-center">
-        <div class="text-red-500 font-black text-xl">KRC</div>
-        <div class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Support</div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 
 
@@ -576,101 +548,7 @@ footer p{font-size:12.5px;color:var(--muted);}
   </div>
 </section>
 
-<!-- CURRICULUM -->
-<section class="sec" id="curriculum" style="background:var(--dark2);">
-  <h2 class="sec-h center"><em>Affiliate Marketing Mastery</em> Course Curriculum</h2>
-  <p class="sec-p center" style="max-width:640px;margin:8px auto 0;">Join over 1,000 members and learn step-by-step strategies to earn online through affiliate marketing.</p>
-  <div class="cur-layout">
-    <div class="mod-list">
-      <div class="mod-item locked" onclick="toggleMod(this)">
-        <div class="mod-hdr">
-          <div class="mod-left"><div class="mod-num">1</div><div class="mod-name">🔒 Welcome To The Course!</div></div>
-          <span class="mod-badge">Module 1</span>
-        </div>
-        <div class="mod-lessons">
-          <div class="lesson-row"><span>🔒 Introduction</span><span>06:11</span></div>
-          <div class="lesson-row"><span>🔒 What is Affiliate Marketing</span><span>05:30</span></div>
-          <div class="lesson-row"><span>🔒 Why Affiliate Marketing?</span><span>03:45</span></div>
-          <div class="lesson-row"><span>🔒 Ways Of Earning</span><span>02:07</span></div>
-          <div class="lesson-row"><span>🔒 Tools You'll Need</span><span>04:41</span></div>
-        </div>
-      </div>
-      <div class="mod-item locked" onclick="toggleMod(this)">
-        <div class="mod-hdr">
-          <div class="mod-left"><div class="mod-num">2</div><div class="mod-name">🔒 Niche Selection & Product Research</div></div>
-          <span class="mod-badge">Module 2</span>
-        </div>
-        <div class="mod-lessons">
-          <div class="lesson-row"><span>🔒 Finding Your Niche</span><span>08:20</span></div>
-          <div class="lesson-row"><span>🔒 Top Affiliate Programs in India</span><span>10:15</span></div>
-          <div class="lesson-row"><span>🔒 Evaluating Product Quality</span><span>06:30</span></div>
-        </div>
-      </div>
-      <div class="mod-item locked" onclick="toggleMod(this)">
-        <div class="mod-hdr">
-          <div class="mod-left"><div class="mod-num">3</div><div class="mod-name">🔒 Building Your Traffic Sources</div></div>
-          <span class="mod-badge">Module 3</span>
-        </div>
-        <div class="mod-lessons">
-          <div class="lesson-row"><span>🔒 YouTube Strategy for Affiliates</span><span>12:00</span></div>
-          <div class="lesson-row"><span>🔒 Blog & SEO Basics</span><span>09:45</span></div>
-          <div class="lesson-row"><span>🔒 Social Media Traffic Hacks</span><span>07:30</span></div>
-        </div>
-      </div>
-      <div class="mod-item locked" onclick="toggleMod(this)">
-        <div class="mod-hdr">
-          <div class="mod-left"><div class="mod-num">4</div><div class="mod-name">🔒 Content Creation & Promotion</div></div>
-          <span class="mod-badge">Module 4</span>
-        </div>
-        <div class="mod-lessons">
-          <div class="lesson-row"><span>🔒 Writing Conversion Copy</span><span>08:10</span></div>
-          <div class="lesson-row"><span>🔒 Email Marketing Basics</span><span>06:55</span></div>
-          <div class="lesson-row"><span>🔒 Link Placement Strategy</span><span>05:20</span></div>
-        </div>
-      </div>
-      <div class="mod-item locked" onclick="toggleMod(this)">
-        <div class="mod-hdr">
-          <div class="mod-left"><div class="mod-num">5</div><div class="mod-name">🔒 Earning Lakhs of Rupees</div></div>
-          <span class="mod-badge">Module 5</span>
-        </div>
-        <div class="mod-lessons">
-          <div class="lesson-row"><span>🔒 Scaling Your Earnings</span><span>14:00</span></div>
-          <div class="lesson-row"><span>🔒 Multiple Income Streams</span><span>09:30</span></div>
-          <div class="lesson-row"><span>🔒 My ₹17L Income Breakdown</span><span>11:00</span></div>
-        </div>
-      </div>
-      <div class="mod-item locked" onclick="toggleMod(this)">
-        <div class="mod-hdr">
-          <div class="mod-left"><div class="mod-num">6</div><div class="mod-name">🔒 Congratulations, You Made It! 🎉</div></div>
-          <span class="mod-badge">Module 6</span>
-        </div>
-        <div class="mod-lessons">
-          <div class="lesson-row"><span>🔒 Next Steps & Action Plan</span><span>07:00</span></div>
-          <div class="lesson-row"><span>🔒 Community & Support</span><span>03:30</span></div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="sid">
-        <div class="sid-top">Affiliate Marketing<br>Mastery<p>0 to Pro Affiliate Pro — ಕಲಿಯಿರಿ!</p></div>
-        <div class="sid-body">
-          <div class="sid-price"><span class="now">₹1,999</span><span class="was">₹5,000</span><span class="disc">60% OFF</span></div>
-          <button class="sid-btn">Join Now →</button>
-          <div class="sid-meta"><span>📚 6 Modules</span><span>🎬 5h+ Video</span></div>
-          <ul class="pk-list">
-            <li><div class="pk-dot">✓</div>Step by step affiliate marketing training</li>
-            <li><div class="pk-dot">✓</div>Easy product selling methods ( meesho & wishlink)</li>
-            <li><div class="pk-dot">✓</div>Easy payment method</li>
-            <li><div class="pk-dot">✓</div>Lifetime access of the course</li>
-            <li><div class="pk-dot">✓</div>Learn Anytime & Anywhere</li>
-            <li><div class="pk-dot">✓</div>Support guidance included</li>
-            <li><div class="pk-dot">✓</div>Guarantee best pricing from the market</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 
 <!-- WHY -->
@@ -899,6 +777,102 @@ footer p{font-size:12.5px;color:var(--muted);}
     </div>
   </div>
   <div class="see-more"><button class="btn-primary">See More Reviews</button></div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="sec" id="curriculum" style="background:var(--dark2);">
+  <h2 class="sec-h center"><em>Affiliate Marketing Mastery</em> Course Curriculum</h2>
+  <p class="sec-p center" style="max-width:640px;margin:8px auto 0;">Join over 1,000 members and learn step-by-step strategies to earn online through affiliate marketing.</p>
+  <div class="cur-layout">
+    <div class="mod-list">
+      <div class="mod-item locked" onclick="toggleMod(this)">
+        <div class="mod-hdr">
+          <div class="mod-left"><div class="mod-num">1</div><div class="mod-name">🔒 Welcome To The Course!</div></div>
+          <span class="mod-badge">Module 1</span>
+        </div>
+        <div class="mod-lessons">
+          <div class="lesson-row"><span>🔒 Introduction</span><span>06:11</span></div>
+          <div class="lesson-row"><span>🔒 What is Affiliate Marketing</span><span>05:30</span></div>
+          <div class="lesson-row"><span>🔒 Why Affiliate Marketing?</span><span>03:45</span></div>
+          <div class="lesson-row"><span>🔒 Ways Of Earning</span><span>02:07</span></div>
+          <div class="lesson-row"><span>🔒 Tools You'll Need</span><span>04:41</span></div>
+        </div>
+      </div>
+      <div class="mod-item locked" onclick="toggleMod(this)">
+        <div class="mod-hdr">
+          <div class="mod-left"><div class="mod-num">2</div><div class="mod-name">🔒 Niche Selection & Product Research</div></div>
+          <span class="mod-badge">Module 2</span>
+        </div>
+        <div class="mod-lessons">
+          <div class="lesson-row"><span>🔒 Finding Your Niche</span><span>08:20</span></div>
+          <div class="lesson-row"><span>🔒 Top Affiliate Programs in India</span><span>10:15</span></div>
+          <div class="lesson-row"><span>🔒 Evaluating Product Quality</span><span>06:30</span></div>
+        </div>
+      </div>
+      <div class="mod-item locked" onclick="toggleMod(this)">
+        <div class="mod-hdr">
+          <div class="mod-left"><div class="mod-num">3</div><div class="mod-name">🔒 Building Your Traffic Sources</div></div>
+          <span class="mod-badge">Module 3</span>
+        </div>
+        <div class="mod-lessons">
+          <div class="lesson-row"><span>🔒 YouTube Strategy for Affiliates</span><span>12:00</span></div>
+          <div class="lesson-row"><span>🔒 Blog & SEO Basics</span><span>09:45</span></div>
+          <div class="lesson-row"><span>🔒 Social Media Traffic Hacks</span><span>07:30</span></div>
+        </div>
+      </div>
+      <div class="mod-item locked" onclick="toggleMod(this)">
+        <div class="mod-hdr">
+          <div class="mod-left"><div class="mod-num">4</div><div class="mod-name">🔒 Content Creation & Promotion</div></div>
+          <span class="mod-badge">Module 4</span>
+        </div>
+        <div class="mod-lessons">
+          <div class="lesson-row"><span>🔒 Writing Conversion Copy</span><span>08:10</span></div>
+          <div class="lesson-row"><span>🔒 Email Marketing Basics</span><span>06:55</span></div>
+          <div class="lesson-row"><span>🔒 Link Placement Strategy</span><span>05:20</span></div>
+        </div>
+      </div>
+      <div class="mod-item locked" onclick="toggleMod(this)">
+        <div class="mod-hdr">
+          <div class="mod-left"><div class="mod-num">5</div><div class="mod-name">🔒 Earning Lakhs of Rupees</div></div>
+          <span class="mod-badge">Module 5</span>
+        </div>
+        <div class="mod-lessons">
+          <div class="lesson-row"><span>🔒 Scaling Your Earnings</span><span>14:00</span></div>
+          <div class="lesson-row"><span>🔒 Multiple Income Streams</span><span>09:30</span></div>
+          <div class="lesson-row"><span>🔒 My ₹17L Income Breakdown</span><span>11:00</span></div>
+        </div>
+      </div>
+      <div class="mod-item locked" onclick="toggleMod(this)">
+        <div class="mod-hdr">
+          <div class="mod-left"><div class="mod-num">6</div><div class="mod-name">🔒 Congratulations, You Made It! 🎉</div></div>
+          <span class="mod-badge">Module 6</span>
+        </div>
+        <div class="mod-lessons">
+          <div class="lesson-row"><span>🔒 Next Steps & Action Plan</span><span>07:00</span></div>
+          <div class="lesson-row"><span>🔒 Community & Support</span><span>03:30</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="sid">
+        <div class="sid-top">Affiliate Marketing<br>Mastery<p>0 to Pro Affiliate Pro — ಕಲಿಯಿರಿ!</p></div>
+        <div class="sid-body">
+          <div class="sid-price"><span class="now">₹1,999</span><span class="was">₹5,000</span><span class="disc">60% OFF</span></div>
+          <button class="sid-btn">Join Now →</button>
+          <div class="sid-meta"><span>📚 6 Modules</span><span>🎬 5h+ Video</span></div>
+          <ul class="pk-list">
+            <li><div class="pk-dot">✓</div>Step by step affiliate marketing training</li>
+            <li><div class="pk-dot">✓</div>Easy product selling methods ( meesho & wishlink)</li>
+            <li><div class="pk-dot">✓</div>Easy payment method</li>
+            <li><div class="pk-dot">✓</div>Lifetime access of the course</li>
+            <li><div class="pk-dot">✓</div>Learn Anytime & Anywhere</li>
+            <li><div class="pk-dot">✓</div>Support guidance included</li>
+            <li><div class="pk-dot">✓</div>Guarantee best pricing from the market</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- INSTRUCTOR -->
