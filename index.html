@@ -148,6 +148,91 @@
   .delay-100 { animation-delay: 100ms; }
   .delay-200 { animation-delay: 200ms; }
   .delay-300 { animation-delay: 300ms; }
+
+  /* Earning Proof Carousel Styles */
+  :root {
+    --red: #e01c1c;
+    --red-dark: #b91515;
+    --green: #22c55e;
+    --muted: #888888;
+    --dark2: #0a0a0a;
+    --dark4: #151515;
+  }
+  .proof-outer { position: relative; margin-top: 48px; }
+  .proof-track-wrap { overflow: hidden; padding: 40px 0; }
+  .proof-track { display: flex; gap: 24px; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+  .proof-slide { 
+    flex: 0 0 320px; 
+    background: #1a1a1a; 
+    border: 1px solid rgba(255,255,255,0.05); 
+    border-radius: 24px; 
+    padding: 32px; 
+    transition: all 0.5s; 
+    opacity: 0.4; 
+    transform: scale(0.9);
+  }
+  .proof-slide.act-slide { 
+    opacity: 1; 
+    transform: scale(1.1); 
+    border-color: rgba(224, 28, 28, 0.4); 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px rgba(224,28,28,0.1);
+  }
+  .ps-badge { display: inline-block; padding: 4px 12px; border-radius: 8px; background: rgba(224,28,28,0.1); color: var(--red); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+  .ps-amount { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: #fff; line-height: 1; margin-bottom: 8px; }
+  .ps-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+  .ps-info { font-size: 12px; line-height: 1.6; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
+  .ps-bars { display: flex; align-items: flex-end; gap: 4px; height: 40px; margin-top: 20px; }
+  .pb { flex: 1; background: rgba(255,255,255,0.05); border-radius: 2px; transition: 0.3s; }
+  .pb.h { background: var(--red); }
+  
+  .car-controls { display: flex; align-items: center; justify-content: center; gap: 32px; margin-top: 40px; }
+  .car-dots { display: flex; gap: 8px; }
+  .cdot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; }
+  .cdot.act { background: var(--red); width: 24px; border-radius: 4px; }
+  .car-arrows { display: flex; gap: 12px; }
+  .c-arr { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: #fff; font-size: 18px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; padding: 0; }
+  .c-arr:hover { background: var(--red); border-color: var(--red); transform: scale(1.05); }
+
+  /* Improved Student Section */
+  .students-layout { display: grid; grid-template-columns: 380px 1fr; gap: 60px; align-items: center; }
+  .ss-box { background: #1a1a1a; border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 32px; margin-top: 32px; }
+  .ss-top { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .ss-avs { display: flex; align-items: center; }
+  .ss-av { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #1a1a1a; background: #333; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; margin-right: -12px; }
+  .ss-av.more { background: var(--red); color: #fff; margin-right: 0; }
+  .ss-count-row { margin-top: 4px; }
+  .ss-count { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: #fff; line-height: 1; }
+  .ss-count-sub { font-size: 14px; color: var(--muted); font-weight: 500; }
+  .ss-lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--red); font-weight: 800; }
+  .ss-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+  .ss-stars-row { display: flex; gap: 2px; color: #fbbf24; font-size: 18px; margin-bottom: 4px; }
+  .ss-score { font-size: 24px; font-weight: 800; color: #fff; }
+  .ss-score-max { color: var(--muted); font-size: 14px; }
+  .ss-reviews-num { font-size: 18px; font-weight: 800; color: #fff; text-align: right; }
+  .ss-reviews-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .vid-wrap { overflow: hidden; }
+  .vid-track { display: flex; gap: 24px; transition: transform 0.5s ease; }
+  .vid-card { flex: 0 0 260px; background: #1a1a1a; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+  .vid-card:hover { transform: translateY(-8px); border-color: rgba(224, 28, 28, 0.3); }
+  .vid-thumb { height: 320px; background: #222; position: relative; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+  .vid-ov { position: absolute; inset: 0; background: rgba(0,0,0,0.4); opacity: 0; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+  .vid-card:hover .vid-ov { opacity: 1; }
+  .vid-play { width: 50px; height: 50px; border-radius: 50%; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px; padding-left: 3px; }
+  .vid-footer { padding: 16px 20px; background: #1f1f1f; display: flex; justify-content: space-between; align-items: center; }
+  .vid-name { font-weight: 700; font-size: 14px; }
+  .vid-stars { color: #fbbf24; font-size: 12px; }
+  .vid-arrows { display: flex; gap: 12px; margin-top: 32px; }
+
+  @media (max-width: 900px) {
+    .proof-slide { flex: 0 0 85%; }
+    .students-layout { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .ss-box { max-width: 400px; margin-left: auto; margin-right: auto; }
+    .ss-avs { justify-content: center; }
+    .ss-bottom { justify-content: space-around; }
+    .vid-card { flex: 0 0 85%; }
+    .vid-arrows { justify-content: center; }
+    .ps-amount { font-size: 36px; }
+  }
   .delay-500 { animation-delay: 500ms; }
 
   /* SECTION UTILS */
@@ -497,51 +582,159 @@
   </div>
 </section>
 
-<!-- 5. Students reviews and ratings -->
-<section class="py-24 px-6 bg-[#161616]">
-  <div class="max-w-7xl mx-auto reveal">
-    <h2 class="text-center text-3xl sm:text-4xl lg:text-5xl font-bold mb-16 leading-tight">Our Students Love Us</h2>
-    
-    <div class="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible custom-scroll pb-6 -mx-6 px-6 md:mx-0 md:px-0 snap-x snap-mandatory">
-      <!-- Card 1: Success Rate -->
-      <div class="flex-shrink-0 w-[85%] sm:w-[350px] md:w-auto glass-card p-8 flex flex-col items-center justify-center text-center border-white/5 bg-[#1b1b1b] reveal delay-100 snap-center">
-        <div class="relative w-32 h-32 flex flex-col items-center justify-center rounded-full mb-6">
-          <svg class="absolute inset-0 w-full h-full transform -rotate-90">
-            <circle cx="64" cy="64" r="60" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4"></circle>
-            <circle cx="64" cy="64" r="60" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="377" stroke-dashoffset="30"></circle>
-          </svg>
-          <span class="text-3xl font-bold">92%</span>
+<!-- 5. Earning Proof Carousel -->
+<section class="py-24 px-6 bg-[#0a0a0a]" id="proof">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16 reveal">
+      <div class="inline-block px-4 py-1.5 rounded-full bg-red-600/10 text-red-600 text-[10px] font-black uppercase tracking-widest mb-4 border border-red-600/20">
+        💰 &nbsp;Real Results
+      </div>
+      <h2 class="text-4xl md:text-5xl font-black text-white leading-tight mb-4">Earning <span class="text-red-600">Proof</span></h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">Real numbers. Real screenshots. No fake claims — scrolling through our latest performance results.</p>
+    </div>
+
+    <div class="proof-outer reveal delay-100">
+      <div class="proof-track-wrap">
+        <div class="proof-track" id="proofTrack">
+          <!-- Slide 1 -->
+          <div class="proof-slide act-slide">
+            <div class="ps-badge">Affiliate Income</div>
+            <div class="ps-amount">₹17,88,004</div>
+            <div class="ps-sub">Total Affiliate Earnings Lifetime</div>
+            <div class="ps-info">Top Earner Proof via Platform Dashboard<br><span style="color:var(--green)">Sreekumar: ₹23.6L · Mohamed: ₹30.7L</span></div>
+            <div class="ps-bars"><div class="pb" style="height:30%"></div><div class="pb" style="height:42%"></div><div class="pb h" style="height:62%"></div><div class="pb h" style="height:78%"></div><div class="pb h" style="height:92%"></div><div class="pb h" style="height:100%"></div></div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="proof-slide">
+            <div class="ps-badge">YouTube AdSense</div>
+            <div class="ps-amount">$6,785.11</div>
+            <div class="ps-sub">Estimated Revenue Since Published</div>
+            <div class="ps-info"><span style="color:var(--green)">Views: 412.8K · Watch: 206.5K hrs</span><br>Subscribers: +4.3K · Sun Nov 9 $832</div>
+            <div class="ps-bars"><div class="pb" style="height:20%"></div><div class="pb" style="height:33%"></div><div class="pb h" style="height:55%"></div><div class="pb h" style="height:72%"></div><div class="pb h" style="height:88%"></div><div class="pb h" style="height:100%"></div></div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="proof-slide">
+            <div class="ps-badge">Rewards — Account 1</div>
+            <div class="ps-amount">₹2,34,250</div>
+            <div class="ps-sub">Total Lifetime Rewards</div>
+            <div class="ps-info"><span style="color:var(--green)">2,161 Received · 104 In Progress</span><br>76 In Progress · 1,879 Received</div>
+            <div class="ps-bars"><div class="pb" style="height:38%"></div><div class="pb h" style="height:55%"></div><div class="pb h" style="height:68%"></div><div class="pb h" style="height:80%"></div><div class="pb h" style="height:93%"></div><div class="pb h" style="height:100%"></div></div>
+          </div>
+          <!-- Slide 4 -->
+          <div class="proof-slide">
+            <div class="ps-badge">Rewards — Account 2</div>
+            <div class="ps-amount">₹2,06,050</div>
+            <div class="ps-sub">Secondary Affiliate Rewards Account</div>
+            <div class="ps-info"><span style="color:var(--green)">Multiple active campaigns</span><br>Consistent monthly payouts</div>
+            <div class="ps-bars"><div class="pb" style="height:25%"></div><div class="pb" style="height:40%"></div><div class="pb h" style="height:58%"></div><div class="pb h" style="height:75%"></div><div class="pb h" style="height:90%"></div><div class="pb h" style="height:100%"></div></div>
+          </div>
+          <!-- Slide 5 -->
+          <div class="proof-slide">
+            <div class="ps-badge">Google AdSense</div>
+            <div class="ps-amount">$3,913.87</div>
+            <div class="ps-sub">Estimated Revenue — 90 Days Window</div>
+            <div class="ps-info">Since Published · Previous 2 days processing<br><span style="color:var(--green)">Channel verified & monetized</span></div>
+            <div class="ps-bars"><div class="pb" style="height:18%"></div><div class="pb" style="height:30%"></div><div class="pb h" style="height:52%"></div><div class="pb h" style="height:68%"></div><div class="pb h" style="height:84%"></div><div class="pb h" style="height:100%"></div></div>
+          </div>
+          <!-- Slide 6 -->
+          <div class="proof-slide">
+            <div class="ps-badge">2nd Channel Revenue</div>
+            <div class="ps-amount">$1,157.67</div>
+            <div class="ps-sub">Estimated Revenue — Second Channel</div>
+            <div class="ps-info">Multiple channels · Multiple income streams<br><span style="color:var(--green)">Diversified affiliate portfolio</span></div>
+            <div class="ps-bars"><div class="pb" style="height:22%"></div><div class="pb" style="height:35%"></div><div class="pb" style="height:48%"></div><div class="pb h" style="height:65%"></div><div class="pb h" style="height:82%"></div><div class="pb h" style="height:100%"></div></div>
+          </div>
         </div>
-        <p class="text-gray-300 font-medium text-base mt-2">Success Rate</p>
+      </div>
+      <div class="car-controls">
+        <div class="car-dots" id="proofDots">
+          <div class="cdot act" onclick="goProof(0)"></div>
+          <div class="cdot" onclick="goProof(1)"></div>
+          <div class="cdot" onclick="goProof(2)"></div>
+          <div class="cdot" onclick="goProof(3)"></div>
+          <div class="cdot" onclick="goProof(4)"></div>
+          <div class="cdot" onclick="goProof(5)"></div>
+        </div>
+        <div class="car-arrows">
+          <button class="c-arr" onclick="proofPrev()">←</button>
+          <button class="c-arr" onclick="proofNext()">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Our Students Love Us -->
+<section class="py-24 px-6 bg-[#121212]" id="students">
+  <div class="max-w-7xl mx-auto">
+    <div class="students-layout">
+      <div class="reveal">
+        <div class="inline-block px-4 py-1.5 rounded-full bg-blue-600/10 text-blue-500 text-[10px] font-black uppercase tracking-widest mb-4 border border-blue-600/20">
+          ⭐ &nbsp;Student Success
+        </div>
+        <h2 class="text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-6">Our students<br><span class="text-red-600">love us</span></h2>
+        <p class="text-gray-400 text-lg">1,247+ Kannada-speaking learners already part of this growing community.</p>
+        
+        <div class="ss-box">
+          <div class="ss-top">
+            <div class="ss-avs">
+              <div class="ss-av">A</div>
+              <div class="ss-av">R</div>
+              <div class="ss-av">S</div>
+              <div class="ss-av more">+1K</div>
+            </div>
+            <div class="ss-count-row">
+              <div class="ss-count">1,247</div>
+              <div class="ss-count-sub">Active Students</div>
+            </div>
+            <div class="ss-lbl">Enrolled Since 2024</div>
+          </div>
+          <div class="ss-bottom">
+            <div>
+              <div class="ss-stars-row">★★★★★</div>
+              <span class="ss-score">4.9</span><span class="ss-score-max">/ 5.0</span>
+            </div>
+            <div>
+              <div class="ss-reviews-num">187+</div>
+              <div class="ss-reviews-lbl">Verified Results</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="vid-arrows hidden lg:flex">
+          <button class="c-arr" onclick="vidPrev()">←</button>
+          <button class="c-arr" onclick="vidNext()">→</button>
+        </div>
       </div>
       
-      <!-- Card 2: Testimonial -->
-      <div class="flex-shrink-0 w-[85%] sm:w-[350px] md:w-auto glass-card p-10 flex flex-col justify-between border-white/5 bg-[#1b1b1b] transform hover:-translate-y-2 transition-transform duration-300 snap-center">
-        <div>
-          <div class="text-5xl text-gray-500 mb-2 font-serif font-bold">"</div>
-          <p class="text-gray-300 leading-relaxed mb-8 text-lg font-medium">A well-designed course and a refreshing break from toxic productivity.</p>
-        </div>
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">P</div>
-          <div>
-            <div class="font-bold text-base text-white">Prithu H.</div>
-            <div class="text-yellow-400 text-xs mt-1 tracking-widest">★★★★★</div>
+      <div class="vid-wrap reveal delay-200">
+        <div class="vid-track" id="vidTrack">
+          <!-- Video Testimonials -->
+          <div class="vid-card">
+            <div class="vid-thumb">🧑‍💻<div class="vid-ov"><div class="vid-play">▶</div></div></div>
+            <div class="vid-footer"><div class="vid-name">Rahul K.</div><div class="vid-stars">★★★★★</div></div>
+          </div>
+          <div class="vid-card">
+            <div class="vid-thumb">👩‍💼<div class="vid-ov"><div class="vid-play">▶</div></div></div>
+            <div class="vid-footer"><div class="vid-name">Meena R.</div><div class="vid-stars">★★★★★</div></div>
+          </div>
+          <div class="vid-card">
+            <div class="vid-thumb">👨‍🎓<div class="vid-ov"><div class="vid-play">▶</div></div></div>
+            <div class="vid-footer"><div class="vid-name">Suresh B.</div><div class="vid-stars">★★★★★</div></div>
+          </div>
+          <div class="vid-card">
+            <div class="vid-thumb">🧑‍🏫<div class="vid-ov"><div class="vid-play">▶</div></div></div>
+            <div class="vid-footer"><div class="vid-name">Hardeep S.</div><div class="vid-stars">★★★★★</div></div>
+          </div>
+          <div class="vid-card">
+            <div class="vid-thumb">👨‍💻<div class="vid-ov"><div class="vid-play">▶</div></div></div>
+            <div class="vid-footer"><div class="vid-name">Pradeep M.</div><div class="vid-stars">★★★★★</div></div>
           </div>
         </div>
-      </div>
-
-      <!-- Card 3: Testimonial -->
-      <div class="flex-shrink-0 w-[85%] sm:w-[350px] md:w-auto glass-card p-10 flex flex-col justify-between border-white/5 bg-[#1b1b1b] transform hover:-translate-y-2 transition-transform duration-300 md:translate-y-6 snap-center">
-        <div>
-          <div class="text-5xl text-gray-500 mb-2 font-serif font-bold">"</div>
-          <p class="text-gray-300 leading-relaxed mb-8 text-lg font-medium">Amazing course! I genuinely learned a lot and would highly recommend it.</p>
-        </div>
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">S</div>
-          <div>
-            <div class="font-bold text-base text-white">Sowmya.</div>
-            <div class="text-yellow-400 text-xs mt-1 tracking-widest">★★★★★</div>
-          </div>
+        <!-- Mobile arrows -->
+        <div class="vid-arrows flex lg:hidden mt-8">
+          <button class="c-arr" onclick="vidPrev()">←</button>
+          <button class="c-arr" onclick="vidNext()">→</button>
         </div>
       </div>
     </div>
@@ -709,6 +902,70 @@
 </footer>
 
 <script>
+  /* ── CAROUSEL LOGIC (Earning Proof) ── */
+  const TOTAL_SLIDES = 6, SHOW_DESKTOP = 3;
+  let pIdx = 0, pTimer;
+
+  function getSlideW(){
+    const track = document.getElementById('proofTrack');
+    const slide = track ? track.querySelector('.proof-slide') : null;
+    return slide ? slide.offsetWidth + 24 : 0;
+  }
+
+  function renderProof(){
+    const track = document.getElementById('proofTrack');
+    if(!track) return;
+    
+    const isMobile = window.innerWidth <= 900;
+    const max = isMobile ? TOTAL_SLIDES - 1 : TOTAL_SLIDES - SHOW_DESKTOP;
+    pIdx = Math.max(0, Math.min(pIdx, max));
+    
+    // Calculate offset to center the active slide
+    const trackPadding = 24; // gap
+    const slideWidth = getSlideW();
+    const trackOuterWidth = track.parentElement.offsetWidth;
+    const offset = (trackOuterWidth / 2) - (slideWidth / 2) - (pIdx * slideWidth);
+    
+    track.style.transform = `translateX(${offset}px)`;
+    track.querySelectorAll('.proof-slide').forEach((s,i) => s.classList.toggle('act-slide', i === pIdx));
+    document.querySelectorAll('#proofDots .cdot').forEach((d,i) => d.classList.toggle('act', i === pIdx));
+  }
+
+  function proofNext(){
+    const isMobile = window.innerWidth <= 900;
+    const max = isMobile ? TOTAL_SLIDES - 1 : TOTAL_SLIDES - SHOW_DESKTOP;
+    pIdx = (pIdx + 1) > max ? 0 : pIdx + 1; 
+    renderProof();
+  }
+  function proofPrev(){
+    const isMobile = window.innerWidth <= 900;
+    const max = isMobile ? TOTAL_SLIDES - 1 : TOTAL_SLIDES - SHOW_DESKTOP;
+    pIdx = (pIdx - 1) < 0 ? max : pIdx - 1; 
+    renderProof();
+  }
+  function goProof(i){ pIdx = i; renderProof(); resetPTimer(); }
+  function resetPTimer(){ clearInterval(pTimer); pTimer = setInterval(proofNext, 4000); }
+
+  /* ── VIDEO CAROUSEL (Student Testimonials) ── */
+  let vIdx = 0;
+  function getVidW(){
+    const t = document.getElementById('vidTrack');
+    const c = t ? t.querySelector('.vid-card') : null;
+    return c ? c.offsetWidth + 24 : 0;
+  }
+  function renderVid(){
+    const track = document.getElementById('vidTrack');
+    if(!track) return;
+    const cards = track.querySelectorAll('.vid-card');
+    const isMobile = window.innerWidth <= 900;
+    const visible = isMobile ? 1 : 3;
+    const max = cards.length - visible;
+    vIdx = Math.max(0, Math.min(vIdx, max));
+    track.style.transform = `translateX(-${vIdx * getVidW()}px)`;
+  }
+  function vidNext(){ vIdx++; renderVid(); }
+  function vidPrev(){ vIdx--; renderVid(); }
+
   // Intersection Observer for scroll reveal
   const observerOptions = {
     threshold: 0.1,
@@ -719,15 +976,10 @@
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('active');
-        // Once animated, stop observing
         observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
-
-  document.querySelectorAll('.reveal, .reveal-right').forEach(el => {
-    observer.observe(el);
-  });
 
   // Midnight IST Countdown Timer
   function updateTimer() {
@@ -752,11 +1004,23 @@
   }
 
   window.onload = function () {
+    renderProof();
+    resetPTimer();
+    renderVid();
     updateTimer();
     setInterval(updateTimer, 1000);
+    
+    document.querySelectorAll('.reveal, .reveal-right').forEach(el => {
+      observer.observe(el);
+    });
+
     if (typeof updateNavbarForMembers === 'function') {
       updateNavbarForMembers();
     }
+  };
+  window.onresize = function() {
+    renderProof();
+    renderVid();
   };
 </script>
 
