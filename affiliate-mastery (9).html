@@ -101,27 +101,84 @@ nav{display:none;}
 .ms .n{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;}
 .ms .l{font-size:11px;color:rgba(255,255,255,0.6);}
 
-/* EARNING PROOF CAROUSEL */
-.proof-outer{margin-top:48px;}
-.proof-track-wrap{overflow:hidden;border-radius:16px;}
-.proof-track{display:flex;gap:24px;transition:transform .55s cubic-bezier(.65,0,.35,1);}
-.proof-slide{flex:0 0 calc((100% - 48px)/3);background:var(--dark3);border:1px solid #222;border-radius:16px;padding:28px;position:relative;transition:.3s;}
-.proof-slide.act-slide{border-color:var(--red);box-shadow:0 0 0 1px var(--red),0 8px 32px rgba(224,28,28,0.15);}
-.ps-badge{display:inline-block;background:var(--red);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:14px;}
-.ps-amount{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--red);line-height:1;}
-.ps-sub{font-size:12px;color:var(--muted);margin-top:5px;}
-.ps-info{margin-top:14px;padding:14px;background:rgba(255,255,255,0.03);border-radius:10px;font-size:12px;color:var(--muted);line-height:1.6;}
-.ps-bars{display:flex;align-items:flex-end;gap:5px;height:50px;margin-top:16px;}
-.pb{background:rgba(224,28,28,0.2);border-radius:3px 3px 0 0;flex:1;}
-.pb.h{background:var(--red);}
-/* dots & arrows */
-.car-controls{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:24px;}
-.car-dots{display:flex;gap:8px;}
-.cdot{width:8px;height:8px;border-radius:50%;background:#333;cursor:pointer;transition:.3s;}
-.cdot.act{background:var(--red);width:24px;border-radius:4px;}
-.car-arrows{display:flex;gap:10px;}
-.c-arr{width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.12);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;transition:.2s;}
-.c-arr:hover{background:var(--red);border-color:var(--red);}
+/* EARNING PROOF CAROUSEL (Refined) */
+.proof-outer { position: relative; margin-top: 48px; }
+.proof-track-wrap { overflow: hidden; padding: 40px 0; }
+.proof-track { display: flex; gap: 24px; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.proof-slide { 
+  flex: 0 0 320px; 
+  background: #1a1a1a; 
+  border: 1px solid rgba(255,255,255,0.05); 
+  border-radius: 24px; 
+  padding: 32px; 
+  transition: all 0.5s; 
+  opacity: 0.4; 
+  transform: scale(0.9);
+}
+.proof-slide.act-slide { 
+  opacity: 1; 
+  transform: scale(1.1); 
+  border-color: rgba(224, 28, 28, 0.4); 
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px rgba(224,28,28,0.1);
+}
+.ps-badge { display: inline-block; padding: 4px 12px; border-radius: 8px; background: rgba(224,28,28,0.1); color: var(--red); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+.ps-amount { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: #fff; line-height: 1; margin-bottom: 8px; }
+.ps-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+.ps-info { font-size: 12px; line-height: 1.6; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
+.ps-bars { display: flex; align-items: flex-end; gap: 4px; height: 40px; margin-top: 20px; }
+.pb { flex: 1; background: rgba(255,255,255,0.05); border-radius: 2px; transition: 0.3s; }
+.pb.h { background: var(--red); }
+
+.car-controls { display: flex; align-items: center; justify-content: center; gap: 32px; margin-top: 40px; }
+.car-dots { display: flex; gap: 8px; }
+.cdot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; }
+.cdot.act { background: var(--red); width: 24px; border-radius: 4px; }
+.car-arrows { display: flex; gap: 12px; }
+.c-arr { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: #fff; font-size: 18px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; padding: 0; }
+.c-arr:hover { background: var(--red); border-color: var(--red); transform: scale(1.05); }
+
+/* Improved Student Section */
+.students-layout { display: grid; grid-template-columns: 380px 1fr; gap: 60px; align-items: center; }
+.ss-box { background: #1a1a1a; border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 32px; margin-top: 32px; }
+.ss-top { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.ss-avs { display: flex; align-items: center; }
+.ss-av { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #1a1a1a; background: #333; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; margin-right: -12px; }
+.ss-av.more { background: var(--red); color: #fff; margin-right: 0; }
+.ss-count-row { margin-top: 4px; }
+.ss-count { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: #fff; line-height: 1; }
+.ss-count-sub { font-size: 14px; color: var(--muted); font-weight: 500; }
+.ss-lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--red); font-weight: 800; }
+.ss-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+.ss-stars-row { display: flex; gap: 2px; color: #fbbf24; font-size: 18px; margin-bottom: 4px; }
+.ss-score { font-size: 24px; font-weight: 800; color: #fff; }
+.ss-score-max { color: var(--muted); font-size: 14px; }
+.ss-reviews-num { font-size: 18px; font-weight: 800; color: #fff; text-align: right; }
+.ss-reviews-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.vid-wrap { overflow: hidden; }
+.vid-track { display: flex; gap: 24px; transition: transform 0.5s ease; }
+.vid-card { flex: 0 0 260px; background: #1a1a1a; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+.vid-card:hover { transform: translateY(-8px); border-color: rgba(224, 28, 28, 0.3); }
+.vid-thumb { height: 320px; background: #222; position: relative; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+.vid-ov { position: absolute; inset: 0; background: rgba(0,0,0,0.4); opacity: 0; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+.vid-card:hover .vid-ov { opacity: 1; }
+.vid-play { width: 50px; height: 50px; border-radius: 50%; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px; padding-left: 3px; }
+.vid-footer { padding: 16px 20px; background: #1f1f1f; display: flex; justify-content: space-between; align-items: center; }
+.vid-name { font-weight: 700; font-size: 14px; }
+.vid-stars { color: #fbbf24; font-size: 12px; }
+.vid-arrows { display: flex; gap: 12px; margin-top: 32px; }
+
+@media (max-width: 900px) {
+  .proof-slide { flex: 0 0 85%; }
+  .students-layout { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; }
+  .students-layout h2 { font-size: 36px !important; line-height: 1.1 !important; margin-bottom: 20px !important; }
+  .students-layout p { font-size: 16px !important; max-width: 320px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+  .ss-box { width: 100%; max-width: 360px; margin: 32px auto 0; padding: 24px; }
+  .ss-avs { justify-content: center; }
+  .ss-bottom { justify-content: space-around; }
+  .vid-card { flex: 0 0 85%; }
+  .vid-arrows { justify-content: center; }
+  .ps-amount { font-size: 36px; }
+}
 
 /* LEARN */
 .learn-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px;}
@@ -163,46 +220,6 @@ nav{display:none;}
 
 /* STUDENTS / VIDEO CAROUSEL */
 .students-sec{background:var(--dark2); padding: 50px 0;}
-.students-layout{display:grid;grid-template-columns:380px 1fr;gap:48px;align-items:start;margin-top:20px;padding:0 30px;}
-.students-left h2{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:0.9;margin-bottom:12px;color: #fff;}
-.students-left p{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.5;}
-.ss-box{background:rgba(24,24,24,0.6);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);border-radius:24px;padding:0;overflow:hidden;width:100%;}
-/* Top row — student count */
-.ss-top{padding:24px 28px 20px;border-bottom:1px solid rgba(255,255,255,0.05);}
-.ss-avs{display:flex;align-items:center;margin-bottom:12px;}
-.ss-av{width:32px;height:32px;border-radius:50%;border:2.5px solid var(--dark3);background:var(--red);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-left:-9px;flex-shrink:0;}
-.ss-av:first-child{margin-left:0;}
-.ss-av:nth-child(1){background:#c01010;}
-.ss-av:nth-child(2){background:#e01c1c;}
-.ss-av:nth-child(3){background:#a00a0a;}
-.ss-av.more{background:var(--dark4);color:var(--muted);font-size:9px;font-weight:600;border-color:var(--dark3);}
-.ss-count-row{display:flex;align-items:baseline;gap:6px;}
-.ss-count{font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;color:#fff;}
-.ss-count-sub{font-size:12px;color:var(--red);font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
-.ss-lbl{font-size:13px;color:var(--muted);margin-top:4px;}
-/* Bottom row — rating */
-.ss-bottom{padding:20px 28px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.02);}
-.ss-stars-row{display:flex;gap:3px;margin-bottom:4px;}
-.ss-star{font-size:20px;line-height:1;}
-.ss-star.full{color:var(--gold);}
-.ss-star.half{background:linear-gradient(90deg,var(--gold) 50%,rgba(255,255,255,0.15) 50%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.ss-star.empty{color:rgba(255,255,255,0.15);}
-.ss-score-row{display:flex;align-items:baseline;gap:4px;}
-.ss-score{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;line-height:1;}
-.ss-score-max{font-size:14px;color:var(--muted);}
-.ss-rating-right{text-align:right;}
-.ss-reviews-num{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--red);}
-.ss-reviews-lbl{font-size:12px;color:var(--muted);margin-top:2px;}
-.vid-wrap{overflow:hidden;}
-.vid-track{display:flex;gap:24px;transition:transform .5s cubic-bezier(.65,0,.35,1);padding:10px 0;}
-.vid-card{flex:0 0 260px;border-radius:24px;overflow:hidden;position:relative;cursor:pointer;background:rgba(25,25,25,0.4);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);transition:0.3s;height:420px;}
-.vid-card:hover{transform:translateY(-8px);border-color:rgba(224,28,28,0.4);box-shadow:0 20px 40px rgba(0,0,0,0.4);}
-.vid-thumb{height:280px;background:linear-gradient(135deg,#1a1a1a,#2a1a1a);display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;}
-.vid-ov{position:absolute;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;opacity:0;transition:.3s;}
-.vid-play{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:20px;}
-.vid-footer{padding:16px 20px 20px;background:linear-gradient(transparent,rgba(0,0,0,0.9));position:absolute;bottom:0;left:0;right:0;}
-.vid-name{font-size:16px;font-weight:700;margin-bottom:4px;}
-.vid-stars{color:var(--gold);font-size:14px;}
 .vid-arrows{display:flex;gap:16px;margin-top:32px;justify-content:center;}
 
 /* REVIEWS */
@@ -718,60 +735,77 @@ footer p{font-size:12.5px;color:var(--muted);}
 
 
 
-<!-- OUR STUDENTS LOVE US -->
-<section class="sec students-sec" style="padding: 100px 0;">
-  <div class="container">
+<!-- 6. Our Students Love Us -->
+<section class="py-24 px-6 bg-[#121212]" id="students">
+  <div class="max-w-7xl mx-auto">
     <div class="students-layout">
-      <div class="students-left" style="display: flex; flex-direction: column; justify-content: center;">
-      <h2>Our students<br>love us</h2>
-      <p>1,247 people already part of this community</p>
-      <div class="ss-box">
-        <div class="ss-top">
-          <div class="ss-avs">
-            <div class="ss-av">A</div>
-            <div class="ss-av">R</div>
-            <div class="ss-av">S</div>
-            <div class="ss-av more">+1K</div>
-          </div>
-          <div class="ss-count-row">
-            <div class="ss-count">1,247</div>
-            <div class="ss-count-sub">Students</div>
-          </div>
-          <div class="ss-lbl">Enrolled on Shashank Academy</div>
+      <div class="reveal flex flex-col items-center">
+        <div class="inline-block px-4 py-1.5 rounded-full bg-blue-600/10 text-blue-500 text-[10px] font-black uppercase tracking-widest mb-6 border border-blue-600/20">
+          ⭐ &nbsp;Student Success
         </div>
-        <div class="ss-bottom">
-          <div class="ss-rating-left">
-            <div class="ss-stars-row">
-              <span class="ss-star full">★</span>
-              <span class="ss-star full">★</span>
-              <span class="ss-star full">★</span>
-              <span class="ss-star full">★</span>
-              <span class="ss-star half">★</span>
+        <h2 class="text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-6 text-center">Our students <span class="text-red-600">love us</span></h2>
+        <p class="text-gray-400 text-lg mb-8 text-center">1,247+ Kannada-speaking learners already part of this growing community.</p>
+        
+        <div class="ss-box w-full">
+          <div class="ss-top">
+            <div class="ss-avs">
+              <div class="ss-av">A</div>
+              <div class="ss-av">R</div>
+              <div class="ss-av">S</div>
+              <div class="ss-av more">+1K</div>
             </div>
-            <div class="ss-score-row">
-              <span class="ss-score">4.6</span>
-              <span class="ss-score-max">/ 5.0</span>
+            <div class="ss-count-row flex items-baseline gap-2 justify-center">
+              <div class="ss-count">1,247</div>
+              <div class="ss-lbl mb-0">STUDENTS</div>
             </div>
+            <div class="ss-count-sub text-gray-500 mt-2 text-center">Enrolled on Shashank Academy</div>
           </div>
-          <div class="ss-rating-right">
-            <div class="ss-reviews-num">187</div>
-            <div class="ss-reviews-lbl">Verified Reviews</div>
+          <div class="ss-bottom">
+            <div class="flex flex-col items-center sm:items-start text-center sm:text-left">
+              <div class="ss-stars-row">★★★★★</div>
+              <div><span class="ss-score">4.9</span><span class="ss-score-max">/ 5.0</span></div>
+            </div>
+            <div class="text-center sm:text-right">
+              <div class="ss-reviews-num">187+</div>
+              <div class="ss-reviews-lbl">Verified Results</div>
+            </div>
           </div>
         </div>
+        
+        <div class="vid-arrows hidden lg:flex">
+          <button class="c-arr" onclick="vidPrev()">←</button>
+          <button class="c-arr" onclick="vidNext()">→</button>
+        </div>
       </div>
-      <div class="vid-arrows">
-        <button class="c-arr" onclick="vidPrev()">←</button>
-        <button class="c-arr" onclick="vidNext()">→</button>
-      </div>
-    </div>
-    <div>
-      <div class="vid-wrap">
+      
+      <div class="vid-wrap reveal delay-200">
         <div class="vid-track" id="vidTrack">
-          <div class="vid-card"><div class="vid-thumb">🧑‍💻<div class="vid-ov"><div class="vid-play">▶</div></div></div><div class="vid-footer"><div class="vid-name">Rahul K.</div><div class="vid-stars">★★★★★</div></div></div>
-          <div class="vid-card"><div class="vid-thumb">👩‍💼<div class="vid-ov"><div class="vid-play">▶</div></div></div><div class="vid-footer"><div class="vid-name">Meena R.</div><div class="vid-stars">★★★★★</div></div></div>
-          <div class="vid-card"><div class="vid-thumb">👨‍🎓<div class="vid-ov"><div class="vid-play">▶</div></div></div><div class="vid-footer"><div class="vid-name">Suresh B.</div><div class="vid-stars">★★★★★</div></div></div>
-          <div class="vid-card"><div class="vid-thumb">🧑‍🏫<div class="vid-ov"><div class="vid-play">▶</div></div></div><div class="vid-footer"><div class="vid-name">Hardeep S.</div><div class="vid-stars">★★★★★</div></div></div>
-          <div class="vid-card"><div class="vid-thumb">👨‍💻<div class="vid-ov"><div class="vid-play">▶</div></div></div><div class="vid-footer"><div class="vid-name">Pradeep M.</div><div class="vid-stars">★★★★★</div></div></div>
+          <!-- Video Testimonials -->
+          <div class="vid-card">
+            <div class="vid-thumb">🧑‍💻<div class="vid-ov"><div class="vid-play">▶</div></div></div>
+            <div class="vid-footer"><div class="vid-name">Rahul K.</div><div class="vid-stars">★★★★★</div></div>
+          </div>
+          <div class="vid-card">
+            <div class="vid-thumb">👩‍💼<div class="vid-ov"><div class="vid-play">▶</div></div></div>
+            <div class="vid-footer"><div class="vid-name">Meena R.</div><div class="vid-stars">★★★★★</div></div>
+          </div>
+          <div class="vid-card">
+            <div class="vid-thumb">👨‍🎓<div class="vid-ov"><div class="vid-play">▶</div></div></div>
+            <div class="vid-footer"><div class="vid-name">Suresh B.</div><div class="vid-stars">★★★★★</div></div>
+          </div>
+          <div class="vid-card">
+            <div class="vid-thumb">🧑‍🏫<div class="vid-ov"><div class="vid-play">▶</div></div></div>
+            <div class="vid-footer"><div class="vid-name">Hardeep S.</div><div class="vid-stars">★★★★★</div></div>
+          </div>
+          <div class="vid-card">
+            <div class="vid-thumb">👨‍💻<div class="vid-ov"><div class="vid-play">▶</div></div></div>
+            <div class="vid-footer"><div class="vid-name">Pradeep M.</div><div class="vid-stars">★★★★★</div></div>
+          </div>
+        </div>
+        <!-- Mobile arrows -->
+        <div class="vid-arrows flex lg:hidden mt-8">
+          <button class="c-arr" onclick="vidPrev()">←</button>
+          <button class="c-arr" onclick="vidNext()">→</button>
         </div>
       </div>
     </div>
@@ -1090,31 +1124,50 @@ footer p{font-size:12.5px;color:var(--muted);}
 <script>
 function gotoSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
 
-/* ── PROOF CAROUSEL (6 slides, show 3, auto-scroll) ── */
-const TOTAL_SLIDES = 6, SHOW = 3;
+/* ── CAROUSEL LOGIC (Earning Proof) ── */
+const TOTAL_SLIDES = 6, SHOW_DESKTOP = 3;
 let pIdx = 0, pTimer;
 
 function getSlideW(){
   const track = document.getElementById('proofTrack');
-  const slide = track.querySelector('.proof-slide');
+  const slide = track ? track.querySelector('.proof-slide') : null;
   return slide ? slide.offsetWidth + 24 : 0;
 }
 
 function renderProof(){
-  const max = TOTAL_SLIDES - SHOW; // 3
-  pIdx = Math.max(0, Math.min(pIdx, max));
   const track = document.getElementById('proofTrack');
-  track.style.transform = `translateX(-${pIdx * getSlideW()}px)`;
+  if(!track) return;
+  
+  const isMobile = window.innerWidth <= 900;
+  const max = isMobile ? TOTAL_SLIDES - 1 : TOTAL_SLIDES - SHOW_DESKTOP;
+  pIdx = Math.max(0, Math.min(pIdx, max));
+  
+  // Calculate offset to center the active slide
+  const slideWidth = getSlideW();
+  const trackOuterWidth = track.parentElement.offsetWidth;
+  const offset = (trackOuterWidth / 2) - (slideWidth / 2) - (pIdx * slideWidth);
+  
+  track.style.transform = `translateX(${offset}px)`;
   track.querySelectorAll('.proof-slide').forEach((s,i) => s.classList.toggle('act-slide', i === pIdx));
   document.querySelectorAll('#proofDots .cdot').forEach((d,i) => d.classList.toggle('act', i === pIdx));
 }
 
-function proofNext(){pIdx = (pIdx + 1) % (TOTAL_SLIDES - SHOW + 1); renderProof();}
-function proofPrev(){pIdx = (pIdx - 1 + (TOTAL_SLIDES - SHOW + 1)) % (TOTAL_SLIDES - SHOW + 1); renderProof();}
-function goProof(i){pIdx = i; renderProof(); resetPTimer();}
-function resetPTimer(){clearInterval(pTimer); pTimer = setInterval(proofNext, 3000);}
+function proofNext(){
+  const isMobile = window.innerWidth <= 900;
+  const max = isMobile ? TOTAL_SLIDES - 1 : TOTAL_SLIDES - SHOW_DESKTOP;
+  pIdx = (pIdx + 1) > max ? 0 : pIdx + 1; 
+  renderProof();
+}
+function proofPrev(){
+  const isMobile = window.innerWidth <= 900;
+  const max = isMobile ? TOTAL_SLIDES - 1 : TOTAL_SLIDES - SHOW_DESKTOP;
+  pIdx = (pIdx - 1) < 0 ? max : pIdx - 1; 
+  renderProof();
+}
+function goProof(i){ pIdx = i; renderProof(); resetPTimer(); }
+function resetPTimer(){ clearInterval(pTimer); pTimer = setInterval(proofNext, 4000); }
 
-/* ── VIDEO CAROUSEL ── */
+/* ── VIDEO CAROUSEL (Student Testimonials) ── */
 let vIdx = 0;
 function getVidW(){
   const t = document.getElementById('vidTrack');
@@ -1123,13 +1176,16 @@ function getVidW(){
 }
 function renderVid(){
   const track = document.getElementById('vidTrack');
-  const cards = track ? track.querySelectorAll('.vid-card') : [];
-  const max = cards.length - 3;
+  if(!track) return;
+  const cards = track.querySelectorAll('.vid-card');
+  const isMobile = window.innerWidth <= 900;
+  const visible = isMobile ? 1 : 3;
+  const max = cards.length - visible;
   vIdx = Math.max(0, Math.min(vIdx, max));
-  if(track) track.style.transform = `translateX(-${vIdx * getVidW()}px)`;
+  track.style.transform = `translateX(-${vIdx * getVidW()}px)`;
 }
-function vidNext(){vIdx++; renderVid();}
-function vidPrev(){vIdx--; renderVid();}
+function vidNext(){ vIdx++; renderVid(); }
+function vidPrev(){ vIdx--; renderVid(); }
 
 /* ── MODULE ACCORDION ── */
 function toggleMod(el){
