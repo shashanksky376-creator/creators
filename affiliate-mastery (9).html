@@ -582,84 +582,229 @@ footer p{font-size:12.5px;color:var(--muted);}
     <span style="font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase;">Limited Time Launch Offer</span>
   </div>
 
-  <!-- Highlights & Modules Section -->
-  <div style="margin-top: 64px; width: 100%; max-width: 1000px; text-align: left; padding: 0 20px;">
-    <div style="text-align: center; margin-bottom: 32px;">
-      <span style="font-size: 11px; font-weight: 900; letter-spacing: 4px; color: rgba(255,255,255,0.4); text-transform: uppercase;">ಕೋರ್ಸ್‌ನಲ್ಲಿ ನೀವು ಪಡೆಯುವ ಸಂಪೂರ್ಣ ಮಾಹಿತಿ (Blueprint Breakdown)</span>
+  <!-- Premium Highlights & Modules Section -->
+  <style>
+    .bd-wrapper {
+      margin-top: 80px;
+      width: 100%;
+      max-width: 1080px;
+      position: relative;
+      padding: 40px;
+      background: radial-gradient(circle at 50% 0%, rgba(224, 28, 28, 0.08) 0%, transparent 70%);
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+    .bd-tag {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(224, 28, 28, 0.1);
+      border: 1px solid rgba(224, 28, 28, 0.2);
+      border-radius: 100px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .bd-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 40px;
+      align-items: start;
+    }
+    .bd-col-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    
+    /* Module Card Styles */
+    .mod-card-mini {
+      position: relative;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: default;
+    }
+    .mod-card-mini:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(224, 28, 28, 0.3);
+      transform: translateX(8px);
+      box-shadow: -10px 0 30px rgba(0,0,0,0.3);
+    }
+    .mod-card-mini .num {
+      width: 28px;
+      height: 28px;
+      background: rgba(224, 28, 28, 0.1);
+      border: 1px solid rgba(224, 28, 28, 0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--red);
+      margin-right: 14px;
+    }
+    .mod-card-mini .name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ccc;
+      flex: 1;
+    }
+    .mod-card-mini .tag {
+      font-size: 9px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.15);
+      letter-spacing: 1px;
+    }
+    .mod-card-mini:hover .tag { color: var(--red); }
+
+    /* Benefit Row Styles */
+    .ben-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: linear-gradient(90deg, rgba(34, 197, 94, 0.03) 0%, transparent 100%);
+      border: 1px solid rgba(34, 197, 94, 0.08);
+      border-left: 3px solid #22c55e;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
+    .ben-row:hover {
+      background: linear-gradient(90deg, rgba(34, 197, 94, 0.08) 0%, transparent 100%);
+      border-color: rgba(34, 197, 94, 0.2);
+      transform: scale(1.02);
+    }
+    .ben-tick {
+      width: 22px;
+      height: 22px;
+      background: #22c55e;
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 900;
+      box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+    }
+    .ben-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #eee;
+    }
+
+    @media (max-width: 768px) {
+      .bd-wrapper { padding: 30px 20px; border-radius: 24px; }
+      .mod-card-mini:hover { transform: none; }
+    }
+  </style>
+
+  <div class="bd-wrapper">
+    <div style="text-align: center;">
+      <span class="bd-tag">ಕೋರ್ಸ್ ಅಪ್‌ಡೇಟ್ (What's Inside)</span>
     </div>
     
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; align-items: start;">
-      
+    <div class="bd-grid">
       <!-- Left Column: Course Modules -->
       <div>
-        <h4 style="font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 1px;">
-          <span style="color: var(--red);">📦</span> 6 Core Modules
+        <h4 class="bd-col-title">
+          <span style="font-size: 20px;">📦</span> 6 Expert Modules
         </h4>
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <div style="padding: 12px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; font-size: 13px; font-weight: 600; color: #bbb; display: flex; justify-content: space-between; align-items: center;">
-            <span>1. Welcome To The Course!</span>
-            <span style="font-size: 10px; color: rgba(255,255,255,0.2);">MODULE 01</span>
+        <div class="mod-card-mini">
+          <div style="display:flex; align-items:center;">
+            <div class="num">01</div>
+            <span class="name">Welcome To The Course!</span>
           </div>
-          <div style="padding: 12px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; font-size: 13px; font-weight: 600; color: #bbb; display: flex; justify-content: space-between; align-items: center;">
-            <span>2. Niche Selection & Product Research</span>
-            <span style="font-size: 10px; color: rgba(255,255,255,0.2);">MODULE 02</span>
+          <span class="tag">START HERE</span>
+        </div>
+        <div class="mod-card-mini">
+          <div style="display:flex; align-items:center;">
+            <div class="num">02</div>
+            <span class="name">Niche & Product Research</span>
           </div>
-          <div style="padding: 12px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; font-size: 13px; font-weight: 600; color: #bbb; display: flex; justify-content: space-between; align-items: center;">
-            <span>3. Building Your Traffic Sources</span>
-            <span style="font-size: 10px; color: rgba(255,255,255,0.2);">MODULE 03</span>
+          <span class="tag">STRATEGY</span>
+        </div>
+        <div class="mod-card-mini">
+          <div style="display:flex; align-items:center;">
+            <div class="num">03</div>
+            <span class="name">Building Traffic Sources</span>
           </div>
-          <div style="padding: 12px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; font-size: 13px; font-weight: 600; color: #bbb; display: flex; justify-content: space-between; align-items: center;">
-            <span>4. Content Creation & Promotion</span>
-            <span style="font-size: 10px; color: rgba(255,255,255,0.2);">MODULE 04</span>
+          <span class="tag">GROWTH</span>
+        </div>
+        <div class="mod-card-mini">
+          <div style="display:flex; align-items:center;">
+            <div class="num">04</div>
+            <span class="name">Content & Promotion</span>
           </div>
-          <div style="padding: 12px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; font-size: 13px; font-weight: 600; color: #bbb; display: flex; justify-content: space-between; align-items: center;">
-            <span>5. Earning Lakhs of Rupees</span>
-            <span style="font-size: 10px; color: rgba(255,255,255,0.2);">MODULE 05</span>
+          <span class="tag">SALES</span>
+        </div>
+        <div class="mod-card-mini">
+          <div style="display:flex; align-items:center;">
+            <div class="num">05</div>
+            <span class="name">Earning Lakhs of Rupees</span>
           </div>
-          <div style="padding: 12px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; font-size: 13px; font-weight: 600; color: #bbb; display: flex; justify-content: space-between; align-items: center;">
-            <span>6. Next Steps & Action Plan</span>
-            <span style="font-size: 10px; color: rgba(255,255,255,0.2);">MODULE 06</span>
+          <span class="tag">PROFIT</span>
+        </div>
+        <div class="mod-card-mini">
+          <div style="display:flex; align-items:center;">
+            <div class="num">06</div>
+            <span class="name">Next Steps & Action Plan</span>
           </div>
+          <span class="tag">SCALE</span>
         </div>
       </div>
 
-      <!-- Right Column: Specific Benefits -->
+      <!-- Right Column: Benefits -->
       <div>
-        <h4 style="font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 1px;">
-          <span style="color: #22c55e;">✨</span> Exclusive Benefits
+        <h4 class="bd-col-title">
+          <span style="font-size: 20px;">⚡</span> Core Benefits
         </h4>
-        <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
-          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(34, 197, 94, 0.04); border: 1px solid rgba(34, 197, 94, 0.1); border-radius: 10px;">
-            <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e; color: #000; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; font-weight: 900;">✓</div>
-            <span style="font-size: 13px; font-weight: 700; color: #e5e7eb;">Step by step affiliate marketing training</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(34, 197, 94, 0.04); border: 1px solid rgba(34, 197, 94, 0.1); border-radius: 10px;">
-            <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e; color: #000; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; font-weight: 900;">✓</div>
-            <span style="font-size: 13px; font-weight: 700; color: #e5e7eb;">Easy product selling methods (Meesho & Wishlink)</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(34, 197, 94, 0.04); border: 1px solid rgba(34, 197, 94, 0.1); border-radius: 10px;">
-            <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e; color: #000; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; font-weight: 900;">✓</div>
-            <span style="font-size: 13px; font-weight: 700; color: #e5e7eb;">Easy payment method</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(34, 197, 94, 0.04); border: 1px solid rgba(34, 197, 94, 0.1); border-radius: 10px;">
-            <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e; color: #000; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; font-weight: 900;">✓</div>
-            <span style="font-size: 13px; font-weight: 700; color: #e5e7eb;">Lifetime access of the course</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(34, 197, 94, 0.04); border: 1px solid rgba(34, 197, 94, 0.1); border-radius: 10px;">
-            <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e; color: #000; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; font-weight: 900;">✓</div>
-            <span style="font-size: 13px; font-weight: 700; color: #e5e7eb;">Learn Anytime & Anywhere</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(34, 197, 94, 0.04); border: 1px solid rgba(34, 197, 94, 0.1); border-radius: 10px;">
-            <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e; color: #000; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; font-weight: 900;">✓</div>
-            <span style="font-size: 13px; font-weight: 700; color: #e5e7eb;">Support guidance included</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(34, 197, 94, 0.04); border: 1px solid rgba(34, 197, 94, 0.1); border-radius: 10px;">
-            <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e; color: #000; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; font-weight: 900;">✓</div>
-            <span style="font-size: 13px; font-weight: 700; color: #e5e7eb;">Guarantee best pricing from the market</span>
-          </div>
+        <div class="ben-row">
+          <div class="ben-tick">✓</div>
+          <span class="ben-text">Step by step affiliate training</span>
+        </div>
+        <div class="ben-row">
+          <div class="ben-tick">✓</div>
+          <span class="ben-text">Meesho & Wishlink Methods</span>
+        </div>
+        <div class="ben-row">
+          <div class="ben-tick">✓</div>
+          <span class="ben-text">Easy Payment Methods</span>
+        </div>
+        <div class="ben-row">
+          <div class="ben-tick">✓</div>
+          <span class="ben-text">Lifetime Course Access</span>
+        </div>
+        <div class="ben-row">
+          <div class="ben-tick">✓</div>
+          <span class="ben-text">Learn Anytime & Anywhere</span>
+        </div>
+        <div class="ben-row">
+          <div class="ben-tick">✓</div>
+          <span class="ben-text">Direct Support Guidance</span>
+        </div>
+        <div class="ben-row">
+          <div class="ben-tick">✓</div>
+          <span class="ben-text">Best Market Pricing Guarantee</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
