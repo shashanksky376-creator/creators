@@ -61,7 +61,7 @@
     const isValidSession = await validateActiveSession(email);
     if (!isValidSession) {
       console.error("Session invalid for:", email);
-      // Redirect happens inside validateActiveSession -> signOut
+      await signOut("multi_device");
       return;
     }
   }
@@ -77,7 +77,8 @@
   setInterval(async () => {
     const valid = await validateActiveSession(email);
     if (!valid) {
-      window.location.href = "/index.html?reason=session_expired";
+      // Trigger sign out with specific reason for better UI feedback
+      await signOut("session_expired");
     }
   }, 60000);
 

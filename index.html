@@ -30,12 +30,21 @@
     try {
       const session = await getSession();
       if (session && session.user) {
-        // Only redirect if they aren't trying to browse the landing page intentionally
-        // and we are CERTAIN they are enrolled
+        // Silent validation check
+        const valid = await validateActiveSession(session.user.email);
+        if (!valid) {
+          // Instead of redirecting to index?reason=multi_device (which loop)
+          // we just clear the local specific keys so they can re-login
+          const cleanEmail = session.user.email.toLowerCase().trim();
+          localStorage.removeItem(`af_pro_session_${cleanEmail}`);
+          localStorage.removeItem("affiliate_pro_last_user");
+          console.warn("Stale session detected on home page - cleared locally.");
+          return;
+        }
+
         const enrollment = await checkEnrollment(session.user.email);
         if (enrollment && !window.location.search.includes('stay')) {
-          const valid = await validateActiveSession(session.user.email);
-          if (valid) window.location.href = "dashboard.html";
+          window.location.href = "dashboard.html";
         }
       }
     } catch(e) {}
@@ -234,6 +243,33 @@
       header.classList.remove('scrolled');
     }
   });
+
+  // Handle Session Feedback Banner
+  (() => {
+    const params = new URLSearchParams(window.location.search);
+    const reason = params.get("reason");
+    if (reason === "multi_device" || reason === "session_expired") {
+      const banner = document.createElement('div');
+      banner.className = 'fixed top-24 left-1/2 -translate-x-1/2 z-[2000] w-[90%] max-w-md bg-amber-500/10 backdrop-blur-xl border border-amber-500/20 p-4 rounded-2xl flex items-center gap-3 animate-bounce-short';
+      banner.innerHTML = `
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-500 shrink-0">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <div>
+          <p class="text-[11px] font-black text-amber-500 uppercase tracking-widest leading-none mb-1">Session Changed</p>
+          <p class="text-[10px] text-gray-300 font-medium">You were signed out because a new login was detected on another device.</p>
+        </div>
+        <button onclick="this.parentElement.remove()" class="ml-auto text-gray-500 hover:text-white">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      `;
+      document.body.appendChild(banner);
+      
+      // Clear URL without refresh
+      const newUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+    }
+  })();
 </script>
 
 <!-- 1. Headline (Hero) -->

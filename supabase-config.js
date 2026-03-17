@@ -152,7 +152,8 @@ async function validateActiveSession(email) {
         local: localToken,
         time: new Date().toLocaleTimeString()
       });
-      await signOut("multi_device");
+      // We no longer trigger signOut directly here to avoid race conditions. 
+      // The calling guard will handle the redirect.
       return false;
     }
 
@@ -213,10 +214,14 @@ async function signOut(reason = "") {
   const client = initSupabase();
   
   // Get current user to clear their specific token
-  const { data: { user } } = await client.auth.getUser();
-  if (user && user.email) {
-    const cleanEmail = user.email.toLowerCase().trim();
-    localStorage.removeItem(`af_pro_session_${cleanEmail}`);
+  try {
+    const { data: { user } } = await client.auth.getUser();
+    if (user && user.email) {
+      const cleanEmail = user.email.toLowerCase().trim();
+      localStorage.removeItem(`af_pro_session_${cleanEmail}`);
+    }
+  } catch (e) {
+    console.warn("SignOut: Could not get user email, clearing global keys only.");
   }
   
   localStorage.removeItem("affiliate_pro_last_user");
