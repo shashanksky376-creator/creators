@@ -921,72 +921,55 @@ footer p{font-size:12.5px;color:var(--muted);}
     <div class="proof-outer">
       <div class="proof-track-wrap">
         <div class="proof-track" id="proofTrack">
-          <!-- Card 1 -->
+          <!-- Card 1 (was Card 2) -->
           <div class="proof-card-img act-slide">
             <div class="pci-header">
               <div class="pci-avatar">S</div>
               <div>
-                <div class="pci-title">Direct Bank Payout</div>
-                <div class="pci-sub">Verified March 2026</div>
+                <div class="pci-title">Ordered Commissions</div>
+                <div class="pci-sub">Sales & Insights</div>
               </div>
             </div>
             <div class="pci-body">
-              <img src="assets/proofs/earning1.png" alt="Earning Proof 1">
+              <img src="assets/proofs/earning2.png" alt="Earning Proof 1">
             </div>
             <div class="pci-footer">
-              <div class="pci-amount">₹42,500.00</div>
-              <div class="pci-label">Commission Credited</div>
+              <div class="pci-amount">₹13.1L</div>
+              <div class="pci-label">Ordered Commissions</div>
             </div>
           </div>
-          <!-- Card 2 -->
+          <!-- Card 2 (was Card 3) -->
           <div class="proof-card-img">
             <div class="pci-header">
-              <div class="pci-avatar">R</div>
+              <div class="pci-avatar">P</div>
               <div>
-                <div class="pci-title">Rewards Achievement</div>
-                <div class="pci-sub">Lifetime Milestone</div>
+                <div class="pci-title">Performance Overview</div>
+                <div class="pci-sub">90-Day Total</div>
               </div>
             </div>
             <div class="pci-body">
-              <img src="assets/proofs/earning2.png" alt="Earning Proof 2">
+              <img src="assets/proofs/earning3.png" alt="Earning Proof 2">
             </div>
             <div class="pci-footer">
-              <div class="pci-amount">₹1,15,480.00</div>
-              <div class="pci-label">Total Rewards Earned</div>
+              <div class="pci-amount">₹7,96,984</div>
+              <div class="pci-label">Total Commissions</div>
             </div>
           </div>
-          <!-- Card 3 -->
-          <div class="proof-card-img">
-            <div class="pci-header">
-              <div class="pci-avatar">D</div>
-              <div>
-                <div class="pci-title">Dashboard Earnings</div>
-                <div class="pci-sub">90-Day Passive Growth</div>
-              </div>
-            </div>
-            <div class="pci-body">
-              <img src="assets/proofs/earning3.png" alt="Earning Proof 3">
-            </div>
-            <div class="pci-footer">
-              <div class="pci-amount">₹88,250.00</div>
-              <div class="pci-label">Verified Payout</div>
-            </div>
-          </div>
-          <!-- Card 4 -->
+          <!-- Card 3 (was Card 4) -->
           <div class="proof-card-img">
             <div class="pci-header">
               <div class="pci-avatar">A</div>
               <div>
-                <div class="pci-title">Affiliate Bonus</div>
-                <div class="pci-sub">Performance Rewards</div>
+                <div class="pci-title">Monthly Payouts</div>
+                <div class="pci-sub">30-Day Performance</div>
               </div>
             </div>
             <div class="pci-body">
-              <img src="assets/proofs/earning4.png" alt="Earning Proof 4">
+              <img src="assets/proofs/earning4.png" alt="Earning Proof 3">
             </div>
             <div class="pci-footer">
-              <div class="pci-amount">₹2,15,000.00</div>
-              <div class="pci-label">Lifetime Earnings</div>
+              <div class="pci-amount">₹4,95,057</div>
+              <div class="pci-label">Total Commissions</div>
             </div>
           </div>
         </div>
@@ -996,7 +979,6 @@ footer p{font-size:12.5px;color:var(--muted);}
           <div class="cdot act" onclick="goProof(0)"></div>
           <div class="cdot" onclick="goProof(1)"></div>
           <div class="cdot" onclick="goProof(2)"></div>
-          <div class="cdot" onclick="goProof(3)"></div>
         </div>
         <div class="car-arrows">
           <button class="c-arr" onclick="proofPrev()">←</button>
@@ -1416,7 +1398,7 @@ footer p{font-size:12.5px;color:var(--muted);}
 function gotoSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
 
 /* ── CAROUSEL LOGIC (Earning Proof) ── */
-const TOTAL_SLIDES = 4, SHOW_DESKTOP = 3;
+const TOTAL_SLIDES = 3, SHOW_DESKTOP = 3;
 let pIdx = 0, pTimer;
 
 function getSlideW(){
