@@ -921,24 +921,41 @@ footer p{font-size:12.5px;color:var(--muted);}
     <div class="proof-outer">
       <div class="proof-track-wrap">
         <div class="proof-track" id="proofTrack">
-          <!-- Card 1 (was Card 2) -->
+          <!-- Card 1 (New) -->
           <div class="proof-card-img act-slide">
             <div class="pci-header">
               <div class="pci-avatar">S</div>
+              <div>
+                <div class="pci-title">Weekly Performance</div>
+                <div class="pci-sub">Last 7 Days Verified</div>
+              </div>
+            </div>
+            <div class="pci-body">
+              <img src="assets/proofs/earning1.png" alt="Earning Proof 1">
+            </div>
+            <div class="pci-footer">
+              <div class="pci-amount">₹2,04,352</div>
+              <div class="pci-label">Total Commissions</div>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="proof-card-img">
+            <div class="pci-header">
+              <div class="pci-avatar">R</div>
               <div>
                 <div class="pci-title">Ordered Commissions</div>
                 <div class="pci-sub">Sales & Insights</div>
               </div>
             </div>
             <div class="pci-body">
-              <img src="assets/proofs/earning2.png" alt="Earning Proof 1">
+              <img src="assets/proofs/earning2.png" alt="Earning Proof 2">
             </div>
             <div class="pci-footer">
               <div class="pci-amount">₹13.1L</div>
               <div class="pci-label">Ordered Commissions</div>
             </div>
           </div>
-          <!-- Card 2 (was Card 3) -->
+          <!-- Card 3 -->
           <div class="proof-card-img">
             <div class="pci-header">
               <div class="pci-avatar">P</div>
@@ -948,14 +965,14 @@ footer p{font-size:12.5px;color:var(--muted);}
               </div>
             </div>
             <div class="pci-body">
-              <img src="assets/proofs/earning3.png" alt="Earning Proof 2">
+              <img src="assets/proofs/earning3.png" alt="Earning Proof 3">
             </div>
             <div class="pci-footer">
               <div class="pci-amount">₹7,96,984</div>
               <div class="pci-label">Total Commissions</div>
             </div>
           </div>
-          <!-- Card 3 (was Card 4) -->
+          <!-- Card 4 -->
           <div class="proof-card-img">
             <div class="pci-header">
               <div class="pci-avatar">A</div>
@@ -965,7 +982,7 @@ footer p{font-size:12.5px;color:var(--muted);}
               </div>
             </div>
             <div class="pci-body">
-              <img src="assets/proofs/earning4.png" alt="Earning Proof 3">
+              <img src="assets/proofs/earning4.png" alt="Earning Proof 4">
             </div>
             <div class="pci-footer">
               <div class="pci-amount">₹4,95,057</div>
@@ -979,6 +996,7 @@ footer p{font-size:12.5px;color:var(--muted);}
           <div class="cdot act" onclick="goProof(0)"></div>
           <div class="cdot" onclick="goProof(1)"></div>
           <div class="cdot" onclick="goProof(2)"></div>
+          <div class="cdot" onclick="goProof(3)"></div>
         </div>
         <div class="car-arrows">
           <button class="c-arr" onclick="proofPrev()">←</button>
@@ -1398,7 +1416,7 @@ footer p{font-size:12.5px;color:var(--muted);}
 function gotoSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
 
 /* ── CAROUSEL LOGIC (Earning Proof) ── */
-const TOTAL_SLIDES = 3, SHOW_DESKTOP = 3;
+const TOTAL_SLIDES = 4, SHOW_DESKTOP = 3;
 let pIdx = 0, pTimer;
 
 function getSlideW(){
