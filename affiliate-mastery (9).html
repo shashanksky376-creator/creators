@@ -129,6 +129,79 @@ nav{display:none;}
 .pb { flex: 1; background: rgba(255,255,255,0.05); border-radius: 2px; transition: 0.3s; }
 .pb.h { background: var(--red); }
 
+/* ADS CARD FOR PROOFS */
+.proof-card-img {
+  flex: 0 0 320px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: all 0.5s;
+  opacity: 0.4;
+  transform: scale(0.9);
+  display: flex;
+  flex-direction: column;
+}
+.proof-card-img.act-slide {
+  opacity: 1;
+  transform: scale(1.1);
+  border-color: var(--red);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+.pci-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.pci-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 900;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.pci-title { font-size: 13px; font-weight: 700; color: #fff; }
+.pci-sub { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.pci-body {
+  flex-grow: 1;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 240px;
+}
+.pci-body img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.pci-footer {
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.02);
+}
+.pci-amount {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: var(--red);
+  line-height: 1;
+}
+.pci-label {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
 .car-controls { display: flex; align-items: center; justify-content: center; gap: 32px; margin-top: 40px; }
 .car-dots { display: flex; gap: 8px; }
 .cdot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; }
@@ -441,18 +514,20 @@ footer p{font-size:12.5px;color:var(--muted);}
 /* MY WORK SECTION */
 .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
 .work-card { background: var(--dark3); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; position: relative; }
-.work-card:hover { transform: translateY(-10px); border-color: rgba(224, 28, 28, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-.wc-img { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #1a1a1a, #0a0a0a); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
-.wc-img i { font-size: 64px; color: var(--red); opacity: 0.8; transition: 0.4s; }
-.work-card:hover .wc-img i { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 15px rgba(224, 28, 28, 0.4)); }
+.work-card:hover { transform: translateY(-10px); border-color: rgba(56, 151, 240, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+.wc-img img { filter: grayscale(0) saturate(1); transition: 0.4s; }
+.work-card:hover .wc-img img { filter: saturate(1.2); }
+.wc-img { width: 100%; aspect-ratio: 16/9; background: #000; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
+.wc-img i { font-size: 64px; color: #3897f0; opacity: 0.8; transition: 0.4s; }
+.work-card:hover .wc-img i { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 15px rgba(56, 151, 240, 0.4)); }
 .wc-content { padding: 24px; flex-grow: 1; display: flex; flex-direction: column; }
-.wc-label { font-size: 11px; color: var(--red); font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; opacity: 0.8; }
+.wc-label { font-size: 11px; color: #3897f0; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; opacity: 0.8; }
 .wc-title { font-size: 20px; font-weight: 700; margin-bottom: 14px; line-height: 1.3; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; color: #fff; }
 .wc-stats { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); margin-bottom: 20px; }
 .wc-stats span { display: flex; align-items: center; gap: 8px; }
-.wc-stats span::before { content: '•'; color: var(--red); }
-.wc-link { display: inline-flex; align-items: center; gap: 8px; color: #fff; font-size: 14px; font-weight: 700; text-decoration: none; transition: 0.3s; margin-top: auto; }
-.wc-link:hover { color: var(--red); }
+.wc-stats span::before { content: '•'; color: #3897f0; }
+.wc-link { display: inline-flex; align-items: center; gap: 8px; color: #3897f0; font-size: 14px; font-weight: 700; text-decoration: none; transition: 0.3s; margin-top: auto; }
+.wc-link:hover { color: #fff; text-decoration: underline; }
 .wc-link span { transition: 0.3s; }
 .wc-link:hover span { transform: translateX(5px); }
 
@@ -846,47 +921,73 @@ footer p{font-size:12.5px;color:var(--muted);}
     <div class="proof-outer">
       <div class="proof-track-wrap">
         <div class="proof-track" id="proofTrack">
-          <div class="proof-slide act-slide">
-            <div class="ps-badge">Affiliate Income</div>
-            <div class="ps-amount">₹17,88,004</div>
-            <div class="ps-sub">Total Affiliate Earnings Lifetime</div>
-            <div class="ps-info">Top Earner Proof via Platform Dashboard<br><span style="color:var(--green)">Sreekumar: ₹23.6L · Mohamed: ₹30.7L</span></div>
-            <div class="ps-bars"><div class="pb" style="height:30%"></div><div class="pb" style="height:42%"></div><div class="pb h" style="height:62%"></div><div class="pb h" style="height:78%"></div><div class="pb h" style="height:92%"></div><div class="pb h" style="height:100%"></div></div>
+          <!-- Card 1 -->
+          <div class="proof-card-img act-slide">
+            <div class="pci-header">
+              <div class="pci-avatar">S</div>
+              <div>
+                <div class="pci-title">Direct Bank Payout</div>
+                <div class="pci-sub">Verified March 2026</div>
+              </div>
+            </div>
+            <div class="pci-body">
+              <img src="assets/proofs/earning1.png" alt="Earning Proof 1">
+            </div>
+            <div class="pci-footer">
+              <div class="pci-amount">₹42,500.00</div>
+              <div class="pci-label">Commission Credited</div>
+            </div>
           </div>
-          <div class="proof-slide">
-            <div class="ps-badge">YouTube AdSense</div>
-            <div class="ps-amount">$6,785.11</div>
-            <div class="ps-sub">Estimated Revenue Since Published</div>
-            <div class="ps-info"><span style="color:var(--green)">Views: 412.8K · Watch: 206.5K hrs</span><br>Subscribers: +4.3K · Sun Nov 9 $832</div>
-            <div class="ps-bars"><div class="pb" style="height:20%"></div><div class="pb" style="height:33%"></div><div class="pb h" style="height:55%"></div><div class="pb h" style="height:72%"></div><div class="pb h" style="height:88%"></div><div class="pb h" style="height:100%"></div></div>
+          <!-- Card 2 -->
+          <div class="proof-card-img">
+            <div class="pci-header">
+              <div class="pci-avatar">R</div>
+              <div>
+                <div class="pci-title">Rewards Achievement</div>
+                <div class="pci-sub">Lifetime Milestone</div>
+              </div>
+            </div>
+            <div class="pci-body">
+              <img src="assets/proofs/earning2.png" alt="Earning Proof 2">
+            </div>
+            <div class="pci-footer">
+              <div class="pci-amount">₹1,15,480.00</div>
+              <div class="pci-label">Total Rewards Earned</div>
+            </div>
           </div>
-          <div class="proof-slide">
-            <div class="ps-badge">Rewards — Account 1</div>
-            <div class="ps-amount">₹2,34,250</div>
-            <div class="ps-sub">Total Lifetime Rewards</div>
-            <div class="ps-info"><span style="color:var(--green)">2,161 Received · 104 In Progress</span><br>76 In Progress · 1,879 Received</div>
-            <div class="ps-bars"><div class="pb" style="height:38%"></div><div class="pb h" style="height:55%"></div><div class="pb h" style="height:68%"></div><div class="pb h" style="height:80%"></div><div class="pb h" style="height:93%"></div><div class="pb h" style="height:100%"></div></div>
+          <!-- Card 3 -->
+          <div class="proof-card-img">
+            <div class="pci-header">
+              <div class="pci-avatar">D</div>
+              <div>
+                <div class="pci-title">Dashboard Earnings</div>
+                <div class="pci-sub">90-Day Passive Growth</div>
+              </div>
+            </div>
+            <div class="pci-body">
+              <img src="assets/proofs/earning3.png" alt="Earning Proof 3">
+            </div>
+            <div class="pci-footer">
+              <div class="pci-amount">₹88,250.00</div>
+              <div class="pci-label">Verified Payout</div>
+            </div>
           </div>
-          <div class="proof-slide">
-            <div class="ps-badge">Rewards — Account 2</div>
-            <div class="ps-amount">₹2,06,050</div>
-            <div class="ps-sub">Secondary Affiliate Rewards Account</div>
-            <div class="ps-info"><span style="color:var(--green)">Multiple active campaigns</span><br>Consistent monthly payouts</div>
-            <div class="ps-bars"><div class="pb" style="height:25%"></div><div class="pb" style="height:40%"></div><div class="pb h" style="height:58%"></div><div class="pb h" style="height:75%"></div><div class="pb h" style="height:90%"></div><div class="pb h" style="height:100%"></div></div>
-          </div>
-          <div class="proof-slide">
-            <div class="ps-badge">Google AdSense</div>
-            <div class="ps-amount">$3,913.87</div>
-            <div class="ps-sub">Estimated Revenue — 90 Days Window</div>
-            <div class="ps-info">Since Published · Previous 2 days processing<br><span style="color:var(--green)">Channel verified & monetized</span></div>
-            <div class="ps-bars"><div class="pb" style="height:18%"></div><div class="pb" style="height:30%"></div><div class="pb h" style="height:52%"></div><div class="pb h" style="height:68%"></div><div class="pb h" style="height:84%"></div><div class="pb h" style="height:100%"></div></div>
-          </div>
-          <div class="proof-slide">
-            <div class="ps-badge">2nd Channel Revenue</div>
-            <div class="ps-amount">$1,157.67</div>
-            <div class="ps-sub">Estimated Revenue — Second Channel</div>
-            <div class="ps-info">Multiple channels · Multiple income streams<br><span style="color:var(--green)">Diversified affiliate portfolio</span></div>
-            <div class="ps-bars"><div class="pb" style="height:22%"></div><div class="pb" style="height:35%"></div><div class="pb" style="height:48%"></div><div class="pb h" style="height:65%"></div><div class="pb h" style="height:82%"></div><div class="pb h" style="height:100%"></div></div>
+          <!-- Card 4 -->
+          <div class="proof-card-img">
+            <div class="pci-header">
+              <div class="pci-avatar">A</div>
+              <div>
+                <div class="pci-title">Affiliate Bonus</div>
+                <div class="pci-sub">Performance Rewards</div>
+              </div>
+            </div>
+            <div class="pci-body">
+              <img src="assets/proofs/earning4.png" alt="Earning Proof 4">
+            </div>
+            <div class="pci-footer">
+              <div class="pci-amount">₹2,15,000.00</div>
+              <div class="pci-label">Lifetime Earnings</div>
+            </div>
           </div>
         </div>
       </div>
@@ -902,6 +1003,7 @@ footer p{font-size:12.5px;color:var(--muted);}
           <button class="c-arr" onclick="proofNext()">→</button>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -1314,12 +1416,12 @@ footer p{font-size:12.5px;color:var(--muted);}
 function gotoSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
 
 /* ── CAROUSEL LOGIC (Earning Proof) ── */
-const TOTAL_SLIDES = 6, SHOW_DESKTOP = 3;
+const TOTAL_SLIDES = 4, SHOW_DESKTOP = 3;
 let pIdx = 0, pTimer;
 
 function getSlideW(){
   const track = document.getElementById('proofTrack');
-  const slide = track ? track.querySelector('.proof-slide') : null;
+  const slide = track ? track.querySelector('.proof-card-img') : null;
   return slide ? slide.offsetWidth + 24 : 0;
 }
 
@@ -1337,7 +1439,7 @@ function renderProof(){
   const offset = (trackOuterWidth / 2) - (slideWidth / 2) - (pIdx * slideWidth);
   
   track.style.transform = `translateX(${offset}px)`;
-  track.querySelectorAll('.proof-slide').forEach((s,i) => s.classList.toggle('act-slide', i === pIdx));
+  track.querySelectorAll('.proof-card-img').forEach((s,i) => s.classList.toggle('act-slide', i === pIdx));
   document.querySelectorAll('#proofDots .cdot').forEach((d,i) => d.classList.toggle('act', i === pIdx));
 }
 

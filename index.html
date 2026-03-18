@@ -178,6 +178,56 @@
   .trailer-wrap { max-width: 940px; margin: 48px auto 0; border: 1.5px solid rgba(224,28,28,0.25); border-radius: 20px; overflow: hidden; position: relative; aspect-ratio: 16/9; cursor: pointer; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg,#180000,#0a0a0a); }
   .trailer-wrap:hover .play-circle { transform: scale(1.12); }
   .play-circle { width: 86px; height: 86px; background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); transition: .3s; z-index: 3; }
+
+  /* INSTAGRAM CARD */
+  .shashank-card { background: #1a1a1a; border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden; transition: all 0.4s; }
+  .shashank-card:hover { transform: translateY(-8px); border-color: rgba(56, 151, 240, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+  .shashank-card img { filter: grayscale(0); transition: 0.5s; }
+  .shashank-card:hover img { filter: saturate(1.2); }
+  .shashank-card .text-blue-400 { color: #3897f0; } /* Instagram Blue */
+  .shashank-card .text-blue-500 { color: #3897f0; }
+
+  /* EARNING PROOF CAROUSEL */
+  .proof-outer { position: relative; margin-top: 48px; }
+  .proof-track-wrap { overflow: hidden; padding: 40px 0; }
+  .proof-track { display: flex; gap: 24px; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+  .proof-card-img {
+    flex: 0 0 320px;
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.5s;
+    opacity: 0.4;
+    transform: scale(0.9);
+    display: flex;
+    flex-direction: column;
+  }
+  .proof-card-img.act-slide {
+    opacity: 1;
+    transform: scale(1.1);
+    border-color: var(--red);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  }
+  .pci-header { padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .pci-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 14px; flex-shrink: 0; }
+  .pci-title { font-size: 13px; font-weight: 700; color: #fff; }
+  .pci-sub { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+  .pci-body { flex-grow: 1; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 240px; }
+  .pci-body img { width: 100%; height: 100%; object-fit: contain; }
+  .pci-footer { padding: 16px 20px; background: rgba(255,255,255,0.02); }
+  .pci-amount { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--red); line-height: 1; }
+  .pci-label { font-size: 11px; color: #999; margin-top: 2px; text-transform: uppercase; font-weight: 700; }
+
+  .car-controls { display: flex; align-items: center; justify-content: center; gap: 32px; margin-top: 20px; }
+  .cdot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; }
+  .cdot.act { background: var(--red); width: 24px; border-radius: 4px; }
+  .c-arr { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: #fff; font-size: 18px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+  .c-arr:hover { background: var(--red); border-color: var(--red); transform: scale(1.05); }
+  
+  @media (max-width: 900px) {
+    .proof-card-img { flex: 0 0 280px; }
+  }
 </style>
 </head>
 <body class="font-sans antialiased text-white">
@@ -590,6 +640,107 @@
   </div>
 </section>
 
+<!-- Earning Proof Section -->
+<section class="py-24 border-t border-white/5 bg-[#0f0f0f] overflow-hidden" id="results">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <span class="text-red-600 text-xs font-black tracking-[0.3em] uppercase mb-4 inline-block">Real Results</span>
+      <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tight">Earning <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-800">Proof</span></h2>
+      <p class="text-gray-400 mt-4 max-w-2xl mx-auto font-medium">Verified screenshots and real payouts from our affiliate systems.</p>
+    </div>
+
+    <div class="proof-outer">
+      <div class="proof-track-wrap">
+        <div class="proof-track" id="proofTrack">
+          <!-- Card 1 -->
+          <div class="proof-card-img act-slide">
+            <div class="pci-header">
+              <div class="pci-avatar">S</div>
+              <div>
+                <div class="pci-title">Direct Bank Payout</div>
+                <div class="pci-sub">Verified March 2026</div>
+              </div>
+            </div>
+            <div class="pci-body">
+              <img src="assets/proofs/earning1.png" alt="Earning Proof 1">
+            </div>
+            <div class="pci-footer">
+              <div class="pci-amount">₹42,500.00</div>
+              <div class="pci-label">Commission Credited</div>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="proof-card-img">
+            <div class="pci-header">
+              <div class="pci-avatar">R</div>
+              <div>
+                <div class="pci-title">Rewards Achievement</div>
+                <div class="pci-sub">Lifetime Milestone</div>
+              </div>
+            </div>
+            <div class="pci-body">
+              <img src="assets/proofs/earning2.png" alt="Earning Proof 2">
+            </div>
+            <div class="pci-footer">
+              <div class="pci-amount">₹1,15,480.00</div>
+              <div class="pci-label">Total Rewards Earned</div>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="proof-card-img">
+            <div class="pci-header">
+              <div class="pci-avatar">D</div>
+              <div>
+                <div class="pci-title">Dashboard Earnings</div>
+                <div class="pci-sub">90-Day Passive Growth</div>
+              </div>
+            </div>
+            <div class="pci-body">
+              <img src="assets/proofs/earning3.png" alt="Earning Proof 3">
+            </div>
+            <div class="pci-footer">
+              <div class="pci-amount">₹88,250.00</div>
+              <div class="pci-label">Verified Payout</div>
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div class="proof-card-img">
+            <div class="pci-header">
+              <div class="pci-avatar">A</div>
+              <div>
+                <div class="pci-title">Affiliate Bonus</div>
+                <div class="pci-sub">Performance Rewards</div>
+              </div>
+            </div>
+            <div class="pci-body">
+              <img src="assets/proofs/earning4.png" alt="Earning Proof 4">
+            </div>
+            <div class="pci-footer">
+              <div class="pci-amount">₹2,15,000.00</div>
+              <div class="pci-label">Lifetime Earnings</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-controls">
+        <div class="flex items-center gap-8">
+          <div class="flex gap-2" id="proofDots">
+            <div class="cdot act" onclick="goProof(0)"></div>
+            <div class="cdot" onclick="goProof(1)"></div>
+            <div class="cdot" onclick="goProof(2)"></div>
+            <div class="cdot" onclick="goProof(3)"></div>
+          </div>
+          <div class="flex gap-3">
+            <button class="c-arr" onclick="proofPrev()">←</button>
+            <button class="c-arr" onclick="proofNext()">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 8. Footer -->
 <footer class="bg-[#0a0a0a] border-t border-white/5 relative z-10">
   <!-- Top Footer -->
@@ -749,9 +900,51 @@
       updateNavbarForMembers();
     }
   };
-  window.onresize = function() {
 
-  };
+  /* ── CAROUSEL LOGIC (Earning Proof) ── */
+  const TOTAL_SLIDES = 4, SHOW_DESKTOP = 3;
+  let pIdx = 0;
+
+  function getSlideW(){
+    const track = document.getElementById('proofTrack');
+    const slide = track ? track.querySelector('.proof-card-img') : null;
+    return slide ? slide.offsetWidth + 24 : 0;
+  }
+
+  function renderProof(){
+    const track = document.getElementById('proofTrack');
+    if(!track) return;
+    
+    const isMobile = window.innerWidth <= 900;
+    const max = isMobile ? TOTAL_SLIDES - 1 : TOTAL_SLIDES - SHOW_DESKTOP;
+    pIdx = Math.max(0, Math.min(pIdx, max));
+    
+    const slideWidth = getSlideW();
+    const trackOuterWidth = track.parentElement.offsetWidth;
+    const offset = (trackOuterWidth / 2) - (slideWidth / 2) - (pIdx * slideWidth);
+    
+    track.style.transform = `translateX(${offset}px)`;
+    track.querySelectorAll('.proof-card-img').forEach((s,i) => s.classList.toggle('act-slide', i === pIdx));
+    document.querySelectorAll('#proofDots .cdot').forEach((d,i) => d.classList.toggle('act', i === pIdx));
+  }
+
+  function proofNext(){
+    const isMobile = window.innerWidth <= 900;
+    const max = isMobile ? TOTAL_SLIDES - 1 : TOTAL_SLIDES - SHOW_DESKTOP;
+    pIdx = (pIdx + 1) > max ? 0 : pIdx + 1; 
+    renderProof();
+  }
+  function proofPrev(){
+    const isMobile = window.innerWidth <= 900;
+    const max = isMobile ? TOTAL_SLIDES - 1 : TOTAL_SLIDES - SHOW_DESKTOP;
+    pIdx = (pIdx - 1) < 0 ? max : pIdx - 1; 
+    renderProof();
+  }
+  function goProof(i){ pIdx = i; renderProof(); }
+
+  window.addEventListener('resize', renderProof);
+  // Initialize proof carousel after a short delay to ensure layout is ready
+  setTimeout(renderProof, 100);
 </script>
 
 </body>
