@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html class="dark" lang="en" style="scroll-behavior: smooth;">
+<html class="dark" lang="en" style="scroll-behavior: smooth; scroll-padding-top: 100px;">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
 <title>Affiliate Marketing Mastery | Shashank</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
@@ -209,13 +209,19 @@
   }
   /* Card 1 full-image */
   .proof-card-img.full-img-card {
-    background: #000;
+    background: #fff;
+    padding: 0;
+    max-height: 480px;
+    align-items: center;
+    justify-content: flex-start;
   }
   .proof-card-img.full-img-card .pci-full-img {
     width: 100%;
-    display: block;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;
+    object-position: top;
     border-radius: 24px;
+    background: #fff;
   }
   .pci-header { padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
   .pci-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 14px; flex-shrink: 0; }

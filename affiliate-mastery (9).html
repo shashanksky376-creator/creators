@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>Affiliate Marketing Mastery – Affiliate PRO</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet"/>
 <style>
 :root{--red:#e01c1c;--red-dark:#b01515;--dark:#080808;--dark2:#101010;--dark3:#181818;--dark4:#202020;--text:#ffffff;--muted:#999;--green:#22c55e;--gold:#f59e0b;}
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth; scroll-padding-top: 100px;}
 body{background:var(--dark);color:var(--text);font-family:'Poppins',sans-serif;overflow-x:hidden;}
 
 nav{display:none;}
@@ -555,8 +555,21 @@ footer p{font-size:12.5px;color:var(--muted);}
 .lt-banner svg { color: var(--red); }
 
 /* Full-image card for earning1 proof */
-.proof-card-img.full-img-card { background: #000; }
-.proof-card-img.full-img-card .pci-full-img { width: 100%; display: block; object-fit: cover; border-radius: 24px; }
+.proof-card-img.full-img-card {
+  background: #fff;
+  padding: 0;
+  max-height: 480px;
+  align-items: center;
+  justify-content: flex-start;
+}
+.proof-card-img.full-img-card .pci-full-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top;
+  border-radius: 24px;
+  background: #fff;
+}
 
 </style>
 </head>
