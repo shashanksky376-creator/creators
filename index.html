@@ -189,44 +189,54 @@
 
   /* EARNING PROOF CAROUSEL */
   .proof-outer { position: relative; margin-top: 48px; }
-  .proof-track-wrap { overflow: hidden; padding: 40px 0; }
-  .proof-track { display: flex; gap: 24px; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+  .proof-track-wrap { overflow: hidden; padding: 40px 20px; }
+  .proof-track { display: flex; gap: 24px; transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }
   .proof-card-img {
-    flex: 0 0 320px;
+    flex: 0 0 300px;
     background: #111;
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 24px;
     overflow: hidden;
-    transition: all 0.5s;
-    opacity: 0.4;
-    transform: scale(0.9);
+    transition: opacity 0.45s, box-shadow 0.45s, border-color 0.45s;
+    opacity: 0.45;
     display: flex;
     flex-direction: column;
   }
   .proof-card-img.act-slide {
     opacity: 1;
-    transform: scale(1.1);
     border-color: var(--red);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    box-shadow: 0 20px 50px rgba(224,28,28,0.35);
+  }
+  /* Card 1 full-image */
+  .proof-card-img.full-img-card {
+    background: #000;
+  }
+  .proof-card-img.full-img-card .pci-full-img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 24px;
   }
   .pci-header { padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
   .pci-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 14px; flex-shrink: 0; }
   .pci-title { font-size: 13px; font-weight: 700; color: #fff; }
   .pci-sub { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 1px; }
-  .pci-body { flex-grow: 1; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 240px; }
+  .pci-body { flex-grow: 1; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 280px; }
   .pci-body img { width: 100%; height: 100%; object-fit: contain; }
   .pci-footer { padding: 16px 20px; background: rgba(255,255,255,0.02); }
   .pci-amount { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--red); line-height: 1; }
   .pci-label { font-size: 11px; color: #999; margin-top: 2px; text-transform: uppercase; font-weight: 700; }
 
-  .car-controls { display: flex; align-items: center; justify-content: center; gap: 32px; margin-top: 20px; }
-  .cdot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; }
+  .car-controls { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 24px; }
+  .cdot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.15); cursor: pointer; transition: 0.3s; flex-shrink: 0; }
   .cdot.act { background: var(--red); width: 24px; border-radius: 4px; }
-  .c-arr { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: #fff; font-size: 18px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
-  .c-arr:hover { background: var(--red); border-color: var(--red); transform: scale(1.05); }
+  .c-arr { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #fff; font-size: 20px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; user-select: none; -webkit-user-select: none; flex-shrink: 0; }
+  .c-arr:hover, .c-arr:active { background: var(--red); border-color: var(--red); transform: scale(1.08); }
   
-  @media (max-width: 900px) {
-    .proof-card-img { flex: 0 0 280px; }
+  @media (max-width: 640px) {
+    .proof-card-img { flex: 0 0 260px; }
+    .proof-track-wrap { padding: 30px 10px; }
+    .c-arr { width: 42px; height: 42px; font-size: 18px; }
   }
 </style>
 </head>
@@ -652,22 +662,9 @@
     <div class="proof-outer">
       <div class="proof-track-wrap">
         <div class="proof-track" id="proofTrack">
-          <!-- Card 1 (New) -->
-          <div class="proof-card-img act-slide">
-            <div class="pci-header">
-              <div class="pci-avatar">S</div>
-              <div>
-                <div class="pci-title">Weekly Performance</div>
-                <div class="pci-sub">Last 7 Days Verified</div>
-              </div>
-            </div>
-            <div class="pci-body">
-              <img src="assets/proofs/earning1.png" alt="Earning Proof 1">
-            </div>
-            <div class="pci-footer">
-              <div class="pci-amount">₹2,04,352</div>
-              <div class="pci-label">Total Commissions</div>
-            </div>
+          <!-- Card 1 (Full Screenshot) -->
+          <div class="proof-card-img full-img-card act-slide">
+            <img src="assets/proofs/earning1.png" alt="Earning Proof 1" class="pci-full-img">
           </div>
           <!-- Card 2 -->
           <div class="proof-card-img">
@@ -902,49 +899,69 @@
   };
 
   /* ── CAROUSEL LOGIC (Earning Proof) ── */
-  const TOTAL_SLIDES = 4, SHOW_DESKTOP = 3;
+  const TOTAL_SLIDES = 4;
   let pIdx = 0;
 
-  function getSlideW(){
+  function getCardWidth() {
     const track = document.getElementById('proofTrack');
-    const slide = track ? track.querySelector('.proof-card-img') : null;
-    return slide ? slide.offsetWidth + 24 : 0;
+    const card = track ? track.querySelector('.proof-card-img') : null;
+    if (!card) return 0;
+    const style = window.getComputedStyle(card);
+    return card.offsetWidth + parseInt(style.marginRight || 0) + 24; // 24 = gap
   }
 
-  function renderProof(){
+  function renderProof() {
     const track = document.getElementById('proofTrack');
-    if(!track) return;
-    
-    const isMobile = window.innerWidth <= 900;
-    const max = isMobile ? TOTAL_SLIDES - 1 : TOTAL_SLIDES - SHOW_DESKTOP;
-    pIdx = Math.max(0, Math.min(pIdx, max));
-    
-    const slideWidth = getSlideW();
-    const trackOuterWidth = track.parentElement.offsetWidth;
-    const offset = (trackOuterWidth / 2) - (slideWidth / 2) - (pIdx * slideWidth);
-    
-    track.style.transform = `translateX(${offset}px)`;
-    track.querySelectorAll('.proof-card-img').forEach((s,i) => s.classList.toggle('act-slide', i === pIdx));
-    document.querySelectorAll('#proofDots .cdot').forEach((d,i) => d.classList.toggle('act', i === pIdx));
+    if (!track) return;
+
+    const wrap = track.parentElement;
+    const wrapW = wrap.offsetWidth;
+    const cardW = getCardWidth();
+
+    // Centre the active card inside the visible area
+    const offset = (wrapW / 2) - (cardW / 2) - (pIdx * cardW);
+
+    // Clamp so we never show blank space on left or right
+    const totalTrackW = TOTAL_SLIDES * cardW - 24; // subtract 1 gap (last card has none)
+    const minOffset = wrapW - totalTrackW - 20; // 20 = padding
+    const clampedOffset = Math.min(20, Math.max(minOffset, offset));
+
+    track.style.transform = `translateX(${clampedOffset}px)`;
+    track.querySelectorAll('.proof-card-img').forEach((s, i) =>
+      s.classList.toggle('act-slide', i === pIdx)
+    );
+    document.querySelectorAll('#proofDots .cdot').forEach((d, i) =>
+      d.classList.toggle('act', i === pIdx)
+    );
   }
 
-  function proofNext(){
-    const isMobile = window.innerWidth <= 900;
-    const max = isMobile ? TOTAL_SLIDES - 1 : TOTAL_SLIDES - SHOW_DESKTOP;
-    pIdx = (pIdx + 1) > max ? 0 : pIdx + 1; 
+  function proofNext() {
+    pIdx = pIdx < TOTAL_SLIDES - 1 ? pIdx + 1 : 0;
     renderProof();
   }
-  function proofPrev(){
-    const isMobile = window.innerWidth <= 900;
-    const max = isMobile ? TOTAL_SLIDES - 1 : TOTAL_SLIDES - SHOW_DESKTOP;
-    pIdx = (pIdx - 1) < 0 ? max : pIdx - 1; 
+  function proofPrev() {
+    pIdx = pIdx > 0 ? pIdx - 1 : TOTAL_SLIDES - 1;
     renderProof();
   }
-  function goProof(i){ pIdx = i; renderProof(); }
+  function goProof(i) { pIdx = i; renderProof(); }
 
-  window.addEventListener('resize', renderProof);
-  // Initialize proof carousel after a short delay to ensure layout is ready
-  setTimeout(renderProof, 100);
+  // Touch/swipe support for mobile
+  (function() {
+    const wrap = document.querySelector('.proof-track-wrap');
+    if (!wrap) return;
+    let startX = 0, isDragging = false;
+    wrap.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; }, { passive: true });
+    wrap.addEventListener('touchend', e => {
+      if (!isDragging) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) { dx < 0 ? proofNext() : proofPrev(); }
+      isDragging = false;
+    }, { passive: true });
+  })();
+
+  window.addEventListener('resize', () => { clearTimeout(window._proofResizeT); window._proofResizeT = setTimeout(renderProof, 80); });
+  // Initialize proof carousel after layout is ready
+  setTimeout(renderProof, 150);
 </script>
 
 </body>
