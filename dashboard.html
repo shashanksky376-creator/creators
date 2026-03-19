@@ -751,7 +751,10 @@
     }
 
     function unlockDashboard() {
-      console.log("🔓 Unlocking premium curriculum...");
+      // Admin Bypass: If user is an admin, we skip safety checks and unlock everything instantly
+      const isAdmin = window.IS_ADMIN === true;
+      if (isAdmin) console.log("👑 Admin detected: Unleashing all modules.");
+
       const performUnlock = () => {
         document.querySelectorAll('.locked').forEach(el => el.classList.remove('locked'));
         document.querySelectorAll('.status-badge').forEach(el => {
@@ -761,7 +764,9 @@
       };
       
       performUnlock();
-      setTimeout(performUnlock, 1000);
+      // Keep trying for 3 seconds to catch any late-rendered elements
+      const retry = setInterval(performUnlock, 500);
+      setTimeout(() => clearInterval(retry), 3000);
     }
 
     // Function to resume last lesson
