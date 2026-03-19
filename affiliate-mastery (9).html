@@ -1000,12 +1000,34 @@ footer p{font-size:12.5px;color:var(--muted);}
 <!-- LIFETIME ACCESS (TRAILER) -->
 <section class="sec center" id="lifetime" style="background:var(--dark); padding: 100px 0;">
   <div class="container">
-    <div class="sec-label" style="display:inline-flex;">🛡️ &nbsp;Official Access</div>
-    <div class="trailer-wrap" style="margin-bottom:40px; border-radius:1.5rem; background: url('https://img.youtube.com/vi/MUwGJ55q-bg/maxresdefault.jpg') center/cover no-repeat;" onclick="this.innerHTML = '<iframe class=\'w-full h-full\' src=\'https://iframe.mediadelivery.net/embed/620471/9e9212b3-af2d-424c-9c8b-defe0b87deaa?autoplay=true\' title=\'Lifetime Access Training\' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\' allowfullscreen></iframe>'">
-      <!-- Lifetime Access Label -->
-      <div class="absolute top-4 left-4 z-20 bg-red-600/90 text-white text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest border border-white/20 whitespace-nowrap">
-        LIFETIME ACCESS VIDEO
-      </div>
+    <!-- Premium Video Header Banner -->
+    <div class="max-w-xl mx-auto mb-6 px-4">
+       <div class="relative overflow-hidden rounded-[1.5rem] bg-[#1a0808]/80 backdrop-blur-md border border-red-900/40 shadow-2xl">
+          <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-red-600 to-transparent"></div>
+          <div class="px-5 py-4 flex items-center justify-between relative z-10">
+             <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-xl bg-red-600/20 border border-red-600/30 flex items-center justify-center text-red-500 shadow-inner">
+                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <div class="flex flex-col text-left">
+                   <div class="flex items-center gap-2">
+                     <span class="text-[8px] font-black text-red-500 uppercase tracking-widest leading-none">Official Access</span>
+                     <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse"></span>
+                   </div>
+                   <h3 class="text-xs font-black text-white uppercase tracking-tight mt-1">LIFETIME ACCESS VIDEO</h3>
+                </div>
+             </div>
+             <!-- Mobile Students Badge -->
+             <div class="flex flex-col items-center">
+                <div class="text-[10px] font-bold text-green-500 tracking-tighter">0+</div>
+                <div class="text-[6px] font-black text-gray-500 uppercase tracking-widest">Active</div>
+             </div>
+          </div>
+       </div>
+    </div>
+
+    <!-- MAIN TRAILER -->
+    <div class="trailer-wrap" style="max-width: 600px; margin: 0 auto 40px; border-radius:1.5rem; background: url('https://img.youtube.com/vi/MUwGJ55q-bg/maxresdefault.jpg') center/cover no-repeat;" onclick="this.innerHTML = '<iframe class=\'w-full h-full\' src=\'https://iframe.mediadelivery.net/embed/620471/9e9212b3-af2d-424c-9c8b-defe0b87deaa?autoplay=true\' title=\'Lifetime Access Training\' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\' allowfullscreen></iframe>'">
       <!-- Play Button -->
       <div class="w-10 h-10 md:w-16 md:h-16 bg-red-600 rounded-full flex items-center justify-center text-white shadow-[0_0_30px_rgba(232,33,43,0.5)] transition-all z-10 hover:scale-110">
         <svg class="w-5 h-5 md:w-8 md:h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
