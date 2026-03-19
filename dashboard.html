@@ -285,14 +285,16 @@
         backdrop-filter: none !important;
       }
       #top-navbar .glass-inner {
-        background: rgba(10, 10, 12, 0.8);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255,255,255,0.05);
-        border-radius: 16px;
-        margin: 10px 16px;
-        height: 52px;
-        width: calc(100% - 32px);
+        background: rgba(10, 10, 12, 0.4);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.03);
+        border-radius: 12px;
+        margin: 8px 12px;
+        height: 44px;
+        width: calc(100% - 24px);
       }
+      .mobile-hide { display: none !important; }
+      .main-content { padding-top: 70px !important; }
     }
     @media (min-width: 1025px) {
       .mobile-bottom-nav { display: none; }
@@ -408,7 +410,7 @@
   <main class="main-content">
     
     <!-- Hero Section -->
-    <div class="relative py-12 lg:py-20 px-4 lg:px-12 overflow-hidden mt-16 lg:mt-0">
+    <div class="relative py-12 lg:py-20 px-4 lg:px-12 overflow-hidden mt-16 lg:mt-0 mobile-hide">
       <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/5 rounded-full blur-[120px] -mr-32 -mt-32 pointer-events-none"></div>
       <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px] -ml-24 -mb-24 pointer-events-none"></div>
       
@@ -476,7 +478,7 @@
     <div class="max-w-7xl mx-auto p-4 lg:p-12 space-y-12">
       
       <!-- Video Player Section (Primary Focus) -->
-      <div id="video-player-section" class="pt-8 space-y-10">
+      <div id="video-player-section" class="pt-0 lg:pt-8 space-y-10">
         <div class="relative group">
           <div class="flex items-center justify-between mb-4 px-2">
             <h2 id="top-video-title" class="text-lg md:text-xl font-black text-white tracking-widest uppercase hidden">Active Video</h2>
