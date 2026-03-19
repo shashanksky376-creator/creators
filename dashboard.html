@@ -181,6 +181,29 @@
     .lesson-item.active .lesson-title {
       color: white !important;
     }
+
+    #video-watermark {
+      position: absolute;
+      z-index: 50;
+      pointer-events: none;
+      font-size: 10px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.15);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      white-space: nowrap;
+      animation: float-watermark 20s linear infinite;
+      display: none;
+      text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    @keyframes float-watermark {
+      0% { top: 10%; left: 10%; opacity: 0.1; }
+      25% { top: 80%; left: 30%; opacity: 0.2; }
+      50% { top: 20%; left: 70%; opacity: 0.15; }
+      75% { top: 70%; left: 60%; opacity: 0.25; }
+      100% { top: 10%; left: 10%; opacity: 0.1; }
+    }
     @media (max-width: 768px) {
       .lesson-item { width: 100%; padding: 14px 18px !important; }
     }
@@ -416,13 +439,13 @@
             
             <div class="flex items-center justify-between">
               <div class="flex -space-x-2">
-                <div class="w-8 h-8 rounded-full border-2 border-dark bg-gray-800 flex items-center justify-center text-[10px] font-bold">5</div>
+                <div class="w-8 h-8 rounded-full border-2 border-dark bg-gray-800 flex items-center justify-center text-[10px] font-bold">7</div>
                 <div class="w-8 h-8 rounded-full border-2 border-dark bg-red-600 flex items-center justify-center text-[10px] font-bold">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                 </div>
               </div>
               <span class="text-[10px] font-black text-white uppercase tracking-widest">
-                <span id="completed-count" class="text-red-500">0</span> OF 5 MODULES COMPLETED
+                <span id="completed-count" class="text-red-500">0</span> OF <span id="total-mod-count">7</span> MODULES COMPLETED
               </span>
             </div>
           </div>
@@ -441,6 +464,7 @@
           </div>
           <div class="absolute -inset-1 bg-gradient-to-r from-red-600/20 to-accent/20 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
           <div class="video-wrap relative bg-dark z-10 w-full overflow-hidden rounded-[2rem]">
+            <div id="video-watermark">STUDENT@EMAIL.COM</div>
             <div id="video-placeholder" class="absolute inset-0 z-20 bg-gradient-to-br from-[#121214] to-[#08080a] flex flex-col items-center justify-center p-8 text-center">
                <div class="w-20 h-20 rounded-3xl bg-red-600/10 flex items-center justify-center text-red-500 mb-8 border border-red-500/10 shadow-[0_0_40px_rgba(232,33,43,0.1)]">
                 <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -509,56 +533,78 @@
       {
         id: "mod-1",
         num: "1",
-        tag: "Foundation",
+        tag: "Welcome",
         tagColor: "red",
-        title: "Welcome to the Course Introduction Video",
+        title: "Welcome to the Course",
         desc: "Begin your journey with the fundamental roadmap and mindset for affiliate success.",
         lessons: [
-          { title: "Welcome & Goal Setting", desc: "Your first steps in the Affiliate PRO system.", videoId: "89ac76e3-c2f6-4f10-8750-0aba442eeb03" }
+          { title: "Introduction", desc: "Your first steps in the Affiliate PRO system.", videoId: "89ac76e3-c2f6-4f10-8750-0aba442eeb03", duration: "5:04" }
         ]
       },
       {
         id: "mod-2",
         num: "2",
-        tag: "Research",
+        tag: "Setup",
         tagColor: "blue",
-        title: "Niche Mastery",
-        desc: "Learn how to identify high-converting niches and products that practically sell themselves.",
+        title: "How to Build Instagram Page",
+        desc: "Learn to build an optimized Instagram business presence from scratch.",
         lessons: [
-          { title: "Market Analysis", desc: "How to find products that sell themselves.", videoId: "8867a5b3-3df8-45a7-96a3-6b71f93f5a2f" }
+          { title: "A-Z Instagram Account", desc: "Setting up your page for maximum conversion.", videoId: "8867a5b3-3df8-45a7-96a3-6b71f93f5a2f", duration: "3:11" }
         ]
       },
       {
         id: "mod-3",
         num: "3",
-        tag: "Traffic",
+        tag: "Network",
         tagColor: "purple",
-        title: "Traffic Generation",
-        desc: "Master the art of organic traffic and automated funnels to keep your sales pipeline full.",
+        title: "Affiliate Platforms",
+        desc: "Discover the best platforms to find high-paying affiliate products.",
         lessons: [
-          { title: "Social Media Funnels", desc: "Build an audience without spending on ads.", videoId: "3ca776e0-fake-id-1" }
+          { title: "About Affiliate Platforms", desc: "Navigating networks and selection strategy.", videoId: "3ca776e0-fake-id-1", duration: "2:16" }
         ]
       },
       {
         id: "mod-4",
         num: "4",
-        tag: "Selling",
+        tag: "Content",
         tagColor: "amber",
-        title: "Content Sales",
-        desc: "Optimize your content strategy for high conversion and maximum revenue per view.",
+        title: "How to Download and Make Affiliate Videos",
+        desc: "Master the workflow for high-quality video creation and sourcing.",
         lessons: [
-          { title: "Sales Scripting", desc: "Write words that convert visitors to buyers.", videoId: "3ca776e0-fake-id-2" }
+          { title: "How to do Videos", desc: "Editing and production workflow for affiliates.", videoId: "3ca776e0-fake-id-2", duration: "7:24" }
         ]
       },
       {
         id: "mod-5",
         num: "5",
-        tag: "Scaling",
+        tag: "Upload",
         tagColor: "emerald",
-        title: "Scale & Congrats",
-        desc: "Advanced strategies to take your affiliate business from side hustle to empire.",
+        title: "Upload Videos on Insta",
+        desc: "The professional way to publish viral Instagram reels.",
         lessons: [
-          { title: "Massive Earnings", desc: "The advanced path to massive affiliate earnings.", videoId: "3ca776e0-fake-id-3" }
+          { title: "Right Way to Upload Insta Reels", desc: "Advanced algorithmic strategy for distribution.", videoId: "3ca776e0-fake-id-3", duration: "16:56" }
+        ]
+      },
+      {
+        id: "mod-6",
+        num: "6",
+        tag: "Income",
+        tagColor: "indigo",
+        title: "Affiliate Income Sources",
+        desc: "Leveraging Meesho and Wish Link for automated revenue generation.",
+        lessons: [
+          { title: "Income in Meesho and Wish Link", desc: "Specific strategies for e-commerce affiliation.", videoId: "3ca776e0-fake-id-4", duration: "28:10" }
+        ]
+      },
+      {
+        id: "mod-7",
+        num: "7",
+        tag: "Complete",
+        tagColor: "rose",
+        title: "Congratulations You Made It",
+        desc: "Claim your rewards and understand the path to lifetime scaling.",
+        lessons: [
+          { title: "Lifetime Access", desc: "Unlocking final bonuses and long-term support.", videoId: "3ca776e0-fake-id-5", duration: "4:05" }
         ]
       }
     ];
@@ -585,12 +631,13 @@
                 <div onclick="selectLesson(\`${lesson.title}\`, \`${lesson.desc}\`, \`${lesson.videoId}\`, \`${mod.num}\`, this)" 
                      id="lesson-${mod.num}-${idx}"
                      class="lesson-item locked px-4 py-4 cursor-pointer flex items-center gap-4 active:scale-[0.98] w-full">
-                  <div class="lesson-num w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-[10px] font-black transition-all">0${idx+1}</div>
+                  <div class="lesson-num w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-[11px] font-black transition-all">0${idx+1}</div>
                   <div class="flex-1">
-                    <span class="lesson-title text-sm font-bold text-gray-400 block transition-colors">${lesson.title}</span>
+                    <span class="lesson-title text-[13px] font-bold text-gray-400 block transition-colors leading-tight">${lesson.title}</span>
+                    <span class="text-[9px] font-medium text-gray-600 uppercase tracking-widest mt-0.5 block">${lesson.duration} mins</span>
                   </div>
                   <div class="text-gray-600">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path></svg>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path></svg>
                   </div>
                 </div>
               `).join('')}
@@ -641,6 +688,13 @@
       player.src = `https://iframe.mediadelivery.net/embed/${BUNNY_LIBRARY_ID}/${videoId}?autoplay=true`;
       player.style.opacity = '1';
 
+      // Setup Watermark
+      const watermark = document.getElementById('video-watermark');
+      if (watermark && window.ENROLLED_USER) {
+        watermark.textContent = window.ENROLLED_USER.email;
+        watermark.style.display = 'block';
+      }
+
       document.getElementById('cur-lesson-title').textContent = title;
       document.getElementById('cur-lesson-desc').textContent = desc;
       document.getElementById('cur-module-label').textContent = `Module ${modNum} Training`;
@@ -668,10 +722,11 @@
       }
 
       // Update progress
-      const pct = (parseInt(modNum) / 5) * 100;
+      const pct = (parseInt(modNum) / 7) * 100;
       document.getElementById('progress-bar').style.width = pct + '%';
       document.getElementById('progress-pct').textContent = Math.round(pct) + '%';
       document.getElementById('completed-count').textContent = modNum;
+      document.getElementById('total-mod-count').textContent = '7';
     }
 
     function unlockDashboard() {
