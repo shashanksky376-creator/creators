@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html class="dark" lang="en" style="scroll-behavior: smooth; scroll-padding-top: 100px;">
 <head>
 <meta charset="utf-8"/>
@@ -291,7 +291,7 @@
         
         if (loginBtn && enrollment) {
           const firstName = enrollment.full_name.split(' ')[0];
-          loginBtn.innerHTML = `Hi, ${firstName} ðŸ‘‹`;
+          loginBtn.innerHTML = `Hi, ${firstName} 👋`;
           loginBtn.href = "dashboard.html";
           loginBtn.classList.remove('text-gray-400');
           loginBtn.classList.add('text-white');
@@ -348,122 +348,80 @@
   <div class="absolute inset-0 z-0 opacity-20" style="background-image: radial-gradient(#333 1px, transparent 1px); background-size: 30px 30px;"></div>
   
   <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
+    <!-- Left Column: Content -->
     <div class="space-y-6 md:space-y-8 reveal-right active">
       <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold leading-tight">
-        à²¨à²¿à²®à³à²® à²¶à²¾à²²à³†à²¯à²²à³à²²à²¿ à²•à²²à²¿à²¯à²¦à²¨à³à²¨<br/>à²‡à²²à³à²²à²¿ à²•à²²à²¿à²¯à²¿à²°à²¿!
+        ನಿಮ್ಮ ಶಾಲೆಯಲ್ಲಿ ಕಲಿಯದನ್ನ<br/>ಇಲ್ಲಿ ಕಲಿಯಿರಿ!
       </h1>
       <div class="space-y-2">
-        <p class="text-base sm:text-lg md:text-xl font-bold text-red-500 tracking-wide uppercase">à²…à²«à²¿à²²à²¿à²¯à³‡à²Ÿà³ à²®à²¾à²°à³à²•à³†à²Ÿà²¿à²‚à²—à³ à²®à²¾à²¸à³à²Ÿà²°à²¿ â€” 0 To Pro</p>
-        <p class="text-base sm:text-lg font-medium text-gray-200">Start your journey to â‚¹1L/month in Kannada.</p>
+        <p class="text-base sm:text-lg md:text-xl font-bold text-red-500 tracking-wide uppercase">ಅಫಿಲಿಯೇಟ್ ಮಾರ್ಕೆಟಿಂಗ್ ಮಾಸ್ಟರಿ — 0 To Pro</p>
+        <p class="text-base sm:text-lg font-medium text-gray-200">Start your journey to ₹1L/month in Kannada.</p>
       </div>
       
       <div class="flex flex-col gap-4 items-center md:items-start">
         <a href="affiliate-mastery (9).html" class="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-black text-lg px-10 py-4 rounded-2xl transition-all duration-300 uppercase shadow-[0_12px_24px_rgba(220,38,38,0.3)] hover:-translate-y-1 block md:inline-block">
-          Access the Blueprint â†’
+          Access the Blueprint →
         </a>
-        
-        <p class="text-sm text-gray-400 leading-relaxed max-w-lg mx-auto md:mx-0 font-medium md:hidden">
-          à²¨à³€à²µà³ à²‡à²²à³à²²à²¿ à²ªà³à²°à²¾à²•à³à²Ÿà²¿à²•à²²à³ à²œà³à²žà²¾à²¨à²¦ à²®à³‚à²²à²• à²ªà³à²°à²¤à²¿ à²¤à²¿à²‚à²—à²³à³ à²¹à²£ à²—à²³à²¿à²¸à³à²µà³à²¦à²¨à³à²¨à³ à²•à²²à²¿à²¯à³à²¤à³à²¤à³€à²°à²¿.
-        </p>
       </div>
 
-      <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8 pt-6 border-t border-white/10 mt-6 inline-flex mx-auto md:mx-0 reveal delay-500">
+      <!-- Trust Badge -->
+      <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8 pt-6 border-t border-white/10 mt-6 inline-flex mx-auto md:mx-0">
         <div class="flex -space-x-3">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50&h=50&fit=crop" class="w-10 h-10 rounded-full border-2 border-black object-cover" alt="User"/>
-          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=50&h=50&fit=crop" class="w-10 h-10 rounded-full border-2 border-black object-cover" alt="User"/>
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=50&h=50&fit=crop" class="w-10 h-10 rounded-full border-2 border-black object-cover" alt="User"/>
-          <div class="w-10 h-10 rounded-full bg-slate-200 text-black flex items-center justify-center text-[10px] font-bold border-2 border-black">0</div>
+           <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50&h=50&fit=crop" class="w-8 h-8 rounded-full border-2 border-black object-cover" alt="User"/>
+           <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=50&h=50&fit=crop" class="w-8 h-8 rounded-full border-2 border-black object-cover" alt="User"/>
+           <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=50&h=50&fit=crop" class="w-8 h-8 rounded-full border-2 border-black object-cover" alt="User"/>
+           <div class="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center text-[10px] font-black border-2 border-black">0</div>
         </div>
         <div class="text-center md:text-left">
-          <div class="text-lg font-bold">4.8â˜… <span class="text-xs text-gray-400 font-normal">from 800+ Reviews</span></div>
-          <div class="text-yellow-400 text-base">â˜…â˜…â˜…â˜…â˜…</div>
+          <div class="text-sm font-bold">4.8★ <span class="text-[10px] text-gray-400 font-normal">from 800+ Reviews</span></div>
+          <div class="text-yellow-400 text-xs">★★★★★</div>
         </div>
       </div>
     </div>
-    
-    <div class="relative w-full max-w-lg mx-auto lg:h-[550px] flex items-end justify-center">
-       <!-- Red angular glow frame behind image -->
+
+    <!-- Right Column: Video & Badges -->
+    <div class="relative w-full max-w-xl mx-auto lg:h-[500px] flex items-center justify-center">
+       <!-- Red Glow Background -->
        <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-         <div class="w-[72%] h-[72%] rounded-2xl border-2 border-red-600/60 shadow-[0_0_100px_rgba(220,38,38,0.45),0_0_40px_rgba(220,38,38,0.2),inset_0_0_50px_rgba(220,38,38,0.08)] animate-pulse"></div>
+         <div class="w-[90%] h-[70%] rounded-[2.5rem] border-2 border-red-600/30 shadow-[0_0_80px_rgba(220,38,38,0.2)]"></div>
+       </div>
+
+       <!-- Lifetime Access Label -->
+       <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-30 bg-red-600 text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xl border border-white/10">
+         Lifetime Access Video
        </div>
        
-       <!-- Bottom radial glow -->
-       <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-32 bg-red-600/20 rounded-full blur-3xl z-0 pointer-events-none"></div>
-       
-       <!-- Floating badge: Language -->
-       <div class="absolute top-8 -left-3 badge-glass text-white text-[10px] font-extrabold px-3 py-2 rounded-xl shadow-2xl z-20 flex items-center gap-2 animate-float border-white/20">
-         <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse"></span>
-         à²•à²¨à³à²¨à²¡ &nbsp;|&nbsp; KANNADA
-       </div>
-
-       <!-- Floating badge: Students -->
-       <div class="absolute top-1/4 -right-12 badge-glass p-3 rounded-2xl shadow-2xl z-20 flex flex-col items-center gap-1 animate-float-slow border-white/10 hidden md:flex">
-         <div class="flex -space-x-2">
-           <img src="https://i.pravatar.cc/30?u=1" class="w-6 h-6 rounded-full border border-white/20" alt="S">
-           <img src="https://i.pravatar.cc/30?u=2" class="w-6 h-6 rounded-full border border-white/20" alt="S">
-           <img src="https://i.pravatar.cc/30?u=3" class="w-6 h-6 rounded-full border border-white/20" alt="S">
-         </div>
-         <span class="text-[9px] font-black tracking-tighter text-white">0 LEARNERS</span>
-       </div>
-
-       <!-- Floating badge: Practical -->
-       <div class="absolute bottom-[35%] -left-16 badge-glass px-4 py-2.5 rounded-2xl shadow-2xl z-20 flex items-center gap-3 animate-float border-white/10 hidden lg:flex">
-         <div class="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white">
-           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-         </div>
-         <div class="flex flex-col">
-           <span class="text-[8px] text-gray-400 font-bold uppercase tracking-widest">Training</span>
-           <span class="text-[11px] font-black text-white">PRACTICAL TOOLS</span>
-         </div>
-       </div>
-
-       <!-- Floating badge: Income -->
-       <div class="absolute top-1/2 -right-16 badge-glass px-4 py-2.5 rounded-2xl shadow-2xl z-20 flex items-center gap-3 animate-float-slow border-white/10 hidden lg:flex" style="animation-delay: 1s;">
-         <div class="w-8 h-8 rounded-lg bg-green-500/80 flex items-center justify-center text-white">
-           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 16v1m4-12l-4 4-4-4"></path></svg>
-         </div>
-         <div class="flex flex-col">
-           <span class="text-[8px] text-gray-400 font-bold uppercase tracking-widest">Passive</span>
-           <span class="text-[11px] font-black text-white">â‚¹1L+ POTENTIAL</span>
-         </div>
-       </div>
-
-       <!-- Floating badge: Price -->
-       <div class="absolute bottom-12 -right-4 bg-gradient-to-br from-[#111] to-[#222] border border-white/20 text-white px-5 py-3 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-30 animate-float scale-110">
-         <div class="flex items-center gap-2 mb-1">
-           <span class="text-[10px] text-green-400 font-bold uppercase tracking-tighter">Limited Offer</span>
-         </div>
-         <div class="flex items-baseline gap-2">
-           <div class="text-2xl font-black text-white">â‚¹1,999</div>
-           <div class="text-xs text-gray-500 line-through decoration-red-600/50">â‚¹5,000</div>
-         </div>
-       </div>
-
-       <!-- Video Player Container (LIFETIME ACCESS VIDEO) -->
-       <div class="relative z-10 w-full aspect-video rounded-[2rem] overflow-hidden border-2 border-white/10 shadow-2xl group cursor-pointer mt-12 lg:mt-0" onclick="this.innerHTML = '<iframe class=\'w-full h-full\' src=\'https://iframe.mediadelivery.net/embed/620471/89ac76e3-c2f6-4f10-8750-0aba442eeb03?autoplay=true\' title=\'Affiliate Marketing Introduction\' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\' allowfullscreen></iframe>'">
-         <div class="absolute top-4 left-4 z-20 bg-red-600/90 text-white text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-white/20">LIFETIME ACCESS VIDEO</div>
+       <!-- Main Video Container -->
+       <div class="relative z-10 w-full aspect-video rounded-[2rem] overflow-hidden border-2 border-white/10 shadow-2xl bg-black group cursor-pointer" onclick="this.innerHTML = '<iframe class=\'w-full h-full\' src=\'https://iframe.mediadelivery.net/embed/620471/89ac76e3-c2f6-4f10-8750-0aba442eeb03?autoplay=true\' title=\'Affiliate Marketing Introduction\' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\' allowfullscreen></iframe>'">
          <img src="https://img.youtube.com/vi/MUwGJ55q-bg/maxresdefault.jpg" alt="Video Preview" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
          <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-all duration-300">
            <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white shadow-[0_0_30px_rgba(232,33,43,0.5)] group-hover:scale-110 transition-all">
              <svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
            </div>
+         </div>
+       </div>
 
        <!-- Profit Badge -->
-       <div class="absolute -bottom-6 right-0 lg:-right-8 z-30 badge-glass px-6 py-4 rounded-[2rem] shadow-2xl border-white/10 animate-float hidden md:flex">
+       <div class="absolute -bottom-6 -right-4 z-30 badge-glass px-5 py-3 rounded-2xl shadow-2xl border-white/10 animate-float hidden md:flex">
          <div class="flex items-center gap-3">
-           <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-black text-xl">₹</div>
+           <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white font-black text-lg">₹</div>
            <div class="flex flex-col">
-             <span class="text-[9px] text-gray-400 font-black uppercase tracking-widest">Target Profit</span>
-             <span class="text-lg font-black text-white">₹1,00,000<span class="text-xs text-green-500">/MO</span></span>
+             <span class="text-[8px] text-gray-400 font-bold uppercase tracking-tighter">Target Profit</span>
+             <span class="text-sm font-black text-white">₹1,00,000<span class="text-[10px] text-green-500">/MO</span></span>
            </div>
          </div>
        </div>
+
+       <!-- Practical Badge (Left) -->
+       <div class="absolute top-1/2 -left-8 z-30 badge-glass px-4 py-2 rounded-xl shadow-xl border-white/10 animate-float-slow hidden lg:flex">
+         <div class="flex items-center gap-2">
+           <div class="w-6 h-6 rounded-lg bg-red-600 flex items-center justify-center text-white text-[10px]">✔</div>
+           <span class="text-[9px] font-black text-white">PRACTICAL TOOLS</span>
          </div>
        </div>
     </div>
   </div>
 </section>
-<!-- INTRODUCTION VIDEO MOVED TO HERO -->
 
 <!-- 3. Core Pillars -->
 <section class="py-12 border-y border-white/5 bg-[#121212] relative overflow-hidden" id="explore">
@@ -516,26 +474,26 @@
       <div class="p-8 md:p-14 space-y-8 flex flex-col justify-center">
         <div>
           <span class="bg-white text-black px-4 py-1.5 text-sm font-bold tracking-widest rounded-sm inline-block mb-6 shadow-sm uppercase">Course Highlights</span>
-          <h3 class="text-4xl lg:text-5xl font-extrabold leading-tight">à²¨à²¿à²®à³à²®à²¦à³‡ à²…à²«à²¿à²²à²¿à²¯à³‡à²Ÿà³ à²®à²¾à²°à³à²•à³†à²Ÿà²¿à²‚à²—à³ à²µà³à²¯à²µà²¹à²¾à²°à²µà²¨à³à²¨à³ à²ªà³à²°à²¾à²°à²‚à²­à²¿à²¸à²¿</h3>
+          <h3 class="text-4xl lg:text-5xl font-extrabold leading-tight">ನಿಮ್ಮದೇ ಅಫಿಲಿಯೇಟ್ ಮಾರ್ಕೆಟಿಂಗ್ ವ್ಯವಹಾರವನ್ನು ಪ್ರಾರಂಭಿಸಿ</h3>
         </div>
         <p class="text-gray-400 leading-relaxed text-lg font-medium">
-          How to start affiliate marketing without investment: à²ˆ à²•à³‹à²°à³à²¸à³â€Œà²¨à²²à³à²²à²¿ à²¨à³€à²µà³ à²•à²²à²¿à²¯à³à²µ à²ªà³à²°à²®à³à²– à²…à²‚à²¶à²—à²³à³:
+          How to start affiliate marketing without investment: ಈ ಕೋರ್ಸ್‌ನಲ್ಲಿ ನೀವು ಕಲಿಯುವ ಪ್ರಮುಖ ಅಂಶಗಳು:
         </p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-300">
           <div class="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 transition-colors hover:border-green-500/50">
-            <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0 text-xs">âœ”</div>
+            <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0 text-xs">✔</div>
             <span class="text-sm font-bold">Product research method (winning products)</span>
           </div>
           <div class="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 transition-colors hover:border-green-500/50">
-            <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0 text-xs">âœ”</div>
+            <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0 text-xs">✔</div>
             <span class="text-sm font-bold">Instagram growth & selling strategy</span>
           </div>
           <div class="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 transition-colors hover:border-green-500/50">
-            <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0 text-xs">âœ”</div>
+            <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0 text-xs">✔</div>
             <span class="text-sm font-bold">Customer conversion secrets</span>
           </div>
           <div class="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 transition-colors hover:border-green-500/50">
-            <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0 text-xs">âœ”</div>
+            <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0 text-xs">✔</div>
             <span class="text-sm font-bold">Daily income growth methods</span>
           </div>
         </div>
@@ -554,15 +512,15 @@
               </div>
 
               <div class="flex items-center gap-4 mb-8">
-                <div class="text-5xl font-black text-white">â‚¹1,999</div>
+                <div class="text-5xl font-black text-white">₹1,999</div>
                 <div class="flex flex-col">
-                  <span class="text-lg text-gray-500 line-through">â‚¹5,000</span>
+                  <span class="text-lg text-gray-500 line-through">₹5,000</span>
                   <span class="text-[10px] font-black text-green-500 uppercase">Save 60% Today</span>
                 </div>
               </div>
 
               <a href="affiliate-mastery (9).html" class="block w-full text-center bg-red-600 hover:bg-red-700 text-white font-black text-lg py-5 rounded-2xl transition-all shadow-[0_12px_24px_rgba(220,38,38,0.4)] uppercase">
-                Enroll Now â†’
+                Enroll Now →
               </a>
             </div>
           </div>
@@ -688,8 +646,8 @@
             <div class="cdot" onclick="goProof(3)"></div>
           </div>
           <div class="flex gap-3">
-            <button class="c-arr" onclick="proofPrev()">â†</button>
-            <button class="c-arr" onclick="proofNext()">â†’</button>
+            <button class="c-arr" onclick="proofPrev()">←</button>
+            <button class="c-arr" onclick="proofNext()">→</button>
           </div>
         </div>
       </div>
@@ -756,7 +714,7 @@
         </li>
         <li class="flex items-start gap-3">
           <svg class="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span class="text-gray-500 text-sm">Support Hours: 10AM â€“ 6PM IST<br/>Mon â€“ Sat</span>
+          <span class="text-gray-500 text-sm">Support Hours: 10AM – 6PM IST<br/>Mon – Sat</span>
         </li>
       </ul>
     </div>
@@ -778,7 +736,7 @@
         <p class="text-[10px] text-gray-500 uppercase tracking-wider font-bold mb-1">Secure Payments Powered By</p>
         <div class="flex items-center gap-3 flex-wrap">
           <span class="text-white text-sm font-extrabold tracking-wider">RAZORPAY</span>
-          <span class="text-gray-600 text-xs">VISA â€¢ MASTERCARD â€¢ UPI</span>
+          <span class="text-gray-600 text-xs">VISA • MASTERCARD • UPI</span>
         </div>
       </div>
     </div>
@@ -787,16 +745,16 @@
   <!-- Bottom Bar -->
   <div class="border-t border-white/5">
     <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p class="text-gray-600 text-sm">Â© 2026 Affiliate Marketing Mastery â€” Shashank. All rights reserved.</p>
+      <p class="text-gray-600 text-sm">© 2026 Affiliate Marketing Mastery — Shashank. All rights reserved.</p>
       <div class="flex items-center gap-5 text-xs text-gray-600">
         <a href="terms.html" class="hover:text-white transition-colors">Terms</a>
-        <span class="text-gray-700">â€¢</span>
+        <span class="text-gray-700">•</span>
         <a href="privacy.html" class="hover:text-white transition-colors">Privacy</a>
-        <span class="text-gray-700">â€¢</span>
+        <span class="text-gray-700">•</span>
         <a href="refunds.html" class="hover:text-white transition-colors">Refunds</a>
-        <span class="text-gray-700">â€¢</span>
+        <span class="text-gray-700">•</span>
         <a href="shipping.html" class="hover:text-white transition-colors">Shipping</a>
-        <span class="text-gray-700">â€¢</span>
+        <span class="text-gray-700">•</span>
         <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
       </div>
     </div>
@@ -857,7 +815,7 @@
     }
   };
 
-  /* â”€â”€ CAROUSEL LOGIC (Earning Proof) â”€â”€ */
+  /* ── CAROUSEL LOGIC (Earning Proof) ── */
   const TOTAL_SLIDES = 4;
   let pIdx = 0;
 
