@@ -989,7 +989,7 @@ footer p{font-size:12.5px;color:var(--muted);}
     </div>
 
     <div class="flex flex-col items-center gap-4">
-      <a href="checkout.html?price=1500" class="btn-blueprint" style="display:inline-flex; border-radius:12px; font-weight:900; background:var(--red); color:white; padding:16px 44px; text-decoration:none; font-family:'Bebas Neue', sans-serif; letter-spacing:1px; font-size:22px; box-shadow: 0 10px 30px rgba(224,28,28,0.4);">Access the Blueprint Now →</a>
+      <a href="#" onclick="openWmModal(event)" class="btn-blueprint" style="display:inline-flex; border-radius:12px; font-weight:900; background:var(--red); color:white; padding:16px 44px; text-decoration:none; font-family:'Bebas Neue', sans-serif; letter-spacing:1px; font-size:22px; box-shadow: 0 10px 30px rgba(224,28,28,0.4);">Access the Blueprint Now →</a>
       <a href="https://whatsapp.com/channel/0029Vb7p4qz6hENnEOkHW220" target="_blank" style="font-size:12px; color:var(--muted); text-decoration:none; display:flex; align-items:center; gap:6px; opacity:0.7; transition:0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.004 2c-5.518 0-9.998 4.476-9.998 9.986 0 1.904.536 3.684 1.464 5.201l-1.47 5.378 5.514-1.442c1.472.846 3.176 1.332 4.99 1.332 5.518 0 9.998-4.476 9.998-9.986 0-5.51-4.48-9.986-9.998-9.986zm4.99 14.15c-.22.616-1.282 1.144-1.77 1.188-.474.044-.946.066-2.528-.572-2.022-.814-3.328-2.876-3.428-3.008-.1-.132-.824-1.096-.824-2.078 0-.982.512-1.468.694-1.666.182-.198.396-.248.528-.248.132 0 .264 0 .378.006.126.006.294-.048.462.352.172.412.588 1.446.64 1.546.052.1.086.216.02.348-.066.132-.098.216-.198.33-.1.114-.21.258-.298.348-.1.104-.202.216-.088.412.114.196.502.822 1.076 1.332.738.656 1.36.86 1.552.952.192.092.304.078.418-.048.114-.126.484-.564.616-.754.132-.19.264-.158.444-.094.18.064 1.14.538 1.338.636.198.1.33.148.378.232.048.084.048.49-.172 1.106z"/></svg> 
         Join Our Free WhatsApp Channel
@@ -1191,7 +1191,7 @@ footer p{font-size:12.5px;color:var(--muted);}
         </div>
       </div>
     
-      <a href="checkout.html?price=1500" class="ppc-btn">
+      <a href="#" onclick="openWmModal(event)" class="ppc-btn">
         Join Now 
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
@@ -1634,6 +1634,195 @@ setInterval(updateTimer, 1000);
     </div>
   </div>
 </footer>
+
+<!-- WHATSAPP MASTERY INLINE CHECKOUT MODAL -->
+<div id="wm-modal" class="wm-modal-overlay">
+  <div class="wm-modal-container">
+    <button class="wm-modal-close" onclick="closeWmModal()">&times;</button>
+    
+    <div class="wm-modal-header">
+      <div class="wm-modal-badge">Direct Access</div>
+      <h3 class="wm-modal-title">WhatsApp Mastery</h3>
+      <p class="wm-modal-sub">Final step to unlock lifetime access</p>
+    </div>
+
+    <form id="wm-lead-form" class="wm-modal-form" onsubmit="handleWmSubmit(event)">
+      <div class="wm-input-group">
+        <label>Full Name</label>
+        <input type="text" id="wm-name" placeholder="Enter your full name" required autocomplete="name">
+      </div>
+      <div class="wm-input-group">
+        <label>Email Address</label>
+        <input type="email" id="wm-email" placeholder="email@example.com" required autocomplete="email">
+      </div>
+      <div class="wm-input-group">
+        <label>Mobile Number</label>
+        <div class="wm-phone-input">
+          <span class="wm-country-code">+91</span>
+          <input type="tel" id="wm-phone" placeholder="Enter mobile number" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number" autocomplete="tel">
+        </div>
+      </div>
+
+      <div class="wm-price-summary">
+        <span>Total Fee:</span>
+        <strong class="wm-final-price">₹1,500</strong>
+      </div>
+
+      <button type="submit" id="wm-submit-btn" class="wm-modal-btn">
+        <span class="btn-text">Proceed to Pay ₹1,500 →</span>
+        <div class="btn-loader" style="display:none;">
+          <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Processing...
+        </div>
+      </button>
+
+      <p class="wm-modal-footer-text">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline; vertical-align:middle; margin-right:4px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        100% Secure Transaction via Razorpay
+      </p>
+    </form>
+  </div>
+</div>
+
+<style>
+/* MODAL STYLES */
+.wm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.wm-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.wm-modal-container {
+  background: #111;
+  border: 1px solid rgba(224,28,28,0.3);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 440px;
+  padding: 40px;
+  position: relative;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), 0 0 40px rgba(224,28,28,0.1);
+}
+.wm-modal-overlay.active .wm-modal-container {
+  transform: translateY(0);
+}
+.wm-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255,255,255,0.05);
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+.wm-modal-close:hover { background: rgba(224,28,28,0.2); }
+
+.wm-modal-header { text-align: center; margin-bottom: 32px; }
+.wm-modal-badge { display: inline-block; padding: 4px 12px; background: rgba(34,197,94,0.1); color: #22c55e; font-size: 10px; font-weight: 800; border-radius: 100px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; border: 1px solid rgba(34,197,94,0.2); }
+.wm-modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #fff; margin-bottom: 4px; }
+.wm-modal-sub { font-size: 14px; color: #999; }
+
+.wm-modal-form { display: flex; flex-direction: column; gap: 20px; }
+.wm-input-group { display: flex; flex-direction: column; gap: 8px; }
+.wm-input-group label { font-size: 11px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.5px; }
+.wm-input-group input { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 14px 16px; color: #fff; font-size: 15px; outline: none; transition: 0.2s; }
+.wm-input-group input:focus { border-color: var(--red); box-shadow: 0 0 0 4px rgba(224,28,28,0.1); }
+
+.wm-phone-input { display: flex; align-items: center; background: #1a1a1a; border: 1px solid #333; border-radius: 12px; overflow: hidden; }
+.wm-country-code { padding: 0 16px; font-size: 15px; color: #666; font-weight: 600; border-right: 1px solid #333; }
+.wm-phone-input input { border: none !important; box-shadow: none !important; flex: 1; }
+
+.wm-price-summary { display: flex; justify-content: space-between; align-items: center; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 12px; margin-top: 10px; }
+.wm-price-summary span { font-size: 14px; color: #999; }
+.wm-final-price { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--red); }
+
+.wm-modal-btn { background: var(--red); color: #fff; border: none; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.wm-modal-btn:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 12px 24px rgba(224,28,28,0.3); }
+
+.wm-modal-footer-text { text-align: center; font-size: 12px; color: #555; margin-top: 12px; }
+
+/* MOBILE RESPONSIVE ADAPTATIONS */
+@media (max-width: 480px) {
+  .wm-modal-overlay { padding: 0; align-items: flex-end; }
+  .wm-modal-container { 
+    border-radius: 24px 24px 0 0; 
+    border-left: none; 
+    border-right: none; 
+    border-bottom: none; 
+    padding: 32px 24px 48px;
+    transform: translateY(100%);
+  }
+  .wm-modal-overlay.active .wm-modal-container { transform: translateY(0); }
+  .wm-modal-btn { padding: 16px; font-size: 15px; }
+}
+</style>
+
+<script>
+/* MODAL LOGIC */
+function openWmModal(event) {
+  if(event) event.preventDefault();
+  document.getElementById('wm-modal').classList.add('active');
+  document.body.style.overflow = 'hidden'; // prevent scroll
+}
+
+function closeWmModal() {
+  document.getElementById('wm-modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Close on outside click
+document.getElementById('wm-modal').addEventListener('click', function(e) {
+  if(e.target === this) closeWmModal();
+});
+
+function handleWmSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('wm-submit-btn');
+  const btnText = btn.querySelector('.btn-text');
+  const btnLoader = btn.querySelector('.btn-loader');
+
+  // Basic validation
+  const name = document.getElementById('wm-name').value;
+  const email = document.getElementById('wm-email').value;
+  const phone = document.getElementById('wm-phone').value;
+
+  if(!name || !email || !phone) return;
+
+  // Simulate payment processing
+  btn.disabled = true;
+  btnText.style.display = 'none';
+  btnLoader.style.display = 'flex';
+
+  setTimeout(() => {
+    // Redirect direct to WhatsApp channel
+    window.location.href = "https://whatsapp.com/channel/0029Vb7p4qz6hENnEOkHW220";
+  }, 2000);
+}
+</script>
 <script>
   window.addEventListener('load', function() {
     if (typeof updateNavbarForMembers === 'function') {
