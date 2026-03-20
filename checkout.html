@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -275,7 +275,7 @@
                    <p class="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-1">Total Fee</p>
                    <div class="flex items-center gap-2">
                        <span class="text-slate-400 line-through text-base font-medium">₹4,999</span>
-                       <span class="text-3xl font-black text-slate-900 font-display tracking-tight">₹1,999</span>
+                       <span id="display-price" class="text-3xl font-black text-slate-900 font-display tracking-tight">₹1,999</span>
                    </div>
                 </div>
                 <div class="bg-blue-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider">
@@ -307,7 +307,7 @@
             <!-- CTA -->
             <div class="space-y-6 pt-2">
                 <button onclick="handlePayment()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-2xl text-lg shadow-xl shadow-blue-500/30 transition-all hover:-translate-y-1 active:scale-[0.98] btn-premium-glow">
-                    Proceed to pay ₹1,999 →
+                    <span id="pay-button-text">Proceed to pay ₹1,999</span> →
                 </button>
                 
                 <!-- Redesigned Payment Methods -->
@@ -409,6 +409,18 @@
     });
 
     const RAZORPAY_KEY = "rzp_test_XXXXXXXXXXXXXXXX"; // Real key should be here
+    let currentPrice = 1999;
+
+    function initPricing() {
+      const params = new URLSearchParams(window.location.search);
+      const priceParam = params.get('price');
+      if (priceParam === '1500') {
+        currentPrice = 1500;
+        document.getElementById('display-price').textContent = '₹1,500';
+        document.getElementById('pay-button-text').textContent = 'Proceed to pay ₹1,500';
+      }
+    }
+    window.addEventListener('DOMContentLoaded', initPricing);
 
     function handlePayment() {
       const name = document.getElementById('name').value.trim();
@@ -423,7 +435,7 @@
 
       const options = {
         key: RAZORPAY_KEY,
-        amount: 199900,
+        amount: currentPrice * 100,
         currency: "INR",
         name: "Affiliate Marketing Mastery",
         description: "Professional Affiliate Training",
