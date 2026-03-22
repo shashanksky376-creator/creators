@@ -134,14 +134,22 @@
         return;
       }
 
-      allStudents = data;
-      tableArea.classList.remove('hidden');
+      // IGNORE TESTERS FOR REVENUE/STATS
+      const TEST_EMAILS = ["shashanksky376@gmail.com", "akashreddy55055@gmail.com", "test@example.com"];
+      const filteredData = data.filter(u => !TEST_EMAILS.includes(u.email.toLowerCase().trim()));
 
-      // Update Stats
-      document.getElementById('stat-total-students').textContent = data.length.toLocaleString();
-      document.getElementById('stat-total-revenue').textContent = '₹' + (data.length * 1999).toLocaleString();
+      if (filteredData.length === 0) {
+        emptyArea.classList.remove('hidden');
+        tableArea.classList.add('hidden'); // Hide table if only testers existed
+      } else {
+        allStudents = filteredData;
+        tableArea.classList.remove('hidden');
+        renderTable(filteredData);
+      }
 
-      renderTable(data);
+      // Update Stats (Now showing 0 if only testers are present)
+      document.getElementById('stat-total-students').textContent = filteredData.length.toLocaleString();
+      document.getElementById('stat-total-revenue').textContent = '₹' + (filteredData.length * 1999).toLocaleString();
 
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('force_cleanup') === 'true') {
