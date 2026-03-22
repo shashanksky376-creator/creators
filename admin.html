@@ -142,6 +142,11 @@
       document.getElementById('stat-total-revenue').textContent = '₹' + (data.length * 1999).toLocaleString();
 
       renderTable(data);
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('force_cleanup') === 'true') {
+        clearAllTestData(true); 
+      }
     }
 
     function renderTable(students) {
@@ -178,12 +183,14 @@
     }
 
 
-    async function clearAllTestData() {
-      if (!confirm("⚠️ WARNING: This will PERMANENTLY delete ALL students and reset revenue to ₹0. Are you sure you want to proceed?")) return;
+    async function clearAllTestData(skipConfirm = false) {
+      if (!skipConfirm && !confirm("⚠️ WARNING: This will PERMANENTLY delete ALL students and reset revenue to ₹0. Are you sure you want to proceed?")) return;
       
       const btn = document.getElementById('clear-btn');
-      btn.disabled = true;
-      btn.textContent = "Clearing Data...";
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = skipConfirm ? "Auto-Clearing..." : "Clearing Data...";
+      }
       
       try {
         const { data: students } = await getAllEnrolledUsers();
@@ -192,13 +199,19 @@
             await deleteEnrolledUser(s.email);
           }
         }
+        if (skipConfirm) {
+           window.location.href = 'admin.html?cleared=true';
+           return;
+        }
         alert("✅ All test data cleared successfully!");
         window.location.reload();
       } catch (e) {
         console.error(e);
-        alert("Failed to clear data. Check console.");
-        btn.disabled = false;
-        btn.textContent = "Clear All Test Data";
+        if(!skipConfirm) alert("Failed to clear data. Check console.");
+        if(btn) {
+          btn.disabled = false;
+          btn.textContent = "Clear All Test Data";
+        }
       }
     }
 
