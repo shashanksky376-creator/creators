@@ -302,6 +302,10 @@
                         <input id="phone" type="tel" placeholder="Enter your number" class="input-field">
                     </div>
                 </div>
+                <div class="space-y-1.5">
+                    <label class="text-[11px] font-black uppercase text-slate-500 ml-1 tracking-wider">Instagram ID</label>
+                    <input id="insta-id" type="text" placeholder="@yourhandle" class="input-field">
+                </div>
             </div>
 
             <!-- CTA -->
@@ -386,12 +390,15 @@
         theme: { color: "#dc2626" },
         handler: async function(response) {
           try {
+            const instaId = document.getElementById('insta-id').value.trim();
             // enrollment call
             await enrollUser({
               fullName: name,
               email: email,
               phone: phone,
-              razorpayPaymentId: response.razorpay_payment_id
+              razorpayPaymentId: response.razorpay_payment_id,
+              amount: currentPrice,
+              instaId: instaId
             });
 
             // Automatically trigger the login code so it's in their inbox when they arrive

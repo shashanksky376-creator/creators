@@ -1641,6 +1641,10 @@ setInterval(updateTimer, 1000);
           <input type="tel" id="wm-phone" placeholder="Enter mobile number" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number" autocomplete="tel">
         </div>
       </div>
+      <div class="wm-input-group">
+        <label>Instagram ID</label>
+        <input type="text" id="wm-insta-id" placeholder="@yourhandle" required>
+      </div>
 
       <div class="wm-price-summary">
         <span>Total Fee:</span>
@@ -1816,10 +1820,27 @@ function handleWmSubmit(e) {
     theme: {
       color: "#e01c1c"
     },
-    handler: function (response) {
+    handler: async function (response) {
       // SUCCESSFUL PAYMENT
       console.log("Payment Successful:", response.razorpay_payment_id);
       
+      try {
+        const instaId = document.getElementById('wm-insta-id').value.trim();
+        await enrollUser({
+          fullName: name,
+          email: email,
+          phone: phone,
+          razorpayPaymentId: response.razorpay_payment_id,
+          amount: 1500,
+          instaId: instaId
+        });
+        
+        // Also send them an OTP for future login
+        await sendOTP(email);
+      } catch (e) {
+        console.error("Enrollment error:", e);
+      }
+
       // Redirect to WhatsApp channel after success
       window.location.href = "https://whatsapp.com/channel/0029Vb7p4qz6hENnEOkHW220";
     },

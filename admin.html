@@ -99,7 +99,8 @@
             <tr>
               <th>Name</th>
               <th>Email</th>
-              <th>Phone</th>
+              <th>Insta ID</th>
+              <th>Plan</th>
               <th>Razorpay ID</th>
               <th>Date</th>
             </tr>
@@ -149,7 +150,13 @@
 
       // Update Stats (Now showing 0 if only testers are present)
       document.getElementById('stat-total-students').textContent = filteredData.length.toLocaleString();
-      document.getElementById('stat-total-revenue').textContent = '₹' + (filteredData.length * 1999).toLocaleString();
+      
+      const totalRevenue = filteredData.reduce((acc, curr) => {
+        // Fallback to 1999 for legacy records that don't have amount_paid
+        const amt = curr.amount_paid || 1999;
+        return acc + amt;
+      }, 0);
+      document.getElementById('stat-total-revenue').textContent = '₹' + totalRevenue.toLocaleString();
 
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('force_cleanup') === 'true') {
@@ -172,7 +179,8 @@
         tr.innerHTML = `
           <td><div class="font-black text-white uppercase tracking-tight">${s.full_name || 'N/A'}</div></td>
           <td><div class="text-gray-400 font-medium">${s.email}</div></td>
-          <td><div class="text-xs font-bold text-gray-400">${s.phone || 'N/A'}</div></td>
+          <td><div class="text-xs font-bold text-red-500">${s.insta_id || 'N/A'}</div></td>
+          <td><div class="text-[10px] font-black text-white px-2 py-0.5 bg-white/10 rounded border border-white/10 inline-block uppercase tracking-widest">₹${s.amount_paid || 1999}</div></td>
           <td><div class="text-[10px] font-mono text-gray-500 px-2 py-1 bg-white/5 rounded border border-white/5 inline-block">${s.razorpay_payment_id || 'Legacy'}</div></td>
           <td><div class="text-[10px] font-black text-gray-400 uppercase tracking-widest">${date}</div></td>
         `;
