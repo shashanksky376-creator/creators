@@ -58,11 +58,11 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="glass p-8">
         <h3 class="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-2">Total Students</h3>
-        <p id="stat-total-students" class="text-5xl font-black bebas">1,248</p>
+        <p id="stat-total-students" class="text-5xl font-black bebas">0</p>
       </div>
       <div class="glass p-8">
         <h3 class="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-2">Total Revenue</h3>
-        <p id="stat-total-revenue" class="text-5xl font-black bebas text-green-500">₹2,494,752</p>
+        <p id="stat-total-revenue" class="text-5xl font-black bebas text-green-500">₹0</p>
       </div>
       <div class="glass p-8">
         <h3 class="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-2">Average Ticket</h3>
@@ -194,14 +194,8 @@
 </footer>
 
   <script>
-    // PREVIEW DATA
-    const dummyStudents = [
-      { full_name: "Rahul Sharma", email: "rahul@example.com", phone: "+91 9876543210", razorpay_payment_id: "pay_PkL123456789", enrolled_at: new Date().toISOString() },
-      { full_name: "Anita Desai", email: "anita@example.com", phone: "+91 8765432109", razorpay_payment_id: "pay_PkL987654321", enrolled_at: new Date(Date.now() - 86400000).toISOString() },
-      { full_name: "Sameer Khan", email: "sameer@example.com", phone: "+91 7654321098", razorpay_payment_id: "pay_PkL456789123", enrolled_at: new Date(Date.now() - 172800000).toISOString() },
-      { full_name: "Priya Singh", email: "priya@example.com", phone: "+91 6543210987", razorpay_payment_id: "pay_PkL741852963", enrolled_at: new Date(Date.now() - 259200000).toISOString() },
-      { full_name: "Deepak Patel", email: "deepak@example.com", phone: "+91 9513572468", razorpay_payment_id: "pay_PkL369258147", enrolled_at: new Date(Date.now() - 345600000).toISOString() }
-    ];
+    // PREVIEW DATA - Cleared for launch
+    const dummyStudents = [];
 
     let allStudents = dummyStudents;
 
