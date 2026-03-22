@@ -231,3 +231,17 @@ async function signOut(reason = "") {
   if (reason) target += `?reason=${reason}`;
   window.location.href = target;
 }
+
+// -------------------------------------------------------
+// ADMIN: Delete an enrolled user
+// -------------------------------------------------------
+async function deleteEnrolledUser(email) {
+  const client = initSupabase();
+  const cleanEmail = email.toLowerCase().trim();
+  const { error } = await client
+    .from("enrolled_users")
+    .delete()
+    .eq("email", cleanEmail);
+    
+  return { error };
+}
