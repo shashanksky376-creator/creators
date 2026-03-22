@@ -558,6 +558,7 @@ footer p{font-size:12.5px;color:var(--muted);}
 }
 
 </style>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
 
@@ -1005,7 +1006,7 @@ footer p{font-size:12.5px;color:var(--muted);}
     <!-- Sleek Glassy Pricing Card -->
     <style>
       .premium-pricing-card {
-        max-width: 680px;
+        max-width: 500px;
         margin: 60px auto 0;
         background: linear-gradient(165deg, #150505, #080808);
         border: 1px solid rgba(224, 28, 28, 0.25);
@@ -1188,7 +1189,6 @@ footer p{font-size:12.5px;color:var(--muted);}
       
       <h3 class="ppc-title" style="line-height:1.2;">WhatsApp Mastery - <br class="sm:hidden"> Lifetime Access</h3>
       <p class="ppc-sub" style="line-height: 1.5;">
-        0 to Affiliate Pro <br/>
         <span style="display: inline-block; margin-top: 2px;"><strike>₹5,000</strike></span>
       </p>
       
@@ -1200,13 +1200,12 @@ footer p{font-size:12.5px;color:var(--muted);}
         </div>
       </div>
     
-      <a href="https://wa.me/918904690856?text=I%20want%20to%20buy%20the%20WhatsApp%20Mastery%20Lifetime%20Access" target="_blank" class="ppc-btn">
+      <a href="javascript:void(0)" onclick="openWmModal(event)" class="ppc-btn">
         Join Now 
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       
       <div class="ppc-features">
-        <div class="ppc-feature"><span style="font-size: 20px;">📚</span> 7 Modules</div>
         <div class="ppc-feature"><span style="font-size: 20px;">🎬</span> Step-by-Step Training</div>
       </div>
     </div>
@@ -1795,7 +1794,7 @@ setInterval(updateTimer, 1000);
 function openWmModal(event) {
   if(event) event.preventDefault();
   document.getElementById('wm-modal').classList.add('active');
-  document.body.style.overflow = 'hidden'; // prevent scroll
+  document.body.style.overflow = 'hidden'; 
 }
 
 function closeWmModal() {
@@ -1803,10 +1802,13 @@ function closeWmModal() {
   document.body.style.overflow = '';
 }
 
-// Close on outside click
 document.getElementById('wm-modal').addEventListener('click', function(e) {
   if(e.target === this) closeWmModal();
 });
+
+// IMPORTANT: Replace with your actual Live/Test Key ID from Razorpay Dashboard
+const RAZORPAY_KEY_ID = "rzp_test_XXXXXXXXXXXXXXXX"; 
+const RAZORPAY_SECRET = "REPLACE_WITH_YOUR_SECRET"; // Note: Secret is usually for backend only
 
 function handleWmSubmit(e) {
   e.preventDefault();
@@ -1814,22 +1816,54 @@ function handleWmSubmit(e) {
   const btnText = btn.querySelector('.btn-text');
   const btnLoader = btn.querySelector('.btn-loader');
 
-  // Basic validation
-  const name = document.getElementById('wm-name').value;
-  const email = document.getElementById('wm-email').value;
-  const phone = document.getElementById('wm-phone').value;
+  const name = document.getElementById('wm-name').value.trim();
+  const email = document.getElementById('wm-email').value.trim();
+  const phone = document.getElementById('wm-phone').value.trim();
 
-  if(!name || !email || !phone) return;
+  if(!name || !email || !phone) {
+    alert("Please fill all fields.");
+    return;
+  }
 
-  // Simulate payment processing
+  // Disable button and show loader
   btn.disabled = true;
   btnText.style.display = 'none';
   btnLoader.style.display = 'flex';
 
-  setTimeout(() => {
-    // Redirect direct to WhatsApp channel
-    window.location.href = "https://whatsapp.com/channel/0029Vb7p4qz6hENnEOkHW220";
-  }, 2000);
+  const options = {
+    key: RAZORPAY_KEY_ID,
+    amount: 1500 * 100, // Amount is in currency subunits (150000 paise = ₹1500)
+    currency: "INR",
+    name: "SHASHANK KY",
+    description: "WhatsApp Mastery - Lifetime Access",
+    image: "https://creators-lac.vercel.app/processed-image.png",
+    prefill: {
+      name: name,
+      email: email,
+      contact: "+91" + phone
+    },
+    theme: {
+      color: "#e01c1c"
+    },
+    handler: function (response) {
+      // SUCCESSFUL PAYMENT
+      console.log("Payment Successful:", response.razorpay_payment_id);
+      
+      // Redirect to WhatsApp channel after success
+      window.location.href = "https://whatsapp.com/channel/0029Vb7p4qz6hENnEOkHW220";
+    },
+    modal: {
+      ondismiss: function() {
+        // RE-ENABLE BUTTON IF MODAL IS CLOSED WITHOUT PAYMENT
+        btn.disabled = false;
+        btnText.style.display = 'block';
+        btnLoader.style.display = 'none';
+      }
+    }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
 }
 </script>
 <script>

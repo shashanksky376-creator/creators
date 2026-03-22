@@ -408,7 +408,9 @@
       }
     });
 
-    const RAZORPAY_KEY = "rzp_test_XXXXXXXXXXXXXXXX"; // Real key should be here
+    // IMPORTANT: Replace with your actual Live/Test Key ID and Secret from Razorpay Dashboard
+    const RAZORPAY_KEY_ID = "rzp_test_XXXXXXXXXXXXXXXX"; 
+    const RAZORPAY_SECRET = "REPLACE_WITH_YOUR_SECRET"; 
     let currentPrice = 1999;
 
     function initPricing() {
@@ -434,7 +436,7 @@
       }
 
       const options = {
-        key: RAZORPAY_KEY,
+        key: RAZORPAY_KEY_ID,
         amount: currentPrice * 100,
         currency: "INR",
         name: "Affiliate Marketing Mastery",
