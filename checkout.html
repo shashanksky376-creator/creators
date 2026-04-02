@@ -287,11 +287,11 @@
             <div class="space-y-4">
                 <div class="space-y-1.5">
                     <label class="text-[11px] font-black uppercase text-slate-500 ml-1 tracking-wider">Full Name</label>
-                    <input id="name" type="text" placeholder="Enter your full name" class="input-field">
+                    <input id="name" type="text" placeholder="Enter your first and last name" class="input-field" minlength="3" title="Letters and spaces only." required>
                 </div>
                 <div class="space-y-1.5">
                     <label class="text-[11px] font-black uppercase text-slate-500 ml-1 tracking-wider">Email Address</label>
-                    <input id="email" type="email" placeholder="Enter your email address" class="input-field">
+                    <input id="email" type="email" placeholder="you@domain.com" class="input-field" required>
                 </div>
                 <div class="space-y-1.5">
                     <label class="text-[11px] font-black uppercase text-slate-500 ml-1 tracking-wider">Mobile Number</label>
@@ -299,7 +299,7 @@
                         <div class="bg-slate-100 border border-slate-200 rounded-xl px-4 flex items-center text-sm font-bold text-slate-700">
                             🇮🇳 +91
                         </div>
-                        <input id="phone" type="tel" placeholder="Enter your number" class="input-field">
+                        <input id="phone" type="tel" placeholder="10-digit number" class="input-field" maxlength="10" title="Exactly 10 digits required" required>
                     </div>
                 </div>
                 <!-- Instagram ID field removed -->
@@ -378,9 +378,10 @@
       }
 
       // Name Validation: At least 3 characters, letters and spaces only
-      const nameRegex = /^[A-Za-z\s]{3,}$/;
+      // Name Validation: Require First and Last Name (detects at least one space with letters)
+      const nameRegex = /^[A-Za-z]{2,}\s+[A-Za-z]{1,}$/;
       if (!nameRegex.test(name)) {
-        alert("Please enter a valid full name (minimum 3 characters, alphabets only).");
+        alert("Please enter your FULL name (First and Last name required).");
         return;
       }
 
@@ -394,7 +395,19 @@
       // Phone Validation: Proper 10-digit Indian Mobile Number
       const phoneRegex = /^[6-9]\d{9}$/;
       if (!phoneRegex.test(phone)) {
-        alert("Please enter a valid 10-digit Indian mobile number (e.g., 9876543210).");
+        alert("Please enter a valid 10-digit Indian mobile number.");
+        return;
+      }
+
+      // Advanced Phone Protection: Block fake repeating sequences
+      if (/^([0-9])\1{9}$/.test(phone) || phone === '1234567890' || phone === '0123456789' || phone === '9876543210') {
+        alert("Please enter a REAL mobile number, not a fake sequence.");
+        return;
+      }
+
+      // Advanced Email Protection: Block literal "example.com" or "test.com"
+      if (email.includes('@test.com') || email.includes('@example.com') || email.includes('admin@')) {
+        alert("Please enter a REAL email address to receive your course access.");
         return;
       }
 

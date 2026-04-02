@@ -83,7 +83,6 @@
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <h2 class="text-2xl font-bold tracking-tight">Enrolled Students List</h2>
         <div class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
-          <button onclick="clearAllTestData()" id="clear-btn" class="px-4 py-2 bg-red-600/10 hover:bg-red-600/20 border border-red-600/20 rounded-xl text-[10px] font-black uppercase tracking-widest text-red-500 transition-all">Clear All Test Data</button>
           <input type="text" id="studentSearch" placeholder="Search by name or email..." class="search-input" onkeyup="filterTable()">
         </div>
       </div>
@@ -156,11 +155,6 @@
         return acc + amt;
       }, 0);
       document.getElementById('stat-total-revenue').textContent = '₹' + totalRevenue.toLocaleString();
-
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('force_cleanup') === 'true') {
-        clearAllTestData(true); 
-      }
     }
 
     function renderTable(students) {
@@ -194,39 +188,6 @@
         (s.phone && s.phone.includes(query))
       );
       renderTable(filtered);
-    }
-
-
-    async function clearAllTestData(skipConfirm = false) {
-      if (!skipConfirm && !confirm("⚠️ WARNING: This will PERMANENTLY delete ALL students and reset revenue to ₹0. Are you sure you want to proceed?")) return;
-      
-      const btn = document.getElementById('clear-btn');
-      if (btn) {
-        btn.disabled = true;
-        btn.textContent = skipConfirm ? "Auto-Clearing..." : "Clearing Data...";
-      }
-      
-      try {
-        const { data: students } = await getAllEnrolledUsers();
-        if (students && students.length > 0) {
-          for (const s of students) {
-            await deleteEnrolledUser(s.email);
-          }
-        }
-        if (skipConfirm) {
-           window.location.href = 'admin.html?cleared=true';
-           return;
-        }
-        alert("✅ All test data cleared successfully!");
-        window.location.reload();
-      } catch (e) {
-        console.error(e);
-        if(!skipConfirm) alert("Failed to clear data. Check console.");
-        if(btn) {
-          btn.disabled = false;
-          btn.textContent = "Clear All Test Data";
-        }
-      }
     }
 
     window.onload = loadData;
