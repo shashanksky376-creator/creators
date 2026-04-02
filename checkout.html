@@ -32,7 +32,7 @@
   .input-field {
     width: 100%;
     padding: 12px 16px;
-    border: 1px solid #e2e8f0;
+    border: 1.5px solid #e2e8f0;
     border-radius: 10px;
     background: #f8fafc;
     font-size: 15px;
@@ -44,6 +44,25 @@
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
     outline: none;
   }
+  .input-field.error {
+    border-color: #ef4444 !important;
+    background: #fff5f5;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+  }
+  .input-field.valid {
+    border-color: #22c55e !important;
+    background: #f0fdf4;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+  }
+  .field-error {
+    color: #ef4444;
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 4px;
+    margin-left: 4px;
+    display: none;
+  }
+  .field-error.show { display: block; }
 
   .sticky-card {
     position: sticky;
@@ -287,11 +306,13 @@
             <div class="space-y-4">
                 <div class="space-y-1.5">
                     <label class="text-[11px] font-black uppercase text-slate-500 ml-1 tracking-wider">Full Name</label>
-                    <input id="name" type="text" placeholder="Enter your first and last name" class="input-field" minlength="3" title="Letters and spaces only." required>
+                    <input id="name" type="text" placeholder="Enter your first and last name" class="input-field" minlength="3" required>
+                    <p class="field-error" id="name-error">⚠ Enter your full name (First + Last)</p>
                 </div>
                 <div class="space-y-1.5">
                     <label class="text-[11px] font-black uppercase text-slate-500 ml-1 tracking-wider">Email Address</label>
-                    <input id="email" type="email" placeholder="you@domain.com" class="input-field" required>
+                    <input id="email" type="email" placeholder="you@gmail.com" class="input-field" required>
+                    <p class="field-error" id="email-error">⚠ Enter a valid email (e.g. you@gmail.com)</p>
                 </div>
                 <div class="space-y-1.5">
                     <label class="text-[11px] font-black uppercase text-slate-500 ml-1 tracking-wider">Mobile Number</label>
@@ -299,8 +320,9 @@
                         <div class="bg-slate-100 border border-slate-200 rounded-xl px-4 flex items-center text-sm font-bold text-slate-700">
                             🇮🇳 +91
                         </div>
-                        <input id="phone" type="tel" placeholder="10-digit number" class="input-field" maxlength="10" title="Exactly 10 digits required" required>
+                        <input id="phone" type="tel" placeholder="10-digit number" class="input-field" maxlength="10" required>
                     </div>
+                    <p class="field-error" id="phone-error">⚠ Enter a valid 10-digit Indian mobile number</p>
                 </div>
                 <!-- Instagram ID field removed -->
             </div>
@@ -366,50 +388,73 @@
     }
     window.addEventListener('DOMContentLoaded', initPricing);
 
+    function setError(id, errId, msg) {
+      const el = document.getElementById(id);
+      const err = document.getElementById(errId);
+      el.classList.add('error'); el.classList.remove('valid');
+      err.textContent = '⚠ ' + msg; err.classList.add('show');
+    }
+    function setValid(id, errId) {
+      const el = document.getElementById(id);
+      const err = document.getElementById(errId);
+      el.classList.remove('error'); el.classList.add('valid');
+      err.classList.remove('show');
+    }
+    function clearState(id, errId) {
+      document.getElementById(id).classList.remove('error','valid');
+      document.getElementById(errId).classList.remove('show');
+    }
+
+    function validateName(live) {
+      const val = document.getElementById('name').value.trim();
+      if (!val) { if(live) clearState('name','name-error'); return false; }
+      if (!/^[A-Za-z]{2,}\s+[A-Za-z]{1,}$/.test(val)) {
+        setError('name','name-error','Enter your full name (First + Last name required)');
+        return false;
+      }
+      setValid('name','name-error'); return true;
+    }
+    function validateEmail(live) {
+      const val = document.getElementById('email').value.trim().toLowerCase();
+      if (!val) { if(live) clearState('email','email-error'); return false; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val) || val.includes('@test.com') || val.includes('@example.com')) {
+        setError('email','email-error','Enter a real email address (e.g. you@gmail.com)');
+        return false;
+      }
+      setValid('email','email-error'); return true;
+    }
+    function validatePhone(live) {
+      const val = document.getElementById('phone').value.trim();
+      if (!val) { if(live) clearState('phone','phone-error'); return false; }
+      if (!/^[6-9]\d{9}$/.test(val) || /^(\d)\1{9}$/.test(val)) {
+        setError('phone','phone-error','Must be 10 digits starting with 6, 7, 8 or 9');
+        return false;
+      }
+      setValid('phone','phone-error'); return true;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('name').addEventListener('blur', () => validateName(false));
+      document.getElementById('name').addEventListener('input', () => validateName(true));
+      document.getElementById('email').addEventListener('blur', () => validateEmail(false));
+      document.getElementById('email').addEventListener('input', () => validateEmail(true));
+      document.getElementById('phone').addEventListener('blur', () => validatePhone(false));
+      document.getElementById('phone').addEventListener('input', e => {
+        e.target.value = e.target.value.replace(/\D/g,'').slice(0,10);
+        validatePhone(true);
+      });
+    });
+
     function handlePayment() {
+      const nameOk = validateName(false);
+      const emailOk = validateEmail(false);
+      const phoneOk = validatePhone(false);
+      if (!nameOk || !emailOk || !phoneOk) return;
+
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim().toLowerCase();
       const phone = document.getElementById('phone').value.trim();
       const countryCode = '+91'; 
-
-      if (!name || !email || !phone) {
-        alert("Please fill in all the details.");
-        return;
-      }
-
-      // Name Validation: At least 3 characters, letters and spaces only
-      // Name Validation: Require First and Last Name (detects at least one space with letters)
-      const nameRegex = /^[A-Za-z]{2,}\s+[A-Za-z]{1,}$/;
-      if (!nameRegex.test(name)) {
-        alert("Please enter your FULL name (First and Last name required).");
-        return;
-      }
-
-      // Email Validation: Standard format
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        alert("Please enter a valid email address.");
-        return;
-      }
-
-      // Phone Validation: Proper 10-digit Indian Mobile Number
-      const phoneRegex = /^[6-9]\d{9}$/;
-      if (!phoneRegex.test(phone)) {
-        alert("Please enter a valid 10-digit Indian mobile number.");
-        return;
-      }
-
-      // Advanced Phone Protection: Block fake repeating sequences
-      if (/^([0-9])\1{9}$/.test(phone) || phone === '1234567890' || phone === '0123456789' || phone === '9876543210') {
-        alert("Please enter a REAL mobile number, not a fake sequence.");
-        return;
-      }
-
-      // Advanced Email Protection: Block literal "example.com" or "test.com"
-      if (email.includes('@test.com') || email.includes('@example.com') || email.includes('admin@')) {
-        alert("Please enter a REAL email address to receive your course access.");
-        return;
-      }
 
       const options = {
         key: RAZORPAY_KEY_ID,
