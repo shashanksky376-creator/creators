@@ -519,11 +519,19 @@
       try {
         const { data } = await getAllEnrolledUsers();
         if (data) {
-           const total = data.length;
-           // Deducts from 15. If total % 15 == 0, it gives 15. If total % 15 == 1, it gives 14.
-           let seats = 15 - (total % 15);
-           const spotsEl = document.getElementById('spots-display');
-           if (spotsEl) spotsEl.innerHTML = `<span class="text-red-600 font-black animate-pulse">Only ${seats} spots left!</span>`;
+          // Exclude test/admin accounts so spots reflect only real paid students
+          const TEST_EMAILS = [
+            "shashanksky376@gmail.com",
+            "akashreddy55055@gmail.com",
+            "test@example.com",
+            "extra_test@test.com",
+            "akashreddy55055@gmailtest_ai_bot@test.com.com"
+          ];
+          const realCount = data.filter(u => !TEST_EMAILS.includes(u.email.toLowerCase().trim())).length;
+          const TOTAL_SEATS = 15;
+          const seats = Math.max(0, TOTAL_SEATS - realCount);
+          const spotsEl = document.getElementById('spots-display');
+          if (spotsEl) spotsEl.innerHTML = `<span class="text-red-600 font-black animate-pulse">Only ${seats} spots left!</span>`;
         }
       } catch (e) { console.warn("Could not load spots", e); }
     }
