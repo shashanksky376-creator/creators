@@ -1197,8 +1197,8 @@ footer p{font-size:12.5px;color:var(--muted);}
         </div>
       </div>
     
-      <a href="https://wa.me/918904690856?text=Hi%20Shashank!%20I%20want%20to%20enroll%20in%20the%20WhatsApp%20Mastery%20course%20for%20%E2%82%B91%2C500.%20Please%20share%20payment%20details." target="_blank" class="ppc-btn">
-        Join Now — WhatsApp 📲
+      <a href="javascript:void(0)" onclick="openWmModal(event)" class="ppc-btn">
+        Join Now
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       
@@ -1628,22 +1628,26 @@ setInterval(updateTimer, 1000);
     <form id="wm-lead-form" class="wm-modal-form" onsubmit="handleWmSubmit(event)">
       <div class="wm-input-group">
         <label>Full Name</label>
-        <input type="text" id="wm-name" placeholder="Enter your full name" required autocomplete="name">
+        <input type="text" id="wm-name" placeholder="Enter your full name" autocomplete="name" oninput="wmValidateName(this)" onblur="wmValidateName(this)">
+        <span class="wm-err" id="wm-name-err"></span>
       </div>
       <div class="wm-input-group">
         <label>Email Address</label>
-        <input type="email" id="wm-email" placeholder="email@example.com" required autocomplete="email">
+        <input type="email" id="wm-email" placeholder="email@example.com" autocomplete="email" oninput="wmValidateEmail(this)" onblur="wmValidateEmail(this)">
+        <span class="wm-err" id="wm-email-err"></span>
       </div>
       <div class="wm-input-group">
         <label>Mobile Number</label>
-        <div class="wm-phone-input">
+        <div class="wm-phone-input" id="wm-phone-wrap">
           <span class="wm-country-code">+91</span>
-          <input type="tel" id="wm-phone" placeholder="Enter mobile number" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number" autocomplete="tel">
+          <input type="tel" id="wm-phone" placeholder="Enter mobile number" autocomplete="tel" maxlength="10" oninput="wmValidatePhone(this)" onblur="wmValidatePhone(this)">
         </div>
+        <span class="wm-err" id="wm-phone-err"></span>
       </div>
       <div class="wm-input-group">
         <label>Instagram ID</label>
-        <input type="text" id="wm-insta-id" placeholder="@yourhandle" required>
+        <input type="text" id="wm-insta-id" placeholder="@yourhandle" oninput="wmValidateInsta(this)" onblur="wmValidateInsta(this)">
+        <span class="wm-err" id="wm-insta-err"></span>
       </div>
 
       <div class="wm-price-summary">
@@ -1651,7 +1655,7 @@ setInterval(updateTimer, 1000);
         <strong class="wm-final-price">₹1,500</strong>
       </div>
 
-      <button type="submit" id="wm-submit-btn" class="wm-modal-btn">
+      <button type="submit" id="wm-submit-btn" class="wm-modal-btn" disabled style="opacity:0.5;cursor:not-allowed;">
         <span class="btn-text">Proceed to Pay ₹1,500 →</span>
         <div class="btn-loader" style="display:none;">
           <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -1732,12 +1736,17 @@ setInterval(updateTimer, 1000);
 .wm-modal-form { display: flex; flex-direction: column; gap: 20px; }
 .wm-input-group { display: flex; flex-direction: column; gap: 8px; }
 .wm-input-group label { font-size: 11px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.5px; }
-.wm-input-group input { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 14px 16px; color: #fff; font-size: 15px; outline: none; transition: 0.2s; }
-.wm-input-group input:focus { border-color: var(--red); box-shadow: 0 0 0 4px rgba(224,28,28,0.1); }
+.wm-input-group input { background: #1a1a1a; border: 1.5px solid #333; border-radius: 12px; padding: 14px 16px; color: #fff; font-size: 15px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.wm-input-group input:focus { border-color: #888; }
+.wm-input-group input.wm-valid { border-color: #22c55e !important; box-shadow: 0 0 0 3px rgba(34,197,94,0.15) !important; }
+.wm-input-group input.wm-invalid { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239,68,68,0.15) !important; }
+.wm-err { font-size: 12px; color: #ef4444; min-height: 16px; display: block; margin-top: 2px; }
 
-.wm-phone-input { display: flex; align-items: center; background: #1a1a1a; border: 1px solid #333; border-radius: 12px; overflow: hidden; }
+.wm-phone-input { display: flex; align-items: center; background: #1a1a1a; border: 1.5px solid #333; border-radius: 12px; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s; }
+.wm-phone-input.wm-valid { border-color: #22c55e !important; box-shadow: 0 0 0 3px rgba(34,197,94,0.15) !important; }
+.wm-phone-input.wm-invalid { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239,68,68,0.15) !important; }
 .wm-country-code { padding: 0 16px; font-size: 15px; color: #666; font-weight: 600; border-right: 1px solid #333; }
-.wm-phone-input input { border: none !important; box-shadow: none !important; flex: 1; }
+.wm-phone-input input { border: none !important; box-shadow: none !important; background: transparent !important; flex: 1; }
 
 .wm-price-summary { display: flex; justify-content: space-between; align-items: center; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 12px; margin-top: 10px; }
 .wm-price-summary span { font-size: 14px; color: #999; }
@@ -1785,20 +1794,93 @@ document.getElementById('wm-modal').addEventListener('click', function(e) {
 const RAZORPAY_KEY_ID = "rzp_live_SU8wMBCKCmreq7"; 
 const RAZORPAY_SECRET = "54SsEawwI0RzoAZX61b6LK84"; // Note: For maximum security, this secret should be used on a backend server.
 
+// ── WM MODAL LIVE VALIDATION ──────────────────────────────
+function wmSetState(input, errEl, isValid, msg) {
+  input.classList.toggle('wm-valid',   isValid);
+  input.classList.toggle('wm-invalid', !isValid);
+  errEl.textContent = isValid ? '' : msg;
+}
+function wmSetPhoneState(wrap, errEl, isValid, msg) {
+  wrap.classList.toggle('wm-valid',   isValid);
+  wrap.classList.toggle('wm-invalid', !isValid);
+  errEl.textContent = isValid ? '' : msg;
+}
+function wmCheckAllValid() {
+  const allValid = ['wm-name','wm-email','wm-insta-id'].every(id => document.getElementById(id).classList.contains('wm-valid'))
+    && document.getElementById('wm-phone-wrap').classList.contains('wm-valid');
+  const btn = document.getElementById('wm-submit-btn');
+  btn.disabled = !allValid;
+  btn.style.opacity = allValid ? '1' : '0.5';
+  btn.style.cursor  = allValid ? 'pointer' : 'not-allowed';
+}
+function wmValidateName(el) {
+  const v = el.value.trim();
+  const ok = /^[A-Za-z]{2,}\s+[A-Za-z]{1,}/.test(v);
+  wmSetState(el, document.getElementById('wm-name-err'), ok,
+    '⚠ Enter full name (First + Last required)');
+  wmCheckAllValid();
+}
+function wmValidateEmail(el) {
+  const v = el.value.trim();
+  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  wmSetState(el, document.getElementById('wm-email-err'), ok,
+    '⚠ Enter a valid email (e.g. you@gmail.com)');
+  wmCheckAllValid();
+}
+function wmValidatePhone(el) {
+  const digits = el.value.replace(/\D/g,'').slice(0,10);
+  el.value = digits;
+  const wrap = document.getElementById('wm-phone-wrap');
+  const errEl = document.getElementById('wm-phone-err');
+  const isRepeat = digits.length === 10 && /^(.)\1+$/.test(digits);
+  const ok = digits.length === 10 && /^[6-9]/.test(digits) && !isRepeat;
+  wmSetPhoneState(wrap, errEl, ok,
+    digits.length < 10 ? '⚠ Must be 10 digits starting with 6, 7, 8 or 9'
+                       : isRepeat ? '⚠ Enter a real phone number'
+                       : '⚠ Must start with 6, 7, 8 or 9');
+  wmCheckAllValid();
+}
+function wmValidateInsta(el) {
+  const v = el.value.trim();
+  const ok = v.length >= 2;
+  wmSetState(el, document.getElementById('wm-insta-err'), ok,
+    '⚠ Enter your Instagram ID');
+  wmCheckAllValid();
+}
+// Reset validation state when modal opens
+const _origOpenWm = openWmModal;
+function openWmModal(event) {
+  _origOpenWm(event);
+  ['wm-name','wm-email','wm-insta-id'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) { el.value=''; el.classList.remove('wm-valid','wm-invalid'); }
+  });
+  const ph = document.getElementById('wm-phone');
+  if(ph) { ph.value=''; }
+  const wrap = document.getElementById('wm-phone-wrap');
+  if(wrap) wrap.classList.remove('wm-valid','wm-invalid');
+  document.querySelectorAll('.wm-err').forEach(e => e.textContent='');
+  const btn = document.getElementById('wm-submit-btn');
+  if(btn) { btn.disabled=true; btn.style.opacity='0.5'; btn.style.cursor='not-allowed'; }
+}
+// ─────────────────────────────────────────────────────────
+
 function handleWmSubmit(e) {
   e.preventDefault();
+  // Run all validations once more to be safe
+  wmValidateName(document.getElementById('wm-name'));
+  wmValidateEmail(document.getElementById('wm-email'));
+  wmValidatePhone(document.getElementById('wm-phone'));
+  wmValidateInsta(document.getElementById('wm-insta-id'));
   const btn = document.getElementById('wm-submit-btn');
+  if(btn.disabled) return;
   const btnText = btn.querySelector('.btn-text');
   const btnLoader = btn.querySelector('.btn-loader');
 
-  const name = document.getElementById('wm-name').value.trim();
+  const name  = document.getElementById('wm-name').value.trim();
   const email = document.getElementById('wm-email').value.trim();
   const phone = document.getElementById('wm-phone').value.trim();
-
-  if(!name || !email || !phone) {
-    alert("Please fill all fields.");
-    return;
-  }
+  const instaId = document.getElementById('wm-insta-id').value.trim();
 
   // Disable button and show loader
   btn.disabled = true;
