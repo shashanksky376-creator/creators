@@ -261,7 +261,7 @@
                    <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider">Offer ends in</p>
                    <p class="text-sm font-black text-slate-900 tabular-nums"><span id="hours">00</span>h <span id="minutes">00</span>m <span id="seconds">00</span>s</p>
                 </div>
-                <div class="text-xs font-bold text-slate-400">Limited Spots!</div>
+                <div class="text-xs font-bold text-slate-400" id="spots-display">Limited Spots!</div>
             </div>
             
             <div class="space-y-2">
@@ -302,10 +302,7 @@
                         <input id="phone" type="tel" placeholder="Enter your number" class="input-field">
                     </div>
                 </div>
-                <div class="space-y-1.5">
-                    <label class="text-[11px] font-black uppercase text-slate-500 ml-1 tracking-wider">Instagram ID</label>
-                    <input id="insta-id" type="text" placeholder="@yourhandle" class="input-field">
-                </div>
+                <!-- Instagram ID field removed -->
             </div>
 
             <!-- CTA -->
@@ -380,6 +377,27 @@
         return;
       }
 
+      // Name Validation: At least 3 characters, letters and spaces only
+      const nameRegex = /^[A-Za-z\s]{3,}$/;
+      if (!nameRegex.test(name)) {
+        alert("Please enter a valid full name (minimum 3 characters, alphabets only).");
+        return;
+      }
+
+      // Email Validation: Standard format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      // Phone Validation: Proper 10-digit Indian Mobile Number
+      const phoneRegex = /^[6-9]\d{9}$/;
+      if (!phoneRegex.test(phone)) {
+        alert("Please enter a valid 10-digit Indian mobile number (e.g., 9876543210).");
+        return;
+      }
+
       const options = {
         key: RAZORPAY_KEY_ID,
         amount: currentPrice * 100,
@@ -388,17 +406,21 @@
         description: "Professional Affiliate Training",
         prefill: { name, email, contact: countryCode + phone.replace(/\D/g,'') },
         theme: { color: "#dc2626" },
+        notes: {
+          fullName: name,
+          email: email,
+          phone: phone,
+          amount: currentPrice
+        },
         handler: async function(response) {
           try {
-            const instaId = document.getElementById('insta-id').value.trim();
             // enrollment call
             await enrollUser({
               fullName: name,
               email: email,
               phone: phone,
               razorpayPaymentId: response.razorpay_payment_id,
-              amount: currentPrice,
-              instaId: instaId
+              amount: currentPrice
             });
 
             // Automatically trigger the login code so it's in their inbox when they arrive
@@ -411,13 +433,12 @@
       new Razorpay(options).open();
     }
 
-    function updateCountdown() {
-      const now = new Date();
-      // IST Midnight Reset
-      const target = new Date();
-      target.setHours(24, 0, 0, 0); 
-      
-      const diff = target - now;
+    async function updateCountdown() {
+      // 2-Hour Rolling Timer
+      const cycleDuration = 2 * 60 * 60 * 1000; // 2 hours in ms
+      const currentCycleStart = Math.floor(Date.now() / cycleDuration) * cycleDuration;
+      const diff = (currentCycleStart + cycleDuration) - Date.now();
+
       const hours = Math.floor(diff / (1000 * 60 * 60));
       const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const secs = Math.floor((diff % (1000 * 60)) / 1000);
@@ -435,8 +456,23 @@
         document.getElementById('secs-banner').textContent = s;
       }
     }
+
+    async function updateSpots() {
+      try {
+        const { data } = await getAllEnrolledUsers();
+        if (data) {
+           const total = data.length;
+           // Deducts from 15. If total % 15 == 0, it gives 15. If total % 15 == 1, it gives 14.
+           let seats = 15 - (total % 15);
+           const spotsEl = document.getElementById('spots-display');
+           if (spotsEl) spotsEl.innerHTML = `<span class="text-red-600 font-black animate-pulse">Only ${seats} spots left!</span>`;
+        }
+      } catch (e) { console.warn("Could not load spots", e); }
+    }
+
     setInterval(updateCountdown, 1000);
     updateCountdown();
+    updateSpots();
 
     // Reveal Observer
     const observer = new IntersectionObserver((entries) => {

@@ -115,7 +115,7 @@ async function getAllEnrolledUsers() {
   const client = initSupabase();
   const { data, error } = await client
     .from("enrolled_users")
-    .select("full_name, email, phone, razorpay_payment_id, enrolled_at, amount_paid, insta_id")
+    .select("full_name, email, phone, razorpay_payment_id, enrolled_at")
     .order("enrolled_at", { ascending: false });
     
   return { data, error };
@@ -168,7 +168,7 @@ async function validateActiveSession(email) {
 // -------------------------------------------------------
 // ENROLLMENT: Add user after successful Razorpay payment
 // -------------------------------------------------------
-async function enrollUser({ fullName, email, phone, razorpayPaymentId, amount, instaId }) {
+async function enrollUser({ fullName, email, phone, razorpayPaymentId, amount }) {
   const client = initSupabase();
   const cleanEmail = email.toLowerCase().trim();
   const { data, error } = await client
@@ -178,8 +178,6 @@ async function enrollUser({ fullName, email, phone, razorpayPaymentId, amount, i
       email: cleanEmail,
       phone: phone || null,
       razorpay_payment_id: razorpayPaymentId,
-      amount_paid: amount || 0,
-      insta_id: instaId || "",
       enrolled_at: new Date().toISOString(),
     }], { onConflict: "email" });
 
