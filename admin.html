@@ -134,7 +134,13 @@
       }
 
       // IGNORE TESTERS FOR REVENUE/STATS
-      const TEST_EMAILS = ["shashanksky376@gmail.com", "akashreddy55055@gmail.com", "test@example.com"];
+      const TEST_EMAILS = [
+        "shashanksky376@gmail.com",
+        "akashreddy55055@gmail.com",
+        "test@example.com",
+        "extra_test@test.com",
+        "akashreddy55055@gmailtest_ai_bot@test.com.com"
+      ];
       const filteredData = data.filter(u => !TEST_EMAILS.includes(u.email.toLowerCase().trim()));
 
       if (filteredData.length === 0) {
