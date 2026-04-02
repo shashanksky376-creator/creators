@@ -5,11 +5,11 @@
 
 (async function () {
   let session = await getSession();
- 
+
   // If no session yet but we have an OAuth access token in the URL,
   // wait a moment for Supabase to process it.
   if (!session && window.location.hash.includes('access_token')) {
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 2000));
     session = await getSession();
   }
 
@@ -20,67 +20,20 @@
 
   const email = session.user.email.toLowerCase().trim();
 
-  // Check enrollment
+  // Check enrollment — only requirement is the email exists in enrolled_users
   const enrollment = await checkEnrollment(email);
   if (!enrollment) {
-    console.warn("Unauthorized access attempt from:", email);
-    // Forcefully clear everything and logout session
-    await signOut(); 
-    localStorage.clear(); 
+    console.warn("Not enrolled:", email);
     window.location.replace("/login.html?reason=not_enrolled");
     return;
   }
 
-  // ---- Single-session enforcement ----
-  const sessionKey = `af_pro_session_${email}`;
-  let localToken = localStorage.getItem(sessionKey);
-  
-  // If no local token exists (e.g. user clicked a Magic Link or logged in with Google), 
-  // we initialize it if they are already in our enrollment list.
-  if (!localToken) {
-    localToken = generateSessionToken();
-    localStorage.setItem(sessionKey, localToken);
-    localStorage.setItem("affiliate_pro_last_user", email);
-    
-    // Update the DB so our local token matches
-    const client = initSupabase();
-    const { error: updateError } = await client
-      .from("enrolled_users")
-      .update({ active_session_token: localToken })
-      .eq("email", email);
-    
-    if (updateError) {
-      console.error("Failed to initialize session in DB:", updateError);
-    } else {
-      console.log("Initialized new session for:", email);
-    }
-    
-    // We JUST set this, so we don't need to validate it immediately
-  } else {
-    // Validate that the existing local token matches the DB
-    const isValidSession = await validateActiveSession(email);
-    if (!isValidSession) {
-      console.error("Session invalid for:", email);
-      await signOut("multi_device");
-      return;
-    }
-  }
-
-  // All good — store name for display
+  // All good — store user info globally for use by the page
   window.ENROLLED_USER = {
     email: email,
     fullName: enrollment.full_name || "Student"
   };
   window.IS_ADMIN = isAdmin(email);
-
-  // Poll every 60s to catch remote logouts
-  setInterval(async () => {
-    const valid = await validateActiveSession(email);
-    if (!valid) {
-      // Trigger sign out with specific reason for better UI feedback
-      await signOut("session_expired");
-    }
-  }, 60000);
 
   console.log("✅ Auth check passed for:", email);
 })();
