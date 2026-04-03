@@ -78,6 +78,16 @@
       overflow: hidden;
       border: 1px solid var(--border);
       box-shadow: 0 40px 100px -20px rgba(0,0,0,0.8), 0 0 40px rgba(232, 33, 43, 0.05);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    /* Block right-click on video area */
+    .video-wrap iframe { pointer-events: auto; }
+    .video-shield {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      /* Transparent shield that blocks right click but passes click-through on top */
     }
     @media (max-width: 768px) {
       .video-wrap { border-radius: 20px; }
@@ -498,11 +508,13 @@
                <h2 class="text-2xl font-black uppercase mb-4 tracking-[0.2em] text-white">Select a Lesson</h2>
                <p class="text-gray-500 text-sm max-w-sm leading-relaxed">Pick a module from the curriculum below to begin your professional training session.</p>
             </div>
-            <iframe id="bunny-player" 
+            <!-- Shield layer blocks right-click save on video -->
+            <div class="video-shield" oncontextmenu="return false;"></div>
+            <iframe id="drive-player" 
                     src="" 
                     loading="lazy" 
-                    style="border:0;position:absolute;top:0;left:0;height:100%;width:100%;opacity:0;transition:opacity 0.8s;" 
-                    allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" 
+                    style="border:0;position:absolute;top:0;left:0;height:100%;width:100%;opacity:0;transition:opacity 0.8s;"
+                    allow="autoplay; encrypted-media"
                     allowfullscreen="true">
             </iframe>
           </div>
@@ -551,86 +563,71 @@
   </main>
 
   <script>
-    const BUNNY_LIBRARY_ID = "620471";
+    // ── GOOGLE DRIVE VIDEO IDs ──────────────────────────────────────────────
+    // HOW TO GET YOUR FILE ID:
+    // 1. Upload video to Google Drive
+    // 2. Right-click → Share → Change to "Anyone with the link"
+    // 3. Copy link: https://drive.google.com/file/d/YOUR_FILE_ID/view
+    // 4. Paste just the FILE_ID part below
+    // ────────────────────────────────────────────────────────────────────────
     window.INITIAL_LOAD = false;
     
-    // Core Course Data
+    // Core Course Data — replace driveId with your Google Drive file IDs
     const courseData = [
       {
-        id: "mod-1",
-        num: "1",
-        tag: "Welcome",
-        tagColor: "red",
+        id: "mod-1", num: "1", tag: "Welcome", tagColor: "red",
         title: "Welcome to the Course",
         desc: "Begin your journey with the fundamental roadmap and mindset for affiliate success.",
         lessons: [
-          { title: "Welcome To The Course :- INTRODUCTION", desc: "Your first steps in the Affiliate PRO system.", videoId: "89ac76e3-c2f6-4f10-8750-0aba442eeb03", duration: "5:04" }
+          { title: "Welcome To The Course :- INTRODUCTION", desc: "Your first steps in the Affiliate PRO system.", driveId: "PASTE_DRIVE_FILE_ID_1_HERE", duration: "5:04" }
         ]
       },
       {
-        id: "mod-2",
-        num: "2",
-        tag: "Setup",
-        tagColor: "blue",
+        id: "mod-2", num: "2", tag: "Setup", tagColor: "blue",
         title: "How to Build Instagram Page",
         desc: "Learn to build an optimized Instagram business presence from scratch.",
         lessons: [
-          { title: "A-Z Instagram Account", desc: "Setting up your page for maximum conversion.", videoId: "888b3154-fd91-4532-8e60-dad66d76f78d", duration: "3:11" }
+          { title: "A-Z Instagram Account", desc: "Setting up your page for maximum conversion.", driveId: "PASTE_DRIVE_FILE_ID_2_HERE", duration: "3:11" }
         ]
       },
       {
-        id: "mod-3",
-        num: "3",
-        tag: "Network",
-        tagColor: "purple",
+        id: "mod-3", num: "3", tag: "Network", tagColor: "purple",
         title: "Affiliate Platforms",
         desc: "Discover the best platforms to find high-paying affiliate products.",
         lessons: [
-          { title: "About Affiliate Platforms", desc: "Navigating networks and selection strategy.", videoId: "1a32ed5b-1686-4069-b44f-1b80cd339d5c", duration: "2:16" }
+          { title: "About Affiliate Platforms", desc: "Navigating networks and selection strategy.", driveId: "PASTE_DRIVE_FILE_ID_3_HERE", duration: "2:16" }
         ]
       },
       {
-        id: "mod-4",
-        num: "4",
-        tag: "Content",
-        tagColor: "amber",
+        id: "mod-4", num: "4", tag: "Content", tagColor: "amber",
         title: "How to Download and Make Affiliate Videos",
         desc: "Master the workflow for high-quality video creation and sourcing.",
         lessons: [
-          { title: "how to do videos", desc: "Editing and production workflow for affiliates.", videoId: "6e4ae08e-6f36-4868-b754-9ae2b281edbc", duration: "7:24" }
+          { title: "How to do videos", desc: "Editing and production workflow for affiliates.", driveId: "PASTE_DRIVE_FILE_ID_4_HERE", duration: "7:24" }
         ]
       },
       {
-        id: "mod-5",
-        num: "5",
-        tag: "Upload",
-        tagColor: "emerald",
+        id: "mod-5", num: "5", tag: "Upload", tagColor: "emerald",
         title: "Upload Videos on Insta",
         desc: "The right way to upload reels for maximum reach and engagement.",
         lessons: [
-          { title: "right way to upload insta reels", desc: "Optimizing your uploads for the algorithm.", videoId: "e4b29083-2156-497e-8718-5d510ca0db0c", duration: "16:56" }
+          { title: "Right way to upload Insta Reels", desc: "Optimizing your uploads for the algorithm.", driveId: "PASTE_DRIVE_FILE_ID_5_HERE", duration: "16:56" }
         ]
       },
       {
-        id: "mod-6",
-        num: "6",
-        tag: "Income",
-        tagColor: "indigo",
+        id: "mod-6", num: "6", tag: "Income", tagColor: "indigo",
         title: "Affiliate Income Sources",
         desc: "Monetize your traffic using Meesho, Wishlink and other top networks.",
         lessons: [
-          { title: "generate income in meesho and wish link", desc: "Step-by-step monetization strategy.", videoId: "68191758-63de-47cc-9977-53b486b32b51", duration: "28:10" }
+          { title: "Generate income in Meesho & Wishlink", desc: "Step-by-step monetization strategy.", driveId: "PASTE_DRIVE_FILE_ID_6_HERE", duration: "28:10" }
         ]
       },
       {
-        id: "mod-7",
-        num: "7",
-        tag: "Finish",
-        tagColor: "rose",
+        id: "mod-7", num: "7", tag: "Finish", tagColor: "rose",
         title: "Congratulations You Made It",
         desc: "Final words, lifetime access details, and your roadmap for the future.",
         lessons: [
-          { title: "lifetime acess", desc: "Wrap up and final rewards.", videoId: "9e9212b3-af2d-424c-9c8b-defe0b87deaa", duration: "4:05" }
+          { title: "Lifetime Access", desc: "Wrap up and final rewards.", driveId: "PASTE_DRIVE_FILE_ID_7_HERE", duration: "4:05" }
         ]
       }
     ];
@@ -654,7 +651,7 @@
             </div>
             <div class="pt-2 flex flex-col gap-2">
               ${mod.lessons.map((lesson, idx) => `
-                <div onclick="selectLesson(\`${lesson.title}\`, \`${lesson.desc}\`, \`${lesson.videoId}\`, \`${mod.num}\`, this)" 
+                <div onclick="selectLesson(\`${lesson.title}\`, \`${lesson.desc}\`, \`${lesson.driveId}\`, \`${mod.num}\`, this)" 
                      id="lesson-${mod.num}-${idx}"
                      class="lesson-item locked px-4 py-4 cursor-pointer flex items-center gap-4 active:scale-[0.98] w-full">
                   <div class="lesson-num w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-[11px] font-black transition-all">0${idx+1}</div>
@@ -694,7 +691,8 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function selectLesson(title, desc, videoId, modNum, element) {
+    function selectLesson(title, desc, driveId, modNum, element) {
+      const videoId = driveId; // alias for compatibility
       // Security Check: Verify user is logged in
       if (!window.ENROLLED_USER) {
         window.location.href = "/login.html?reason=auth";
@@ -708,10 +706,11 @@
       }
       
       const placeholder = document.getElementById('video-placeholder');
-      const player = document.getElementById('bunny-player');
+      const player = document.getElementById('drive-player');
       
       placeholder.style.display = 'none';
-      player.src = `https://iframe.mediadelivery.net/embed/${BUNNY_LIBRARY_ID}/${videoId}?autoplay=true`;
+      // Google Drive preview embed — works for any video shared as "Anyone with link"
+      player.src = `https://drive.google.com/file/d/${videoId}/preview`;
       player.style.opacity = '1';
 
       // Setup Watermark
