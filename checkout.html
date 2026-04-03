@@ -494,7 +494,7 @@
     // Global Scarcity Sync
     async function initGlobalScarcity() {
       try {
-        const { data } = await supabase.from('course_settings').select('timer_active, timer_end, seats_left').eq('id', 1).single();
+        const { data } = await initSupabase().from('course_settings').select('timer_active, timer_end, seats_left').eq('id', 1).single();
         if (!data) return;
         
         // Update seats globally

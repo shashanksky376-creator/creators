@@ -239,7 +239,7 @@
     // Scarcity Controls Logic
     async function loadScarcitySettings() {
       try {
-        const { data, error } = await supabase.from('course_settings').select('*').eq('id', 1).single();
+        const { data, error } = await initSupabase().from('course_settings').select('*').eq('id', 1).single();
         if (data) {
           document.getElementById('timerToggle').checked = data.timer_active;
           document.getElementById('seatsInput').value = data.seats_left;
@@ -249,13 +249,13 @@
 
     async function toggleTimerSettings() {
       const isActive = document.getElementById('timerToggle').checked;
-      await supabase.from('course_settings').update({ timer_active: isActive }).eq('id', 1);
+      await initSupabase().from('course_settings').update({ timer_active: isActive }).eq('id', 1);
       alert(`Timer banner is now ${isActive ? 'ACTIVE' : 'HIDDEN'} globally.`);
     }
 
     async function resetGlobalTimer() {
       const fifteenMinsFromNow = Date.now() + (15 * 60 * 1000);
-      await supabase.from('course_settings').update({ 
+      await initSupabase().from('course_settings').update({ 
         timer_end: fifteenMinsFromNow,
         timer_active: true
       }).eq('id', 1);
@@ -267,7 +267,7 @@
     async function updateSeats() {
       const seats = parseInt(document.getElementById('seatsInput').value);
       if (isNaN(seats) || seats < 0) return alert("Invalid seats number");
-      await supabase.from('course_settings').update({ seats_left: seats }).eq('id', 1);
+      await initSupabase().from('course_settings').update({ seats_left: seats }).eq('id', 1);
       alert(`Available seats successfully updated to ${seats}.`);
     }
 

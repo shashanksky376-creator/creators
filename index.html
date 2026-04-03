@@ -877,7 +877,7 @@
   // Global Scarcity Sync Logic
   async function initGlobalScarcity() {
     try {
-      const { data, error } = await supabase.from('course_settings').select('timer_active, timer_end, seats_left').eq('id', 1).single();
+      const { data, error } = await initSupabase().from('course_settings').select('timer_active, timer_end, seats_left').eq('id', 1).single();
       if (!data || !data.timer_active) return;
       
       const banner = document.getElementById('global-scarcity-banner');
