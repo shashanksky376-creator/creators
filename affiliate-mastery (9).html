@@ -1778,7 +1778,19 @@ setInterval(updateTimer, 1000);
 function openWmModal(event) {
   if(event) event.preventDefault();
   document.getElementById('wm-modal').classList.add('active');
-  document.body.style.overflow = 'hidden'; 
+  document.body.style.overflow = 'hidden';
+  // Reset all fields and validation state
+  ['wm-name','wm-email','wm-insta-id'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if(el) { el.value=''; el.classList.remove('wm-valid','wm-invalid'); }
+  });
+  var ph = document.getElementById('wm-phone');
+  if(ph) ph.value = '';
+  var wrap = document.getElementById('wm-phone-wrap');
+  if(wrap) wrap.classList.remove('wm-valid','wm-invalid');
+  document.querySelectorAll('.wm-err').forEach(function(e) { e.textContent=''; });
+  var btn = document.getElementById('wm-submit-btn');
+  if(btn) { btn.disabled=true; btn.style.opacity='0.5'; btn.style.cursor='not-allowed'; }
 }
 
 function closeWmModal() {
@@ -1792,7 +1804,7 @@ document.getElementById('wm-modal').addEventListener('click', function(e) {
 
 // IMPORTANT: Replace with your actual Live/Test Key ID from Razorpay Dashboard
 const RAZORPAY_KEY_ID = "rzp_live_SU8wMBCKCmreq7"; 
-const RAZORPAY_SECRET = "54SsEawwI0RzoAZX61b6LK84"; // Note: For maximum security, this secret should be used on a backend server.
+const RAZORPAY_SECRET = "54SsEawwI0RzoAZX61b6LK84";
 
 // ── WM MODAL LIVE VALIDATION ──────────────────────────────
 function wmSetState(input, errEl, isValid, msg) {
@@ -1846,22 +1858,6 @@ function wmValidateInsta(el) {
   wmSetState(el, document.getElementById('wm-insta-err'), ok,
     '⚠ Enter your Instagram ID');
   wmCheckAllValid();
-}
-// Reset validation state when modal opens
-const _origOpenWm = openWmModal;
-function openWmModal(event) {
-  _origOpenWm(event);
-  ['wm-name','wm-email','wm-insta-id'].forEach(id => {
-    const el = document.getElementById(id);
-    if(el) { el.value=''; el.classList.remove('wm-valid','wm-invalid'); }
-  });
-  const ph = document.getElementById('wm-phone');
-  if(ph) { ph.value=''; }
-  const wrap = document.getElementById('wm-phone-wrap');
-  if(wrap) wrap.classList.remove('wm-valid','wm-invalid');
-  document.querySelectorAll('.wm-err').forEach(e => e.textContent='');
-  const btn = document.getElementById('wm-submit-btn');
-  if(btn) { btn.disabled=true; btn.style.opacity='0.5'; btn.style.cursor='not-allowed'; }
 }
 // ─────────────────────────────────────────────────────────
 
