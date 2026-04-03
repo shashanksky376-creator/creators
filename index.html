@@ -902,17 +902,21 @@
       
       setInterval(() => {
         const now = Date.now();
-        const diff = timerEnd - now;
+        let diff = timerEnd - now;
         
-        let displayStr = "00:00";
-        if (diff > 0) {
-          const m = Math.floor(diff / 60000).toString().padStart(2, '0');
-          const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
-          displayStr = `${m}:${s}`;
+        // Endless loop fallback if timer is expired or 0
+        if (diff <= 0) {
+          const loopMs = 15 * 60 * 1000;
+          const elapsed = Math.abs(diff);
+          diff = loopMs - (elapsed % loopMs);
         }
         
+        const m = Math.floor(diff / 60000).toString().padStart(2, '0');
+        const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+        const displayStr = `${m}:${s}`;
+        
         timerDisplay.textContent = displayStr;
-        inlineTimers.forEach(el => el.textContent = diff > 0 ? `00:${displayStr}` : "00:00:00");
+        inlineTimers.forEach(el => el.textContent = `00:${displayStr}`);
       }, 1000);
     } catch (e) { console.warn("Scarcity load error:", e); }
   }
