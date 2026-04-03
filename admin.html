@@ -249,7 +249,15 @@
 
     async function toggleTimerSettings() {
       const isActive = document.getElementById('timerToggle').checked;
-      await initSupabase().from('course_settings').update({ timer_active: isActive }).eq('id', 1);
+      
+      let updateData = { timer_active: isActive };
+      
+      // If turning ON, automatically restart the timer to prevent showing 0:00:00
+      if (isActive) {
+        updateData.timer_end = Date.now() + (15 * 60 * 1000);
+      }
+      
+      await initSupabase().from('course_settings').update(updateData).eq('id', 1);
       alert(`Timer banner is now ${isActive ? 'ACTIVE' : 'HIDDEN'} globally.`);
     }
 
