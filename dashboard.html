@@ -83,12 +83,6 @@
     }
     /* Block right-click on video area */
     .video-wrap iframe { pointer-events: auto; }
-    .video-shield {
-      position: absolute;
-      inset: 0;
-      z-index: 5;
-      /* Transparent shield that blocks right click but passes click-through on top */
-    }
     @media (max-width: 768px) {
       .video-wrap { border-radius: 20px; }
     }
@@ -508,8 +502,6 @@
                <h2 class="text-2xl font-black uppercase mb-4 tracking-[0.2em] text-white">Select a Lesson</h2>
                <p class="text-gray-500 text-sm max-w-sm leading-relaxed">Pick a module from the curriculum below to begin your professional training session.</p>
             </div>
-            <!-- Shield layer blocks right-click save on video -->
-            <div class="video-shield" oncontextmenu="return false;"></div>
             <iframe id="drive-player" 
                     src="" 
                     loading="lazy" 
@@ -708,10 +700,19 @@
       const placeholder = document.getElementById('video-placeholder');
       const player = document.getElementById('drive-player');
       
-      placeholder.style.display = 'none';
-      // Google Drive preview embed — works for any video shared as "Anyone with link"
-      player.src = `https://drive.google.com/file/d/${videoId}/preview`;
-      player.style.opacity = '1';
+      if (!videoId || videoId.startsWith("PASTE_")) {
+        // Video not uploaded/ready yet
+        placeholder.style.display = 'flex';
+        placeholder.querySelector('h2').textContent = "Coming Soon";
+        placeholder.querySelector('p').textContent = "This training module will be automatically unlocked once it is uploaded.";
+        player.style.opacity = '0';
+        player.removeAttribute('src');
+      } else {
+        // Render valid Google Drive embed
+        placeholder.style.display = 'none';
+        player.src = `https://drive.google.com/file/d/${videoId}/preview`;
+        player.style.opacity = '1';
+      }
 
       // Setup Watermark
       const watermark = document.getElementById('video-watermark');
