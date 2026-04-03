@@ -501,13 +501,17 @@
         const spotsEl = document.getElementById('spots-display');
         if (spotsEl) spotsEl.innerHTML = `<span class="text-red-600 font-black animate-pulse">Only ${data.seats_left} spots left!</span>`;
         
+        const countdownBox = document.querySelector('.bg-blue-900\\/5.rounded-2xl.p-4');
+        
         if (!data.timer_active) {
           document.getElementById('urgencyBanner').style.display = 'none';
           document.getElementById('mainHeader').style.top = '1.5rem';
+          if (countdownBox) countdownBox.style.display = 'none';
           return;
         }
         
         document.getElementById('urgencyBanner').style.display = 'block';
+        if (countdownBox) countdownBox.style.display = 'flex';
         const timerEnd = parseInt(data.timer_end);
         
         setInterval(() => {

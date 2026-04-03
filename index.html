@@ -501,7 +501,7 @@
             <div class="relative z-10">
               <div class="flex justify-between items-center mb-6">
                 <span class="text-[10px] font-black tracking-[0.2em] text-red-600 uppercase">Limited Time Offer</span>
-                <div class="flex items-center gap-2 text-xs font-bold text-gray-400">
+                <div id="inline-timer-container" class="flex items-center gap-2 text-xs font-bold text-gray-400">
                   <svg class="w-4 h-4 text-red-600 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                   Ends in: <span id="mobile-timer" class="text-white font-mono">00:00:00</span>
                 </div>
@@ -878,13 +878,18 @@
   async function initGlobalScarcity() {
     try {
       const { data, error } = await initSupabase().from('course_settings').select('timer_active, timer_end, seats_left').eq('id', 1).single();
-      if (!data || !data.timer_active) return;
       
       const banner = document.getElementById('global-scarcity-banner');
       const timerDisplay = document.getElementById('global-scarcity-timer');
       
       // Sync inline pricing card timers
       const inlineTimers = document.querySelectorAll('.mobile-timer, #mobile-timer');
+      const inlineTimerContainers = document.querySelectorAll('#inline-timer-container');
+      
+      if (!data || !data.timer_active) {
+        inlineTimerContainers.forEach(el => el.style.display = 'none');
+        return;
+      }
       
       banner.classList.remove('hidden');
       document.getElementById('mainHeader').style.top = '2.5rem'; // shift floating nav down
