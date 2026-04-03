@@ -78,6 +78,46 @@
       </div>
     </div>
 
+    <!-- Scarcity Control Panel -->
+    <div class="glass p-8 space-y-6">
+      <div class="flex items-center gap-4">
+        <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <h2 class="text-2xl font-bold tracking-tight text-red-500 uppercase">Global Scarcity Controls</h2>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+        <!-- Timer Controls -->
+        <div class="space-y-4 p-6 bg-white/5 border border-white/5 rounded-2xl">
+          <h3 class="text-[10px] font-black uppercase tracking-widest text-gray-400">Countdown Timer</h3>
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-medium">Show Global Red Banner</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="timerToggle" class="sr-only peer" onchange="toggleTimerSettings()">
+              <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+            </label>
+          </div>
+          <button onclick="resetGlobalTimer()" class="w-full mt-4 px-4 py-3 bg-red-600 hover:bg-red-700 text-white font-black text-[10px] rounded-xl transition-all shadow-[0_5px_15px_rgba(232,33,43,0.2)] hover:-translate-y-0.5 uppercase tracking-widest">
+            Restart 15-Minute Countdown
+          </button>
+        </div>
+
+        <!-- Seats Controls -->
+        <div class="space-y-4 p-6 bg-white/5 border border-white/5 rounded-2xl">
+          <h3 class="text-[10px] font-black uppercase tracking-widest text-gray-400">Seats Available</h3>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-gray-300">Set Manual Spots Left:</label>
+            <div class="flex items-center gap-3">
+              <input type="number" id="seatsInput" class="search-input !py-2 !w-full" value="15" min="1" max="100">
+              <button onclick="updateSeats()" class="px-6 py-2.5 bg-white text-black hover:bg-gray-200 font-black text-[10px] rounded-xl transition-all uppercase tracking-widest whitespace-nowrap">
+                Update
+              </button>
+            </div>
+            <p class="text-[10px] text-gray-500 mt-2 font-medium">Note: Every successful Razorpay transaction automatically reduces this number by 1.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Table Section -->
     <div class="glass p-8 space-y-8">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -196,7 +236,45 @@
       renderTable(filtered);
     }
 
-    window.onload = loadData;
+    // Scarcity Controls Logic
+    async function loadScarcitySettings() {
+      try {
+        const { data, error } = await supabase.from('course_settings').select('*').eq('id', 1).single();
+        if (data) {
+          document.getElementById('timerToggle').checked = data.timer_active;
+          document.getElementById('seatsInput').value = data.seats_left;
+        }
+      } catch (e) { console.error("Error loading settings:", e); }
+    }
+
+    async function toggleTimerSettings() {
+      const isActive = document.getElementById('timerToggle').checked;
+      await supabase.from('course_settings').update({ timer_active: isActive }).eq('id', 1);
+      alert(`Timer banner is now ${isActive ? 'ACTIVE' : 'HIDDEN'} globally.`);
+    }
+
+    async function resetGlobalTimer() {
+      const fifteenMinsFromNow = Date.now() + (15 * 60 * 1000);
+      await supabase.from('course_settings').update({ 
+        timer_end: fifteenMinsFromNow,
+        timer_active: true
+      }).eq('id', 1);
+      
+      document.getElementById('timerToggle').checked = true;
+      alert('15-Minute timer restarted! The global red banner is now actively counting down for all visitors.');
+    }
+
+    async function updateSeats() {
+      const seats = parseInt(document.getElementById('seatsInput').value);
+      if (isNaN(seats) || seats < 0) return alert("Invalid seats number");
+      await supabase.from('course_settings').update({ seats_left: seats }).eq('id', 1);
+      alert(`Available seats successfully updated to ${seats}.`);
+    }
+
+    window.onload = () => {
+      loadData();
+      loadScarcitySettings();
+    };
   </script>
 
 

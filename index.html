@@ -254,7 +254,10 @@
 </style>
 </head>
 <body class="font-sans antialiased text-white">
-
+<!-- GLOBAL SCARCITY BANNER -->
+<div id="global-scarcity-banner" class="hidden fixed top-0 left-0 w-full bg-[#cc0000] text-white py-1.5 px-4 z-[999] text-center flex items-center justify-center gap-2 text-[10px] md:text-xs font-bold tracking-widest uppercase shadow-[0_2px_15px_rgba(204,0,0,0.5)]">
+  🔥 ATTENTION: OFFER ENDS IN <span id="global-scarcity-timer" class="font-mono ml-2 text-[12px] md:text-sm">15:00</span>
+</div>
 <!-- Navbar -->
 <header class="nav-island" id="mainHeader">
   <div class="flex items-center gap-4">
@@ -870,5 +873,45 @@
   </div>
 </footer>
 
+<script>
+  // Global Scarcity Sync Logic
+  async function initGlobalScarcity() {
+    try {
+      const { data, error } = await supabase.from('course_settings').select('timer_active, timer_end, seats_left').eq('id', 1).single();
+      if (!data || !data.timer_active) return;
+      
+      const banner = document.getElementById('global-scarcity-banner');
+      const timerDisplay = document.getElementById('global-scarcity-timer');
+      
+      // Sync inline pricing card timers
+      const inlineTimers = document.querySelectorAll('.mobile-timer, #mobile-timer');
+      
+      banner.classList.remove('hidden');
+      document.getElementById('mainHeader').style.top = '2.5rem'; // shift floating nav down
+      
+      // Update seats if elements exist
+      const seatsDisplays = document.querySelectorAll('.dynamic-seats');
+      seatsDisplays.forEach(el => el.textContent = data.seats_left);
+      
+      const timerEnd = parseInt(data.timer_end);
+      
+      setInterval(() => {
+        const now = Date.now();
+        const diff = timerEnd - now;
+        
+        let displayStr = "00:00";
+        if (diff > 0) {
+          const m = Math.floor(diff / 60000).toString().padStart(2, '0');
+          const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+          displayStr = `${m}:${s}`;
+        }
+        
+        timerDisplay.textContent = displayStr;
+        inlineTimers.forEach(el => el.textContent = diff > 0 ? `00:${displayStr}` : "00:00:00");
+      }, 1000);
+    } catch (e) { console.warn("Scarcity load error:", e); }
+  }
+  document.addEventListener("DOMContentLoaded", initGlobalScarcity);
+</script>
 </body>
 </html>

@@ -83,6 +83,18 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Database error while enrolling student' });
       }
 
+      // Automatically handle scarcity seats updates
+      try {
+        const { data: scarcity } = await supabase.from('course_settings').select('*').eq('id', 1).single();
+        if (scarcity && typeof scarcity.seats_left === 'number') {
+          let newSeats = scarcity.seats_left - 1;
+          if (newSeats <= 0) newSeats = 15; // Auto-reset loop
+          await supabase.from('course_settings').update({ seats_left: newSeats }).eq('id', 1);
+        }
+      } catch (e) {
+        console.error("Scarcity sync failed:", e);
+      }
+
       console.log(`Successfully enrolled student via Webhook: ${userEmail}`);
       return res.status(200).json({ status: 'ok', message: 'Student enrolled' });
     }

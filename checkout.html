@@ -491,54 +491,46 @@
       new Razorpay(options).open();
     }
 
-    async function updateCountdown() {
-      // 2-Hour Rolling Timer
-      const cycleDuration = 2 * 60 * 60 * 1000; // 2 hours in ms
-      const currentCycleStart = Math.floor(Date.now() / cycleDuration) * cycleDuration;
-      const diff = (currentCycleStart + cycleDuration) - Date.now();
-
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-      const h = hours.toString().padStart(2, '0');
-      const m = mins.toString().padStart(2, '0');
-      const s = secs.toString().padStart(2, '0');
-
-      if(document.getElementById('hours')) {
-        document.getElementById('hours').textContent = h;
-        document.getElementById('minutes').textContent = m;
-        document.getElementById('seconds').textContent = s;
-        document.getElementById('hours-banner').textContent = h;
-        document.getElementById('mins-banner').textContent = m;
-        document.getElementById('secs-banner').textContent = s;
-      }
-    }
-
-    async function updateSpots() {
+    // Global Scarcity Sync
+    async function initGlobalScarcity() {
       try {
-        const { data } = await getAllEnrolledUsers();
-        if (data) {
-          // Exclude test/admin accounts so spots reflect only real paid students
-          const TEST_EMAILS = [
-            "shashanksky376@gmail.com",
-            "akashreddy55055@gmail.com",
-            "test@example.com",
-            "extra_test@test.com",
-            "akashreddy55055@gmailtest_ai_bot@test.com.com"
-          ];
-          const realCount = data.filter(u => !TEST_EMAILS.includes(u.email.toLowerCase().trim())).length;
-          const TOTAL_SEATS = 15;
-          const seats = Math.max(0, TOTAL_SEATS - realCount);
-          const spotsEl = document.getElementById('spots-display');
-          if (spotsEl) spotsEl.innerHTML = `<span class="text-red-600 font-black animate-pulse">Only ${seats} spots left!</span>`;
+        const { data } = await supabase.from('course_settings').select('timer_active, timer_end, seats_left').eq('id', 1).single();
+        if (!data) return;
+        
+        // Update seats globally
+        const spotsEl = document.getElementById('spots-display');
+        if (spotsEl) spotsEl.innerHTML = `<span class="text-red-600 font-black animate-pulse">Only ${data.seats_left} spots left!</span>`;
+        
+        if (!data.timer_active) {
+          document.getElementById('urgencyBanner').style.display = 'none';
+          document.getElementById('mainHeader').style.top = '1.5rem';
+          return;
         }
-      } catch (e) { console.warn("Could not load spots", e); }
+        
+        document.getElementById('urgencyBanner').style.display = 'block';
+        const timerEnd = parseInt(data.timer_end);
+        
+        setInterval(() => {
+          const now = Date.now();
+          const diff = timerEnd - now;
+          
+          let h='00', m='00', s='00';
+          if (diff > 0) {
+            h = Math.floor(diff / (1000 * 60 * 60)).toString().padStart(2, '0');
+            m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            s = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+          }
+          
+          const elements = ['hours', 'minutes', 'seconds', 'hours-banner', 'mins-banner', 'secs-banner'];
+          const values = [h, m, s, h, m, s];
+          
+          elements.forEach((id, i) => {
+            if(document.getElementById(id)) document.getElementById(id).textContent = values[i];
+          });
+        }, 1000);
+      } catch (e) { console.warn("Scarcity load error:", e); }
     }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-    updateSpots();
+    initGlobalScarcity();
 
     // Reveal Observer
     const observer = new IntersectionObserver((entries) => {
