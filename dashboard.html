@@ -734,8 +734,8 @@
       const placeholder = document.getElementById('video-placeholder');
       const player = document.getElementById('drive-player');
       
-      // Security Check: Verify folder access (admins bypass this)
-      if (window.ENROLLED_USER && !window.IS_ADMIN && !window.ENROLLED_USER.videoAccessGranted) {
+      // Security Check: Verify folder access
+      if (window.ENROLLED_USER && !window.ENROLLED_USER.videoAccessGranted) {
         placeholder.style.display = 'flex';
         placeholder.innerHTML = `
           <div class="w-20 h-20 rounded-3xl bg-amber-500/10 flex items-center justify-center text-amber-500 mb-6 border border-amber-500/20 shadow-[0_0_40px_rgba(245,158,11,0.1)]">
@@ -869,7 +869,7 @@
           }
 
           // Show access helper banner ONLY if they don't have access
-          if (!window.IS_ADMIN && !user.videoAccessGranted) {
+          if (!user.videoAccessGranted) {
             document.getElementById('access-helper-banner')?.classList.remove('hidden');
           }
 
