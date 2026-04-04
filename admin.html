@@ -214,6 +214,15 @@
           year: 'numeric'
         });
 
+        let videoBadge = '';
+        if (s.video_access_granted) {
+          videoBadge = `<button onclick="toggleVideoAccess('${s.email}', false)" class="px-3 py-1 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-500/10 active:scale-95">Granted (Revoke)</button>`;
+        } else if (s.video_access_requested) {
+          videoBadge = `<button onclick="toggleVideoAccess('${s.email}', true)" class="px-3 py-1 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20 hover:bg-amber-500/20 transition-colors text-[10px] font-black uppercase tracking-widest shadow-lg shadow-amber-500/10 animate-pulse active:scale-95">Requested (Grant)</button>`;
+        } else {
+          videoBadge = `<button onclick="toggleVideoAccess('${s.email}', true)" class="px-3 py-1 rounded bg-white/5 text-gray-500 border border-white/5 hover:bg-white/10 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest active:scale-95">None (Grant)</button>`;
+        }
+
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td><div class="font-black text-white uppercase tracking-tight">${s.full_name || 'N/A'}</div></td>
@@ -221,9 +230,28 @@
           <td><div class="text-[10px] font-black text-white px-2 py-0.5 bg-white/10 rounded border border-white/10 inline-block uppercase tracking-widest">₹${s.amount_paid || 1999}</div></td>
           <td><div class="text-[10px] font-mono text-gray-500 px-2 py-1 bg-white/5 rounded border border-white/5 inline-block">${s.razorpay_payment_id || 'Legacy'}</div></td>
           <td><div class="text-[10px] font-black text-gray-400 uppercase tracking-widest">${date}</div></td>
+          <td class="text-right">${videoBadge}</td>
         `;
         tbody.appendChild(tr);
       });
+    }
+
+    async function toggleVideoAccess(email, grantAccess) {
+      if (!confirm(`Are you sure you want to ${grantAccess ? 'GRANT' : 'REVOKE'} video access for ${email}?`)) return;
+      
+      const success = await updateVideoAccessStatus(email, grantAccess);
+      if (success) {
+        // Update local state instead of full reload to prevent UI jumping
+        const studentIndex = allStudents.findIndex(s => s.email === email);
+        if (studentIndex > -1) {
+          allStudents[studentIndex].video_access_granted = grantAccess;
+          if (grantAccess) allStudents[studentIndex].video_access_requested = true;
+        }
+        filterTable(); // Re-render table
+        alert(`Success! Access ${grantAccess ? 'granted' : 'revoked'}.`);
+      } else {
+        alert('Failed to update access status. Check console.');
+      }
     }
 
     function filterTable() {

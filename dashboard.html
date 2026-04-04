@@ -554,7 +554,8 @@
             </div>
 
             <a href="https://drive.google.com/drive/folders/1zJLV6UuKGIPyMMGO8tZ5VRmz4RbpZ2nr?usp=drive_link" target="_blank" 
-               class="w-full md:w-auto px-8 md:px-10 py-5 md:py-6 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-black font-black uppercase tracking-[0.3em] text-[12px] rounded-[1.5rem] md:rounded-[2rem] shadow-[0_15px_30px_rgba(245,158,11,0.3)] hover:-translate-y-1 active:scale-95 transition-all duration-300 text-center mt-4 md:mt-0 shadow-[0_0_40px_rgba(245,158,11,0.4)]">
+               onclick="if(window.ENROLLED_USER) { requestVideoAccess(window.ENROLLED_USER.email); this.textContent='Request Sent! Waiting Approval..'; setTimeout(() => this.textContent='Request Folder Access (again)', 5000); }"
+               class="w-full md:w-auto px-8 md:px-10 py-5 md:py-6 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-black font-black uppercase tracking-[0.3em] text-[10px] md:text-[11px] rounded-[1.5rem] md:rounded-[2rem] shadow-[0_15px_30px_rgba(245,158,11,0.3)] hover:shadow-[0_20px_40px_rgba(245,158,11,0.5)] hover:-translate-y-1 active:scale-95 transition-all duration-300 text-center mt-4 md:mt-0 whitespace-nowrap">
               REQUEST ACCESS NOW
             </a>
           </div>
@@ -733,11 +734,31 @@
       const placeholder = document.getElementById('video-placeholder');
       const player = document.getElementById('drive-player');
       
-      if (!videoId || videoId.startsWith("PASTE_")) {
+      // Security Check: Verify folder access (admins bypass this)
+      if (window.ENROLLED_USER && !window.IS_ADMIN && !window.ENROLLED_USER.videoAccessGranted) {
+        placeholder.style.display = 'flex';
+        placeholder.innerHTML = `
+          <div class="w-20 h-20 rounded-3xl bg-amber-500/10 flex items-center justify-center text-amber-500 mb-6 border border-amber-500/20 shadow-[0_0_40px_rgba(245,158,11,0.1)]">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+          </div>
+          <span class="px-3 py-1 bg-amber-500/10 text-amber-500 border border-amber-500/20 text-[10px] font-black uppercase tracking-widest rounded-full mb-4">Action Required</span>
+          <h2 class="text-2xl font-black uppercase mb-3 tracking-[0.1em] text-white px-4">Folder Permissions Needed</h2>
+          <p class="text-gray-400 text-[11px] max-w-sm leading-relaxed mb-8 px-4">Before playing videos, you must ask the owner for access to the entire course repository.</p>
+          <a href="https://drive.google.com/drive/folders/1zJLV6UuKGIPyMMGO8tZ5VRmz4RbpZ2nr?usp=drive_link" target="_blank" onclick="requestVideoAccess('${window.ENROLLED_USER.email}'); this.textContent='Request Sent! Waiting Approval..'; setTimeout(() => this.textContent='Request Folder Access (again)', 5000);" class="px-8 py-4 bg-amber-500 hover:bg-amber-400 text-black font-black uppercase tracking-widest text-[11px] rounded-xl transition-all shadow-[0_10px_30px_rgba(245,158,11,0.3)] hover:-translate-y-1">Request Folder Access</a>
+        `;
+        player.style.opacity = '0';
+        player.removeAttribute('src');
+      } 
+      else if (!videoId || videoId.startsWith("PASTE_")) {
         // Video not uploaded/ready yet
         placeholder.style.display = 'flex';
-        placeholder.querySelector('h2').textContent = "Coming Soon";
-        placeholder.querySelector('p').textContent = "This training module will be automatically unlocked once it is uploaded.";
+        placeholder.innerHTML = `
+          <div class="w-20 h-20 rounded-3xl bg-red-600/10 flex items-center justify-center text-red-500 mb-8 border border-red-500/10 shadow-[0_0_40px_rgba(232,33,43,0.1)]">
+             <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <h2 class="text-2xl font-black uppercase mb-4 tracking-[0.2em] text-white">Coming Soon</h2>
+          <p class="text-gray-500 text-sm max-w-sm leading-relaxed px-4">This training module will be automatically unlocked once it is uploaded.</p>
+        `;
         player.style.opacity = '0';
         player.removeAttribute('src');
       } else {

@@ -85,19 +85,58 @@ async function verifyOTP(email, otp) {
 
 // -------------------------------------------------------
 // ENROLLMENT CHECK: Is this user enrolled (paid)?
-// Returns: false | { email, full_name, active_session_token }
+// Returns: false | { email, full_name, active_session_token, video_access_requested, video_access_granted }
 // -------------------------------------------------------
 async function checkEnrollment(email) {
   const client = initSupabase();
   const cleanEmail = email.toLowerCase().trim();
   const { data, error } = await client
     .from("enrolled_users")
-    .select("email, full_name, active_session_token")
+    .select("email, full_name, active_session_token, video_access_requested, video_access_granted")
     .eq("email", cleanEmail)
     .single();
 
   if (error || !data) return false;
   return data;
+}
+
+// -------------------------------------------------------
+// STUDENT: Request Video Folder Access
+// -------------------------------------------------------
+async function requestVideoAccess(email) {
+  const client = initSupabase();
+  const cleanEmail = email.toLowerCase().trim();
+  const { error } = await client
+    .from("enrolled_users")
+    .update({ video_access_requested: true })
+    .eq("email", cleanEmail);
+
+  if (error) {
+    console.error("Error requesting video access:", error);
+    return false;
+  }
+  return true;
+}
+
+// -------------------------------------------------------
+// ADMIN: Grant or Revoke Video Access
+// -------------------------------------------------------
+async function updateVideoAccessStatus(email, granted) {
+  const client = initSupabase();
+  const cleanEmail = email.toLowerCase().trim();
+  const { error } = await client
+    .from("enrolled_users")
+    .update({ 
+      video_access_granted: granted,
+      video_access_requested: granted ? true : false 
+    })
+    .eq("email", cleanEmail);
+
+  if (error) {
+    console.error("Error updating video access status:", error);
+    return false;
+  }
+  return true;
 }
 
 // -------------------------------------------------------
@@ -115,7 +154,7 @@ async function getAllEnrolledUsers() {
   const client = initSupabase();
   const { data, error } = await client
     .from("enrolled_users")
-    .select("full_name, email, phone, razorpay_payment_id, enrolled_at")
+    .select("full_name, email, phone, razorpay_payment_id, enrolled_at, video_access_requested, video_access_granted")
     .order("enrolled_at", { ascending: false });
     
   return { data, error };

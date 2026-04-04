@@ -30,8 +30,10 @@
 
   // All good — store user info globally for use by the page
   window.ENROLLED_USER = {
-    email: email,
-    fullName: enrollment.full_name || "Student"
+    email: enrollment.email,
+    fullName: enrollment.full_name || "Student",
+    videoAccessRequested: enrollment.video_access_requested || false,
+    videoAccessGranted: enrollment.video_access_granted || false
   };
   window.IS_ADMIN = isAdmin(email);
 
