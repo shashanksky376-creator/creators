@@ -1,0 +1,10 @@
+{
+  "email": "test@example.com",
+  "full_name": "Tester Shashank",
+  "phone": "9123456789",
+  "razorpay_payment_id": "pay_TEST_PROVISION_1773580452213",
+  "enrolled_at": "2026-03-15T13:14:12.215+00:00",
+  "active_session_token": null,
+  "video_access_requested": false,
+  "video_access_granted": false
+}

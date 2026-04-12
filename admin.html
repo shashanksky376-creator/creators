@@ -118,6 +118,34 @@
       </div>
     </div>
 
+    <!-- Manual Enrollment Panel -->
+    <div class="glass p-8 space-y-6">
+      <div class="flex items-center gap-4">
+        <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+        <h2 class="text-2xl font-bold tracking-tight text-blue-500 uppercase">Manual Student Enrollment</h2>
+      </div>
+      
+      <div class="p-6 bg-white/5 border border-white/5 rounded-2xl flex flex-col md:flex-row items-end gap-4">
+        <div class="w-full">
+          <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Full Name</label>
+          <input type="text" id="manualName" placeholder="e.g. John Doe" class="search-input !py-2 !w-full">
+        </div>
+        <div class="w-full">
+          <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Email Address *</label>
+          <input type="email" id="manualEmail" placeholder="you@gmail.com" class="search-input !py-2 !w-full">
+        </div>
+        <div class="w-full">
+          <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Phone (Optional)</label>
+          <input type="tel" id="manualPhone" placeholder="10-digit number" class="search-input !py-2 !w-full" maxlength="15">
+        </div>
+        <div class="w-full md:w-auto mt-4 md:mt-0 pt-1">
+           <button onclick="manualEnroll()" class="w-full md:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-[10px] rounded-xl transition-all shadow-lg uppercase tracking-widest whitespace-nowrap">
+             Enroll Manually
+           </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Table Section -->
     <div class="glass p-8 space-y-8">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -305,6 +333,35 @@
       if (isNaN(seats) || seats < 0) return alert("Invalid seats number");
       await initSupabase().from('course_settings').update({ seats_left: seats }).eq('id', 1);
       alert(`Available seats successfully updated to ${seats}.`);
+    }
+
+    async function manualEnroll() {
+      const name = document.getElementById('manualName').value.trim();
+      const email = document.getElementById('manualEmail').value.trim().toLowerCase();
+      const phone = document.getElementById('manualPhone').value.trim();
+      
+      if (!email) return alert("Email address is required!");
+      
+      const confirmEnroll = confirm(`Are you sure you want to manually enroll ${email}?`);
+      if (!confirmEnroll) return;
+      
+      const { data, error } = await enrollUser({
+        fullName: name || "Student",
+        email: email,
+        phone: phone || null,
+        razorpayPaymentId: "MANUAL_" + Date.now(),
+        amount: 1999
+      });
+      
+      if (error) {
+        alert("Failed to enroll user: " + error.message);
+      } else {
+        alert("User enrolled manually successfully!");
+        document.getElementById('manualName').value = '';
+        document.getElementById('manualEmail').value = '';
+        document.getElementById('manualPhone').value = '';
+        loadData(); // Re-fetch the table
+      }
     }
 
     window.onload = () => {

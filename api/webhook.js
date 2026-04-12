@@ -68,6 +68,8 @@ export default async function handler(req, res) {
       );
 
       // Upsert the user into the database
+      const amountPaid = notes.amount || (payment.amount ? payment.amount / 100 : 1999);
+      
       const { error } = await supabase
         .from('enrolled_users')
         .upsert([{
