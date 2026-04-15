@@ -169,6 +169,8 @@
               <th>Plan</th>
               <th>Razorpay ID</th>
               <th>Date</th>
+              <th class="text-right">Course Access</th>
+              <th class="text-right">Actions</th>
             </tr>
           </thead>
           <tbody id="studentData">
@@ -259,6 +261,12 @@
           <td><div class="text-[10px] font-mono text-gray-500 px-2 py-1 bg-white/5 rounded border border-white/5 inline-block">${s.razorpay_payment_id || 'Legacy'}</div></td>
           <td><div class="text-[10px] font-black text-gray-400 uppercase tracking-widest">${date}</div></td>
           <td class="text-right">${videoBadge}</td>
+          <td class="text-right">
+            <div class="flex items-center justify-end gap-2">
+              <button onclick="editStudent('${s.email}')" class="px-3 py-1 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20 hover:bg-blue-500/20 transition-colors text-[10px] font-black uppercase tracking-widest active:scale-95">Edit</button>
+              <button onclick="deleteStudent('${s.email}')" class="px-3 py-1 rounded bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500/20 transition-colors text-[10px] font-black uppercase tracking-widest active:scale-95">Delete</button>
+            </div>
+          </td>
         `;
         tbody.appendChild(tr);
       });
@@ -361,6 +369,42 @@
         document.getElementById('manualEmail').value = '';
         document.getElementById('manualPhone').value = '';
         loadData(); // Re-fetch the table
+      }
+    }
+
+    async function editStudent(email) {
+      const student = allStudents.find(s => s.email === email);
+      if (!student) return;
+
+      const newName = prompt("Edit full name:", student.full_name || "");
+      if (newName === null) return;
+      
+      const newPhone = prompt("Edit phone:", student.phone || "");
+      if (newPhone === null) return;
+
+      const { error } = await initSupabase()
+        .from("enrolled_users")
+        .update({ full_name: newName, phone: newPhone })
+        .eq("email", email);
+
+      if (!error) {
+        alert("Student details updated successfully!");
+        loadData(); // reload table
+      } else {
+        alert("Failed to update student: " + error.message);
+      }
+    }
+
+    async function deleteStudent(email) {
+      if (!confirm(`Are you sure you want to completely DELETE the student with email ${email}?\n\nThis action cannot be undone and they will lose access.`)) return;
+
+      const { error } = await deleteEnrolledUser(email); // from supabase-config.js
+
+      if (!error) {
+        alert("Student deleted successfully!");
+        loadData(); // reload table
+      } else {
+        alert("Failed to delete student: " + error.message);
       }
     }
 
