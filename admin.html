@@ -30,6 +30,7 @@
     .search-input:focus { border-color: var(--primary); }
     .loading-spinner { border: 3px solid rgba(255, 255, 255, 0.1); border-radius: 50%; border-top: 3px solid var(--primary); width: 40px; height: 40px; animation: spin 1s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes scaleIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
   </style>
 </head>
 <body class="p-4 md:p-10">
@@ -182,6 +183,38 @@
       <div id="empty-area" class="hidden text-center py-20 text-gray-500">
         <svg class="w-16 h-16 mx-auto mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
         <p class="text-sm font-bold uppercase tracking-widest">No students found.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal Overlay -->
+  <div id="editModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <div class="glass p-8 w-full max-w-md space-y-6 relative animate-[scaleIn_0.2s_ease-out]">
+      <button onclick="closeEditModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+      <div class="flex items-center gap-3">
+        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+        <h2 class="text-xl font-bold tracking-tight text-white uppercase flex-1">Edit Student</h2>
+      </div>
+      <div class="space-y-4">
+        <input type="hidden" id="editOriginalEmail">
+        <div>
+          <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Full Name</label>
+          <input type="text" id="editName" class="search-input !py-2 !w-full">
+        </div>
+        <div>
+          <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Email Address</label>
+          <input type="email" id="editEmail" class="search-input !py-2 !w-full">
+        </div>
+        <div>
+          <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Phone Number</label>
+          <input type="tel" id="editPhone" class="search-input !py-2 !w-full" maxlength="15">
+        </div>
+      </div>
+      <div class="pt-2 flex gap-3">
+        <button onclick="closeEditModal()" class="flex-1 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-black text-[10px] rounded-xl transition-all uppercase tracking-widest">Cancel</button>
+        <button id="saveEditBtn" onclick="saveEditedStudent()" class="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-[10px] rounded-xl transition-all shadow-lg shadow-blue-600/20 uppercase tracking-widest">Save Changes</button>
       </div>
     </div>
   </div>
@@ -372,22 +405,48 @@
       }
     }
 
-    async function editStudent(email) {
+    function editStudent(email) {
       const student = allStudents.find(s => s.email === email);
       if (!student) return;
 
-      const newName = prompt("Edit full name:", student.full_name || "");
-      if (newName === null) return;
-      
-      const newPhone = prompt("Edit phone:", student.phone || "");
-      if (newPhone === null) return;
+      document.getElementById('editOriginalEmail').value = student.email;
+      document.getElementById('editName').value = student.full_name || '';
+      document.getElementById('editEmail').value = student.email || '';
+      document.getElementById('editPhone').value = student.phone || '';
+
+      document.getElementById('editModal').classList.remove('hidden');
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').classList.add('hidden');
+    }
+
+    async function saveEditedStudent() {
+      const oldEmail = document.getElementById('editOriginalEmail').value;
+      const newName = document.getElementById('editName').value.trim();
+      const newEmail = document.getElementById('editEmail').value.trim().toLowerCase();
+      const newPhone = document.getElementById('editPhone').value.trim();
+
+      if (!newEmail) return alert("Email is required.");
+
+      const btn = document.getElementById('saveEditBtn');
+      btn.textContent = "Saving...";
+      btn.disabled = true;
 
       const { error } = await initSupabase()
         .from("enrolled_users")
-        .update({ full_name: newName, phone: newPhone })
-        .eq("email", email);
+        .update({ 
+          full_name: newName, 
+          email: newEmail, 
+          phone: newPhone 
+        })
+        .eq("email", oldEmail);
+
+      btn.textContent = "Save Changes";
+      btn.disabled = false;
 
       if (!error) {
+        closeEditModal();
         alert("Student details updated successfully!");
         loadData(); // reload table
       } else {
